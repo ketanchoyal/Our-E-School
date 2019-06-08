@@ -1,7 +1,7 @@
 import 'package:acadamicConnect/Components/LoginRoundedButton.dart';
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
-// import 'package:acadamicConnect/pages/MobileLoginPage.dart';
+import 'package:acadamicConnect/pages/MobileLoginPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context).push(
                       CupertinoPageRoute<bool>(
                         fullscreenDialog: true,
-                        // builder: (BuildContext context) => MobileLoginPage(),
+                        builder: (BuildContext context) => MobileLoginPage(),
                       ),
                     );
                   },
