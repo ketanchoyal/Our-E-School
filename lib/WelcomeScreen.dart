@@ -1,4 +1,4 @@
-// import 'package:acadamicConnect/pages/LoginPage.dart';
+import 'package:acadamicConnect/pages/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
@@ -110,7 +110,7 @@ Check School posts to stay updated with school news.''',
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  // builder: (BuildContext context) => LoginPage(),
+                  builder: (BuildContext context) => LoginPage(),
                 ),
               );
             },
@@ -169,7 +169,7 @@ Check School posts to stay updated with school news.''',
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        // builder: (BuildContext context) => LoginPage(),
+                        builder: (BuildContext context) => LoginPage(),
                       ),
                     );
                   },
