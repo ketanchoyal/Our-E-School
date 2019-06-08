@@ -25,6 +25,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               Hero(
                 tag: 'topBarBtn',
                 child: Card(
+                  elevation: 10,
                   shape: kBackButtonShape,
                   child: MaterialButton(
                     height: 50,

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import 'ProfilePage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -93,7 +94,14 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           new LoginRoundedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => ProfilePage(),
+                ),
+              );
+            },
           ),
           Positioned(
             bottom: 50,

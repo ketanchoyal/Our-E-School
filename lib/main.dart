@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0xffF57C00),
         accentColor: Color(0xffFF6D00),
         primaryColorDark: Color(0xff0029cb),
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
       ),
       home: WelcomeScreen(),
     );

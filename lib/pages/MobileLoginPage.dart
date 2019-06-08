@@ -1,6 +1,7 @@
 import 'package:acadamicConnect/Components/LoginRoundedButton.dart';
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/pages/Home.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 
@@ -97,7 +98,14 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
             ),
           ),
           LoginRoundedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => Home(),
+                ),
+              );
+            },
             ),
           Positioned(
             bottom: 50,
