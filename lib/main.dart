@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 
 void main() {
-  timeDilation = 2.5;
+  timeDilation = 2;
   runApp(
     MyApp(),
   );
