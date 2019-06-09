@@ -1,3 +1,5 @@
+import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/pages/ProfilePage.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
@@ -9,8 +11,25 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Scaffold(),
+    return Scaffold(
+      appBar: TopBar(
+        title: 'Dashboard',
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => ProfilePage(),
+            ),
+          );
+        },
+        child: Image(
+          height: 30,
+          width: 30,
+          image: NetworkImage(
+              "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png"),
+        ),
+      ),
+      
     );
   }
 }

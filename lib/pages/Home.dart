@@ -1,4 +1,5 @@
 import 'package:acadamicConnect/Components/BottomBar.dart';
+import 'package:acadamicConnect/pages/DashboardPage.dart';
 import 'package:flutter/material.dart';
 // import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 
@@ -28,6 +29,7 @@ class _HomeState extends State<Home> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         bottomNavigationBar: buildBubbleBottomBar(),
+        body: Dashboard(),
       ),
     );
   }
