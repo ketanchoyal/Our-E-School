@@ -1,4 +1,5 @@
 import 'package:acadamicConnect/Components/BottomBar.dart';
+import 'package:acadamicConnect/Utility/custom_icons.dart';
 import 'package:acadamicConnect/pages/DashboardPage.dart';
 import 'package:flutter/material.dart';
 // import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
@@ -57,7 +58,6 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.red,
           icon: Icon(
             Icons.dashboard,
-            // color: Colors.black,
           ),
           activeIcon: Icon(
             Icons.dashboard,
@@ -68,32 +68,30 @@ class _HomeState extends State<Home> {
         BubbleBottomBarItem(
           backgroundColor: Colors.deepPurple,
           icon: Icon(
-            Icons.contacts,
-            // color: Colors.black,
+            CustomIcons.chat_bubble,
+            // size: 25,
           ),
           activeIcon: Icon(
-            Icons.contacts,
+            CustomIcons.chat_bubble,
             color: Colors.deepPurple,
           ),
-          title: Text("Contact"),
+          title: Text("Chat"),
         ),
         BubbleBottomBarItem(
           backgroundColor: Colors.indigo,
           icon: Icon(
             Icons.notifications,
-            // color: Colors.black,
           ),
           activeIcon: Icon(
             Icons.notifications,
             color: Colors.indigo,
           ),
-          title: Text("Notification"),
+          title: Text("Notifications"),
         ),
         BubbleBottomBarItem(
             backgroundColor: Colors.orange,
             icon: Icon(
               Icons.settings,
-              // color: Colors.black,
             ),
             activeIcon: Icon(
               Icons.settings,

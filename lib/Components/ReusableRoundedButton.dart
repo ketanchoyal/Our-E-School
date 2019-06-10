@@ -1,6 +1,5 @@
+import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
-
-import '../constants.dart';
 
 class ReusableRoundedButton extends StatelessWidget {
   final Function onPressed;

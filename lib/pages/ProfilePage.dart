@@ -1,6 +1,6 @@
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
-import 'package:acadamicConnect/constants.dart';
+import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {

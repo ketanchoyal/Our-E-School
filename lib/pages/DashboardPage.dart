@@ -1,4 +1,5 @@
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/custom_icons.dart';
 import 'package:acadamicConnect/pages/ProfilePage.dart';
 import 'package:flutter/material.dart';
 
@@ -26,10 +27,33 @@ class _DashboardState extends State<Dashboard> {
           height: 30,
           width: 30,
           image: NetworkImage(
-              "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png"),
+            "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+          ),
         ),
       ),
-      
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Card(
+              elevation: 4,
+              // color: ThemeData().cardColor,
+              child: MaterialButton(
+                minWidth: MediaQuery.of(context).size.width,
+                height: 100,
+                onPressed: () {},
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      CustomIcons.bullhorn,
+                      size: 50,
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

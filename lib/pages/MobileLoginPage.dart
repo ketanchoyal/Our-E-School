@@ -3,7 +3,7 @@ import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/pages/Home.dart';
 import 'package:flutter/material.dart';
-import '../constants.dart';
+import 'package:acadamicConnect/Utility/constants.dart';
 
 class MobileLoginPage extends StatefulWidget {
   @override
@@ -117,12 +117,9 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                 tag: 'mobile',
                 transitionOnUserGestures: true,
                 child: ReusableRoundedButton(
-                  child: RotationTransition(
-                    turns: AlwaysStoppedAnimation(270 / 360),
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.white,
-                    ),
+                  child: Icon(
+                    Icons.expand_more,
+                    color: Colors.white,
                   ),
                   // text: 'Mobile',
                   onPressed: () {
