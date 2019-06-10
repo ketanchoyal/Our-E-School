@@ -126,7 +126,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                     Navigator.pop(context);
                   },
                   height: 50,
-                  backgroundColor: kmainColorParents,
+                  backgroundColor: Colors.red,
                 ),
               ),
             ),

@@ -2,6 +2,7 @@ import 'package:acadamicConnect/Components/ColumnReusableCardButton.dart';
 import 'package:acadamicConnect/Components/RowReusableCardButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
+import 'package:acadamicConnect/pages/E-CardPage.dart';
 import 'package:acadamicConnect/pages/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -48,7 +49,14 @@ class _DashboardState extends State<Dashboard> {
                   children: <Widget>[
                     RowReusableCardButton(
                       label: 'E-Card',
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => ECardPage(),
+                    ),
+                  );
+                      },
                       icon: Icons.perm_contact_calendar,
                     ),
                     RowReusableCardButton(

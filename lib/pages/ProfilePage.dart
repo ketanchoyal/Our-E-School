@@ -39,115 +39,123 @@ class _ProfilePageState extends State<ProfilePage> {
         elevation: 20,
         backgroundColor: Colors.red,
         onPressed: () {},
-        child: Icon(
-          Icons.check
-        ),
+        child: Icon(Icons.check),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          // fit: StackFit.loose,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Card(
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                  child: Image(
-                    height: 160,
-                    width: 160,
-                    image: NetworkImage(
-                        "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png"),
-                  ),
-                ),
-                Card(
-                  elevation: 10,
-                  child: Container(
-                    height: 40,
-                    width: 50,
-                    child: MaterialButton(
-                      onPressed: () {},
-                      child: Icon(Icons.edit, size: 25),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Column(
+            // fit: StackFit.loose,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Card(
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    child: Image(
+                      height: 160,
+                      width: 160,
+                      image: NetworkImage(
+                          "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png"),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Column(
-                children: <Widget>[
-                  ProfileFields(
-                    width: MediaQuery.of(context).size.width,
-                    hintText: 'One which your parents gave',
-                    labelText: 'Student/Teacher Name',
-                    onChanged: (name) {},
-                    initialText: '',
-                  ),
-                  ProfileFields(
-                    width: MediaQuery.of(context).size.width,
-                    hintText: 'One which school gave',
-                    labelText: 'Student/Teacher Id',
-                    onChanged: (id) {},
-                    initialText: '',
-                  ),
-                  Row(
-                    // mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      ProfileFields(
-                        labelText: 'Standard',
-                        onChanged: (std) {},
-                        hintText: '',
-                        initialText: '',
+                  Card(
+                    elevation: 10,
+                    child: Container(
+                      height: 40,
+                      width: 50,
+                      child: MaterialButton(
+                        onPressed: () {},
+                        child: Icon(Icons.edit, size: 25),
                       ),
-                      ProfileFields(
-                        labelText: 'Division',
-                        onChanged: (div) {},
-                        hintText: '',
-                        initialText: '',
-                      ),
-                    ],
-                  ),
-                  ProfileFields(
-                    width: MediaQuery.of(context).size.width,
-                    hintText: 'Father/Mother Name',
-                    labelText: 'Guardian Name',
-                    onChanged: (guardianName) {},
-                    initialText: '',
-                  ),
-                  Row(
-                    // mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      ProfileFields(
-                        onTap: () async {
-                          await _selectDate(context);
-                        },
-                        labelText: 'DOB',
-                        onChanged: (dob) {},
-                        hintText: '',
-                        initialText: dateOfBirth == null
-                            ? ''
-                            : dateOfBirth.toLocal().toString(),
-                      ),
-                      ProfileFields(
-                        // width: MediaQuery.of(context).size.width,
-                        hintText: 'A +ve/O -ve',
-                        labelText: 'Blood Group',
-                        onChanged: (bg) {},
-                        initialText: '',
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
-            )
-          ],
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Column(
+                  children: <Widget>[
+                    ProfileFields(
+                      width: MediaQuery.of(context).size.width,
+                      hintText: 'One which your parents gave',
+                      labelText: 'Student/Teacher Name',
+                      onChanged: (name) {},
+                      initialText: '',
+                    ),
+                    ProfileFields(
+                      width: MediaQuery.of(context).size.width,
+                      hintText: 'One which school gave',
+                      labelText: 'Student/Teacher Id',
+                      onChanged: (id) {},
+                      initialText: '',
+                    ),
+                    Row(
+                      // mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        ProfileFields(
+                          labelText: 'Standard',
+                          onChanged: (std) {},
+                          hintText: '',
+                          initialText: '',
+                        ),
+                        ProfileFields(
+                          labelText: 'Division',
+                          onChanged: (div) {},
+                          hintText: '',
+                          initialText: '',
+                        ),
+                      ],
+                    ),
+                    ProfileFields(
+                      width: MediaQuery.of(context).size.width,
+                      hintText: 'Father/Mother Name',
+                      labelText: 'Guardian Name',
+                      onChanged: (guardianName) {},
+                      initialText: '',
+                    ),
+                    Row(
+                      // mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        ProfileFields(
+                          onTap: () async {
+                            await _selectDate(context);
+                          },
+                          labelText: 'DOB',
+                          onChanged: (dob) {},
+                          hintText: '',
+                          initialText: dateOfBirth == null
+                              ? ''
+                              : dateOfBirth.toLocal().toString(),
+                        ),
+                        ProfileFields(
+                          // width: MediaQuery.of(context).size.width,
+                          hintText: 'A +ve/O -ve',
+                          labelText: 'Blood Group',
+                          onChanged: (bg) {},
+                          initialText: '',
+                        ),
+                      ],
+                    ),
+                    ProfileFields(
+                      width: MediaQuery.of(context).size.width,
+                      hintText: 'Your parents..',
+                      labelText: 'Mobile No',
+                      onChanged: (id) {},
+                      initialText: '',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-          new LoginRoundedButton(
+          LoginRoundedButton(
             onPressed: () {
               Navigator.push(
                 context,
@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   },
                   height: 50,
-                  backgroundColor: kmainColorParents,
+                  backgroundColor: Colors.red,
                 ),
               ),
             ),

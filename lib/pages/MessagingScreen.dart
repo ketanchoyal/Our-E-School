@@ -13,25 +13,67 @@ class _MessagingScreenState extends State<MessagingScreen> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-          appBar: TopBar(
-            title: 'Teacher 1',
-            child: kBackBtn,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          body: Stack(
+        appBar: TopBar(
+          title: 'Teacher 1',
+          child: kBackBtn,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        body: SafeArea(
+          child: Stack(
             children: [
               Positioned(
                 bottom: 0,
-                child: Container(
-                  color: Colors.blue,
-                  height: 70,
-                  width: MediaQuery.of(context).size.width,
+                child: Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(32),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width - 65,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Type here....',
+                            hintStyle: TextStyle(
+                              height: 1.5,
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 15.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(30.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      MaterialButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(30),
+                            bottomRight: Radius.circular(30),
+                          ),
+                        ),
+                        minWidth: 55,
+                        onPressed: () {},
+                        child: Icon(
+                          Icons.send,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

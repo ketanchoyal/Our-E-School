@@ -31,7 +31,7 @@ class LoginRoundedButton extends StatelessWidget {
               // text: 'Login',
               onPressed: onPressed,
               height: 50,
-              backgroundColor: kmainColorStudents,
+              backgroundColor: Colors.redAccent,
             ),
           )),
     );
