@@ -50,7 +50,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                   child: Container(
-                    width: 200,
+                    width: MediaQuery.of(context).size.width / 1.5,
                     height: 50,
                     child: Align(
                       alignment: Alignment.centerLeft,

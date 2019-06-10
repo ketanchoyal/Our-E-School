@@ -1,7 +1,10 @@
+import 'package:acadamicConnect/Components/ColumnReusableCardButton.dart';
+import 'package:acadamicConnect/Components/RowReusableCardButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
 import 'package:acadamicConnect/pages/ProfilePage.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key}) : super(key: key);
@@ -31,27 +34,66 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Card(
-              elevation: 4,
-              // color: ThemeData().cardColor,
-              child: MaterialButton(
-                minWidth: MediaQuery.of(context).size.width,
-                height: 100,
-                onPressed: () {},
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            // mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                height: 120,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Icon(
-                      CustomIcons.bullhorn,
-                      size: 50,
-                    )
+                    RowReusableCardButton(
+                      label: 'E-Card',
+                      onPressed: () {},
+                      icon: Icons.perm_contact_calendar,
+                    ),
+                    RowReusableCardButton(
+                      icon: Icons.assessment,
+                      label: 'Results',
+                      onPressed: () {},
+                    ),
                   ],
                 ),
               ),
-            )
-          ],
+              ColumnReusableCardButton(
+                label: 'Announcements',
+                icon: CustomIcons.megaphone,
+                onPressed: () {},
+              ),
+              ColumnReusableCardButton(
+                label: 'Assignments',
+                onPressed: () {},
+                icon: Icons.assignment,
+              ),
+              ColumnReusableCardButton(
+                icon: CustomIcons.traveler_with_a_suitcase,
+                label: 'Holidays',
+                onPressed: () {},
+              ),
+              Container(
+                height: 120,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RowReusableCardButton(
+                      icon: FontAwesomeIcons.book,
+                      label: 'E-Book',
+                      onPressed: () {},
+                    ),
+                    RowReusableCardButton(
+                      icon: FontAwesomeIcons.bookReader,
+                      label: 'Video',
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

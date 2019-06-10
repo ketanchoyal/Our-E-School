@@ -1,6 +1,9 @@
 import 'package:acadamicConnect/Components/BottomBar.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
+import 'package:acadamicConnect/pages/ChatPage.dart';
 import 'package:acadamicConnect/pages/DashboardPage.dart';
+import 'package:acadamicConnect/pages/NotificationPage.dart';
+import 'package:acadamicConnect/pages/SettingPage.dart';
 import 'package:flutter/material.dart';
 // import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 
@@ -12,7 +15,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var currentIndex = 0;
-  Color background = Colors.grey[900];
+  Color background = Colors.white;
+
+  List<Widget> pages = [
+    Dashboard(),
+    ChatPage(),
+    NotificationPage(),
+    SettingPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +40,7 @@ class _HomeState extends State<Home> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         bottomNavigationBar: buildBubbleBottomBar(),
-        body: Dashboard(),
+        body: pages[currentIndex],
       ),
     );
   }

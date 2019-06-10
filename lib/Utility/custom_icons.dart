@@ -30,5 +30,6 @@ class CustomIcons {
   static const IconData reply = const IconData(0xe80e, fontFamily: _kFontFam);
   static const IconData search = const IconData(0xe80f, fontFamily: _kFontFam);
 
-  static const IconData bullhorn = const IconData(0xe800, fontFamily: _kFontFam2);
+  static const IconData megaphone = const IconData(0xe800, fontFamily: _kFontFam2);
+  static const IconData traveler_with_a_suitcase = const IconData(0xe801, fontFamily: _kFontFam2);
 }
