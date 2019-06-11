@@ -113,6 +113,11 @@ class _DashboardState extends State<Dashboard> {
                   ],
                 ),
               ),
+              ColumnReusableCardButton(
+                icon: Icons.assistant_photo,
+                label: 'Exams',
+                onPressed: () {},
+              ),
             ],
           ),
         ),

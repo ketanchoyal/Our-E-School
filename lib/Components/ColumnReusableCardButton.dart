@@ -20,7 +20,7 @@ class ColumnReusableCardButton extends StatelessWidget {
       elevation: 4,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
-        height: height == null ? 90 : height,
+        height: height == null ? 80 : height,
         onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

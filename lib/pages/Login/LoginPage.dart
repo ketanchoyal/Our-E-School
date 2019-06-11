@@ -4,7 +4,6 @@ import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../ProfilePage.dart';
 import 'MobileLoginPage.dart';
 
@@ -31,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              // mainAxisSize: MainAxisSize.min,
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 TextField(

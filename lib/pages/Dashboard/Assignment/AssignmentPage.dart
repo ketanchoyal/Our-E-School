@@ -2,9 +2,10 @@ import 'package:acadamicConnect/Components/ColumnReusableCardButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'SubjectPage.dart';
+import 'AssignmentOpener.dart';
+import 'package:file_picker/file_picker.dart';
 
 class AssignmentsPage extends StatefulWidget {
   const AssignmentsPage({Key key}) : super(key: key);
@@ -15,6 +16,29 @@ class AssignmentsPage extends StatefulWidget {
 
 class _AssignmentsPageState extends State<AssignmentsPage> {
   bool isTeacher = true;
+
+  String _fileName;
+  String _path;
+  TextEditingController _controller = new TextEditingController();
+
+  void _openFileExplorer(FileType _pickingType) async {
+    if (_pickingType != FileType.CUSTOM) {
+      try {
+        _path = await FilePicker.getFilePath(type: _pickingType);
+      } on PlatformException catch (e) {
+        print("Unsupported operation" + e.toString());
+      }
+      if (!mounted) return;
+
+      setState(() {
+        _fileName = _path != null ? _path.split('/').last : '...';
+        print(_fileName);
+        if (_fileName.isNotEmpty) {
+          _controller.text = _fileName;
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +54,9 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
         floatingActionButton: Visibility(
           visible: isTeacher,
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              buildShowDialogBox(context);
+            },
             child: Icon(Icons.add),
             backgroundColor: Colors.red,
           ),
@@ -43,12 +69,11 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
                     label: 'Subject $i',
                     icon: FontAwesomeIcons.bookOpen,
                     onPressed: () {
-                      Navigator.push(
+                      openPage(
                         context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => SubjectPage(
-                                pageLabel: 'Subject $i',
-                              ),
+                        AssignmentOpener(
+                          url: 'http://www.pdf995.com/samples/pdf.pdf',
+                          chapterNo: 'Chapter $i',
                         ),
                       );
                     },
@@ -56,6 +81,67 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
                   ),
             )),
       ),
+    );
+  }
+
+  Future buildShowDialogBox(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Upload Assignment"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Title",
+                  hintStyle: TextStyle(fontFamily: "Subtitle"),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              SizedBox(height: 5,),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Description....(optional)",
+                  hintStyle: TextStyle(fontFamily: "Subtitle"),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              SizedBox(height: 5,),
+              TextField(
+                controller: _controller,
+                enabled: false,
+                decoration: InputDecoration(
+                  hintText: "Filename",
+                  hintStyle: TextStyle(fontFamily: "Subtitle"),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                _openFileExplorer(FileType.IMAGE);
+              },
+              child: Icon(Icons.attach_file),
+            ),
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("UPLOAD"),
+            ),
+          ],
+        );
+      },
     );
   }
 }
