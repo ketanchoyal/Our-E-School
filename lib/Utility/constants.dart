@@ -30,3 +30,12 @@ Widget kBackBtn = Icon(
   Icons.arrow_back_ios,
   // color: Colors.black54,
 );
+
+openPage(BuildContext context, Widget page) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (BuildContext context) => page,
+    ),
+  );
+}

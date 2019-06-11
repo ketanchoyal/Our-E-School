@@ -1,6 +1,7 @@
 import 'package:acadamicConnect/Components/ColumnReusableCardButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
+import 'package:acadamicConnect/pages/Dashboard/Assignment/AssignmentOpener.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -40,8 +41,16 @@ class _SubjectPageState extends State<SubjectPage> {
             itemCount: 3,
             itemBuilder: (context, i) => ColumnReusableCardButton(
                   label: 'Chapter $i',
-                  icon: FontAwesomeIcons.bookOpen,
-                  onPressed: () {},
+                  icon: FontAwesomeIcons.bookReader,
+                  onPressed: () {
+                    openPage(
+                      context,
+                      AssignmentOpener(
+                        url: 'http://www.pdf995.com/samples/pdf.pdf',
+                        chapterNo: 'Chapter $i',
+                      ),
+                    );
+                  },
                   height: 70,
                 ),
           ),

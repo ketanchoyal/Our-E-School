@@ -48,8 +48,8 @@ class _ProfilePageState extends State<ProfilePage> {
             // fit: StackFit.loose,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Card(
                     elevation: 10,
@@ -57,20 +57,33 @@ class _ProfilePageState extends State<ProfilePage> {
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
                     child: Image(
-                      height: 160,
-                      width: 160,
+                      height: MediaQuery.of(context).size.width / 2.5,
+                      width: MediaQuery.of(context).size.width / 2.5,
                       image: NetworkImage(
                           "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png"),
                     ),
                   ),
                   Card(
                     elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
                     child: Container(
-                      height: 40,
-                      width: 50,
-                      child: MaterialButton(
-                        onPressed: () {},
-                        child: Icon(Icons.edit, size: 25),
+                      height: MediaQuery.of(context).size.width / 2.5,
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      child: Center(
+                        child: TextField(
+                          onChanged: (val) {},
+                          keyboardType: TextInputType.number,
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          decoration: kTextFieldDecoration.copyWith(
+                            labelText: 'Roll No.',
+                            hintText: ''
+                          ),
+                        ),
                       ),
                     ),
                   ),
