@@ -1,8 +1,9 @@
-import 'package:acadamicConnect/pages/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
+
+import 'Login/LoginPage.dart';
 
 class WelcomeScreen extends StatelessWidget {
   List<PageViewModel> page(BuildContext context) {

@@ -1,10 +1,10 @@
 import 'package:acadamicConnect/Components/BottomBar.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
-import 'package:acadamicConnect/pages/ChatPage.dart';
-import 'package:acadamicConnect/pages/DashboardPage.dart';
 import 'package:acadamicConnect/pages/NotificationPage.dart';
 import 'package:acadamicConnect/pages/SettingPage.dart';
 import 'package:flutter/material.dart';
+import 'Chat/ChatPage.dart';
+import 'Dashboard/DashboardPage.dart';
 // import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 
 class Home extends StatefulWidget {
@@ -16,6 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var currentIndex = 0;
   Color background = Colors.white;
+  bool isTeacher = false;
 
   List<Widget> pages = [
     Dashboard(),
@@ -24,19 +25,37 @@ class _HomeState extends State<Home> {
     SettingPage()
   ];
 
+  floatingButtonVisibility() {
+    //Function to check if user id teacher or not
+    setState(() {
+      isTeacher = true;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    floatingButtonVisibility();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              background =
-                  background == Colors.white ? Colors.grey[900] : Colors.white;
-            });
-          },
-          child: Icon(Icons.add),
-          backgroundColor: Colors.red,
+        floatingActionButton: Visibility(
+          visible: isTeacher,
+          child: FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                background = background == Colors.white
+                    ? Colors.grey[900]
+                    : Colors.white;
+              });
+            },
+            child: Icon(Icons.add),
+            backgroundColor: Colors.red,
+          ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         bottomNavigationBar: buildBubbleBottomBar(),
@@ -59,8 +78,8 @@ class _HomeState extends State<Home> {
         top: Radius.circular(16),
       ),
       elevation: 10,
-      fabLocation: BubbleBottomBarFabLocation.end, //new
-      hasNotch: true, //new
+      fabLocation: isTeacher ? BubbleBottomBarFabLocation.end : null, //new
+      hasNotch: isTeacher, //new
       hasInk: true, //new, gives a cute ink effect
       inkColor: Colors.black12, //optional, uses theme color if not specified
       items: <BubbleBottomBarItem>[

@@ -2,11 +2,11 @@ import 'package:acadamicConnect/Components/LoginRoundedButton.dart';
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
-import 'package:acadamicConnect/pages/MobileLoginPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'ProfilePage.dart';
+import '../ProfilePage.dart';
+import 'MobileLoginPage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
