@@ -96,7 +96,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
               TextField(
                 decoration: InputDecoration(
                   hintText: "Title",
-                  hintStyle: TextStyle(fontFamily: "Subtitle"),
+                  hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -106,7 +106,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
               TextField(
                 decoration: InputDecoration(
                   hintText: "Description....(optional)",
-                  hintStyle: TextStyle(fontFamily: "Subtitle"),
+                  hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),

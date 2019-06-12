@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        // fontFamily: "Title",
+        fontFamily: "Nunito-Bold",
         // primaryColor: primaryColor,
         primaryColor: Color(0xffF57C00),
         accentColor: Color(0xffFF6D00),

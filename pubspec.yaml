@@ -1,16 +1,6 @@
 name: acadamicConnect
 description: A new Flutter project.
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
 environment:
@@ -34,22 +24,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
-# For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
 
   assets:
     - assets/
@@ -62,3 +39,31 @@ flutter:
     - family: MyFlutterApp
       fonts:
         - asset: assets/fonts/MyFlutterApp.ttf
+
+    - family: Nunito-Black
+      fonts:
+        - asset: assets/fonts/Nunito-Black.ttf
+
+    - family: Nunito-Bold
+      fonts:
+        - asset: assets/fonts/Nunito-Bold.ttf
+
+    - family: Nunito-ExtraBold
+      fonts:
+        - asset: assets/fonts/Nunito-ExtraBold.ttf
+
+    - family: Nunito-Italic
+      fonts:
+        - asset: assets/fonts/Nunito-Italic.ttf
+
+    - family: Nunito-Light
+      fonts:
+        - asset: assets/fonts/Nunito-Light.ttf
+
+    - family: Nunito-Regular
+      fonts:
+        - asset: assets/fonts/Nunito-Regular.ttf
+
+    - family: Nunito-SemiBold
+      fonts:
+        - asset: assets/fonts/Nunito-SemiBold.ttf
