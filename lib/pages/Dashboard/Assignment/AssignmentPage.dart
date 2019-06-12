@@ -21,7 +21,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
   String _path;
   TextEditingController _controller = new TextEditingController();
 
-  void _openFileExplorer(FileType _pickingType) async {
+  _openFileExplorer(FileType _pickingType) async {
     if (_pickingType != FileType.CUSTOM) {
       try {
         _path = await FilePicker.getFilePath(type: _pickingType);
