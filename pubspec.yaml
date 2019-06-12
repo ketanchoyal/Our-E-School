@@ -40,30 +40,16 @@ flutter:
       fonts:
         - asset: assets/fonts/MyFlutterApp.ttf
 
-    - family: Nunito-Black
-      fonts:
-        - asset: assets/fonts/Nunito-Black.ttf
-
-    - family: Nunito-Bold
-      fonts:
-        - asset: assets/fonts/Nunito-Bold.ttf
-
-    - family: Nunito-ExtraBold
-      fonts:
-        - asset: assets/fonts/Nunito-ExtraBold.ttf
-
-    - family: Nunito-Italic
-      fonts:
-        - asset: assets/fonts/Nunito-Italic.ttf
-
-    - family: Nunito-Light
+    - family: Nunito
       fonts:
         - asset: assets/fonts/Nunito-Light.ttf
-
-    - family: Nunito-Regular
-      fonts:
+          weight: 300
         - asset: assets/fonts/Nunito-Regular.ttf
-
-    - family: Nunito-SemiBold
-      fonts:
         - asset: assets/fonts/Nunito-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Nunito-Black.ttf
+        - asset: assets/fonts/Nunito-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Nunito-ExtraBold.ttf
+          weight: 900
+        - asset: assets/fonts/Nunito-Italic.ttf

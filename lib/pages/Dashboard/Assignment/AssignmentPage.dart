@@ -91,41 +91,41 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
         return AlertDialog(
           title: Text("Upload Assignment"),
           content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Title",
-                  hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: "Title",
+                    // hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
+                    border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 5,),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Description....(optional)",
-                  hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                SizedBox(height: 5,),
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: "Description....(optional)",
+                    // hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
+                    border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 5,),
-              TextField(
-                controller: _controller,
-                enabled: false,
-                decoration: InputDecoration(
-                  hintText: "Filename",
-                  hintStyle: TextStyle(fontFamily: "Subtitle"),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                SizedBox(height: 5,),
+                TextField(
+                  controller: _controller,
+                  enabled: false,
+                  decoration: InputDecoration(
+                    hintText: "Filename",
+                    // hintStyle: TextStyle(fontFamily: "Subtitle"),
+                    border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
           actions: <Widget>[
             FlatButton(
               onPressed: () {

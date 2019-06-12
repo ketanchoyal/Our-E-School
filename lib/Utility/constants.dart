@@ -26,6 +26,10 @@ ShapeBorder kBackButtonShape = RoundedRectangleBorder(
   ),
 );
 
+CircleBorder kCardCircularShape = CircleBorder(
+  side: BorderSide(width: 50),
+);
+
 Widget kBackBtn = Icon(
   Icons.arrow_back_ios,
   // color: Colors.black54,
@@ -39,4 +43,3 @@ openPage(BuildContext context, Widget page) {
     ),
   );
 }
-
