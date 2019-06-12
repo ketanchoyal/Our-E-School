@@ -23,9 +23,7 @@ class _SubjectPageState extends State<SubjectPage> {
         appBar: TopBar(
           title: widget.pageLabel,
           child: kBackBtn,
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: kbackBtn(context)
         ),
         floatingActionButton: Visibility(
           visible: isTeacher,
@@ -43,7 +41,7 @@ class _SubjectPageState extends State<SubjectPage> {
                   label: 'Chapter $i',
                   icon: FontAwesomeIcons.bookReader,
                   onPressed: () {
-                    openPage(
+                    kopenPage(
                       context,
                       AssignmentOpener(
                         url: 'http://www.pdf995.com/samples/pdf.pdf',

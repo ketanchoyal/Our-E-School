@@ -3,11 +3,11 @@ import 'package:acadamicConnect/Components/RowReusableCardButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
-import 'package:acadamicConnect/pages/Dashboard/AnnouncementPage.dart';
 import 'package:acadamicConnect/pages/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'Announcement/AnnouncementPage.dart';
 import 'Assignment/AssignmentPage.dart';
 import 'E-CardPage.dart';
 
@@ -75,18 +75,13 @@ class _DashboardState extends State<Dashboard> {
                 label: 'Announcements',
                 icon: CustomIcons.megaphone,
                 onPressed: () {
-                  openPage(context, AnnouncementPage());
+                  kopenPage(context, AnnouncementPage());
                 },
               ),
               ColumnReusableCardButton(
                 label: 'Assignments',
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => AssignmentsPage(),
-                    ),
-                  );
+                  kopenPage(context, AssignmentsPage());
                 },
                 icon: Icons.assignment,
               ),

@@ -118,11 +118,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   // text: 'Mobile',
                   onPressed: () {
-                    Navigator.of(context).push(
-                      CupertinoPageRoute<bool>(
-                        fullscreenDialog: true,
-                        builder: (BuildContext context) => MobileLoginPage(),
-                      ),
+                    kopenPageBottom(
+                      context,
+                      MobileLoginPage(),
                     );
                   },
                   height: 50,

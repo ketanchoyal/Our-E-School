@@ -19,7 +19,7 @@ class _ECardPageState extends State<ECardPage> {
           title: 'E-Card',
           child: kBackBtn,
           onPressed: () {
-            Navigator.pop(context);
+            kbackBtn(context);
           },
         ),
         body: SingleChildScrollView(

@@ -45,12 +45,11 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
     return Container(
       child: Scaffold(
         appBar: TopBar(
-          title: 'Assignments',
-          child: kBackBtn,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+            title: 'Assignments',
+            child: kBackBtn,
+            onPressed: () {
+              kbackBtn(context);
+            }),
         floatingActionButton: Visibility(
           visible: isTeacher,
           child: FloatingActionButton(
@@ -69,7 +68,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
                     label: 'Subject $i',
                     icon: FontAwesomeIcons.bookOpen,
                     onPressed: () {
-                      openPage(
+                      kopenPage(
                         context,
                         AssignmentOpener(
                           url: 'http://www.pdf995.com/samples/pdf.pdf',
@@ -91,41 +90,45 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
         return AlertDialog(
           title: Text("Upload Assignment"),
           content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: "Title",
-                    // hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
-                    border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-                    ),
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Title",
+                  // hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                SizedBox(height: 5,),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: "Description....(optional)",
-                    // hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
-                    border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-                    ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Description....(optional)",
+                  // hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                SizedBox(height: 5,),
-                TextField(
-                  controller: _controller,
-                  enabled: false,
-                  decoration: InputDecoration(
-                    hintText: "Filename",
-                    // hintStyle: TextStyle(fontFamily: "Subtitle"),
-                    border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-                    ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              TextField(
+                controller: _controller,
+                enabled: false,
+                decoration: InputDecoration(
+                  hintText: "Filename",
+                  // hintStyle: TextStyle(fontFamily: "Subtitle"),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
           actions: <Widget>[
             FlatButton(
               onPressed: () {

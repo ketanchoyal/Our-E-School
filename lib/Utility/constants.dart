@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 var kTextFieldDecoration = InputDecoration(
@@ -35,10 +36,23 @@ Widget kBackBtn = Icon(
   // color: Colors.black54,
 );
 
-openPage(BuildContext context, Widget page) {
+kopenPage(BuildContext context, Widget page) {
   Navigator.push(
     context,
     MaterialPageRoute(
+      builder: (BuildContext context) => page,
+    ),
+  );
+}
+
+kbackBtn(BuildContext context) {
+  Navigator.of(context).pop();
+}
+
+kopenPageBottom(BuildContext context, Widget page) {
+  Navigator.of(context).push(
+    CupertinoPageRoute<bool>(
+      fullscreenDialog: true,
       builder: (BuildContext context) => page,
     ),
   );

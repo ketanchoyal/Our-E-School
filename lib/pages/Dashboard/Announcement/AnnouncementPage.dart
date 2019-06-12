@@ -2,6 +2,7 @@ import 'package:acadamicConnect/Components/AnnouncementCard.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Models/Announcement.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
+import 'package:acadamicConnect/pages/Dashboard/Announcement/CreateAnnouncement.dart';
 import 'package:flutter/material.dart';
 
 class AnnouncementPage extends StatefulWidget {
@@ -27,34 +28,55 @@ I want to perform login and call a function for that, this function can either r
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopBar(
-        title: 'Announcement',
-        child: kBackBtn,
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
+          title: 'Announcement',
+          child: kBackBtn,
+          onPressed: () {
+            kbackBtn(context);
+          }),
       // floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: Visibility(
         visible: isTeacher,
-        child: FloatingActionButton(
-          elevation: 12,
-          onPressed: () {},
-          child: Icon(Icons.add),
-          backgroundColor: Colors.red,
+        child: Stack(
+          children: <Widget>[
+            Align(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                elevation: 12,
+                onPressed: () {
+                  kopenPageBottom(context, CreateAnnouncement());
+                },
+                child: Icon(Icons.add),
+                backgroundColor: Colors.red,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 31),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: FloatingActionButton(
+                  heroTag: 'abc',
+                  elevation: 12,
+                  onPressed: () {},
+                  child: Icon(Icons.filter_list),
+                  backgroundColor: Colors.red,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       body: ListView.builder(
         itemCount: 5,
         itemBuilder: (context, index) => new AnnouncementCard(
               announcement: Announcement(
-                by: 'userid',
-                caption: randomText,
-                forClass: '10A',
-                id: 'postid',
-                photoUrl: "https://cyprus-mail.com/wp-content/uploads/2013/06/schoolchildren06.jpg",
-                timestamp: 'Jan 21, 10:30 AM',
-                type: AnnouncementType.CIRCULAR
-              ),
+                  by: 'userid',
+                  caption: randomText,
+                  forClass: '10A',
+                  id: 'postid',
+                  photoUrl:
+                      "https://cyprus-mail.com/wp-content/uploads/2013/06/schoolchildren06.jpg",
+                  timestamp: 'Jan 21, 10:30 AM',
+                  type: AnnouncementType.CIRCULAR),
             ),
       ),
     );
