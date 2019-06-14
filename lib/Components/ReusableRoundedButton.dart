@@ -9,7 +9,7 @@ class ReusableRoundedButton extends StatelessWidget {
 
   const ReusableRoundedButton(
       {@required this.onPressed,
-      @required this.height,
+      this.height,
       this.backgroundColor,
       @required this.child});
 

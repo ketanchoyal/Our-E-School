@@ -1,3 +1,4 @@
+import 'package:acadamicConnect/Components/CustomRadioBtn.dart';
 import 'package:acadamicConnect/Components/LoginRoundedButton.dart';
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 
 class MobileLoginPage extends StatefulWidget {
+  static String loginTypeSelected = 'S';
   @override
   _MobileLoginPageState createState() => _MobileLoginPageState();
 }
@@ -28,7 +30,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
         fit: StackFit.expand,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,6 +48,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                 SizedBox(
                   height: 20,
                 ),
+                CustomRadioBtn(),
                 TextField(
                   enabled: isEnabled,
                   onChanged: (email) {},
@@ -126,7 +129,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                     Navigator.pop(context);
                   },
                   height: 50,
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.redAccent,
                 ),
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:acadamicConnect/Components/CustomRadioBtn.dart';
 import 'package:acadamicConnect/Components/LoginRoundedButton.dart';
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
@@ -8,11 +9,14 @@ import '../ProfilePage.dart';
 import 'MobileLoginPage.dart';
 
 class LoginPage extends StatefulWidget {
+  static String loginTypeSelected = 'S';
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
         fit: StackFit.expand,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
             child: Column(
               // mainAxisSize: MainAxisSize.min,
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
+                CustomRadioBtn(),
                 TextField(
                   onChanged: (email) {},
                   keyboardType: TextInputType.emailAddress,
@@ -83,7 +88,6 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 15,
                         ),
                       ),
-                      // text: "Forgot Pass?",
                       onPressed: () {},
                       height: 40,
                     ),
@@ -124,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   },
                   height: 50,
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.redAccent,
                 ),
               ),
             ),
