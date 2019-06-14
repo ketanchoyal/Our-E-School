@@ -27,8 +27,12 @@ ShapeBorder kBackButtonShape = RoundedRectangleBorder(
   ),
 );
 
-CircleBorder kCardCircularShape = CircleBorder(
-  side: BorderSide(width: 50),
+// CircleBorder kCardCircularShape = CircleBorder(
+//   side: BorderSide(width: 1),
+// );
+
+ShapeBorder kCardCircularShape = RoundedRectangleBorder(
+  borderRadius: BorderRadius.all(Radius.circular(50)),
 );
 
 Widget kBackBtn = Icon(
@@ -37,7 +41,7 @@ Widget kBackBtn = Icon(
 );
 
 kopenPage(BuildContext context, Widget page) {
-  Navigator.push(
+  return Navigator.push(
     context,
     MaterialPageRoute(
       builder: (BuildContext context) => page,

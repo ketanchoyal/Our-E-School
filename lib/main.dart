@@ -2,8 +2,7 @@ import 'package:acadamicConnect/pages/WelcomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/foundation.dart'
- show debugDefaultTargetPlatformOverride;
-
+    show debugDefaultTargetPlatformOverride;
 
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -19,6 +18,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        pageTransitionsTheme: PageTransitionsTheme(builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        }),
         fontFamily: "Nunito",
         // primaryColor: primaryColor,
         primaryColor: Color(0xffF57C00),

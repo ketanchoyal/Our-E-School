@@ -15,8 +15,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,21 +73,24 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: ReusableRoundedButton(
-                      child: Text(
-                        "Forgot Pass?",
-                        style: TextStyle(
-                          // color: kmainColorTeacher,
-                          fontSize: 15,
+                Hero(
+                  tag: 'otpForget',
+                  child: Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: ReusableRoundedButton(
+                        child: Text(
+                          "Forgot Pass?",
+                          style: TextStyle(
+                            // color: kmainColorTeacher,
+                            fontSize: 15,
+                          ),
                         ),
+                        onPressed: () {},
+                        height: 40,
                       ),
-                      onPressed: () {},
-                      height: 40,
                     ),
                   ),
                 ),

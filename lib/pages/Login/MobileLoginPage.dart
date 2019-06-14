@@ -74,26 +74,29 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: ReusableRoundedButton(
-                      child: Text(
-                        "Send OTP",
-                        style: TextStyle(
-                          // color: kmainColorTeacher,
-                          fontSize: 15,
+                Hero(
+                  tag: 'otpForget',
+                  child: Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: ReusableRoundedButton(
+                        child: Text(
+                          "Send OTP",
+                          style: TextStyle(
+                            // color: kmainColorTeacher,
+                            fontSize: 15,
+                          ),
                         ),
+                        // text: "Forgot Pass?",
+                        onPressed: () {
+                          setState(() {
+                            isEnabled = !isEnabled;
+                          });
+                        },
+                        height: 40,
                       ),
-                      // text: "Forgot Pass?",
-                      onPressed: () {
-                        setState(() {
-                          isEnabled = !isEnabled;
-                        });
-                      },
-                      height: 40,
                     ),
                   ),
                 ),
@@ -109,7 +112,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                 ),
               );
             },
-            ),
+          ),
           Positioned(
             bottom: 50,
             left: 30,
