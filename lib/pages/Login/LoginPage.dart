@@ -48,6 +48,9 @@ class _LoginPageState extends State<LoginPage> {
                   height: 20,
                 ),
                 CustomRadioBtn(),
+                SizedBox(
+                  height: 20,
+                ),
                 TextField(
                   onChanged: (email) {},
                   keyboardType: TextInputType.emailAddress,

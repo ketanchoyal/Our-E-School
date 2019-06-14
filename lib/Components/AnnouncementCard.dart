@@ -121,8 +121,9 @@ class AnnouncementCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  Future buildShowDialogBox(BuildContext context) {
+Future buildShowDialogBox(BuildContext context) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -195,4 +196,3 @@ class AnnouncementCard extends StatelessWidget {
       },
     );
   }
-}

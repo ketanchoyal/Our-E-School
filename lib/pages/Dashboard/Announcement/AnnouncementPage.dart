@@ -1,4 +1,5 @@
 import 'package:acadamicConnect/Components/AnnouncementCard.dart';
+import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Models/Announcement.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
@@ -56,7 +57,10 @@ I want to perform login and call a function for that, this function can either r
                 child: FloatingActionButton(
                   heroTag: 'abc',
                   elevation: 12,
-                  onPressed: () {},
+                  onPressed: () {
+                    //Filter Posts Code Here
+                    filterDialogBox(context);
+                  },
                   child: Icon(Icons.filter_list),
                   backgroundColor: Colors.red,
                 ),
@@ -79,6 +83,95 @@ I want to perform login and call a function for that, this function can either r
                   type: AnnouncementType.CIRCULAR),
             ),
       ),
+    );
+  }
+
+  Future filterDialogBox(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "Show Announcement of:",
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text(
+                "To filter the Posts please enter Class and Division:",
+                style: TextStyle(fontFamily: 'Subtitle'),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: TextField(
+                  onChanged: (standard) {},
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  // decoration: InputDecoration(
+                  //     hintText: "Master Pass",
+                  //     hintStyle: TextStyle(fontFamily: "Subtitle"),
+                  //     ),
+                  decoration: kTextFieldDecoration.copyWith(
+                    hintText: '9/10/11',
+                    labelText: 'Class',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: TextField(
+                  onChanged: (division) {},
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  decoration: kTextFieldDecoration.copyWith(
+                    hintText: 'A/B/C',
+                    labelText: 'Division',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            Row(
+              children: <Widget>[
+                FlatButton(
+                  child: Text('CANCEL'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                FlatButton(
+                  child: Text("FILTER"),
+                  onPressed: () {},
+                ),
+              ],
+            )
+          ],
+        );
+      },
     );
   }
 }

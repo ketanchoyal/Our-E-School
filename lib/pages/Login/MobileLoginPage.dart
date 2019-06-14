@@ -49,13 +49,16 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   height: 20,
                 ),
                 CustomRadioBtn(),
+                SizedBox(
+                  height: 20,
+                ),
                 TextField(
                   enabled: isEnabled,
                   onChanged: (email) {},
                   keyboardType: TextInputType.number,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   decoration: kTextFieldDecoration.copyWith(
-                    hintText: '+91999999999',
+                    hintText: '+9199xxxxxxxx',
                     labelText: 'Mobile No',
                   ),
                 ),
@@ -63,6 +66,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   height: 20,
                 ),
                 TextField(
+                  enabled: !isEnabled,
                   onChanged: (password) {},
                   keyboardType: TextInputType.number,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),

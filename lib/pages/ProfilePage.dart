@@ -81,7 +81,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           decoration: kTextFieldDecoration.copyWith(
                             labelText: 'Roll No.',
-                            hintText: ''
+                            hintText: '',
+                            contentPadding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width / 2.5, horizontal: 20.0),
                           ),
                         ),
                       ),

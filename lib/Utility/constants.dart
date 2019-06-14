@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 var kTextFieldDecoration = InputDecoration(
-  hintText: 'Enter your password.',
-  labelText: 'Email',
-  // fillColor: Colors.white70,
-//  errorText: ' ',
+  // hintText: 'Enter your password.',
+  // labelText: 'Email',
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(16),
+  ),
   hintStyle: TextStyle(
-      // color: Colors.white70,
       height: 1.5,
       fontWeight: FontWeight.w300),
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),

@@ -112,7 +112,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
