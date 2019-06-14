@@ -1,10 +1,12 @@
 import 'package:acadamicConnect/Components/BottomBar.dart';
+import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
 import 'package:acadamicConnect/pages/NotificationPage.dart';
 import 'package:acadamicConnect/pages/SettingPage.dart';
 import 'package:flutter/material.dart';
 import 'Chat/ChatPage.dart';
 import 'Dashboard/DashboardPage.dart';
+import 'ProfilePage.dart';
 // import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 
 class Home extends StatefulWidget {
@@ -17,11 +19,12 @@ class _HomeState extends State<Home> {
   var currentIndex = 0;
   Color background = Colors.white;
   bool isTeacher = false;
+  String pageName = 'Home';
 
   List<Widget> pages = [
     Dashboard(),
     ChatPage(),
-    NotificationPage(),
+    // NotificationPage(),
     SettingPage()
   ];
 
@@ -43,6 +46,24 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
+        appBar: TopBar(
+          title: pageName,
+          child: Image(
+          height: 30,
+          width: 30,
+          image: NetworkImage(
+            "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+          ),
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => ProfilePage(),
+            ),
+          );
+        }
+        ),
         floatingActionButton: Visibility(
           visible: isTeacher,
           child: FloatingActionButton(
@@ -71,6 +92,13 @@ class _HomeState extends State<Home> {
       currentIndex: currentIndex,
       onTap: (v) {
         setState(() {
+          if (v == 0) {
+            pageName = Dashboard.pageName;
+          } else if (v == 1) {
+            pageName = ChatPage.pageName;
+          } else if (v == 2) {
+            pageName = SettingPage.pageName;
+          }
           currentIndex = v;
         });
       },
@@ -106,17 +134,17 @@ class _HomeState extends State<Home> {
           ),
           title: Text("Chat"),
         ),
-        BubbleBottomBarItem(
-          backgroundColor: Colors.indigo,
-          icon: Icon(
-            Icons.notifications,
-          ),
-          activeIcon: Icon(
-            Icons.notifications,
-            color: Colors.indigo,
-          ),
-          title: Text("Notifications"),
-        ),
+        // BubbleBottomBarItem(
+        //   backgroundColor: Colors.indigo,
+        //   icon: Icon(
+        //     Icons.notifications,
+        //   ),
+        //   activeIcon: Icon(
+        //     Icons.notifications,
+        //     color: Colors.indigo,
+        //   ),
+        //   title: Text("Notifications"),
+        // ),
         BubbleBottomBarItem(
             backgroundColor: Colors.orange,
             icon: Icon(

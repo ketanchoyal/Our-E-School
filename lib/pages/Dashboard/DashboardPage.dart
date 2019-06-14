@@ -13,6 +13,7 @@ import 'E-CardPage.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key}) : super(key: key);
+  static String pageName = 'Dashboard';
 
   _DashboardState createState() => _DashboardState();
 }
@@ -21,24 +22,6 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TopBar(
-        title: 'Dashboard',
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => ProfilePage(),
-            ),
-          );
-        },
-        child: Image(
-          height: 30,
-          width: 30,
-          image: NetworkImage(
-            "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),

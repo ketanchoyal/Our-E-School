@@ -8,6 +8,7 @@ import 'MessagingScreen.dart';
 
 class ChatPage extends StatefulWidget {
   ChatPage({Key key}) : super(key: key);
+  static String pageName = 'Chat';
 
   _ChatPageState createState() => _ChatPageState();
 }
@@ -16,24 +17,6 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TopBar(
-        title: 'Chat',
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => ProfilePage(),
-            ),
-          );
-        },
-        child: Image(
-          height: 30,
-          width: 30,
-          image: NetworkImage(
-            "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-          ),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView.builder(
