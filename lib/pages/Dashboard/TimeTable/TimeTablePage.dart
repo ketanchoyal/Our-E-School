@@ -1,9 +1,6 @@
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
-import 'package:acadamicConnect/pages/Chat/ChatPage.dart';
-import 'package:acadamicConnect/pages/Dashboard/DashboardPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/TimeTable/TimeTable.dart';
-import 'package:acadamicConnect/pages/SettingPage.dart';
 import 'package:flutter/material.dart';
 
 class TimeTablePage extends StatefulWidget {
@@ -73,16 +70,18 @@ class _TimeTablePageState extends State<TimeTablePage>
             firstChild: Material(
               color: Theme.of(context).primaryColor,
               child: TabBar(
+                indicatorColor: Colors.white,
+                
                 controller: _tabController,
                 isScrollable: true,
                 tabs: List.generate(tabNames.length, (index) {
                   return Container(
-                    height: 40,
+                    height: 50,
                     child: Center(
                       child: Text(
                         tabNames[index].toUpperCase(),
                         style: TextStyle(
-                          fontSize: 17,
+                          fontSize: 18,
                           fontWeight: FontWeight.w600
                         ),
                       ),
@@ -95,10 +94,10 @@ class _TimeTablePageState extends State<TimeTablePage>
             crossFadeState: CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 300),
           ),
-          Container(
-            height: 20,
-            color: Theme.of(context).primaryColor,
-          )
+          // Container(
+          //   height: 20,
+          //   color: Theme.of(context).primaryColor,
+          // )
         ],
       ),
     );

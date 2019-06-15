@@ -3,7 +3,6 @@ import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/pages/PDFOpener.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ResultPage extends StatefulWidget {
   static String pageLabel = 'Results';

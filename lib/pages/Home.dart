@@ -1,9 +1,11 @@
 import 'package:acadamicConnect/Components/BottomBar.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
 import 'package:acadamicConnect/pages/SettingPage.dart';
 import 'package:flutter/material.dart';
 import 'Chat/ChatPage.dart';
+import 'Dashboard/Announcement/CreateAnnouncement.dart';
 import 'Dashboard/DashboardPage.dart';
 import 'ProfilePage.dart';
 // import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
@@ -66,7 +68,9 @@ class _HomeState extends State<Home> {
         floatingActionButton: Visibility(
           visible: isTeacher,
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              kopenPage(context, CreateAnnouncement());
+            },
             child: Icon(Icons.add),
             backgroundColor: Colors.red,
           ),

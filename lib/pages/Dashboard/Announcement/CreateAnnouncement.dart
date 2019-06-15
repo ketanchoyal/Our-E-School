@@ -159,7 +159,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                               fit: StackFit.expand,
                               children: <Widget>[
                                 Image(
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.contain,
                                   image: FileImage(
                                     File(path),
                                   ),
