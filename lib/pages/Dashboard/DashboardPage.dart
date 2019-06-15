@@ -3,14 +3,13 @@ import 'package:acadamicConnect/Components/RowReusableCardButton.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
 import 'package:acadamicConnect/pages/Dashboard/ResultPage.dart';
-import 'package:acadamicConnect/pages/PDFOpener.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'Announcement/AnnouncementPage.dart';
 import 'Assignment/AssignmentPage.dart';
 import 'E-CardPage.dart';
+import 'TimeTable/TimeTablePage.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key}) : super(key: key);
@@ -51,7 +50,9 @@ class _DashboardState extends State<Dashboard> {
                     RowReusableCardButton(
                       icon: Icons.av_timer,
                       label: 'Time Table',
-                      onPressed: () {},
+                      onPressed: () {
+                        kopenPage(context, TimeTablePage());
+                      },
                     ),
                   ],
                 ),

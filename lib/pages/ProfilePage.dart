@@ -62,31 +62,32 @@ class _ProfilePageState extends State<ProfilePage> {
                           "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png"),
                     ),
                   ),
-                  Card(
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: Container(
-                      height: MediaQuery.of(context).size.width / 2.5,
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      child: Center(
-                        child: TextField(
-                          onChanged: (val) {},
-                          keyboardType: TextInputType.number,
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          decoration: kTextFieldDecoration.copyWith(
-                            labelText: 'Roll No.',
-                            hintText: '',
-                            contentPadding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width / 2.5, horizontal: 20.0),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Card(
+                  //   elevation: 10,
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.all(Radius.circular(20)),
+                  //   ),
+                  //   child: Container(
+                  //     height: MediaQuery.of(context).size.width / 2.5,
+                  //     width: MediaQuery.of(context).size.width / 2.5,
+                  //     child: TextField(
+                  //       onChanged: (val) {},
+                  //       keyboardType: TextInputType.number,
+                  //       style: TextStyle(
+                  //         fontSize: 30,
+                  //         fontWeight: FontWeight.bold,
+                  //       ),
+                  //       // textAlign: TextAlign.center,
+                  //       decoration: kTextFieldDecoration.copyWith(
+                  //         labelText: 'Roll No.',
+                  //         // labelStyle: TextStyle(fontSize: 20),
+                  //         hintText: '',
+                  //         // contentPadding: EdgeInsets.symmetric(
+                  //         //   vertical: MediaQuery.of(context).size.width / 2.5,horizontal: 10),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
               Padding(

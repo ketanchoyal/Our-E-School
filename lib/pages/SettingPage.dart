@@ -36,7 +36,7 @@ class _SettingPageState extends State<SettingPage> {
                     ),
               ),
               subtitle: Text(
-                "Only if you remember your password",
+                "You can login in multiple devices too",
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
             ),

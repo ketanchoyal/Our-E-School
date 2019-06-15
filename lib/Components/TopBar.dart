@@ -1,7 +1,7 @@
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
 
-class TopBar extends StatelessWidget implements PreferredSizeWidget {
+class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
   final Widget child;
   final Function onPressed;
@@ -14,9 +14,15 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
       : preferredSize = Size.fromHeight(60.0);
 
   @override
+  _TopBarState createState() => _TopBarState();
+}
+
+class _TopBarState extends State<TopBar> {
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           // SizedBox(height: 30,),
           Row(
@@ -33,8 +39,8 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                     minWidth: 50,
                     elevation: 10,
                     shape: kBackButtonShape,
-                    onPressed: onPressed,
-                    child: child,
+                    onPressed: widget.onPressed,
+                    child: widget.child,
                   ),
                 ),
               ),
@@ -52,7 +58,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                   child: InkWell(
-                    onTap: onTitleTapped,
+                    onTap: widget.onTitleTapped,
                     child: Container(
                       width: MediaQuery.of(context).size.width / 1.5,
                       height: 50,
@@ -61,7 +67,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 30),
                           child: Text(
-                            title,
+                            widget.title,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 25,

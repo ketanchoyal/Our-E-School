@@ -46,22 +46,23 @@ class _HomeState extends State<Home> {
     return Container(
       child: Scaffold(
         appBar: TopBar(
-            title: pageName,
-            child: Image(
-              height: 30,
-              width: 30,
-              image: NetworkImage(
-                "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-              ),
+          title: pageName,
+          child: Image(
+            height: 30,
+            width: 30,
+            image: NetworkImage(
+              "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => ProfilePage(),
-                ),
-              );
-            }),
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => ProfilePage(),
+              ),
+            );
+          },
+        ),
         floatingActionButton: Visibility(
           visible: isTeacher,
           child: FloatingActionButton(
