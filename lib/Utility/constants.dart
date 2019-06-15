@@ -13,6 +13,8 @@ var kTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
 );
 
+String kFontFamily = 'Nunito';
+
 Color kmainColorTeacher = Color.fromRGBO(254, 198, 27, 1.0);
 Color kmainColorStudents = Color.fromRGBO(244, 163, 52, 1.0);
 Color kmainColorParents = Color.fromRGBO(249, 202, 36, 1.0);

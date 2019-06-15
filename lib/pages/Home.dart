@@ -39,39 +39,33 @@ class _HomeState extends State<Home> {
     super.initState();
     floatingButtonVisibility();
   }
-  
+
   @override
   Widget build(BuildContext context) {
+    // setTheme();
     return Container(
       child: Scaffold(
         appBar: TopBar(
-          title: pageName,
-          child: Image(
-          height: 30,
-          width: 30,
-          image: NetworkImage(
-            "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-          ),
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => ProfilePage(),
+            title: pageName,
+            child: Image(
+              height: 30,
+              width: 30,
+              image: NetworkImage(
+                "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+              ),
             ),
-          );
-        }
-        ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => ProfilePage(),
+                ),
+              );
+            }),
         floatingActionButton: Visibility(
           visible: isTeacher,
           child: FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                background = background == Colors.white
-                    ? Colors.grey[900]
-                    : Colors.white;
-              });
-            },
+            onPressed: () {},
             child: Icon(Icons.add),
             backgroundColor: Colors.red,
           ),
@@ -85,7 +79,7 @@ class _HomeState extends State<Home> {
 
   BubbleBottomBar buildBubbleBottomBar() {
     return BubbleBottomBar(
-      backgroundColor: background,
+      backgroundColor: Theme.of(context).canvasColor,
       opacity: .2,
       currentIndex: currentIndex,
       onTap: (v) {

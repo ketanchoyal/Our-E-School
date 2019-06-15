@@ -25,26 +25,31 @@ class _MessagingScreenState extends State<MessagingScreen> {
             children: [
               Positioned(
                 bottom: 0,
-                child: Card(
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(32),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Container(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  // mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(32),
+                        ),
+                      ),
+                      child: Container(
+                        constraints: BoxConstraints(maxHeight: 150),
                         width: MediaQuery.of(context).size.width - 65,
                         child: TextField(
+                          keyboardType: TextInputType.multiline,
+                          // maxLength: 1000,
+                          maxLines: null,
                           decoration: InputDecoration(
                             hintText: 'Type here....',
                             hintStyle: TextStyle(
                               height: 1.5,
                             ),
                             contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 15.0),
+                                vertical: 15.0, horizontal: 20.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(30.0),
@@ -53,21 +58,27 @@ class _MessagingScreenState extends State<MessagingScreen> {
                           ),
                         ),
                       ),
-                      MaterialButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(30),
-                            bottomRight: Radius.circular(30),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Card(
+                        elevation: 5,
+                        shape: kCardCircularShape,
+                        child: Container(
+                          width: 50,
+                          height: 50,
+                          child: MaterialButton(
+                            height: 40,
+                            shape: kCardCircularShape,
+                            onPressed: () {},
+                            child: Icon(
+                              Icons.send,
+                            ),
                           ),
                         ),
-                        minWidth: 55,
-                        onPressed: () {},
-                        child: Icon(
-                          Icons.send,
-                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

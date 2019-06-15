@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerRight,
                       child: ReusableRoundedButton(
                         child: Text(
-                          "Forgot Pass?",
+                          "Forgot Password?",
                           style: TextStyle(
                             // color: kmainColorTeacher,
                             fontSize: 15,

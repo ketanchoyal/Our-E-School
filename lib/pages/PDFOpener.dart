@@ -3,17 +3,17 @@ import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 
-class AssignmentOpener extends StatefulWidget {
+class PDFOpener extends StatefulWidget {
   final String url;
-  final String chapterNo;
+  final String title;
 
-  AssignmentOpener({@required this.url, @required this.chapterNo});
+  PDFOpener({@required this.url, @required this.title});
 
   @override
-  _AssignmentOpenerState createState() => _AssignmentOpenerState();
+  _PDFOpenerState createState() => _PDFOpenerState();
 }
 
-class _AssignmentOpenerState extends State<AssignmentOpener> {
+class _PDFOpenerState extends State<PDFOpener> {
   PDFDocument doc;
 
   bool _isLoading = true;
@@ -39,7 +39,7 @@ class _AssignmentOpenerState extends State<AssignmentOpener> {
           onPressed: (){
             Navigator.pop(context);
           },
-          title: widget.chapterNo,
+          title: widget.title ?? 'PDF',
         ),
         body: Center(
         child: _isLoading

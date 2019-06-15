@@ -4,8 +4,9 @@ import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'AssignmentOpener.dart';
 import 'package:file_picker/file_picker.dart';
+
+import '../../PDFOpener.dart';
 
 class AssignmentsPage extends StatefulWidget {
   const AssignmentsPage({Key key}) : super(key: key);
@@ -70,9 +71,9 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
                     onPressed: () {
                       kopenPage(
                         context,
-                        AssignmentOpener(
+                        PDFOpener(
                           url: 'http://www.pdf995.com/samples/pdf.pdf',
-                          chapterNo: 'Chapter $i',
+                          title: 'Assignment $i',
                         ),
                       );
                     },
@@ -147,4 +148,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
       },
     );
   }
+}
+
+class AssignmentOpener {
 }
