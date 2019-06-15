@@ -15,9 +15,9 @@ class CustomRadioBtn extends StatefulWidget {
 
 class _CustomRadioBtnState extends State<CustomRadioBtn> {
   Color studentBtnColor = CustomRadioBtn.selectedBtnColor;
-  Color parentTeacherBtnColor = null;
+  Color parentTeacherBtnColor;
   Color studentBtnTextColor = CustomRadioBtn.selectedBtnFontColor;
-  Color parentTeacherBtnTextColor = null;
+  Color parentTeacherBtnTextColor;
 
   loginTypeBtnTapped(String btn) {
     if (btn == 'S') {

@@ -27,7 +27,6 @@ class _AssignmentOpenerState extends State<AssignmentOpener> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadPDF();
   }

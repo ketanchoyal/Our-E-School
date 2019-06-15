@@ -1,7 +1,6 @@
 import 'package:acadamicConnect/Components/BottomBar.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
-import 'package:acadamicConnect/pages/NotificationPage.dart';
 import 'package:acadamicConnect/pages/SettingPage.dart';
 import 'package:flutter/material.dart';
 import 'Chat/ChatPage.dart';
@@ -37,7 +36,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     floatingButtonVisibility();
   }

@@ -172,8 +172,8 @@ class _TileIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color iconColor;
-    iconColor = Colors.white;
+    // Color iconColor;
+    // iconColor = Colors.white;
     return Align(
       alignment: Alignment.topCenter,
       heightFactor: 1.0,
@@ -208,7 +208,7 @@ class _Label extends StatelessWidget {
       alignment: Alignment.center,
       heightFactor: 1.0,
       child: Container(
-        // width: 50,
+        width: 50,
         child: FadeTransition(
           alwaysIncludeSemantics: true,
           opacity: animation,
@@ -376,7 +376,7 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
             padding: EdgeInsets.only(
                 bottom: additionalBottomPadding,
                 right: widget.fabLocation == BubbleBottomBarFabLocation.end
-                    ? 62
+                    ? 65
                     : 0),
             child: MediaQuery.removePadding(
               context: context,

@@ -1,7 +1,4 @@
-import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:flutter/material.dart';
-
-import 'ProfilePage.dart';
 
 class SettingPage extends StatefulWidget {
   SettingPage({Key key}) : super(key: key);

@@ -1,5 +1,4 @@
 import 'package:acadamicConnect/Components/AnnouncementCard.dart';
-import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Models/Announcement.dart';
 import 'package:acadamicConnect/Utility/constants.dart';

@@ -1,9 +1,8 @@
 import 'package:acadamicConnect/Components/ColumnReusableCardButton.dart';
 import 'package:acadamicConnect/Components/RowReusableCardButton.dart';
-import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
-import 'package:acadamicConnect/pages/ProfilePage.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,6 +22,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        dragStartBehavior: DragStartBehavior.start,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -30,7 +30,7 @@ class _DashboardState extends State<Dashboard> {
             // mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Container(
-                height: 120,
+                height: 110,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -47,8 +47,8 @@ class _DashboardState extends State<Dashboard> {
                       icon: Icons.perm_contact_calendar,
                     ),
                     RowReusableCardButton(
-                      icon: Icons.assessment,
-                      label: 'Results',
+                      icon: Icons.av_timer,
+                      label: 'Time Table',
                       onPressed: () {},
                     ),
                   ],
@@ -61,20 +61,8 @@ class _DashboardState extends State<Dashboard> {
                   kopenPage(context, AnnouncementPage());
                 },
               ),
-              ColumnReusableCardButton(
-                label: 'Assignments',
-                onPressed: () {
-                  kopenPage(context, AssignmentsPage());
-                },
-                icon: Icons.assignment,
-              ),
-              ColumnReusableCardButton(
-                icon: CustomIcons.traveler_with_a_suitcase,
-                label: 'Holidays',
-                onPressed: () {},
-              ),
               Container(
-                height: 120,
+                height: 110,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -92,8 +80,33 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               ColumnReusableCardButton(
-                icon: Icons.assistant_photo,
-                label: 'Exams',
+                label: 'Assignments',
+                onPressed: () {
+                  kopenPage(context, AssignmentsPage());
+                },
+                icon: Icons.assignment,
+              ),
+              Container(
+                height: 110,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RowReusableCardButton(
+                      icon: Icons.assistant_photo,
+                      label: 'Exams',
+                      onPressed: () {},
+                    ),
+                    RowReusableCardButton(
+                      icon: Icons.assessment,
+                      label: 'Results',
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              ColumnReusableCardButton(
+                icon: CustomIcons.traveler_with_a_suitcase,
+                label: 'Holidays',
                 onPressed: () {},
               ),
             ],
