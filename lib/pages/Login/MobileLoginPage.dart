@@ -1,4 +1,4 @@
-import 'package:acadamicConnect/Components/CustomRadioBtn.dart';
+import 'package:acadamicConnect/Components/CustomLoginTypeBtn.dart';
 import 'package:acadamicConnect/Components/LoginRoundedButton.dart';
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
@@ -14,6 +14,7 @@ class MobileLoginPage extends StatefulWidget {
 
 class _MobileLoginPageState extends State<MobileLoginPage> {
   bool isEnabled = true;
+  String idHint = 'Student Id';
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +43,26 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   decoration: kTextFieldDecoration.copyWith(
                     hintText: 'One which school gave',
-                    labelText: 'Student/Teacher Id',
+                    labelText: idHint,
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                CustomRadioBtn(),
+                CustomLoginTypeBtn(
+                  onPressed: () {
+                    if (MobileLoginPage.loginTypeSelected == 'S') {
+                      setState(() {
+                        idHint = 'Student Id';
+                      });
+                    }
+                    if (MobileLoginPage.loginTypeSelected == 'PT') {
+                      setState(() {
+                        idHint = 'Student 0r Teacher Id';
+                      });
+                    }
+                  },
+                ),
                 SizedBox(
                   height: 20,
                 ),
