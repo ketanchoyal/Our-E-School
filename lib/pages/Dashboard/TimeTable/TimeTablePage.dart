@@ -41,26 +41,7 @@ class _TimeTablePageState extends State<TimeTablePage>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: <Widget>[
-          TimeTable(
-            color: Colors.orangeAccent,
-          ),
-          TimeTable(
-            color: Colors.orange,
-          ),
-          TimeTable(
-            color: Colors.blueAccent,
-          ),
-          TimeTable(
-            color: Colors.blue,
-          ),
-          TimeTable(
-            color: Colors.white,
-          ),
-          TimeTable(
-            color: Colors.redAccent,
-          ),
-        ],
+        children: List.generate(tabNames.length, (index) => TimeTable())
       ),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
@@ -71,7 +52,6 @@ class _TimeTablePageState extends State<TimeTablePage>
               color: Theme.of(context).primaryColor,
               child: TabBar(
                 indicatorColor: Colors.white,
-                
                 controller: _tabController,
                 isScrollable: true,
                 tabs: List.generate(tabNames.length, (index) {
@@ -81,9 +61,7 @@ class _TimeTablePageState extends State<TimeTablePage>
                       child: Text(
                         tabNames[index].toUpperCase(),
                         style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600
-                        ),
+                            fontSize: 18, fontWeight: FontWeight.w600),
                       ),
                     ),
                   );

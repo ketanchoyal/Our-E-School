@@ -19,7 +19,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var currentIndex = 0;
   Color background = Colors.white;
-  bool isTeacher = false;
+  bool isTeacher = true;
   String pageName = 'Home';
 
   List<Widget> pages = [
@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    floatingButtonVisibility();
+    // floatingButtonVisibility();
   }
 
   @override

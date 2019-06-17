@@ -36,36 +36,39 @@ I want to perform login and call a function for that, this function can either r
       // floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: Visibility(
         visible: isTeacher,
-        child: Stack(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.bottomRight,
-              child: FloatingActionButton(
-                elevation: 12,
-                onPressed: () {
-                  kopenPageBottom(context, CreateAnnouncement());
-                },
-                child: Icon(Icons.add),
-                backgroundColor: Colors.red,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 31),
-              child: Align(
-                alignment: Alignment.bottomLeft,
+        child: Visibility(
+          visible: isTeacher,
+          child: Stack(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
-                  heroTag: 'abc',
                   elevation: 12,
                   onPressed: () {
-                    //Filter Posts Code Here
-                    filterDialogBox(context);
+                    kopenPageBottom(context, CreateAnnouncement());
                   },
-                  child: Icon(Icons.filter_list),
+                  child: Icon(Icons.add),
                   backgroundColor: Colors.red,
                 ),
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.only(left: 31),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: FloatingActionButton(
+                    heroTag: 'abc',
+                    elevation: 12,
+                    onPressed: () {
+                      //Filter Posts Code Here
+                      filterDialogBox(context);
+                    },
+                    child: Icon(Icons.filter_list),
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       body: ListView.builder(

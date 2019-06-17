@@ -2,6 +2,7 @@ import 'package:acadamicConnect/Components/ColumnReusableCardButton.dart';
 import 'package:acadamicConnect/Components/RowReusableCardButton.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
+import 'package:acadamicConnect/pages/Dashboard/QuizPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/ResultPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -110,7 +111,9 @@ class _DashboardState extends State<Dashboard> {
                             RowReusableCardButton(
                               icon: Icons.assistant_photo,
                               label: 'Exams',
-                              onPressed: () {},
+                              onPressed: () {
+                                kopenPageBottom(context, QuizPage());
+                              },
                             ),
                             RowReusableCardButton(
                           icon: FontAwesomeIcons.book,
