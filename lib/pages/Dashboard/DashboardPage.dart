@@ -22,100 +22,141 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        dragStartBehavior: DragStartBehavior.start,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            // mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Container(
-                height: 110,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    RowReusableCardButton(
-                      label: 'E-Card',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => ECardPage(),
-                          ),
-                        );
-                      },
-                      icon: Icons.perm_contact_calendar,
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Expanded(
+              child: ListView(
+                children: [
+                  Container(
+                    height: 110,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        RowReusableCardButton(
+                          label: 'E-Card',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => ECardPage(),
+                              ),
+                            );
+                          },
+                          icon: Icons.perm_contact_calendar,
+                        ),
+                        RowReusableCardButton(
+                          icon: Icons.av_timer,
+                          label: 'Time Table',
+                          onPressed: () {
+                            kopenPage(context, TimeTablePage());
+                          },
+                        ),
+                      ],
                     ),
-                    RowReusableCardButton(
-                      icon: Icons.av_timer,
-                      label: 'Time Table',
-                      onPressed: () {
-                        kopenPage(context, TimeTablePage());
-                      },
+                  ),
+                  ColumnReusableCardButton(
+                    label: 'Announcements',
+                    icon: CustomIcons.megaphone,
+                    onPressed: () {
+                      kopenPage(context, AnnouncementPage());
+                    },
+                  ),
+                  Container(
+                    height: 110,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        RowReusableCardButton(
+                          icon: CustomIcons.traveler_with_a_suitcase,
+                          label: 'Holidays',
+                          onPressed: () {},
+                        ),
+                        RowReusableCardButton(
+                          icon: Icons.assessment,
+                          label: 'Results',
+                          onPressed: () {
+                            kopenPage(context, ResultPage());
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              ColumnReusableCardButton(
-                label: 'Announcements',
-                icon: CustomIcons.megaphone,
-                onPressed: () {
-                  kopenPage(context, AnnouncementPage());
-                },
-              ),
-              Container(
-                height: 110,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    RowReusableCardButton(
-                      icon: FontAwesomeIcons.book,
-                      label: 'E-Book',
-                      onPressed: () {},
+                  ),
+                  ColumnReusableCardButton(
+                    label: 'Assignments',
+                    onPressed: () {
+                      kopenPage(context, AssignmentsPage());
+                    },
+                    icon: Icons.assignment,
+                  ),
+                  ColumnReusableCardButton(
+                    height: 50,
+                    label: 'Exclusive Features',
+                    onPressed: null,
+                    icon: null,
+                    directionIcon: Icons.keyboard_arrow_down,
+                  ),
+                  Container(
+                    height: 110,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        RowReusableCardButton(
+                          icon: FontAwesomeIcons.book,
+                          label: 'E-Book',
+                          onPressed: () {},
+                        ),
+                        RowReusableCardButton(
+                          icon: FontAwesomeIcons.cameraRetro,
+                          label: 'Video',
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
-                    RowReusableCardButton(
-                      icon: FontAwesomeIcons.cameraRetro,
-                      label: 'Video',
-                      onPressed: () {},
+                  ),
+                  SizedBox(
+                    height: 110,
+                    child: ListView(
+                      // padding: EdgeInsets.only(left: 10, right: 10),
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            RowReusableCardButton(
+                              icon: Icons.assistant_photo,
+                              label: 'Exams',
+                              onPressed: () {},
+                            ),
+                            RowReusableCardButton(
+                              icon: FontAwesomeIcons.female,
+                              label: 'Parenting Guide',
+                              onPressed: () {
+                                // kopenPage(context, ResultPage());
+                              },
+                            ),
+                            RowReusableCardButton(
+                              icon: FontAwesomeIcons.medkit,
+                              label: 'Health Tips',
+                              onPressed: () {},
+                            ),
+                            RowReusableCardButton(
+                              icon: FontAwesomeIcons.userMd,
+                              label: 'Vaccination',
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              ColumnReusableCardButton(
-                label: 'Assignments',
-                onPressed: () {
-                  kopenPage(context, AssignmentsPage());
-                },
-                icon: Icons.assignment,
-              ),
-              Container(
-                height: 110,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    RowReusableCardButton(
-                      icon: Icons.assistant_photo,
-                      label: 'Exams',
-                      onPressed: () {},
-                    ),
-                    RowReusableCardButton(
-                      icon: Icons.assessment,
-                      label: 'Results',
-                      onPressed: () {
-                        kopenPage(context, ResultPage());
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              ColumnReusableCardButton(
-                icon: CustomIcons.traveler_with_a_suitcase,
-                label: 'Holidays',
-                onPressed: () {},
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

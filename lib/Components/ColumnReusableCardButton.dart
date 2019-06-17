@@ -6,12 +6,14 @@ class ColumnReusableCardButton extends StatelessWidget {
   final String label;
   final IconData icon;
   final double height;
+  final IconData directionIcon;
 
   const ColumnReusableCardButton({
     @required this.onPressed,
     @required this.icon,
     @required this.label,
-    this.height
+    this.height,
+    this.directionIcon
   });
 
   @override
@@ -39,7 +41,7 @@ class ColumnReusableCardButton extends StatelessWidget {
               ),
             ),
             Icon(
-              Icons.chevron_right,
+              directionIcon ?? Icons.chevron_right,
               size: 50,
             )
           ],
