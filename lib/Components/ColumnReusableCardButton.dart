@@ -7,19 +7,21 @@ class ColumnReusableCardButton extends StatelessWidget {
   final IconData icon;
   final double height;
   final IconData directionIcon;
+  final double elevation;
 
   const ColumnReusableCardButton({
     @required this.onPressed,
     @required this.icon,
     @required this.label,
     this.height,
-    this.directionIcon
+    this.directionIcon,
+    this.elevation
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
+      elevation: elevation ?? 4,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         height: height == null ? 80 : height,

@@ -98,29 +98,10 @@ class _DashboardState extends State<Dashboard> {
                     icon: null,
                     directionIcon: Icons.keyboard_arrow_down,
                   ),
-                  // Container(
-                  //   height: 110,
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //     children: <Widget>[
-                  //       RowReusableCardButton(
-                  //         icon: FontAwesomeIcons.book,
-                  //         label: 'E-Book',
-                  //         onPressed: () {},
-                  //       ),
-                  //       RowReusableCardButton(
-                  //         icon: FontAwesomeIcons.cameraRetro,
-                  //         label: 'Video',
-                  //         onPressed: () {},
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                   SizedBox(
                     height: 110,
                     child: ListView(
                       shrinkWrap: false,
-                      // padding: EdgeInsets.only(left: 10, right: 10),
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
                         Row(
@@ -156,11 +137,6 @@ class _DashboardState extends State<Dashboard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            // RowReusableCardButton(
-                            //   icon: Icons.assistant_photo,
-                            //   label: 'Exams',
-                            //   onPressed: () {},
-                            // ),
                             RowReusableCardButton(
                               icon: FontAwesomeIcons.female,
                               label: 'Parenting Guide',
