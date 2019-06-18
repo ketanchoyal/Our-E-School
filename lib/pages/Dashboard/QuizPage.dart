@@ -7,14 +7,35 @@ import 'package:provider/provider.dart';
 
 class QuizState with ChangeNotifier {
   double _progress = 0;
-  String _selected;
+  var _selected = '';
+  List<String> _selectedList = [];
   bool _lastQuestion = false;
+  var _selectedAnswerSet = Map<String, List<String>>();
 
   final PageController controller = PageController();
 
   get progress => _progress;
   get selected => _selected;
   get lastQuestion => _lastQuestion;
+  List<String> get selectedList => _selectedList;
+  Map<String, List<String>> get selectedAnswerSet => _selectedAnswerSet;
+
+  set selectedList(var newValue) {
+    if (_selectedList.contains(newValue.toString())) {
+      _selectedList.remove(newValue.toString());
+    } else {
+      _selectedList.add(newValue.toString());
+    }
+
+    notifyListeners();
+  }
+
+  // set selectedAnswerSet(Map<String, List<String>> newValue) {
+  //   for (var key in newValue.keys) {
+  //     _selectedAnswerSet[key] = newValue[key];
+  //     notifyListeners();
+  //   }
+  // }
 
   set lastQuestion(bool newValue) {
     _lastQuestion = newValue;
@@ -26,7 +47,7 @@ class QuizState with ChangeNotifier {
     notifyListeners();
   }
 
-  set selected(String newValue) {
+  set selected(var newValue) {
     _selected = newValue;
     notifyListeners();
   }
@@ -36,6 +57,8 @@ class QuizState with ChangeNotifier {
       duration: Duration(milliseconds: 500),
       curve: Curves.easeOut,
     );
+    await _selectedList.clear();
+    _selected = '';
   }
 }
 
@@ -75,17 +98,16 @@ class _QuizPageState extends State<QuizPage> {
                 // itemCount: questions.length,
 
                 itemBuilder: (BuildContext context, int idx) {
+                  if (idx == questions.length) {
+                    state.lastQuestion = true;
+                  }
                   if (idx == 0) {
                     return StartPage();
+                  } else if (idx == questions.length + 1) {
+                    return FinishPage();
                   } else {
-                    if (idx == questions.length) {
-                      state.lastQuestion = true;
-                    }
                     return QuestionPage(question: questions[idx - 1]);
                   }
-                  // return QuestionPage(
-                  //   question: questions[idx],
-                  // );
                 },
               ),
             ),
@@ -97,8 +119,8 @@ class _QuizPageState extends State<QuizPage> {
 }
 
 class StartPage extends StatelessWidget {
-  final PageController controller;
-  StartPage({this.controller});
+  // final PageController controller;
+  // StartPage({this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +159,49 @@ class StartPage extends StatelessWidget {
   }
 }
 
+class FinishPage extends StatelessWidget {
+  // final PageController controller;
+  // StartPage({this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    var state = Provider.of<QuizState>(context);
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Topic Name', style: Theme.of(context).textTheme.headline),
+          Divider(),
+          Expanded(
+            child: Text(state.selectedAnswerSet.toString()),
+          ),
+          MaterialButton(
+            color: Colors.green,
+            // minWidth: 100,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.assessment, color: Colors.white),
+                SizedBox(
+                  width: 6,
+                ),
+                Text(
+                  'Finish!',
+                  style: ktitleStyle.copyWith(color: Colors.white),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class QuestionPage extends StatelessWidget {
   final Question question;
   QuestionPage({this.question});
@@ -163,41 +228,15 @@ class QuestionPage extends StatelessWidget {
             // padding: EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: question.options.map((option) {
-                return Container(
-                  height: 70,
-                  margin: EdgeInsets.only(bottom: 10),
-                  color: Colors.black26,
-                  child: InkWell(
-                    onTap: () {
-                      state.selected = option;
-                      // _bottomSheet(context, opt);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(16),
-                      child: Row(
-                        children: [
-                          Icon(
-                            state.selected == option
-                                ? FontAwesomeIcons.checkCircle
-                                : FontAwesomeIcons.circle,
-                            size: 30,
-                          ),
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 16),
-                              child: Text(
-                                option,
-                                style: Theme.of(context).textTheme.body2,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
+              children: question.options.map(
+                (option) {
+                  if (question.type == QuestionType.MULTIPLE_CHOICE) {
+                    return multipleChoiceQuestions(state, option, context);
+                  } else if (question.type == QuestionType.MULTIPLE_ANSWERS) {
+                    return multipleAnswersQuestion(state, option, context);
+                  }
+                },
+              ).toList(),
             ),
           ),
           Align(
@@ -206,14 +245,124 @@ class QuestionPage extends StatelessWidget {
               // color: Colors.green,
               minWidth: 80,
               height: 40,
-              onPressed: state.lastQuestion ? null : state.nextPage,
+              onPressed: () async {
+                if (question.type == QuestionType.MULTIPLE_ANSWERS) {
+                  if (state.selectedList.isEmpty ||
+                      state.selectedList == null) {
+                    state.selectedAnswerSet[question.id] = ['Left'];
+                  }
+                } else if (question.type == QuestionType.MULTIPLE_CHOICE) {
+                  if(state.selected == '') {
+                    state.selectedAnswerSet[question.id] = ['Left'];
+                  }
+                }
+
+                state.nextPage();
+              },
               child: Text(
-                'Next',
+                state.lastQuestion ? 'Finish' : 'Next',
                 style: ktitleStyle,
               ),
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Widget multipleChoiceQuestions(
+      QuizState state, option, BuildContext context) {
+    return Container(
+      height: 70,
+      margin: EdgeInsets.only(bottom: 10),
+      color: Colors.black26,
+      child: InkWell(
+        onTap: () {
+          state.selected = option.toString();
+          state.selectedAnswerSet[question.id] = [option.toString()];
+
+          print(state.selectedList.toString());
+          print(state.selectedAnswerSet.toString());
+          // _bottomSheet(context, opt);
+        },
+        child: Container(
+          padding: EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Icon(
+                state.selected == option.toString()
+                    ? FontAwesomeIcons.checkCircle
+                    : FontAwesomeIcons.circle,
+                size: 30,
+              ),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(left: 16),
+                  child: Text(
+                    option.toString(),
+                    style: Theme.of(context).textTheme.body2,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget multipleAnswersQuestion(
+      QuizState state, option, BuildContext context) {
+    return Container(
+      height: 70,
+      margin: EdgeInsets.only(bottom: 10),
+      color: Colors.black26,
+      child: InkWell(
+        onTap: () {
+          state.selectedList = option.toString();
+          if (state.selectedAnswerSet == null) {
+            state.selectedAnswerSet[question.id] = [option.toString()];
+          } else if (state.selectedAnswerSet != null) {
+            if (state.selectedAnswerSet.containsKey(question.id)) {
+              if (state.selectedAnswerSet[question.id]
+                  .contains(option.toString())) {
+                state.selectedAnswerSet[question.id].remove(option.toString());
+              } else {
+                state.selectedAnswerSet[question.id].add(option.toString());
+              }
+            } else {
+              state.selectedAnswerSet[question.id] = [option.toString()];
+            }
+          }
+          print(state.selectedList.toString());
+          print(state.selectedAnswerSet.toString());
+
+          // _bottomSheet(context, opt);
+        },
+        child: Container(
+          padding: EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Icon(
+                state.selectedList.isNotEmpty
+                    ? state.selectedList.contains(option)
+                        ? FontAwesomeIcons.checkSquare
+                        : FontAwesomeIcons.square
+                    : FontAwesomeIcons.square,
+                size: 30,
+              ),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(left: 16),
+                  child: Text(
+                    option.toString(),
+                    style: Theme.of(context).textTheme.body2,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
