@@ -92,13 +92,6 @@ class _DashboardState extends State<Dashboard> {
                     },
                     icon: Icons.assignment,
                   ),
-                  ColumnReusableCardButton(
-                    height: 50,
-                    label: 'Exclusive Features',
-                    onPressed: null,
-                    icon: null,
-                    directionIcon: Icons.keyboard_arrow_down,
-                  ),
                   SizedBox(
                     height: 110,
                     child: ListView(
@@ -108,19 +101,19 @@ class _DashboardState extends State<Dashboard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            RowReusableCardButton(
+                            RowReusableCardButtonBanner(
                               icon: Icons.assistant_photo,
                               label: 'Exams',
                               onPressed: () {
                                 kopenPageBottom(context, QuizPage());
                               },
                             ),
-                            RowReusableCardButton(
+                            RowReusableCardButtonBanner(
                           icon: FontAwesomeIcons.book,
                           label: 'E-Book',
                           onPressed: () {},
                         ),
-                        RowReusableCardButton(
+                        RowReusableCardButtonBanner(
                           icon: FontAwesomeIcons.cameraRetro,
                           label: 'Video',
                           onPressed: () {},
@@ -140,19 +133,19 @@ class _DashboardState extends State<Dashboard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            RowReusableCardButton(
+                            RowReusableCardButtonBanner(
                               icon: FontAwesomeIcons.female,
                               label: 'Parenting Guide',
                               onPressed: () {
                                 // kopenPage(context, ResultPage());
                               },
                             ),
-                            RowReusableCardButton(
+                            RowReusableCardButtonBanner(
                               icon: FontAwesomeIcons.medkit,
                               label: 'Health Tips',
                               onPressed: () {},
                             ),
-                            RowReusableCardButton(
+                            RowReusableCardButtonBanner(
                               icon: FontAwesomeIcons.userMd,
                               label: 'Vaccination',
                               onPressed: () {},
@@ -161,6 +154,13 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     ),
+                  ),
+                  ColumnReusableCardButton(
+                    // height: 50,
+                    label: 'Offers',
+                    onPressed: (){},
+                    icon: Icons.receipt,
+                    directionIcon: Icons.chevron_right,
                   ),
                 ],
               ),

@@ -11,8 +11,10 @@ class QuizState with ChangeNotifier {
   List<String> _selectedList = [];
   bool _lastQuestion = false;
   var _selectedAnswerSet = Map<String, List<String>>();
+  Duration duration = Duration(seconds: 5);
 
   final PageController controller = PageController();
+  bool showTimer = false;
 
   get progress => _progress;
   get selected => _selected;
@@ -26,16 +28,8 @@ class QuizState with ChangeNotifier {
     } else {
       _selectedList.add(newValue.toString());
     }
-
     notifyListeners();
   }
-
-  // set selectedAnswerSet(Map<String, List<String>> newValue) {
-  //   for (var key in newValue.keys) {
-  //     _selectedAnswerSet[key] = newValue[key];
-  //     notifyListeners();
-  //   }
-  // }
 
   set lastQuestion(bool newValue) {
     _lastQuestion = newValue;
@@ -83,8 +77,22 @@ class _QuizPageState extends State<QuizPage> {
           var state = Provider.of<QuizState>(context);
           return Scaffold(
             appBar: AppBar(
+              // leading: state.timer,
               backgroundColor: Theme.of(context).canvasColor.withOpacity(0.5),
-              title: AnimatedProgressbar(value: state.progress),
+              title: AnimatedProgressbar(
+                duration: state.duration,
+                value: state.progress,
+                start: state.showTimer,
+                onFinish: () {
+                  var currentpage = state.controller.page - 1;
+                  var totalPage = questions.length;
+
+                  // for (int i = currentpage.toInt() in questions) {
+
+                  // }
+
+                },
+              ),
               leading: CloseButton(),
             ),
             body: SafeArea(
@@ -125,6 +133,7 @@ class StartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var state = Provider.of<QuizState>(context);
+    state.showTimer = true;
     return Container(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -185,7 +194,7 @@ class FinishPage extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Icon(Icons.assessment, color: Colors.white),
+                Icon(Icons.check_circle_outline, color: Colors.white),
                 SizedBox(
                   width: 6,
                 ),
@@ -200,6 +209,21 @@ class FinishPage extends StatelessWidget {
       ),
     );
   }
+}
+
+nextPage(Question question, BuildContext context) {
+  var state = Provider.of<QuizState>(context);
+  if (question.type == QuestionType.MULTIPLE_ANSWERS) {
+    if (state.selectedList.isEmpty || state.selectedList == null) {
+      state.selectedAnswerSet[question.id] = ['Left'];
+    }
+  } else if (question.type == QuestionType.MULTIPLE_CHOICE) {
+    if (state.selected == '') {
+      state.selectedAnswerSet[question.id] = ['Left'];
+    }
+  }
+
+  state.nextPage();
 }
 
 class QuestionPage extends StatelessWidget {
@@ -246,25 +270,14 @@ class QuestionPage extends StatelessWidget {
               minWidth: 80,
               height: 40,
               onPressed: () async {
-                if (question.type == QuestionType.MULTIPLE_ANSWERS) {
-                  if (state.selectedList.isEmpty ||
-                      state.selectedList == null) {
-                    state.selectedAnswerSet[question.id] = ['Left'];
-                  }
-                } else if (question.type == QuestionType.MULTIPLE_CHOICE) {
-                  if(state.selected == '') {
-                    state.selectedAnswerSet[question.id] = ['Left'];
-                  }
-                }
-
-                state.nextPage();
+                nextPage(question,context);
               },
               child: Text(
                 state.lastQuestion ? 'Finish' : 'Next',
                 style: ktitleStyle,
               ),
             ),
-          )
+          ),
         ],
       ),
     );

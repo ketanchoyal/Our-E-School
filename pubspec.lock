@@ -43,6 +43,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  countdown_flutter:
+    dependency: "direct main"
+    description:
+      name: countdown_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   crypto:
     dependency: transitive
     description:

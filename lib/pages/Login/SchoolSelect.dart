@@ -1,6 +1,6 @@
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
-import 'package:acadamicConnect/pages/Home.dart';
+import 'package:acadamicConnect/pages/Login/LoginPage.dart';
 import 'package:flutter/material.dart';
 
 class SelectSchoolPage extends StatefulWidget {
@@ -30,7 +30,7 @@ class _SelectSchoolPageState extends State<SelectSchoolPage> {
                   minWidth: MediaQuery.of(context).size.width,
                   height: 60,
                   onPressed: () {
-                    kopenPage(context, Home());
+                    kopenPage(context, LoginPage());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

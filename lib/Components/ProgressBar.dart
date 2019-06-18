@@ -1,10 +1,14 @@
+import 'package:countdown_flutter/countdown_flutter.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedProgressbar extends StatelessWidget {
   final double value;
   final double height;
+  final bool start;
+  final Duration duration;
+  final Function onFinish;
 
-  AnimatedProgressbar({Key key, @required this.value, this.height = 12})
+  AnimatedProgressbar({Key key, @required this.value, this.height = 12, this.start = false, @required this.duration, this.onFinish})
       : super(key: key);
 
   @override
@@ -12,31 +16,50 @@ class AnimatedProgressbar extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints box) {
         return Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(5),
           width: box.maxWidth,
           child: Stack(
             children: [
-              Container(
-                height: height,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).canvasColor,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(height),
+              Positioned(
+                top: 10,
+                right: 5,
+                left: 5,
+                child: Container(
+                  height: height,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).canvasColor,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(height),
+                    ),
                   ),
                 ),
               ),
-              AnimatedContainer(
-                duration: Duration(milliseconds: 800),
-                curve: Curves.easeOutCubic,
-                height: height,
-                width: box.maxWidth * _floor(value),
-                decoration: BoxDecoration(
-                  color: _colorGen(value),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(height),
+              Positioned(
+                top: 10,
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 800),
+                  curve: Curves.easeOutCubic,
+                  height: height,
+                  width: box.maxWidth * _floor(value),
+                  decoration: BoxDecoration(
+                    color: _colorGen(value),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(height),
+                    ),
                   ),
                 ),
               ),
+              start ? Positioned(
+                bottom: 0,
+                left: MediaQuery.of(context).size.width / 2 - 100,
+                child: CountdownFormatted(
+                  onFinish: onFinish,
+                  duration: duration,
+                  builder: (BuildContext ctx, String remaining) {
+                    return Text(remaining, style: TextStyle(fontSize: 15),); // 01:00:00
+                  },
+                ),
+              ) : Container(),
             ],
           ),
         );
