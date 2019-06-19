@@ -31,9 +31,9 @@ class _TopBarState extends State<TopBar> {
             children: <Widget>[
               Hero(
                 tag: 'topBarBtn',
-                child: Card(
-                  elevation: 10,
-                  shape: kBackButtonShape,
+                child: Container(
+                  // elevation: 10,
+                  // shape: kBackButtonShape,
                   child: MaterialButton(
                     height: 50,
                     minWidth: 50,
@@ -54,7 +54,7 @@ class _TopBarState extends State<TopBar> {
                   elevation: 10,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
+                      // bottomLeft: Radius.circular(30),
                     ),
                   ),
                   child: InkWell(

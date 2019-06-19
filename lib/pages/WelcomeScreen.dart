@@ -154,12 +154,12 @@ Check School posts to stay updated with school news.''',
                   height: 50,
                   minWidth: 300,
                   elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      // bottomRight: Radius.elliptical(40, 1),
-                      topRight: Radius.circular(1000),
-                    ),
-                  ),
+                  // shape: RoundedRectangleBorder(
+                  //   borderRadius: BorderRadius.only(
+                  //     // bottomRight: Radius.elliptical(40, 1),
+                  //     topRight: Radius.circular(1000),
+                  //   ),
+                  // ),
                   onPressed: () {
                     Navigator.push(
                       context,

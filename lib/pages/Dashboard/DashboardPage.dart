@@ -34,7 +34,7 @@ class _DashboardState extends State<Dashboard> {
                   Container(
                     height: 110,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         RowReusableCardButton(
                           label: 'E-Card',
@@ -68,7 +68,7 @@ class _DashboardState extends State<Dashboard> {
                   Container(
                     height: 110,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         RowReusableCardButton(
                           icon: CustomIcons.traveler_with_a_suitcase,
@@ -99,7 +99,7 @@ class _DashboardState extends State<Dashboard> {
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             RowReusableCardButtonBanner(
                               icon: Icons.assistant_photo,

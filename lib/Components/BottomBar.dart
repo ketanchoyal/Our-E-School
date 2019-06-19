@@ -1,5 +1,4 @@
 import 'dart:math' as math;
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
@@ -105,14 +104,14 @@ class _BottomNavigationTile extends StatelessWidget {
                   : Colors.transparent,
               highlightColor: Colors.transparent,
               child: Container(
-                height: 48,
+                height: 45,
                 decoration: BoxDecoration(
                     color: selected
                         ? item.backgroundColor.withOpacity(opacity)
                         : Colors.transparent,
                     borderRadius: BorderRadius.horizontal(
-                      right: Radius.circular(50),
-                      left: Radius.circular(50),
+                      // right: Radius.circular(50),
+                      // left: Radius.circular(50),
                     )),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -365,7 +364,7 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
   Widget _inner(double additionalBottomPadding) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: 5,
+        horizontal: 15,
       ),
       child: ConstrainedBox(
         constraints: BoxConstraints(

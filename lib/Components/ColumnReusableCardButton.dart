@@ -7,46 +7,54 @@ class ColumnReusableCardButton extends StatelessWidget {
   final IconData icon;
   final double height;
   final IconData directionIcon;
-  final double elevation;
+  final Color tileColor;
+  // final double elevation;
 
   const ColumnReusableCardButton({
     @required this.onPressed,
     @required this.icon,
     @required this.label,
+    @required this.tileColor,
     this.height,
     this.directionIcon,
-    this.elevation
+    // this.elevation
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: elevation ?? 4,
-      child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
-        height: height == null ? 80 : height,
-        onPressed: onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Icon(
-              icon,
-              size: 40,
-              color: Colors.redAccent,
-            ),
-            Text(
-              label,
-              maxLines: 2,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Container(
+        color: tileColor ?? Colors.green,
+        // elevation: elevation ?? 4,
+        child: MaterialButton(
+          minWidth: MediaQuery.of(context).size.width,
+          height: height == null ? 80 : height,
+          onPressed: onPressed,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Icon(
+                icon,
+                size: 40,
+                color: Colors.white,
               ),
-            ),
-            Icon(
-              directionIcon ?? Icons.chevron_right,
-              size: 50,
-            )
-          ],
+              Text(
+                label,
+                maxLines: 2,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600
+                ),
+              ),
+              Icon(
+                directionIcon ?? Icons.chevron_right,
+                color: Colors.white,
+                size: 50,
+              )
+            ],
+          ),
         ),
       ),
     );
