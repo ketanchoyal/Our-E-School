@@ -16,14 +16,16 @@ class AnimatedProgressbar extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints box) {
         return Container(
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.only(left:0, top: 15, right: 5),
           width: box.maxWidth,
           child: Stack(
             children: [
-              Positioned(
-                top: 10,
-                right: 5,
-                left: 5,
+              
+              Align(
+                alignment: Alignment.topLeft,
+                // top: 10,
+                // right: 5,
+                // left: 5,
                 child: Container(
                   height: height,
                   decoration: BoxDecoration(
@@ -34,8 +36,11 @@ class AnimatedProgressbar extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                top: 10,
+              Align(
+                alignment: Alignment.topLeft,
+                // top: 10,
+                // right: 5,
+                // left: 5,
                 child: AnimatedContainer(
                   duration: Duration(milliseconds: 800),
                   curve: Curves.easeOutCubic,
@@ -49,9 +54,8 @@ class AnimatedProgressbar extends StatelessWidget {
                   ),
                 ),
               ),
-              start ? Positioned(
-                bottom: 0,
-                left: MediaQuery.of(context).size.width / 2 - 100,
+              start ? Align(
+                alignment: Alignment.bottomRight,
                 child: CountdownFormatted(
                   onFinish: onFinish,
                   duration: duration,

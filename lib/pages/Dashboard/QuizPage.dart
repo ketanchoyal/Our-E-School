@@ -48,11 +48,23 @@ class QuizState with ChangeNotifier {
 
   void nextPage() async {
     await controller.nextPage(
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 400),
       curve: Curves.easeOut,
     );
     await _selectedList.clear();
     _selected = '';
+  }
+
+  void timeUp(BuildContext context) async {
+    var currentpage = controller.page;
+    var totalPage = questions.length;
+
+    print('TotalPage' + totalPage.toString());
+    for (var i = currentpage.toInt() + 1; i <= totalPage +1; i++) {
+      print('CurrentPage' + i.toString());
+      await controller.animateToPage(i,
+          curve: Curves.easeOut, duration: Duration(milliseconds: 50));
+    }
   }
 }
 
@@ -83,14 +95,8 @@ class _QuizPageState extends State<QuizPage> {
                 duration: state.duration,
                 value: state.progress,
                 start: state.showTimer,
-                onFinish: () {
-                  var currentpage = state.controller.page - 1;
-                  var totalPage = questions.length;
-
-                  // for (int i = currentpage.toInt() in questions) {
-
-                  // }
-
+                onFinish: () async {
+                  state.timeUp(context);
                 },
               ),
               leading: CloseButton(),
@@ -211,21 +217,6 @@ class FinishPage extends StatelessWidget {
   }
 }
 
-nextPage(Question question, BuildContext context) {
-  var state = Provider.of<QuizState>(context);
-  if (question.type == QuestionType.MULTIPLE_ANSWERS) {
-    if (state.selectedList.isEmpty || state.selectedList == null) {
-      state.selectedAnswerSet[question.id] = ['Left'];
-    }
-  } else if (question.type == QuestionType.MULTIPLE_CHOICE) {
-    if (state.selected == '') {
-      state.selectedAnswerSet[question.id] = ['Left'];
-    }
-  }
-
-  state.nextPage();
-}
-
 class QuestionPage extends StatelessWidget {
   final Question question;
   QuestionPage({this.question});
@@ -254,6 +245,17 @@ class QuestionPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: question.options.map(
                 (option) {
+                  //Mark Question as left initially if user ticks any answer it'll get changed
+                  if (question.type == QuestionType.MULTIPLE_ANSWERS) {
+                    if (state.selectedList.isEmpty ||
+                        state.selectedList == null) {
+                      state.selectedAnswerSet[question.id] = ['Left'];
+                    }
+                  } else if (question.type == QuestionType.MULTIPLE_CHOICE) {
+                    if (state.selected == '') {
+                      state.selectedAnswerSet[question.id] = ['Left'];
+                    }
+                  }
                   if (question.type == QuestionType.MULTIPLE_CHOICE) {
                     return multipleChoiceQuestions(state, option, context);
                   } else if (question.type == QuestionType.MULTIPLE_ANSWERS) {
@@ -270,7 +272,7 @@ class QuestionPage extends StatelessWidget {
               minWidth: 80,
               height: 40,
               onPressed: () async {
-                nextPage(question,context);
+                state.nextPage();
               },
               child: Text(
                 state.lastQuestion ? 'Finish' : 'Next',
@@ -337,6 +339,10 @@ class QuestionPage extends StatelessWidget {
             state.selectedAnswerSet[question.id] = [option.toString()];
           } else if (state.selectedAnswerSet != null) {
             if (state.selectedAnswerSet.containsKey(question.id)) {
+              if (state.selectedAnswerSet[question.id]
+                  .contains('Left')) {
+                state.selectedAnswerSet[question.id].remove('Left');
+              }
               if (state.selectedAnswerSet[question.id]
                   .contains(option.toString())) {
                 state.selectedAnswerSet[question.id].remove(option.toString());
