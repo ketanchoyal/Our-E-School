@@ -3,16 +3,18 @@ import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatefulWidget {
-  ProfilePage({Key key}) : super(key: key);
+class GuardianProfilePage extends StatefulWidget {
+  final String title;
+  GuardianProfilePage({@required this.title, Key key}) : super(key: key);
 
-  _ProfilePageState createState() => _ProfilePageState();
+  _GuardianProfilePageState createState() => _GuardianProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _GuardianProfilePageState extends State<GuardianProfilePage> {
   DateTime dateOfBirth;
+  DateTime anniversaryDate;
 
-  Future<Null> _selectDate(BuildContext context) async {
+  Future<Null> _selectDate(BuildContext context, DateTime date) async {
     final DateTime picked = await showDatePicker(
         initialDatePickerMode: DatePickerMode.day,
         context: context,
@@ -21,7 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
         lastDate: DateTime(2101));
     if (picked != null) {
       setState(() {
-        dateOfBirth = picked;
+        date = picked;
       });
     }
   }
@@ -30,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopBar(
-        title: 'Profile',
+        title: widget.title,
         child: kBackBtn,
         onPressed: () {
           Navigator.pop(context);
@@ -61,7 +63,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: MediaQuery.of(context).size.width / 2.5,
                       width: MediaQuery.of(context).size.width / 2.5,
                       image: NetworkImage(
-                          "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png"),
+                        "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+                      ),
                     ),
                   ),
                 ],
@@ -75,49 +78,29 @@ class _ProfilePageState extends State<ProfilePage> {
                     ProfileFields(
                       width: MediaQuery.of(context).size.width,
                       hintText: 'One which your parents gave',
-                      labelText: 'Student/Teacher Name',
+                      labelText: 'Mother Name',
                       onChanged: (name) {},
                       initialText: '',
                     ),
                     ProfileFields(
                       width: MediaQuery.of(context).size.width,
-                      hintText: 'One which school gave',
-                      labelText: 'Student/Teacher Id',
-                      onChanged: (id) {},
-                      initialText: '',
+                      onTap: () async {
+                        await _selectDate(context, anniversaryDate);
+                      },
+                      labelText: 'Anniversary Date',
+                      textInputType: TextInputType.number,
+                      onChanged: (dob) {},
+                      hintText: '',
+                      initialText: anniversaryDate == null
+                          ? ''
+                          : anniversaryDate.toLocal().toString().substring(0, 10),
                     ),
                     Row(
-                      // mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        ProfileFields(
-                          labelText: 'Standard',
-                          onChanged: (std) {},
-                          hintText: '',
-                          initialText: '',
-                        ),
-                        ProfileFields(
-                          labelText: 'Division',
-                          onChanged: (div) {},
-                          hintText: '',
-                          initialText: '',
-                        ),
-                      ],
-                    ),
-                    ProfileFields(
-                      width: MediaQuery.of(context).size.width,
-                      hintText: 'Father/Mother Name',
-                      labelText: 'Guardian Name',
-                      onChanged: (guardianName) {},
-                      initialText: '',
-                    ),
-                    Row(
-                      // mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         ProfileFields(
                           onTap: () async {
-                            await _selectDate(context);
+                            await _selectDate(context, dateOfBirth);
                           },
                           labelText: 'DOB',
                           textInputType: TextInputType.number,
@@ -147,55 +130,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       onChanged: (id) {},
                       initialText: '',
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Text(
-                        'Guardian\'s Profile:',
-                        style: ktitleStyle.copyWith(
-                          fontWeight: FontWeight.w500,
-                          // color: kmainColorParents.withOpacity(0.4),
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        ReusableRoundedButton(
-                          elevation: 5,
-                          child: Text(
-                            'Mother',
-                            style: ktitleStyle.copyWith(
-                                color: Colors.white.withOpacity(0.8)),
-                          ),
-                          onPressed: () {},
-                          backgroundColor: kmainColorParents,
-                          height: 40,
-                        ),
-                        ReusableRoundedButton(
-                          elevation: 5,
-                          child: Text(
-                            'Father',
-                            style: ktitleStyle.copyWith(
-                                color: Colors.white.withOpacity(0.8)),
-                          ),
-                          onPressed: () {},
-                          backgroundColor: kmainColorParents,
-                          // height: 50,
-                        ),
-                        ReusableRoundedButton(
-                          elevation: 5,
-                          child: Text(
-                            'Guardian',
-                            style: ktitleStyle.copyWith(
-                                color: Colors.white.withOpacity(0.8)),
-                          ),
-                          onPressed: () {},
-                          backgroundColor: kmainColorParents,
-                          // height: 50,
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),

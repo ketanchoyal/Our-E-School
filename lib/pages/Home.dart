@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'Chat/ChatPage.dart';
 import 'Dashboard/Announcement/CreateAnnouncement.dart';
 import 'Dashboard/DashboardPage.dart';
-import 'ProfilePage.dart';
+import 'Profiles/ProfilePage.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);

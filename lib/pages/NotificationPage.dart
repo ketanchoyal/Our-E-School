@@ -1,7 +1,6 @@
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:flutter/material.dart';
-
-import 'ProfilePage.dart';
+import 'Profiles/ProfilePage.dart';
 
 class NotificationPage extends StatefulWidget {
   NotificationPage({Key key}) : super(key: key);
