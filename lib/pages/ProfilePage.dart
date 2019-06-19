@@ -1,3 +1,4 @@
+import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
+        initialDatePickerMode: DatePickerMode.day,
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(1990),
@@ -62,38 +64,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png"),
                     ),
                   ),
-                  // Card(
-                  //   elevation: 10,
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.all(Radius.circular(20)),
-                  //   ),
-                  //   child: Container(
-                  //     height: MediaQuery.of(context).size.width / 2.5,
-                  //     width: MediaQuery.of(context).size.width / 2.5,
-                  //     child: TextField(
-                  //       onChanged: (val) {},
-                  //       keyboardType: TextInputType.number,
-                  //       style: TextStyle(
-                  //         fontSize: 30,
-                  //         fontWeight: FontWeight.bold,
-                  //       ),
-                  //       // textAlign: TextAlign.center,
-                  //       decoration: kTextFieldDecoration.copyWith(
-                  //         labelText: 'Roll No.',
-                  //         // labelStyle: TextStyle(fontSize: 20),
-                  //         hintText: '',
-                  //         // contentPadding: EdgeInsets.symmetric(
-                  //         //   vertical: MediaQuery.of(context).size.width / 2.5,horizontal: 10),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     ProfileFields(
                       width: MediaQuery.of(context).size.width,
@@ -143,11 +120,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             await _selectDate(context);
                           },
                           labelText: 'DOB',
+                          textInputType: TextInputType.number,
                           onChanged: (dob) {},
                           hintText: '',
                           initialText: dateOfBirth == null
                               ? ''
-                              : dateOfBirth.toLocal().toString(),
+                              : dateOfBirth
+                                  .toLocal()
+                                  .toString()
+                                  .substring(0, 10),
                         ),
                         ProfileFields(
                           // width: MediaQuery.of(context).size.width,
@@ -160,11 +141,61 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     ProfileFields(
                       width: MediaQuery.of(context).size.width,
+                      textInputType: TextInputType.number,
                       hintText: 'Your parents..',
                       labelText: 'Mobile No',
                       onChanged: (id) {},
                       initialText: '',
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Guardian\'s Profile:',
+                        style: ktitleStyle.copyWith(
+                          fontWeight: FontWeight.w500,
+                          // color: kmainColorParents.withOpacity(0.4),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        ReusableRoundedButton(
+                          elevation: 5,
+                          child: Text(
+                            'Mother',
+                            style: ktitleStyle.copyWith(
+                                color: Colors.white.withOpacity(0.8)),
+                          ),
+                          onPressed: () {},
+                          backgroundColor: kmainColorParents,
+                          height: 40,
+                        ),
+                        ReusableRoundedButton(
+                          elevation: 5,
+                          child: Text(
+                            'Father',
+                            style: ktitleStyle.copyWith(
+                                color: Colors.white.withOpacity(0.8)),
+                          ),
+                          onPressed: () {},
+                          backgroundColor: kmainColorParents,
+                          // height: 50,
+                        ),
+                        ReusableRoundedButton(
+                          elevation: 5,
+                          child: Text(
+                            'Guardian',
+                            style: ktitleStyle.copyWith(
+                                color: Colors.white.withOpacity(0.8)),
+                          ),
+                          onPressed: () {},
+                          backgroundColor: kmainColorParents,
+                          // height: 50,
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
@@ -183,6 +214,7 @@ class ProfileFields extends StatelessWidget {
   final Function onChanged;
   final double width;
   final Function onTap;
+  final TextInputType textInputType;
 
   const ProfileFields(
       {this.initialText,
@@ -190,6 +222,7 @@ class ProfileFields extends StatelessWidget {
       this.hintText,
       @required this.onChanged,
       this.onTap,
+      this.textInputType,
       this.width});
 
   @override
@@ -201,7 +234,7 @@ class ProfileFields extends StatelessWidget {
         onTap: onTap,
         controller: TextEditingController(text: initialText),
         onChanged: onChanged,
-        keyboardType: TextInputType.text,
+        keyboardType: textInputType ?? TextInputType.text,
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w500,

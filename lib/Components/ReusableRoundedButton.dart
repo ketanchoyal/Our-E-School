@@ -6,10 +6,12 @@ class ReusableRoundedButton extends StatelessWidget {
   final double height;
   final Color backgroundColor;
   final Widget child;
+  final double elevation;
 
   const ReusableRoundedButton(
       {@required this.onPressed,
       this.height,
+      this.elevation,
       this.backgroundColor,
       @required this.child});
 
@@ -17,7 +19,7 @@ class ReusableRoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: backgroundColor,
-      elevation: 10,
+      elevation: elevation ?? 10,
       shape: kRoundedButtonShape,
       child: MaterialButton(
         height: height,

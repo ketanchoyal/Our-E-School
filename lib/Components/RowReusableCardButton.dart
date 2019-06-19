@@ -14,7 +14,7 @@ class RowReusableCardButton extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5),
       color: tileColor ?? Colors.amber,
-      child: new ReusableMaterialButton(onPressed: onPressed, icon: icon, label: label),
+      child: new _ReusableMaterialButton(onPressed: onPressed, icon: icon, label: label),
     );
   }
 }
@@ -38,7 +38,7 @@ class RowReusableCardButtonBanner extends StatelessWidget {
           child: Banner(
             location: BannerLocation.topStart,
             message: 'Premium',
-            child: new ReusableMaterialButton(onPressed: onPressed, icon: icon, label: label),
+            child: new _ReusableMaterialButton(onPressed: onPressed, icon: icon, label: label),
           ),
         ),
       ),
@@ -46,8 +46,8 @@ class RowReusableCardButtonBanner extends StatelessWidget {
   }
 }
 
-class ReusableMaterialButton extends StatelessWidget {
-  const ReusableMaterialButton({
+class _ReusableMaterialButton extends StatelessWidget {
+  const _ReusableMaterialButton({
     Key key,
     @required this.onPressed,
     @required this.icon,
