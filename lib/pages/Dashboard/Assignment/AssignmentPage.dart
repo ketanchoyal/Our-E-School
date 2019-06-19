@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:random_color/random_color.dart';
 
 import '../../PDFOpener.dart';
 
@@ -17,6 +18,7 @@ class AssignmentsPage extends StatefulWidget {
 
 class _AssignmentsPageState extends State<AssignmentsPage> {
   bool isTeacher = true;
+  RandomColor _randomColor = RandomColor();
 
   String _fileName;
   String _path;
@@ -66,6 +68,10 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
             child: ListView.builder(
               itemCount: 3,
               itemBuilder: (context, i) => ColumnReusableCardButton(
+                    tileColor: _randomColor.randomColor(
+                      colorHue: ColorHue.blue,
+                      colorSaturation: ColorSaturation.highSaturation
+                    ),
                     label: 'Subject $i',
                     icon: FontAwesomeIcons.bookOpen,
                     onPressed: () {
@@ -150,5 +156,4 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
   }
 }
 
-class AssignmentOpener {
-}
+class AssignmentOpener {}

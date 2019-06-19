@@ -37,6 +37,7 @@ class _DashboardState extends State<Dashboard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         RowReusableCardButton(
+                          tileColor: Colors.deepOrangeAccent,
                           label: 'E-Card',
                           onPressed: () {
                             Navigator.push(
@@ -49,6 +50,7 @@ class _DashboardState extends State<Dashboard> {
                           icon: Icons.perm_contact_calendar,
                         ),
                         RowReusableCardButton(
+                          tileColor: null,
                           icon: Icons.av_timer,
                           label: 'Time Table',
                           onPressed: () {
@@ -59,6 +61,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                   ColumnReusableCardButton(
+                    tileColor: Colors.orangeAccent,
                     label: 'Announcements',
                     icon: CustomIcons.megaphone,
                     onPressed: () {
@@ -71,11 +74,13 @@ class _DashboardState extends State<Dashboard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         RowReusableCardButton(
+                          tileColor: Colors.blueGrey,
                           icon: CustomIcons.traveler_with_a_suitcase,
                           label: 'Holidays',
                           onPressed: () {},
                         ),
                         RowReusableCardButton(
+                          tileColor: Colors.indigoAccent,
                           icon: Icons.assessment,
                           label: 'Results',
                           onPressed: () {
@@ -86,6 +91,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                   ColumnReusableCardButton(
+                    tileColor: Colors.lightGreen,
                     label: 'Assignments',
                     onPressed: () {
                       kopenPage(context, AssignmentsPage());
@@ -102,6 +108,7 @@ class _DashboardState extends State<Dashboard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             RowReusableCardButtonBanner(
+                              tileColor: Colors.red,
                               icon: Icons.assistant_photo,
                               label: 'Exams',
                               onPressed: () {
@@ -109,15 +116,17 @@ class _DashboardState extends State<Dashboard> {
                               },
                             ),
                             RowReusableCardButtonBanner(
-                          icon: FontAwesomeIcons.book,
-                          label: 'E-Book',
-                          onPressed: () {},
-                        ),
-                        RowReusableCardButtonBanner(
-                          icon: FontAwesomeIcons.cameraRetro,
-                          label: 'Video',
-                          onPressed: () {},
-                        ),
+                              tileColor: Colors.tealAccent,
+                              icon: FontAwesomeIcons.book,
+                              label: 'E-Book',
+                              onPressed: () {},
+                            ),
+                            RowReusableCardButtonBanner(
+                              tileColor: Colors.deepPurpleAccent,
+                              icon: FontAwesomeIcons.cameraRetro,
+                              label: 'Video',
+                              onPressed: () {},
+                            ),
                           ],
                         ),
                       ],
@@ -134,6 +143,7 @@ class _DashboardState extends State<Dashboard> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             RowReusableCardButtonBanner(
+                              tileColor: Colors.pinkAccent,
                               icon: FontAwesomeIcons.female,
                               label: 'Parenting Guide',
                               onPressed: () {
@@ -141,11 +151,13 @@ class _DashboardState extends State<Dashboard> {
                               },
                             ),
                             RowReusableCardButtonBanner(
+                              tileColor: Colors.black54,
                               icon: FontAwesomeIcons.medkit,
                               label: 'Health Tips',
                               onPressed: () {},
                             ),
                             RowReusableCardButtonBanner(
+                              tileColor: Colors.blue,
                               icon: FontAwesomeIcons.userMd,
                               label: 'Vaccination',
                               onPressed: () {},
@@ -156,9 +168,10 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                   ColumnReusableCardButton(
+                    tileColor: Colors.greenAccent,
                     // height: 50,
                     label: 'Offers',
-                    onPressed: (){},
+                    onPressed: () {},
                     icon: Icons.receipt,
                     directionIcon: Icons.chevron_right,
                   ),

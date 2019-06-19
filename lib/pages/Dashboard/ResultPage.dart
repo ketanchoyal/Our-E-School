@@ -3,6 +3,7 @@ import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/pages/PDFOpener.dart';
 import 'package:flutter/material.dart';
+import 'package:random_color/random_color.dart';
 
 class ResultPage extends StatefulWidget {
   static String pageLabel = 'Results';
@@ -13,6 +14,7 @@ class ResultPage extends StatefulWidget {
 
 class _ResultPageState extends State<ResultPage> {
   bool isTeacher = true;
+  RandomColor _randomColor = RandomColor();
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class _ResultPageState extends State<ResultPage> {
           child: ListView.builder(
             itemCount: 3,
             itemBuilder: (context, i) => ColumnReusableCardButton(
+                  tileColor: _randomColor.randomColor(colorHue: ColorHue.blue),
                   label: 'Semester $i',
                   icon: Icons.receipt,
                   onPressed: () {
