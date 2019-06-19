@@ -69,7 +69,8 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
               itemCount: 3,
               itemBuilder: (context, i) => ColumnReusableCardButton(
                     tileColor: _randomColor.randomColor(
-                      colorHue: ColorHue.orange,
+                      colorBrightness: ColorBrightness.veryDark,
+                      colorHue: ColorHue.purple,
                       colorSaturation: ColorSaturation.highSaturation
                     ),
                     label: 'Subject $i',
