@@ -1,7 +1,9 @@
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class GuardianProfilePage extends StatefulWidget {
   final String title;
@@ -13,6 +15,21 @@ class GuardianProfilePage extends StatefulWidget {
 class _GuardianProfilePageState extends State<GuardianProfilePage> {
   DateTime dateOfBirth;
   DateTime anniversaryDate;
+  String path = '';
+
+  Future _openFileExplorer(FileType _pickingType) async {
+    String _path = '';
+    if (_pickingType != FileType.CUSTOM) {
+      try {
+        _path = await FilePicker.getFilePath(type: _pickingType);
+      } on PlatformException catch (e) {
+        print("Unsupported operation" + e.toString());
+      }
+      if (!mounted) return '';
+
+      return _path;
+    }
+  }
 
   Future<Null> _selectDate(BuildContext context, DateTime date) async {
     final DateTime picked = await showDatePicker(
@@ -56,18 +73,55 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                 children: <Widget>[
                   Container(
                     constraints: BoxConstraints(maxHeight: 200, maxWidth: 200),
-                    child: Card(
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: Image(
-                        height: MediaQuery.of(context).size.width / 2.5,
-                        width: MediaQuery.of(context).size.width / 2.5,
-                        image: NetworkImage(
-                          "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+                    child: Stack(
+                      children: <Widget>[
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          child: Image(
+                            height: MediaQuery.of(context).size.width / 2.5,
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            image: path == '' ? NetworkImage(
+                                "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+                                ) : AssetImage(path),
+                          ),
                         ),
-                      ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            height: 45,
+                            width: 45,
+                            child: Card(
+                              elevation: 5,
+                              color: Colors.white70,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(30),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: IconButton(
+                                color: Colors.white,
+                                icon: Icon(
+                                  Icons.camera_alt,
+                                  color: Colors.black38,
+                                  size: 25,
+                                ),
+                                onPressed: () async {
+                                  String _path =
+                                      await _openFileExplorer(FileType.IMAGE);
+                                  setState(() {
+                                    path = _path;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

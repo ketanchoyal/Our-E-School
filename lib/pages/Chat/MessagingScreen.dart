@@ -26,7 +26,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
               Positioned(
                 bottom: 0,
                 child: Row(
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   // mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Card(
@@ -37,7 +37,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
                         ),
                       ),
                       child: Container(
-                        constraints: BoxConstraints(maxHeight: 150),
+                        constraints: BoxConstraints(maxHeight: 150, maxWidth: MediaQuery.of(context).size.width-160),
                         width: MediaQuery.of(context).size.width - 65,
                         child: TextField(
                           keyboardType: TextInputType.multiline,

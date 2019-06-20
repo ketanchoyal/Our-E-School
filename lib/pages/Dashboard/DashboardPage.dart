@@ -22,199 +22,201 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: ListView(
-                children: [
-                  Container(
-                    height: 110,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        RowReusableCardButton(
-                          tileColor: Colors.deepOrangeAccent,
-                          label: 'E-Card',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => ECardPage(),
+    return SafeArea(
+          child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: ListView(
+                  children: [
+                    Container(
+                      height: 110,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          RowReusableCardButton(
+                            tileColor: Colors.deepOrangeAccent,
+                            label: 'E-Card',
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) => ECardPage(),
+                                ),
+                              );
+                            },
+                            icon: Icons.perm_contact_calendar,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          RowReusableCardButton(
+                            tileColor: null,
+                            icon: Icons.av_timer,
+                            label: 'Time Table',
+                            onPressed: () {
+                              kopenPage(context, TimeTablePage());
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    ColumnReusableCardButton(
+                      tileColor: Colors.orangeAccent,
+                      label: 'Announcements',
+                      icon: CustomIcons.megaphone,
+                      onPressed: () {
+                        kopenPage(context, AnnouncementPage());
+                      },
+                    ),
+                    Container(
+                      height: 110,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          RowReusableCardButton(
+                            tileColor: Colors.blueGrey,
+                            icon: CustomIcons.traveler_with_a_suitcase,
+                            label: 'Holidays',
+                            onPressed: () {},
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          RowReusableCardButton(
+                            tileColor: Colors.indigoAccent,
+                            icon: Icons.assessment,
+                            label: 'Results',
+                            onPressed: () {
+                              kopenPage(context, ResultPage());
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      height: 110,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          RowReusableCardButton(
+                            tileColor: Colors.lightGreen,
+                            label: 'Assignments',
+                            onPressed: () {
+                              kopenPage(context, AssignmentsPage());
+                            },
+                            icon: Icons.assignment,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          RowReusableCardButton(
+                            tileColor: Colors.lime,
+                            icon: Icons.attach_money,
+                            label: 'Fees',
+                            onPressed: () {
+                              kopenPage(context, FeesPage());
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    // ColumnReusableCardButton(
+                    //   tileColor: Colors.lightGreen,
+                    //   label: 'Assignments',
+                    //   onPressed: () {
+                    //     kopenPage(context, AssignmentsPage());
+                    //   },
+                    //   icon: Icons.assignment,
+                    // ),
+                    SizedBox(
+                      height: 110,
+                      child: ListView(
+                        shrinkWrap: false,
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              RowReusableCardButtonBanner(
+                                tileColor: Colors.pink,
+                                icon: Icons.assistant_photo,
+                                label: 'Exams',
+                                onPressed: () {
+                                  kopenPageBottom(context, QuizPage());
+                                },
                               ),
-                            );
-                          },
-                          icon: Icons.perm_contact_calendar,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        RowReusableCardButton(
-                          tileColor: null,
-                          icon: Icons.av_timer,
-                          label: 'Time Table',
-                          onPressed: () {
-                            kopenPage(context, TimeTablePage());
-                          },
-                        ),
-                      ],
+                              RowReusableCardButtonBanner(
+                                tileColor: Colors.tealAccent,
+                                icon: FontAwesomeIcons.book,
+                                label: 'E-Book',
+                                onPressed: () {},
+                              ),
+                              RowReusableCardButtonBanner(
+                                tileColor: Colors.deepPurpleAccent,
+                                icon: FontAwesomeIcons.cameraRetro,
+                                label: 'Video',
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  ColumnReusableCardButton(
-                    tileColor: Colors.orangeAccent,
-                    label: 'Announcements',
-                    icon: CustomIcons.megaphone,
-                    onPressed: () {
-                      kopenPage(context, AnnouncementPage());
-                    },
-                  ),
-                  Container(
-                    height: 110,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        RowReusableCardButton(
-                          tileColor: Colors.blueGrey,
-                          icon: CustomIcons.traveler_with_a_suitcase,
-                          label: 'Holidays',
-                          onPressed: () {},
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        RowReusableCardButton(
-                          tileColor: Colors.indigoAccent,
-                          icon: Icons.assessment,
-                          label: 'Results',
-                          onPressed: () {
-                            kopenPage(context, ResultPage());
-                          },
-                        ),
-                      ],
+                    SizedBox(
+                      height: 110,
+                      child: ListView(
+                        shrinkWrap: false,
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              RowReusableCardButtonBanner(
+                                tileColor: Colors.pinkAccent,
+                                icon: FontAwesomeIcons.female,
+                                label: 'Parenting Guide',
+                                onPressed: () {
+                                  // kopenPage(context, ResultPage());
+                                },
+                              ),
+                              RowReusableCardButtonBanner(
+                                tileColor: Colors.red,
+                                icon: FontAwesomeIcons.medkit,
+                                label: 'Health Tips',
+                                onPressed: () {},
+                              ),
+                              RowReusableCardButtonBanner(
+                                tileColor: Colors.blue,
+                                icon: FontAwesomeIcons.userMd,
+                                label: 'Vaccination',
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: 110,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        RowReusableCardButton(
-                          tileColor: Colors.lightGreen,
-                          label: 'Assignments',
-                          onPressed: () {
-                            kopenPage(context, AssignmentsPage());
-                          },
-                          icon: Icons.assignment,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        RowReusableCardButton(
-                          tileColor: Colors.lime,
-                          icon: Icons.attach_money,
-                          label: 'Fees',
-                          onPressed: () {
-                            kopenPage(context, FeesPage());
-                          },
-                        ),
-                      ],
+                    ColumnReusableCardButton(
+                      tileColor: Colors.greenAccent,
+                      // height: 50,
+                      label: 'Offers',
+                      onPressed: () {},
+                      icon: Icons.receipt,
+                      directionIcon: Icons.chevron_right,
                     ),
-                  ),
-                  // ColumnReusableCardButton(
-                  //   tileColor: Colors.lightGreen,
-                  //   label: 'Assignments',
-                  //   onPressed: () {
-                  //     kopenPage(context, AssignmentsPage());
-                  //   },
-                  //   icon: Icons.assignment,
-                  // ),
-                  SizedBox(
-                    height: 110,
-                    child: ListView(
-                      shrinkWrap: false,
-                      scrollDirection: Axis.horizontal,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            RowReusableCardButtonBanner(
-                              tileColor: Colors.pink,
-                              icon: Icons.assistant_photo,
-                              label: 'Exams',
-                              onPressed: () {
-                                kopenPageBottom(context, QuizPage());
-                              },
-                            ),
-                            RowReusableCardButtonBanner(
-                              tileColor: Colors.tealAccent,
-                              icon: FontAwesomeIcons.book,
-                              label: 'E-Book',
-                              onPressed: () {},
-                            ),
-                            RowReusableCardButtonBanner(
-                              tileColor: Colors.deepPurpleAccent,
-                              icon: FontAwesomeIcons.cameraRetro,
-                              label: 'Video',
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 110,
-                    child: ListView(
-                      shrinkWrap: false,
-                      scrollDirection: Axis.horizontal,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            RowReusableCardButtonBanner(
-                              tileColor: Colors.pinkAccent,
-                              icon: FontAwesomeIcons.female,
-                              label: 'Parenting Guide',
-                              onPressed: () {
-                                // kopenPage(context, ResultPage());
-                              },
-                            ),
-                            RowReusableCardButtonBanner(
-                              tileColor: Colors.red,
-                              icon: FontAwesomeIcons.medkit,
-                              label: 'Health Tips',
-                              onPressed: () {},
-                            ),
-                            RowReusableCardButtonBanner(
-                              tileColor: Colors.blue,
-                              icon: FontAwesomeIcons.userMd,
-                              label: 'Vaccination',
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  ColumnReusableCardButton(
-                    tileColor: Colors.greenAccent,
-                    // height: 50,
-                    label: 'Offers',
-                    onPressed: () {},
-                    icon: Icons.receipt,
-                    directionIcon: Icons.chevron_right,
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

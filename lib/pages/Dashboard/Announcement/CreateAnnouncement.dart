@@ -16,25 +16,23 @@ class CreateAnnouncement extends StatefulWidget {
 }
 
 class _CreateAnnouncementState extends State<CreateAnnouncement> {
-  String path = null;
+  String path = '';
+  
+  Future _openFileExplorer(FileType _pickingType) async {
+  String _path = '';
+  if (_pickingType != FileType.CUSTOM) {
+    try {
+      _path = await FilePicker.getFilePath(type: _pickingType);
+    } on PlatformException catch (e) {
+      print("Unsupported operation" + e.toString());
+    }
+    if (!mounted) return '';
+
+    return _path;
+  }
+}
 
   FocusNode _focusNode = new FocusNode();
-
-  _openFileExplorer(FileType _pickingType) async {
-    String _path = null;
-    if (_pickingType != FileType.CUSTOM) {
-      try {
-        _path = await FilePicker.getFilePath(type: _pickingType);
-      } on PlatformException catch (e) {
-        print("Unsupported operation" + e.toString());
-      }
-      if (!mounted) return;
-
-      setState(() {
-        path = _path;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +116,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                 ),
                 Container(
                   constraints: BoxConstraints(maxHeight: 300, minHeight: 0),
-                  child: path == null
+                  child: path == ''
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
@@ -143,8 +141,12 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                               minWidth: MediaQuery.of(context).size.width / 2.2,
                               height: 100,
                               child: Icon(Icons.photo_library),
-                              onPressed: () {
-                                _openFileExplorer(FileType.IMAGE);
+                              onPressed: () async {
+                                String _path = await _openFileExplorer(FileType.IMAGE);
+                                
+                                setState(() {
+                                  path = _path;
+                                });
                               },
                             ),
                           ],

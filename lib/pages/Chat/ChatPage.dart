@@ -17,30 +17,32 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ListView.builder(
-            itemCount: 3,
-            itemBuilder: (context, i) => ColumnReusableCardButton(
-                  tileColor: _randomColor.randomColor(
-                    colorSaturation: ColorSaturation.mediumSaturation,
-                    colorBrightness: ColorBrightness.dark,
-                    colorHue: ColorHue.blue,
+    return SafeArea(
+          child: Scaffold(
+        body: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ListView.builder(
+              itemCount: 3,
+              itemBuilder: (context, i) => ColumnReusableCardButton(
+                    tileColor: _randomColor.randomColor(
+                      colorSaturation: ColorSaturation.mediumSaturation,
+                      colorBrightness: ColorBrightness.dark,
+                      colorHue: ColorHue.blue,
+                    ),
+                    label: 'Teacher $i',
+                    icon: CustomIcons.profile,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => MessagingScreen(),
+                        ),
+                      );
+                    },
+                    height: 70,
                   ),
-                  label: 'Teacher $i',
-                  icon: CustomIcons.profile,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => MessagingScreen(),
-                      ),
-                    );
-                  },
-                  height: 70,
-                ),
-          )),
+            )),
+      ),
     );
   }
 }

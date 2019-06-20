@@ -60,28 +60,31 @@ class _ReusableMaterialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      minWidth: MediaQuery.of(context).size.width / 2 - 13,
-      onPressed: onPressed,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Icon(
-            icon,
-            size: 40,
-            color: Colors.white,
-          ),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 20,
+    return SafeArea(
+      // constraints: BoxConstraints(),
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width / 2 - 13,
+        onPressed: onPressed,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Icon(
+              icon,
+              size: 40,
               color: Colors.white,
-              fontWeight: FontWeight.w600,
             ),
-          ),
-        ],
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
