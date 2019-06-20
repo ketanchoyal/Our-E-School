@@ -2,6 +2,7 @@ import 'package:acadamicConnect/Components/ColumnReusableCardButton.dart';
 import 'package:acadamicConnect/Components/RowReusableCardButton.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
+import 'package:acadamicConnect/pages/Dashboard/FeesPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/QuizPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/ResultPage.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +121,7 @@ class _DashboardState extends State<Dashboard> {
                           icon: Icons.attach_money,
                           label: 'Fees',
                           onPressed: () {
-                            // kopenPage(context, ResultPage());
+                            kopenPage(context, FeesPage());
                           },
                         ),
                       ],
