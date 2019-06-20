@@ -30,21 +30,21 @@ class ColumnReusableCardButton extends StatelessWidget {
         // elevation: elevation ?? 4,
         child: MaterialButton(
           minWidth: MediaQuery.of(context).size.width,
-          height: height == null ? 80 : height,
+          height: height == null ? 90 : height,
           onPressed: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Icon(
                 icon,
-                size: 40,
+                size: 45,
                 color: Colors.white,
               ),
               Text(
                 label,
                 maxLines: 2,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 22,
                   color: Colors.white,
                   fontWeight: FontWeight.w600
                 ),
@@ -52,7 +52,7 @@ class ColumnReusableCardButton extends StatelessWidget {
               Icon(
                 directionIcon ?? Icons.chevron_right,
                 color: Colors.white,
-                size: 50,
+                size: 55,
               )
             ],
           ),

@@ -49,7 +49,9 @@ class _DashboardState extends State<Dashboard> {
                           },
                           icon: Icons.perm_contact_calendar,
                         ),
-                        SizedBox(width: 5,),
+                        SizedBox(
+                          width: 5,
+                        ),
                         RowReusableCardButton(
                           tileColor: null,
                           icon: Icons.av_timer,
@@ -80,7 +82,9 @@ class _DashboardState extends State<Dashboard> {
                           label: 'Holidays',
                           onPressed: () {},
                         ),
-                        SizedBox(width: 5,),
+                        SizedBox(
+                          width: 5,
+                        ),
                         RowReusableCardButton(
                           tileColor: Colors.indigoAccent,
                           icon: Icons.assessment,
@@ -92,14 +96,44 @@ class _DashboardState extends State<Dashboard> {
                       ],
                     ),
                   ),
-                  ColumnReusableCardButton(
-                    tileColor: Colors.lightGreen,
-                    label: 'Assignments',
-                    onPressed: () {
-                      kopenPage(context, AssignmentsPage());
-                    },
-                    icon: Icons.assignment,
+                  SizedBox(
+                    height: 5,
                   ),
+                  Container(
+                    height: 110,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RowReusableCardButton(
+                          tileColor: Colors.lightGreen,
+                          label: 'Assignments',
+                          onPressed: () {
+                            kopenPage(context, AssignmentsPage());
+                          },
+                          icon: Icons.assignment,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        RowReusableCardButton(
+                          tileColor: Colors.lime,
+                          icon: Icons.attach_money,
+                          label: 'Fees',
+                          onPressed: () {
+                            // kopenPage(context, ResultPage());
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  // ColumnReusableCardButton(
+                  //   tileColor: Colors.lightGreen,
+                  //   label: 'Assignments',
+                  //   onPressed: () {
+                  //     kopenPage(context, AssignmentsPage());
+                  //   },
+                  //   icon: Icons.assignment,
+                  // ),
                   SizedBox(
                     height: 110,
                     child: ListView(
@@ -110,7 +144,7 @@ class _DashboardState extends State<Dashboard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             RowReusableCardButtonBanner(
-                              tileColor: Colors.red,
+                              tileColor: Colors.pink,
                               icon: Icons.assistant_photo,
                               label: 'Exams',
                               onPressed: () {
@@ -138,7 +172,6 @@ class _DashboardState extends State<Dashboard> {
                     height: 110,
                     child: ListView(
                       shrinkWrap: false,
-                      // padding: EdgeInsets.only(left: 10, right: 10),
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
                         Row(
@@ -153,7 +186,7 @@ class _DashboardState extends State<Dashboard> {
                               },
                             ),
                             RowReusableCardButtonBanner(
-                              tileColor: Colors.black54,
+                              tileColor: Colors.red,
                               icon: FontAwesomeIcons.medkit,
                               label: 'Health Tips',
                               onPressed: () {},

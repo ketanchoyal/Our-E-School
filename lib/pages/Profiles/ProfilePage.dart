@@ -54,16 +54,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Card(
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: Image(
-                      height: MediaQuery.of(context).size.width / 2.5,
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      image: NetworkImage(
-                          "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png"),
+                  Container(
+                    constraints: BoxConstraints(maxHeight: 200, maxWidth: 200),
+                    child: Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: Image(
+                        height: MediaQuery.of(context).size.width / 2.5,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        image: NetworkImage(
+                            "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png"),
+                      ),
                     ),
                   ),
                 ],

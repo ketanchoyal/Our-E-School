@@ -31,7 +31,7 @@ class RowReusableCardButtonBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
+      padding: const EdgeInsets.only(top: 5, bottom: 0, right: 5),
       child: ClipRect(
         child: Container(
           color: tileColor ?? Colors.blue,
@@ -64,6 +64,8 @@ class _ReusableMaterialButton extends StatelessWidget {
       minWidth: MediaQuery.of(context).size.width / 2 - 13,
       onPressed: onPressed,
       child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Icon(
