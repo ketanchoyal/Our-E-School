@@ -4,9 +4,9 @@ import 'ReusableRoundedButton.dart';
 
 class LoginRoundedButton extends StatelessWidget {
   final Function onPressed;
-  const LoginRoundedButton({
-    this.onPressed
-  });
+  final String label;
+  final String heroTag;
+  const LoginRoundedButton({this.onPressed, this.label, this.heroTag});
 
   @override
   Widget build(BuildContext context) {
@@ -15,24 +15,25 @@ class LoginRoundedButton extends StatelessWidget {
       right: 30,
       width: MediaQuery.of(context).size.width,
       child: Align(
-          alignment: Alignment.bottomRight,
-          child: Hero(
-            tag: 'login',
-            transitionOnUserGestures: true,
-            child: ReusableRoundedButton(
-              child: Text(
-                'Login',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                ),
+        alignment: Alignment.bottomRight,
+        child: Hero(
+          tag: heroTag ?? 'login',
+          transitionOnUserGestures: true,
+          child: ReusableRoundedButton(
+            child: Text(
+              label ?? 'Login',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
               ),
-              // text: 'Login',
-              onPressed: onPressed,
-              height: 50,
-              backgroundColor: Colors.redAccent,
             ),
-          )),
+            // text: 'Login',
+            onPressed: onPressed,
+            height: 50,
+            backgroundColor: Colors.redAccent,
+          ),
+        ),
+      ),
     );
   }
 }

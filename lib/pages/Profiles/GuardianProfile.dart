@@ -78,7 +78,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                     ProfileFields(
                       width: MediaQuery.of(context).size.width,
                       hintText: 'One which your parents gave',
-                      labelText: 'Mother Name',
+                      labelText: 'Name',
                       onChanged: (name) {},
                       initialText: '',
                     ),
