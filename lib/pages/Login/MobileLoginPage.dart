@@ -33,9 +33,22 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              // mainAxisSize: MainAxisSize.min,
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                TextField(
+                  enabled: isEnabled,
+                  onChanged: (id) {},
+                  keyboardType: TextInputType.emailAddress,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  decoration: kTextFieldDecoration.copyWith(
+                    hintText: 'One which we gave',
+                    labelText: 'School Name Code',
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
                 TextField(
                   enabled: isEnabled,
                   onChanged: (id) {},
@@ -47,7 +60,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 CustomLoginTypeBtn(
                   onPressed: () {
@@ -64,7 +77,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   },
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextField(
                   enabled: isEnabled,
@@ -77,7 +90,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
                 TextField(
                   enabled: !isEnabled,
@@ -90,7 +103,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
                 Hero(
                   tag: 'otpForget',

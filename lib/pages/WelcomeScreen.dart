@@ -1,9 +1,7 @@
-import 'package:acadamicConnect/pages/Login/SchoolSelect.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
-
 import 'Login/LoginPage.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -164,7 +162,7 @@ Check School posts to stay updated with school news.''',
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => SelectSchoolPage(),
+                        builder: (BuildContext context) => LoginPage(),
                       ),
                     );
                   },

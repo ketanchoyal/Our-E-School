@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
   String idHint = 'Student Id';
   bool isRegistering = false;
+  String notYetRegisteringText = 'Not Registered?';
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +47,24 @@ class _LoginPageState extends State<LoginPage> {
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   decoration: kTextFieldDecoration.copyWith(
+                    hintText: 'One which we gave',
+                    labelText: 'School Name Code',
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                TextField(
+                  onChanged: (id) {},
+                  keyboardType: TextInputType.emailAddress,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  decoration: kTextFieldDecoration.copyWith(
                     hintText: 'One which school gave',
                     labelText: idHint,
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 CustomLoginTypeBtn(
                   onPressed: () {
@@ -68,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextField(
                   onChanged: (email) {},
@@ -80,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
                 TextField(
                   obscureText: true,
@@ -92,21 +105,26 @@ class _LoginPageState extends State<LoginPage> {
                     labelText: 'Password',
                   ),
                 ),
-                isRegistering ? SizedBox(
-                  height: 20,
-                ) : Container(),
-                isRegistering ? TextField(
-                  obscureText: true,
-                  onChanged: (password) {},
-                  keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  decoration: kTextFieldDecoration.copyWith(
-                    hintText: '*@*s*#ls',
-                    labelText: 'Confirm Password',
-                  ),
-                ) : Container(),
+                isRegistering
+                    ? SizedBox(
+                        height: 15,
+                      )
+                    : Container(),
+                isRegistering
+                    ? TextField(
+                        obscureText: true,
+                        onChanged: (password) {},
+                        keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                        decoration: kTextFieldDecoration.copyWith(
+                          hintText: '*@*s*#ls',
+                          labelText: 'Confirm Password',
+                        ),
+                      )
+                    : Container(),
                 SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
                 Hero(
                   tag: 'otpForget',
@@ -118,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: <Widget>[
                         ReusableRoundedButton(
                           child: Text(
-                            "Not Registered?",
+                            notYetRegisteringText,
                             style: TextStyle(
                               // color: kmainColorTeacher,
                               fontSize: 15,
@@ -128,6 +146,9 @@ class _LoginPageState extends State<LoginPage> {
                             cardKey.currentState.toggleCard();
                             setState(() {
                               isRegistering = !isRegistering;
+                              notYetRegisteringText = isRegistering
+                                  ? "Registered?"
+                                  : "Not Registered?";
                             });
                           },
                           height: 40,
@@ -141,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () {
-                            // cardKey.currentState.toggleCard();
+                            //Forget Password Logic
                           },
                           height: 40,
                         ),
