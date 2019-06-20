@@ -25,6 +25,7 @@ class ColumnReusableCardButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Container(
+        // constraints: BoxConstraints(maxWidth: 400),
         color: tileColor ?? Colors.green,
         // elevation: elevation ?? 4,
         child: MaterialButton(

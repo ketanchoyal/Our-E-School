@@ -71,19 +71,24 @@ I want to perform login and call a function for that, this function can either r
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: 5,
-        itemBuilder: (context, index) => new AnnouncementCard(
-              announcement: Announcement(
-                  by: 'userid',
-                  caption: randomText,
-                  forClass: '10A',
-                  id: 'postid',
-                  photoUrl:
-                      "https://cyprus-mail.com/wp-content/uploads/2013/06/schoolchildren06.jpg",
-                  timestamp: 'Jan 21, 10:30 AM',
-                  type: AnnouncementType.CIRCULAR),
-            ),
+      body: Center(
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 700,),
+          child: ListView.builder(
+            itemCount: 5,
+            itemBuilder: (context, index) => new AnnouncementCard(
+                  announcement: Announcement(
+                      by: 'userid',
+                      caption: randomText,
+                      forClass: '10A',
+                      id: 'postid',
+                      photoUrl:
+                          "https://cyprus-mail.com/wp-content/uploads/2013/06/schoolchildren06.jpg",
+                      timestamp: 'Jan 21, 10:30 AM',
+                      type: AnnouncementType.CIRCULAR),
+                ),
+          ),
+        ),
       ),
     );
   }

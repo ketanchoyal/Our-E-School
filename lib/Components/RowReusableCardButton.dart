@@ -12,6 +12,7 @@ class RowReusableCardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // constraints: BoxConstraints(maxWidth: 200),
       color: tileColor ?? Colors.amber,
       child: new _ReusableMaterialButton(onPressed: onPressed, icon: icon, label: label),
     );

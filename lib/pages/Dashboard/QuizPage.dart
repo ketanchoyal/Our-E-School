@@ -90,7 +90,7 @@ class _QuizPageState extends State<QuizPage> {
           return Scaffold(
             appBar: AppBar(
               // leading: state.timer,
-              backgroundColor: Theme.of(context).canvasColor.withOpacity(0.5),
+              backgroundColor: Colors.green,
               title: AnimatedProgressbar(
                 duration: state.duration,
                 value: state.progress,

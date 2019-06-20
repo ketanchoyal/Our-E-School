@@ -26,7 +26,7 @@ class _DashboardState extends State<Dashboard> {
         padding: EdgeInsets.all(10.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
               child: ListView(
@@ -34,7 +34,7 @@ class _DashboardState extends State<Dashboard> {
                   Container(
                     height: 110,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         RowReusableCardButton(
                           tileColor: Colors.deepOrangeAccent,
@@ -49,6 +49,7 @@ class _DashboardState extends State<Dashboard> {
                           },
                           icon: Icons.perm_contact_calendar,
                         ),
+                        SizedBox(width: 5,),
                         RowReusableCardButton(
                           tileColor: null,
                           icon: Icons.av_timer,
@@ -71,7 +72,7 @@ class _DashboardState extends State<Dashboard> {
                   Container(
                     height: 110,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         RowReusableCardButton(
                           tileColor: Colors.blueGrey,
@@ -79,6 +80,7 @@ class _DashboardState extends State<Dashboard> {
                           label: 'Holidays',
                           onPressed: () {},
                         ),
+                        SizedBox(width: 5,),
                         RowReusableCardButton(
                           tileColor: Colors.indigoAccent,
                           icon: Icons.assessment,

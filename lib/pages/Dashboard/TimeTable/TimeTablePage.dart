@@ -45,7 +45,8 @@ class _TimeTablePageState extends State<TimeTablePage>
       ),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           AnimatedCrossFade(
             firstChild: Material(
