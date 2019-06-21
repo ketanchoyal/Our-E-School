@@ -1,5 +1,6 @@
 import 'package:acadamicConnect/Components/ColumnReusableCardButton.dart';
 import 'package:acadamicConnect/Components/RowReusableCardButton.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
 import 'package:acadamicConnect/pages/Dashboard/FeesPage.dart';
@@ -14,7 +15,7 @@ import 'TimeTable/TimeTablePage.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key}) : super(key: key);
-  static String pageName = 'Dashboard';
+  static String pageName = string.dashboard;
 
   _DashboardState createState() => _DashboardState();
 }
@@ -40,7 +41,7 @@ class _DashboardState extends State<Dashboard> {
                         children: <Widget>[
                           RowReusableCardButton(
                             tileColor: Colors.deepOrangeAccent,
-                            label: 'E-Card',
+                            label: string.e_card,
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -57,7 +58,7 @@ class _DashboardState extends State<Dashboard> {
                           RowReusableCardButton(
                             tileColor: null,
                             icon: Icons.av_timer,
-                            label: 'Time Table',
+                            label: string.timetable,
                             onPressed: () {
                               kopenPage(context, TimeTablePage());
                             },
@@ -67,7 +68,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     ColumnReusableCardButton(
                       tileColor: Colors.orangeAccent,
-                      label: 'Announcements',
+                      label: string.announcement,
                       icon: CustomIcons.megaphone,
                       onPressed: () {
                         kopenPage(context, AnnouncementPage());
@@ -81,7 +82,7 @@ class _DashboardState extends State<Dashboard> {
                           RowReusableCardButton(
                             tileColor: Colors.blueGrey,
                             icon: CustomIcons.traveler_with_a_suitcase,
-                            label: 'Holidays',
+                            label: string.holidays,
                             onPressed: () {},
                           ),
                           SizedBox(
@@ -90,7 +91,7 @@ class _DashboardState extends State<Dashboard> {
                           RowReusableCardButton(
                             tileColor: Colors.indigoAccent,
                             icon: Icons.assessment,
-                            label: 'Results',
+                            label: string.results,
                             onPressed: () {
                               kopenPage(context, ResultPage());
                             },
@@ -108,7 +109,7 @@ class _DashboardState extends State<Dashboard> {
                         children: <Widget>[
                           RowReusableCardButton(
                             tileColor: Colors.lightGreen,
-                            label: 'Assignments',
+                            label: string.assignment,
                             onPressed: () {
                               kopenPage(context, AssignmentsPage());
                             },
@@ -120,7 +121,7 @@ class _DashboardState extends State<Dashboard> {
                           RowReusableCardButton(
                             tileColor: Colors.lime,
                             icon: Icons.attach_money,
-                            label: 'Fees',
+                            label: string.fees,
                             onPressed: () {
                               kopenPage(context, FeesPage());
                             },
@@ -148,7 +149,7 @@ class _DashboardState extends State<Dashboard> {
                               RowReusableCardButtonBanner(
                                 tileColor: Colors.pink,
                                 icon: Icons.assistant_photo,
-                                label: 'Exams',
+                                label: string.exams,
                                 onPressed: () {
                                   kopenPageBottom(context, QuizPage());
                                 },
@@ -156,13 +157,13 @@ class _DashboardState extends State<Dashboard> {
                               RowReusableCardButtonBanner(
                                 tileColor: Colors.tealAccent,
                                 icon: FontAwesomeIcons.book,
-                                label: 'E-Book',
+                                label: string.e_book,
                                 onPressed: () {},
                               ),
                               RowReusableCardButtonBanner(
                                 tileColor: Colors.deepPurpleAccent,
                                 icon: FontAwesomeIcons.cameraRetro,
-                                label: 'Video',
+                                label: string.video,
                                 onPressed: () {},
                               ),
                             ],
@@ -182,7 +183,7 @@ class _DashboardState extends State<Dashboard> {
                               RowReusableCardButtonBanner(
                                 tileColor: Colors.pinkAccent,
                                 icon: FontAwesomeIcons.female,
-                                label: 'Parenting Guide',
+                                label: string.parenting_guide,
                                 onPressed: () {
                                   // kopenPage(context, ResultPage());
                                 },
@@ -190,13 +191,13 @@ class _DashboardState extends State<Dashboard> {
                               RowReusableCardButtonBanner(
                                 tileColor: Colors.red,
                                 icon: FontAwesomeIcons.medkit,
-                                label: 'Health Tips',
+                                label: string.health_tips,
                                 onPressed: () {},
                               ),
                               RowReusableCardButtonBanner(
                                 tileColor: Colors.blue,
                                 icon: FontAwesomeIcons.userMd,
-                                label: 'Vaccination',
+                                label: string.vaccinations,
                                 onPressed: () {},
                               ),
                             ],
@@ -207,7 +208,7 @@ class _DashboardState extends State<Dashboard> {
                     ColumnReusableCardButton(
                       tileColor: Colors.greenAccent,
                       // height: 50,
-                      label: 'Offers',
+                      label: string.offers,
                       onPressed: () {},
                       icon: Icons.receipt,
                       directionIcon: Icons.chevron_right,

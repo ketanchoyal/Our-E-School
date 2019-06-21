@@ -1,4 +1,5 @@
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ class _FeesPageState extends State<FeesPage>
         onPressed: () {
           kbackBtn(context);
         },
-        title: 'Fees',
+        title: string.fees,
       ),
       body: Stack(
         children: <Widget>[
@@ -39,7 +40,7 @@ class _FeesPageState extends State<FeesPage>
               tabs: <Widget>[
                 Tab(
                   child: Text(
-                    "FEES DUE",
+                    string.fees_due,
                     style: ktitleStyle.copyWith(
                       color: Theme.of(context).textTheme.body1.color
                     ),
@@ -47,7 +48,7 @@ class _FeesPageState extends State<FeesPage>
                 ),
                 Tab(
                   child: Text(
-                    "FEES PAID",
+                    string.fees_paid,
                     style: ktitleStyle.copyWith(
                       color: Theme.of(context).textTheme.body1.color
                     ),

@@ -1,4 +1,5 @@
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/pages/Dashboard/TimeTable/TimeTable.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class _TimeTablePageState extends State<TimeTablePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopBar(
-        title: 'TimeTable',
+        title: string.timetable,
         child: kBackBtn,
         onPressed: () {
           Navigator.pop(context);

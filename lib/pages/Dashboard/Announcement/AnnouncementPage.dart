@@ -1,6 +1,7 @@
 import 'package:acadamicConnect/Components/AnnouncementCard.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Models/Announcement.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/pages/Dashboard/Announcement/CreateAnnouncement.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ I want to perform login and call a function for that, this function can either r
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopBar(
-          title: 'Announcement',
+          title: string.announcement,
           child: kBackBtn,
           onPressed: () {
             kbackBtn(context);
@@ -73,7 +74,9 @@ I want to perform login and call a function for that, this function can either r
       ),
       body: Center(
         child: Container(
-          constraints: BoxConstraints(maxWidth: 700,),
+          constraints: BoxConstraints(
+            maxWidth: 700,
+          ),
           child: ListView.builder(
             itemCount: 5,
             itemBuilder: (context, index) => new AnnouncementCard(
@@ -99,7 +102,7 @@ I want to perform login and call a function for that, this function can either r
       builder: (context) {
         return AlertDialog(
           title: Text(
-            "Show Announcement of:",
+            string.show_announcement_of,
             style: TextStyle(fontWeight: FontWeight.w700),
           ),
           content: Column(
@@ -107,8 +110,8 @@ I want to perform login and call a function for that, this function can either r
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(
-                "To filter the Posts please enter Class and Division:",
-                style: TextStyle(fontFamily: 'Subtitle'),
+                string.filter_announcement,
+                // style: TextStyle(fontFamily: 'Subtitle'),
               ),
               SizedBox(
                 height: 8,
@@ -127,8 +130,8 @@ I want to perform login and call a function for that, this function can either r
                   //     hintStyle: TextStyle(fontFamily: "Subtitle"),
                   //     ),
                   decoration: kTextFieldDecoration.copyWith(
-                    hintText: '9/10/11',
-                    labelText: 'Class',
+                    hintText: string.standard_hint,
+                    labelText: string.standard,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -148,8 +151,8 @@ I want to perform login and call a function for that, this function can either r
                     fontWeight: FontWeight.w500,
                   ),
                   decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'A/B/C',
-                    labelText: 'Division',
+                    hintText: string.division_hint,
+                    labelText: string.division,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -162,7 +165,7 @@ I want to perform login and call a function for that, this function can either r
             Row(
               children: <Widget>[
                 FlatButton(
-                  child: Text('CANCEL'),
+                  child: Text(string.cancel),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -171,7 +174,7 @@ I want to perform login and call a function for that, this function can either r
                   width: 10,
                 ),
                 FlatButton(
-                  child: Text("FILTER"),
+                  child: Text(string.filter),
                   onPressed: () {},
                 ),
               ],

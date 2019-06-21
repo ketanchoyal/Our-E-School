@@ -1,8 +1,8 @@
 import 'package:acadamicConnect/Components/ColumnReusableCardButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:random_color/random_color.dart';
@@ -24,31 +24,12 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
   String _path;
   TextEditingController _controller = new TextEditingController();
 
-  _openFileExplorer(FileType _pickingType) async {
-    if (_pickingType != FileType.CUSTOM) {
-      try {
-        _path = await FilePicker.getFilePath(type: _pickingType);
-      } on PlatformException catch (e) {
-        print("Unsupported operation" + e.toString());
-      }
-      if (!mounted) return;
-
-      setState(() {
-        _fileName = _path != null ? _path.split('/').last : '...';
-        print(_fileName);
-        if (_fileName.isNotEmpty) {
-          _controller.text = _fileName;
-        }
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
         appBar: TopBar(
-            title: 'Assignments',
+            title: string.assignment,
             child: kBackBtn,
             onPressed: () {
               kbackBtn(context);
@@ -69,10 +50,9 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
               itemCount: 3,
               itemBuilder: (context, i) => ColumnReusableCardButton(
                     tileColor: _randomColor.randomColor(
-                      colorBrightness: ColorBrightness.veryDark,
-                      colorHue: ColorHue.purple,
-                      colorSaturation: ColorSaturation.highSaturation
-                    ),
+                        colorBrightness: ColorBrightness.veryDark,
+                        colorHue: ColorHue.purple,
+                        colorSaturation: ColorSaturation.highSaturation),
                     label: 'Subject $i',
                     icon: FontAwesomeIcons.bookOpen,
                     onPressed: () {
@@ -96,13 +76,13 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Upload Assignment"),
+          title: Text(string.upload_assignment),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               TextField(
                 decoration: InputDecoration(
-                  hintText: "Title",
+                  hintText: string.title,
                   // hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -114,7 +94,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
               ),
               TextField(
                 decoration: InputDecoration(
-                  hintText: "Description....(optional)",
+                  hintText: string.description_optional,
                   // hintStyle: TextStyle(fontFamily: "Nunito-Regular"),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -128,7 +108,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
                 controller: _controller,
                 enabled: false,
                 decoration: InputDecoration(
-                  hintText: "Filename",
+                  hintText: string.file_name,
                   // hintStyle: TextStyle(fontFamily: "Subtitle"),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -139,8 +119,15 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
           ),
           actions: <Widget>[
             FlatButton(
-              onPressed: () {
-                _openFileExplorer(FileType.IMAGE);
+              onPressed: () async {
+                _path = await openFileExplorer(FileType.IMAGE, mounted);
+                setState(() {
+                  _fileName = _path != null ? _path.split('/').last : '...';
+                  print(_fileName);
+                  if (_fileName.isNotEmpty) {
+                    _controller.text = _fileName;
+                  }
+                });
               },
               child: Icon(Icons.attach_file),
             ),
@@ -148,7 +135,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("UPLOAD"),
+              child: Text(string.upload),
             ),
           ],
         );
@@ -156,5 +143,3 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
     );
   }
 }
-
-class AssignmentOpener {}

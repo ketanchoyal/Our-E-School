@@ -2,6 +2,7 @@ import 'package:acadamicConnect/Components/CustomLoginTypeBtn.dart';
 import 'package:acadamicConnect/Components/LoginRoundedButton.dart';
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/pages/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
@@ -14,14 +15,14 @@ class MobileLoginPage extends StatefulWidget {
 
 class _MobileLoginPageState extends State<MobileLoginPage> {
   bool isEnabled = true;
-  String idHint = 'Student Id';
+  String idHint = string.student_id;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: TopBar(
-        title: 'Mobile',
+        title: string.mobile,
         child: kBackBtn,
         onPressed: () {
           Navigator.pop(context);
@@ -42,8 +43,8 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'One which we gave',
-                    labelText: 'School Name Code',
+                    hintText: string.school_name_code_hint,
+                    labelText: string.school_name_code,
                   ),
                 ),
                 SizedBox(
@@ -55,7 +56,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'One which school gave',
+                    hintText: string.student_teacher_id_hint,
                     labelText: idHint,
                   ),
                 ),
@@ -66,12 +67,12 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   onPressed: () {
                     if (MobileLoginPage.loginTypeSelected == 'S') {
                       setState(() {
-                        idHint = 'Student Id';
+                        idHint = string.student_id;
                       });
                     }
                     if (MobileLoginPage.loginTypeSelected == 'PT') {
                       setState(() {
-                        idHint = 'Student 0r Teacher Id';
+                        idHint = string.student_or_teacher_id;
                       });
                     }
                   },
@@ -85,8 +86,8 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   keyboardType: TextInputType.number,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   decoration: kTextFieldDecoration.copyWith(
-                    hintText: '+9199xxxxxxxx',
-                    labelText: 'Mobile No',
+                    hintText: string.mobile_hint,
+                    labelText: string.mobile_no,
                   ),
                 ),
                 SizedBox(
@@ -98,8 +99,8 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                   keyboardType: TextInputType.number,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   decoration: kTextFieldDecoration.copyWith(
-                    hintText: '_ _ _ _ _ _',
-                    labelText: 'OTP',
+                    hintText: string.otp_hint,
+                    labelText: string.otp,
                   ),
                 ),
                 SizedBox(
@@ -114,7 +115,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                       alignment: Alignment.centerRight,
                       child: ReusableRoundedButton(
                         child: Text(
-                          "Send OTP",
+                          string.send_otp,
                           style: TextStyle(
                             // color: kmainColorTeacher,
                             fontSize: 15,

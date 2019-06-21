@@ -1,3 +1,4 @@
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'Profiles/ProfilePage.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
@@ -6,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SettingPage extends StatefulWidget {
   SettingPage({Key key}) : super(key: key);
-  static String pageName = 'Setting';
+  static String pageName = string.setting;
 
   _SettingPageState createState() => _SettingPageState();
 }
@@ -32,26 +33,26 @@ class _SettingPageState extends State<SettingPage> {
                   onTap: () {
                     kopenPage(context, ProfilePage());
                   },
-                  subtitle: "Kind of everything we know about you",
-                  title: 'Profile'),
+                  subtitle: string.profile_subtitle,
+                  title: string.profile),
               buildInkWell(
                   context: context,
                   icon: FontAwesomeIcons.signOutAlt,
                   onTap: () {},
-                  subtitle: "You can login in multiple devices too",
-                  title: 'Logout'),
+                  subtitle: string.logout_subtitle,
+                  title: string.logout),
               buildInkWell(
                   context: context,
                   icon: FontAwesomeIcons.solidMoon,
                   onTap: changeBrightness,
-                  subtitle: "Tap to change Theme",
-                  title: 'Dark Theme'),
+                  subtitle: string.dark_theme_subtitle,
+                  title: string.dark_theme),
               buildInkWell(
                   context: context,
                   icon: Icons.contact_mail,
                   onTap: () {},
-                  subtitle: "Contact us",
-                  title: 'About!'),
+                  subtitle: string.about_subtitle,
+                  title: string.about),
             ],
           ),
         ),

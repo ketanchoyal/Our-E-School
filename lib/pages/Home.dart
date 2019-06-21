@@ -1,5 +1,6 @@
 import 'package:acadamicConnect/Components/BottomBar.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
 import 'package:acadamicConnect/pages/SettingPage.dart';
@@ -19,7 +20,7 @@ class _HomeState extends State<Home> {
   var currentIndex = 0;
   Color background = Colors.white;
   bool isTeacher = true;
-  String pageName = 'Home';
+  String pageName = string.home;
 
   List<Widget> pages = [
     Dashboard(),
@@ -116,7 +117,7 @@ class _HomeState extends State<Home> {
             Icons.dashboard,
             color: Colors.red,
           ),
-          title: Text("Home"),
+          title: Text(string.dashboard),
         ),
         BubbleBottomBarItem(
           backgroundColor: Colors.deepPurple,
@@ -128,7 +129,7 @@ class _HomeState extends State<Home> {
             CustomIcons.chat_bubble,
             color: Colors.deepPurple,
           ),
-          title: Text("Chat"),
+          title: Text(string.chat),
         ),
         // BubbleBottomBarItem(
         //   backgroundColor: Colors.indigo,
@@ -142,15 +143,18 @@ class _HomeState extends State<Home> {
         //   title: Text("Notifications"),
         // ),
         BubbleBottomBarItem(
-            backgroundColor: Colors.orange,
-            icon: Icon(
-              Icons.settings,
-            ),
-            activeIcon: Icon(
-              Icons.settings,
-              color: Colors.orange,
-            ),
-            title: Text("Setting"))
+          backgroundColor: Colors.orange,
+          icon: Icon(
+            Icons.settings,
+          ),
+          activeIcon: Icon(
+            Icons.settings,
+            color: Colors.orange,
+          ),
+          title: Text(
+            string.setting,
+          ),
+        )
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:acadamicConnect/Components/ProgressBar.dart';
 import 'package:acadamicConnect/Models/Question.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -145,10 +146,10 @@ class StartPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Topic Name', style: Theme.of(context).textTheme.headline),
+          Text(string.topic_name, style: Theme.of(context).textTheme.headline),
           Divider(),
           Expanded(
-            child: Text('Some Description regarding the quiz topic'),
+            child: Text(string.topic_description),
           ),
           MaterialButton(
             color: Colors.green,
@@ -162,7 +163,7 @@ class StartPage extends StatelessWidget {
                   width: 6,
                 ),
                 Text(
-                  'Start Quiz',
+                  string.start_quiz,
                   style: ktitleStyle.copyWith(color: Colors.white),
                 )
               ],
@@ -186,7 +187,7 @@ class FinishPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Topic Name', style: Theme.of(context).textTheme.headline),
+          Text(string.topic_name, style: Theme.of(context).textTheme.headline),
           Divider(),
           Expanded(
             child: Text(state.selectedAnswerSet.toString()),
@@ -205,7 +206,7 @@ class FinishPage extends StatelessWidget {
                   width: 6,
                 ),
                 Text(
-                  'Finish!',
+                  string.finish,
                   style: ktitleStyle.copyWith(color: Colors.white),
                 )
               ],
@@ -275,7 +276,7 @@ class QuestionPage extends StatelessWidget {
                 state.nextPage();
               },
               child: Text(
-                state.lastQuestion ? 'Finish' : 'Next',
+                state.lastQuestion ? string.finish : string.next,
                 style: ktitleStyle,
               ),
             ),

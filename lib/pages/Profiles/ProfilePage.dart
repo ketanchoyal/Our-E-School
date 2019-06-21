@@ -1,5 +1,6 @@
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/pages/Profiles/GuardianProfile.dart';
 import 'package:file_picker/file_picker.dart';
@@ -35,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopBar(
-        title: 'Profile',
+        title: string.profile,
         child: kBackBtn,
         onPressed: () {
           Navigator.pop(context);
@@ -120,15 +121,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: <Widget>[
                     ProfileFields(
                       width: MediaQuery.of(context).size.width,
-                      hintText: 'One which your parents gave',
-                      labelText: 'Student/Teacher Name',
+                      hintText: string.student_teacher_name_hint,
+                      labelText: string.student_teacher_name,
                       onChanged: (name) {},
                       initialText: '',
                     ),
                     ProfileFields(
                       width: MediaQuery.of(context).size.width,
-                      hintText: 'One which school gave',
-                      labelText: 'Student/Teacher Id',
+                      hintText: string.student_teacher_id_hint,
+                      labelText: string.student_or_teacher_id,
                       onChanged: (id) {},
                       initialText: '',
                     ),
@@ -137,13 +138,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         ProfileFields(
-                          labelText: 'Standard',
+                          labelText: string.standard,
                           onChanged: (std) {},
                           hintText: '',
                           initialText: '',
                         ),
                         ProfileFields(
-                          labelText: 'Division',
+                          labelText: string.division,
                           onChanged: (div) {},
                           hintText: '',
                           initialText: '',
@@ -152,8 +153,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     ProfileFields(
                       width: MediaQuery.of(context).size.width,
-                      hintText: 'Father/Mother Name',
-                      labelText: 'Guardian Name',
+                      hintText: string.father_mother_name,
+                      labelText: string.guardian_name,
                       onChanged: (guardianName) {},
                       initialText: '',
                     ),
@@ -165,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           onTap: () async {
                             await _selectDate(context);
                           },
-                          labelText: 'DOB',
+                          labelText: string.dob,
                           textInputType: TextInputType.number,
                           onChanged: (dob) {},
                           hintText: '',
@@ -178,8 +179,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         ProfileFields(
                           // width: MediaQuery.of(context).size.width,
-                          hintText: 'A +ve/O -ve',
-                          labelText: 'Blood Group',
+                          hintText: string.blood_group_hint,
+                          labelText: string.blood_group,
                           onChanged: (bg) {},
                           initialText: '',
                         ),
@@ -188,8 +189,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     ProfileFields(
                       width: MediaQuery.of(context).size.width,
                       textInputType: TextInputType.number,
-                      hintText: 'Your parents..',
-                      labelText: 'Mobile No',
+                      hintText: string.your_parents,
+                      labelText: string.mobile_no,
                       onChanged: (id) {},
                       initialText: '',
                     ),
@@ -200,7 +201,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              'Guardian\'s Profile:',
+                              string.guardians_profile,
                               style: ktitleStyle.copyWith(
                                 fontWeight: FontWeight.w500,
                                 // color: kmainColorParents.withOpacity(0.4),
@@ -214,7 +215,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ReusableRoundedButton(
                                 elevation: 5,
                                 child: Text(
-                                  'Mother',
+                                  string.mother,
                                   style: ktitleStyle.copyWith(
                                       color: Colors.white.withOpacity(0.8)),
                                 ),
@@ -222,7 +223,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   kopenPage(
                                     context,
                                     GuardianProfilePage(
-                                      title: 'Mother',
+                                      title: string.mother,
                                     ),
                                   );
                                 },
@@ -232,7 +233,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ReusableRoundedButton(
                                 elevation: 5,
                                 child: Text(
-                                  'Father',
+                                  string.father,
                                   style: ktitleStyle.copyWith(
                                       color: Colors.white.withOpacity(0.8)),
                                 ),
@@ -240,7 +241,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   kopenPage(
                                     context,
                                     GuardianProfilePage(
-                                      title: 'Father',
+                                      title: string.father,
                                     ),
                                   );
                                 },
@@ -250,7 +251,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ReusableRoundedButton(
                                 elevation: 5,
                                 child: Text(
-                                  'Other',
+                                  string.other,
                                   style: ktitleStyle.copyWith(
                                       color: Colors.white.withOpacity(0.8)),
                                 ),
@@ -258,7 +259,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   kopenPage(
                                     context,
                                     GuardianProfilePage(
-                                      title: 'Other',
+                                      title: string.other,
                                     ),
                                   );
                                 },

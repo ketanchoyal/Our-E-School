@@ -1,3 +1,4 @@
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
@@ -16,11 +17,11 @@ class WelcomeScreen extends StatelessWidget {
         body: Column(
           children: <Widget>[
             Text(
-              'Teachers',
+              string.teacher,
               style: TextStyle(fontSize: 35, fontWeight: FontWeight.w500),
             ),
             Text(
-              'Create posts, and notify your students and there parents to keep them updated',
+              string.teacher_welcome_text,
               style: TextStyle(
                   color: Colors.white54,
                   fontSize: 14.0,
@@ -45,12 +46,11 @@ class WelcomeScreen extends StatelessWidget {
         body: Column(
           children: <Widget>[
             Text(
-              'Students',
+              string.student,
               style: TextStyle(fontSize: 35, fontWeight: FontWeight.w500),
             ),
             Text(
-              '''Check School posts to stay updated with school news.
-Take quizzes, test at home all through your phone''',
+              string.student_welcome_text,
               style: TextStyle(
                   color: Colors.white54,
                   fontSize: 14.0,
@@ -75,12 +75,11 @@ Take quizzes, test at home all through your phone''',
         body: Column(
           children: <Widget>[
             Text(
-              'Parents',
+              string.parents,
               style: TextStyle(fontSize: 35, fontWeight: FontWeight.w500),
             ),
             Text(
-              '''Stay in touch with your kid\'s teachers.
-Check School posts to stay updated with school news.''',
+              string.parent_welcome_text,
               style: TextStyle(
                   color: Colors.white54,
                   fontSize: 14.0,
@@ -136,7 +135,6 @@ Check School posts to stay updated with school news.''',
             pageButtonTextStyles: new TextStyle(
               color: Colors.indigo,
               fontSize: 16.0,
-              fontFamily: "Regular",
             ),
           ),
           Positioned(

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
         onPressed: () {
           kbackBtn(context);
         },
-        title: 'Create Post',
+        title: string.create_post,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -71,7 +72,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: Text(
-                          'This Post is for:',
+                          string.this_post_is_for,
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w600),
                         ),
@@ -89,8 +90,8 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                 fontWeight: FontWeight.w500,
                               ),
                               decoration: kTextFieldDecoration.copyWith(
-                                hintText: '9/10/11',
-                                labelText: 'Class',
+                                hintText: string.standard_hint,
+                                labelText: string.standard,
                               ),
                             ),
                           ),
@@ -104,8 +105,8 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                 fontWeight: FontWeight.w500,
                               ),
                               decoration: kTextFieldDecoration.copyWith(
-                                hintText: 'A/B/C',
-                                labelText: 'Division',
+                                hintText: string.division_hint,
+                                labelText: string.division,
                               ),
                             ),
                           ),
@@ -210,8 +211,8 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                       fontWeight: FontWeight.w500,
                     ),
                     decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Type your stuff here.....',
-                      labelText: 'Caption',
+                      hintText: string.type_your_stuff_here,
+                      labelText: string.caption,
                     ),
                   ),
                 ),

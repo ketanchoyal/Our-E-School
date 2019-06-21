@@ -2,6 +2,7 @@ import 'package:acadamicConnect/Components/CustomLoginTypeBtn.dart';
 import 'package:acadamicConnect/Components/LoginRoundedButton.dart';
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/pages/Login/ForgotPassword.dart';
 import 'package:acadamicConnect/pages/Profiles/ProfilePage.dart';
@@ -19,16 +20,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
-  String idHint = 'Student Id';
+  String idHint = string.student_id;
   bool isRegistering = false;
-  String notYetRegisteringText = 'Not Registered?';
+  String notYetRegisteringText = string.not_registered;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: TopBar(
-        title: 'Login',
+        title: string.login,
         child: kBackBtn,
         onPressed: () {
           Navigator.pop(context);
@@ -48,8 +49,8 @@ class _LoginPageState extends State<LoginPage> {
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'One which we gave',
-                    labelText: 'School Name Code',
+                    hintText: string.school_name_code_hint,
+                    labelText: string.school_name_code,
                   ),
                 ),
                 SizedBox(
@@ -60,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'One which school gave',
+                    hintText: string.student_teacher_id_hint,
                     labelText: idHint,
                   ),
                 ),
@@ -71,12 +72,12 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     if (LoginPage.loginTypeSelected == 'S') {
                       setState(() {
-                        idHint = 'Student Id';
+                        idHint = string.student_id;
                       });
                     }
                     if (LoginPage.loginTypeSelected == 'PT') {
                       setState(() {
-                        idHint = 'Student 0r Teacher Id';
+                        idHint = string.student_or_teacher_id;
                       });
                     }
                   },
@@ -89,8 +90,8 @@ class _LoginPageState extends State<LoginPage> {
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'you@example.com',
-                    labelText: 'Email',
+                    hintText: string.email_hint,
+                    labelText: string.email,
                   ),
                 ),
                 SizedBox(
@@ -102,8 +103,8 @@ class _LoginPageState extends State<LoginPage> {
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   decoration: kTextFieldDecoration.copyWith(
-                    hintText: '*@*s*#ls',
-                    labelText: 'Password',
+                    hintText: string.password_hint,
+                    labelText: string.password,
                   ),
                 ),
                 isRegistering
@@ -119,8 +120,8 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w500),
                         decoration: kTextFieldDecoration.copyWith(
-                          hintText: '*@*s*#ls',
-                          labelText: 'Confirm Password',
+                          hintText: string.password_hint,
+                          labelText: string.confirm_password,
                         ),
                       )
                     : Container(),
@@ -148,15 +149,15 @@ class _LoginPageState extends State<LoginPage> {
                             setState(() {
                               isRegistering = !isRegistering;
                               notYetRegisteringText = isRegistering
-                                  ? "Registered?"
-                                  : "Not Registered?";
+                                  ? string.regidtered
+                                  : string.not_registered;
                             });
                           },
                           height: 40,
                         ),
                         ReusableRoundedButton(
                           child: Text(
-                            "Need help?",
+                            string.need_help,
                             style: TextStyle(
                               // color: kmainColorTeacher,
                               fontSize: 15,
@@ -198,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 LoginRoundedButton(
                   heroTag: 'loginn',
-                  label: 'Register',
+                  label: string.register,
                   onPressed: () {
                     Navigator.push(
                       context,

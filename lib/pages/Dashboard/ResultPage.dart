@@ -1,12 +1,13 @@
 import 'package:acadamicConnect/Components/ColumnReusableCardButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/pages/PDFOpener.dart';
 import 'package:flutter/material.dart';
 import 'package:random_color/random_color.dart';
 
 class ResultPage extends StatefulWidget {
-  static String pageLabel = 'Results';
+  static String pageLabel = string.results;
 
   @override
   _ResultPageState createState() => _ResultPageState();

@@ -1,9 +1,12 @@
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'ProfilePage.dart';
 
 class GuardianProfilePage extends StatefulWidget {
   final String title;
@@ -120,8 +123,8 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                   children: <Widget>[
                     ProfileFields(
                       width: MediaQuery.of(context).size.width,
-                      hintText: 'One which your parents gave',
-                      labelText: 'Name',
+                      hintText: string.name_hint,
+                      labelText: string.name,
                       onChanged: (name) {},
                       initialText: '',
                     ),
@@ -130,7 +133,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                       onTap: () async {
                         await _selectDate(context, anniversaryDate);
                       },
-                      labelText: 'Anniversary Date',
+                      labelText: string.anniversary_date,
                       textInputType: TextInputType.number,
                       onChanged: (dob) {},
                       hintText: '',
@@ -145,7 +148,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                           onTap: () async {
                             await _selectDate(context, dateOfBirth);
                           },
-                          labelText: 'DOB',
+                          labelText: string.dob,
                           textInputType: TextInputType.number,
                           onChanged: (dob) {},
                           hintText: '',
@@ -158,8 +161,8 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                         ),
                         ProfileFields(
                           // width: MediaQuery.of(context).size.width,
-                          hintText: 'A +ve/O -ve',
-                          labelText: 'Blood Group',
+                          hintText: string.blood_group_hint,
+                          labelText: string.blood_group,
                           onChanged: (bg) {},
                           initialText: '',
                         ),
@@ -168,8 +171,8 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                     ProfileFields(
                       width: MediaQuery.of(context).size.width,
                       textInputType: TextInputType.number,
-                      hintText: 'Your parents..',
-                      labelText: 'Mobile No',
+                      hintText: '',
+                      labelText: string.mobile_no,
                       onChanged: (id) {},
                       initialText: '',
                     ),
@@ -178,47 +181,6 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ProfileFields extends StatelessWidget {
-  final String initialText;
-  final String labelText;
-  final String hintText;
-  final Function onChanged;
-  final double width;
-  final Function onTap;
-  final TextInputType textInputType;
-
-  const ProfileFields(
-      {this.initialText,
-      @required this.labelText,
-      this.hintText,
-      @required this.onChanged,
-      this.onTap,
-      this.textInputType,
-      this.width});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 70,
-      width: width == null ? MediaQuery.of(context).size.width / 2.5 : width,
-      child: TextField(
-        onTap: onTap,
-        controller: TextEditingController(text: initialText),
-        onChanged: onChanged,
-        keyboardType: textInputType ?? TextInputType.text,
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
-        ),
-        decoration: kTextFieldDecoration.copyWith(
-          hintText: hintText,
-          labelText: labelText,
         ),
       ),
     );

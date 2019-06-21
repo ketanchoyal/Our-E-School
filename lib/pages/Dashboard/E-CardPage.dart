@@ -1,4 +1,5 @@
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +17,7 @@ class _ECardPageState extends State<ECardPage> {
     return Container(
       child: Scaffold(
         appBar: TopBar(
-          title: 'E-Card',
+          title: string.e_card,
           child: kBackBtn,
           onPressed: () {
             kbackBtn(context);
@@ -53,31 +54,12 @@ class _ECardPageState extends State<ECardPage> {
                   children: <Widget>[
                     ProfileFieldsECard(
                       width: MediaQuery.of(context).size.width,
-                      labelText: 'Student/Teacher Name',
+                      labelText: string.student_teacher_name,
                       initialText: '',
                     ),
                     ProfileFieldsECard(
                       width: MediaQuery.of(context).size.width,
-                      labelText: 'Student/Teacher Id',
-                      initialText: '',
-                    ),
-                    Row(
-                      // mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        ProfileFieldsECard(
-                          labelText: 'Standard',
-                          initialText: '',
-                        ),
-                        ProfileFieldsECard(
-                          labelText: 'Division',
-                          initialText: '',
-                        ),
-                      ],
-                    ),
-                    ProfileFieldsECard(
-                      width: MediaQuery.of(context).size.width,
-                      labelText: 'Guardian Name',
+                      labelText: string.student_or_teacher_id,
                       initialText: '',
                     ),
                     Row(
@@ -85,18 +67,37 @@ class _ECardPageState extends State<ECardPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         ProfileFieldsECard(
-                          labelText: 'DOB',
+                          labelText: string.standard,
                           initialText: '',
                         ),
                         ProfileFieldsECard(
-                          labelText: 'Blood Group',
+                          labelText: string.division,
                           initialText: '',
                         ),
                       ],
                     ),
                     ProfileFieldsECard(
                       width: MediaQuery.of(context).size.width,
-                      labelText: 'Mobile No',
+                      labelText: string.guardian_name,
+                      initialText: '',
+                    ),
+                    Row(
+                      // mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        ProfileFieldsECard(
+                          labelText: string.dob,
+                          initialText: '',
+                        ),
+                        ProfileFieldsECard(
+                          labelText: string.blood_group,
+                          initialText: '',
+                        ),
+                      ],
+                    ),
+                    ProfileFieldsECard(
+                      width: MediaQuery.of(context).size.width,
+                      labelText: string.mobile_no,
                       initialText: '',
                     ),
                   ],

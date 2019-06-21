@@ -1,5 +1,6 @@
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         onPressed: () {
           kbackBtn(context);
         },
-        title: 'Forgot Password',
+        title: string.forgot_password,
       ),
       body: Padding(
         padding: const EdgeInsets.only(bottom: 25.0, left: 25.0, right: 25.0, top: 10),
@@ -28,7 +29,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             Padding(
               padding: const EdgeInsets.only(left: 5.0, right: 5.0, ),
               child: Text(
-                'Email Registered mail-id to recover your account',
+                string.enter_registered_email,
                 style: ktitleStyle,
               ),
             ),
@@ -41,8 +42,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               decoration: kTextFieldDecoration.copyWith(
-                hintText: 'you@example.com',
-                labelText: 'Email',
+                hintText: string.email_hint,
+                labelText: string.email,
               ),
             ),
             SizedBox(
@@ -51,7 +52,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ReusableRoundedButton(
               elevation: 5,
               child: Text(
-                "Send recovery mail",
+                string.send_recovery_mail,
                 style: TextStyle(
                   // color: kmainColorTeacher,
                   fontSize: 15,
