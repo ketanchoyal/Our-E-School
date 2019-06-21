@@ -148,7 +148,7 @@ class WelcomeScreen extends StatelessWidget {
                 transitionOnUserGestures: true,
                 child: MaterialButton(
                   height: 50,
-                  minWidth: 300,
+                  minWidth: MediaQuery.of(context).size.width - 100,
                   elevation: 10,
                   // shape: RoundedRectangleBorder(
                   //   borderRadius: BorderRadius.only(

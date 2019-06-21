@@ -24,12 +24,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       body: Padding(
         padding: const EdgeInsets.only(bottom: 25.0, left: 25.0, right: 25.0, top: 10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 5.0, right: 5.0, ),
               child: Text(
                 string.enter_registered_email,
+                // textAlign: TextAlign.center,
                 style: ktitleStyle,
               ),
             ),
@@ -49,19 +50,27 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             SizedBox(
               height: 15,
             ),
-            ReusableRoundedButton(
-              elevation: 5,
-              child: Text(
-                string.send_recovery_mail,
-                style: TextStyle(
-                  // color: kmainColorTeacher,
-                  fontSize: 15,
-                ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  ReusableRoundedButton(
+                    elevation: 5,
+                    child: Text(
+                      string.send_recovery_mail,
+                      style: TextStyle(
+                        // color: kmainColorTeacher,
+                        fontSize: 15,
+                      ),
+                    ),
+                    onPressed: () {
+                      //Sent Password reset link logic
+                    },
+                    height: 50,
+                  ),
+                ],
               ),
-              onPressed: () {
-                //Sent Password reset link logic
-              },
-              height: 40,
             ),
           ],
         ),

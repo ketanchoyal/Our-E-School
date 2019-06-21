@@ -110,9 +110,9 @@ class _BottomNavigationTile extends StatelessWidget {
                         ? item.backgroundColor.withOpacity(opacity)
                         : Colors.transparent,
                     borderRadius: BorderRadius.horizontal(
-                      // right: Radius.circular(50),
-                      // left: Radius.circular(50),
-                    )),
+                        // right: Radius.circular(50),
+                        // left: Radius.circular(50),
+                        )),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: selected
@@ -207,17 +207,19 @@ class _Label extends StatelessWidget {
       alignment: Alignment.center,
       heightFactor: 1.0,
       child: Container(
-        width: 50,
-        child: FadeTransition(
-          alwaysIncludeSemantics: true,
-          opacity: animation,
-          child: DefaultTextStyle.merge(
-            style: TextStyle(
-              fontSize: _kActiveFontSize,
-              fontWeight: FontWeight.w600,
-              color: color,
+        width: 70,
+        child: Center(
+          child: FadeTransition(
+            alwaysIncludeSemantics: true,
+            opacity: animation,
+            child: DefaultTextStyle.merge(
+              style: TextStyle(
+                fontSize: _kActiveFontSize,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+              child: item.title,
             ),
-            child: item.title,
           ),
         ),
       ),
@@ -364,7 +366,7 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
   Widget _inner(double additionalBottomPadding) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: 15,
+        horizontal: 10,
       ),
       child: ConstrainedBox(
         constraints: BoxConstraints(
@@ -375,7 +377,7 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
             padding: EdgeInsets.only(
                 bottom: additionalBottomPadding,
                 right: widget.fabLocation == BubbleBottomBarFabLocation.end
-                    ? 65
+                    ? 60
                     : 0),
             child: MediaQuery.removePadding(
               context: context,
@@ -395,30 +397,31 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
     final double additionalBottomPadding =
         math.max(MediaQuery.of(context).padding.bottom - _kBottomMargin, 0.0);
     return Semantics(
-        explicitChildNodes: true,
-        child: widget.hasNotch
-            ? PhysicalShape(
-                elevation: widget.elevation != null ? widget.elevation : 8.0,
-                color: widget.backgroundColor != null
-                    ? widget.backgroundColor
-                    : Colors.white,
-                clipper: _BubbleBottomBarClipper(
-                  shape: CircularNotchedRectangle(),
-                  geometry: geometryListenable,
-                  notchMargin: 6,
-                ),
-                child: _inner(additionalBottomPadding),
-              )
-            : Material(
-                elevation: widget.elevation != null ? widget.elevation : 8.0,
-                color: widget.backgroundColor != null
-                    ? widget.backgroundColor
-                    : Colors.white,
-                child: _inner(additionalBottomPadding),
-                borderRadius: widget.borderRadius != null
-                    ? widget.borderRadius
-                    : BorderRadius.zero,
-              ));
+      explicitChildNodes: true,
+      child: widget.hasNotch
+          ? PhysicalShape(
+              elevation: widget.elevation != null ? widget.elevation : 8.0,
+              color: widget.backgroundColor != null
+                  ? widget.backgroundColor
+                  : Colors.white,
+              clipper: _BubbleBottomBarClipper(
+                shape: CircularNotchedRectangle(),
+                geometry: geometryListenable,
+                notchMargin: 6,
+              ),
+              child: _inner(additionalBottomPadding),
+            )
+          : Material(
+              elevation: widget.elevation != null ? widget.elevation : 8.0,
+              color: widget.backgroundColor != null
+                  ? widget.backgroundColor
+                  : Colors.white,
+              child: _inner(additionalBottomPadding),
+              borderRadius: widget.borderRadius != null
+                  ? widget.borderRadius
+                  : BorderRadius.zero,
+            ),
+    );
   }
 }
 
@@ -428,7 +431,7 @@ class BubbleBottomBarItem {
     this.title,
     Widget activeIcon,
     this.backgroundColor,
-  }) : activeIcon = activeIcon ?? icon,
+  })  : activeIcon = activeIcon ?? icon,
         assert(icon != null);
   final Widget icon;
   final Widget activeIcon;

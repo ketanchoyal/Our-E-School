@@ -68,7 +68,7 @@ kopenPageBottom(BuildContext context, Widget page) {
 }
 
  Future openFileExplorer(FileType _pickingType, bool mounted) async {
-    String _path = '';
+    String _path = null;
     if (_pickingType != FileType.CUSTOM) {
       try {
         _path = await FilePicker.getFilePath(type: _pickingType);

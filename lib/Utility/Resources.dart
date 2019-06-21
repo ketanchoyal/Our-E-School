@@ -43,7 +43,7 @@ static const send_otp = 'Send OTP';
 //Forgot Password
 static const forgot_password = 'Forgot Password';
 static const enter_registered_email = 'Enter Registered mail-id to recover your account';
-static const send_recovery_mail = 'Send recovert mail';
+static const send_recovery_mail = 'Send recovery mail';
 
 //Home
 static const home = 'Home';

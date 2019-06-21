@@ -26,7 +26,7 @@ class _DashboardState extends State<Dashboard> {
     return SafeArea(
           child: Scaffold(
         body: Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: EdgeInsets.only(left: 10.0, right: 10.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -207,7 +207,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     ColumnReusableCardButton(
                       tileColor: Colors.greenAccent,
-                      // height: 50,
+                      height: 60,
                       label: string.offers,
                       onPressed: () {},
                       icon: Icons.receipt,

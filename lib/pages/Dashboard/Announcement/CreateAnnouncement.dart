@@ -17,21 +17,21 @@ class CreateAnnouncement extends StatefulWidget {
 }
 
 class _CreateAnnouncementState extends State<CreateAnnouncement> {
-  String path = '';
+  String path = null;
   
-  Future _openFileExplorer(FileType _pickingType) async {
-  String _path = '';
-  if (_pickingType != FileType.CUSTOM) {
-    try {
-      _path = await FilePicker.getFilePath(type: _pickingType);
-    } on PlatformException catch (e) {
-      print("Unsupported operation" + e.toString());
-    }
-    if (!mounted) return '';
+//   Future _openFileExplorer(FileType _pickingType) async {
+//   String _path = '';
+//   if (_pickingType != FileType.CUSTOM) {
+//     try {
+//       _path = await FilePicker.getFilePath(type: _pickingType);
+//     } on PlatformException catch (e) {
+//       print("Unsupported operation" + e.toString());
+//     }
+//     if (!mounted) return '';
 
-    return _path;
-  }
-}
+//     return _path;
+//   }
+// }
 
   FocusNode _focusNode = new FocusNode();
 
@@ -117,7 +117,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                 ),
                 Container(
                   constraints: BoxConstraints(maxHeight: 300, minHeight: 0),
-                  child: path == ''
+                  child: path == null
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
@@ -179,7 +179,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                       height: 10,
                                       onPressed: () {
                                         setState(() {
-                                          path = '';
+                                          path = null;
                                         });
                                       },
                                       child: Icon(
