@@ -142,7 +142,8 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                               height: 100,
                               child: Icon(Icons.photo_library),
                               onPressed: () async {
-                                String _path = await _openFileExplorer(FileType.IMAGE);
+                                
+                                String _path = await openFileExplorer(FileType.IMAGE, mounted);
                                 
                                 setState(() {
                                   path = _path;
@@ -177,7 +178,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                       height: 10,
                                       onPressed: () {
                                         setState(() {
-                                          path = null;
+                                          path = '';
                                         });
                                       },
                                       child: Icon(

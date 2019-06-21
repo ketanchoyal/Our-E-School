@@ -17,20 +17,6 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
   DateTime anniversaryDate;
   String path = '';
 
-  Future _openFileExplorer(FileType _pickingType) async {
-    String _path = '';
-    if (_pickingType != FileType.CUSTOM) {
-      try {
-        _path = await FilePicker.getFilePath(type: _pickingType);
-      } on PlatformException catch (e) {
-        print("Unsupported operation" + e.toString());
-      }
-      if (!mounted) return '';
-
-      return _path;
-    }
-  }
-
   Future<Null> _selectDate(BuildContext context, DateTime date) async {
     final DateTime picked = await showDatePicker(
         initialDatePickerMode: DatePickerMode.day,
@@ -112,7 +98,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                                 ),
                                 onPressed: () async {
                                   String _path =
-                                      await _openFileExplorer(FileType.IMAGE);
+                                      await openFileExplorer(FileType.IMAGE, mounted);
                                   setState(() {
                                     path = _path;
                                   });

@@ -1,5 +1,7 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 var kTextFieldDecoration = InputDecoration(
   // hintText: 'Enter your password.',
@@ -64,3 +66,17 @@ kopenPageBottom(BuildContext context, Widget page) {
     ),
   );
 }
+
+ Future openFileExplorer(FileType _pickingType, bool mounted) async {
+    String _path = '';
+    if (_pickingType != FileType.CUSTOM) {
+      try {
+        _path = await FilePicker.getFilePath(type: _pickingType);
+      } on PlatformException catch (e) {
+        print("Unsupported operation" + e.toString());
+      }
+      if (!mounted) return '';
+
+      return _path;
+    }
+  }

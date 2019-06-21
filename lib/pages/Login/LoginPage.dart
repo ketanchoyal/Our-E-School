@@ -3,6 +3,7 @@ import 'package:acadamicConnect/Components/LoginRoundedButton.dart';
 import 'package:acadamicConnect/Components/ReusableRoundedButton.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
+import 'package:acadamicConnect/pages/Login/ForgotPassword.dart';
 import 'package:acadamicConnect/pages/Profiles/ProfilePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -163,6 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           onPressed: () {
                             //Forget Password Logic
+                            kopenPage(context, ForgotPasswordPage());
                           },
                           height: 40,
                         ),

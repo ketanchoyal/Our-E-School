@@ -31,20 +31,6 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  Future _openFileExplorer(FileType _pickingType) async {
-    String _path = '';
-    if (_pickingType != FileType.CUSTOM) {
-      try {
-        _path = await FilePicker.getFilePath(type: _pickingType);
-      } on PlatformException catch (e) {
-        print("Unsupported operation" + e.toString());
-      }
-      if (!mounted) return '';
-
-      return _path;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 onPressed: () async {
                                   String _path =
-                                      await _openFileExplorer(FileType.IMAGE);
+                                      await openFileExplorer(FileType.IMAGE, mounted);
                                   setState(() {
                                     path = _path;
                                   });
