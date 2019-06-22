@@ -4,6 +4,7 @@ import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
 import 'package:acadamicConnect/pages/Dashboard/FeesPage.dart';
+import 'package:acadamicConnect/pages/Dashboard/Holidays/HolidayPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/QuizPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/ResultPage.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,9 @@ class _DashboardState extends State<Dashboard> {
                             tileColor: Colors.blueGrey,
                             icon: CustomIcons.traveler_with_a_suitcase,
                             label: string.holidays,
-                            onPressed: () {},
+                            onPressed: () {
+                              kopenPage(context, HolidayPage());
+                            },
                           ),
                           SizedBox(
                             width: 5,

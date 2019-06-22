@@ -90,13 +90,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_advanced_networkimage:
-    dependency: transitive
-    description:
-      name: flutter_advanced_networkimage
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.15"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -110,14 +103,14 @@ packages:
       name: flutter_plugin_pdf_viewer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.6"
-  flutter_svg:
-    dependency: transitive
+    version: "1.0.3"
+  flutter_spinkit:
+    dependency: "direct main"
     description:
-      name: flutter_svg
+      name: flutter_spinkit
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.4+2"
+    version: "3.1.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -131,7 +124,7 @@ packages:
     source: hosted
     version: "8.4.0"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"
@@ -151,6 +144,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.15.8"
   intro_views_flutter:
     dependency: "direct main"
     description:
@@ -186,22 +186,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.2"
-  path_drawing:
-    dependency: transitive
-    description:
-      name: path_drawing
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.1"
-  path_parsing:
-    dependency: transitive
-    description:
-      name: path_parsing
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.4"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       url: "https://pub.dartlang.org"
@@ -214,13 +200,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.0"
-  petitparser:
-    dependency: transitive
-    description:
-      name: petitparser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.1"
   provider:
     dependency: "direct main"
     description:
@@ -243,14 +222,14 @@ packages:
     source: hosted
     version: "1.0.3"
   rxdart:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.21.0"
+    version: "0.18.1"
   shared_preferences:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
@@ -338,13 +317,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
-  xml:
-    dependency: transitive
-    description:
-      name: xml
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.4.1"
 sdks:
   dart: ">=2.2.0 <3.0.0"
-  flutter: ">=1.5.0 <1.5.9"
+  flutter: ">=1.5.0 <2.0.0"
