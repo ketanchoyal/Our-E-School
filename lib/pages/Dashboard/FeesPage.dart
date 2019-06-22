@@ -29,35 +29,78 @@ class _FeesPageState extends State<FeesPage>
         },
         title: string.fees,
       ),
-      body: Stack(
+      body: TabBarView(
+        controller: _tabController,
         children: <Widget>[
-          Material(
-            color: Colors.transparent,
-            child: TabBar(
-              indicatorWeight: 4,
-              controller: _tabController,
-              indicatorColor: Theme.of(context).primaryColor,
-              tabs: <Widget>[
-                Tab(
-                  child: Text(
-                    string.fees_due,
-                    style: ktitleStyle.copyWith(
-                      color: Theme.of(context).textTheme.body1.color
-                    ),
+          Column(
+            children: <Widget>[
+              Center(
+                child: Text(
+                  'Total Fees Due',
+                  style: ktitleStyle,
+                ),
+              ),
+              Center(
+                child: Text(
+                  'INR 21,000',
+                  style: ktitleStyle.copyWith(
+                    fontSize: 30,
+                    color: Theme.of(context).primaryColor
                   ),
                 ),
-                Tab(
-                  child: Text(
-                    string.fees_paid,
-                    style: ktitleStyle.copyWith(
-                      color: Theme.of(context).textTheme.body1.color
-                    ),
+              ),
+            ],
+          ),
+          Column(
+            children: <Widget>[
+              Center(
+                child: Text(
+                  'Total Fees Paid',
+                  style: ktitleStyle,
+                ),
+              ),
+              Center(
+                child: Text(
+                  'INR 10,000',
+                  style: ktitleStyle.copyWith(
+                    fontSize: 30,
+                    color: Colors.green
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            Material(
+              color: Colors.transparent,
+              child: TabBar(
+                indicatorWeight: 4,
+                controller: _tabController,
+                indicatorColor: Theme.of(context).primaryColor,
+                tabs: <Widget>[
+                  Tab(
+                    child: Text(
+                      string.fees_due,
+                      style: ktitleStyle.copyWith(
+                          color: Theme.of(context).textTheme.body1.color),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      string.fees_paid,
+                      style: ktitleStyle.copyWith(
+                          color: Theme.of(context).textTheme.body1.color),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

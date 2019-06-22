@@ -24,20 +24,21 @@ class _ECardPageState extends State<ECardPage> {
           },
         ),
         body: SingleChildScrollView(
-                  child: Column(
+          child: Column(
             children: <Widget>[
               Align(
                 alignment: Alignment.topCenter,
                 child: Card(
                   elevation: 10,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: Container(
+                    constraints: BoxConstraints(maxHeight: 200, maxWidth: 200),
                     width: MediaQuery.of(context).size.width / 2,
                     height: MediaQuery.of(context).size.width / 2,
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
+                      // shape: BoxShape.circle,r
                       image: DecorationImage(
                         fit: BoxFit.scaleDown,
                         image: NetworkImage(
@@ -49,7 +50,8 @@ class _ECardPageState extends State<ECardPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Column(
                   children: <Widget>[
                     ProfileFieldsECard(
