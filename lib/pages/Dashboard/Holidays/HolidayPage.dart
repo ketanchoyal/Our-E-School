@@ -1,6 +1,7 @@
 import 'package:acadamicConnect/Components/TopBar.dart';
 import 'package:acadamicConnect/Components/custom_country_code_picker/custom_country_code_picker.dart';
 import 'package:acadamicConnect/Models/holiday_data.dart';
+import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/blocs/HolidayBlocs/holiday_bloc.dart';
 import 'package:acadamicConnect/resources/months_color.dart';
@@ -38,7 +39,7 @@ class _HolidayPageState extends State<HolidayPage> {
         onPressed: () {
           kbackBtn(context);
         },
-        title: 'Holidays',
+        title: string.holidays,
       ),
       body: AnimatedSwitcher(
         duration: Duration(

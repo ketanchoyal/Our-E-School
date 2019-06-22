@@ -9,7 +9,8 @@ import 'package:acadamicConnect/pages/Profiles/ProfilePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'MobileLoginPage.dart';
-import 'package:flip_card/flip_card.dart';
+
+enum ButtonType { LOGIN, REGISTER }
 
 class LoginPage extends StatefulWidget {
   static String loginTypeSelected = 'S';
@@ -19,10 +20,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
   String idHint = string.student_id;
   bool isRegistering = false;
   String notYetRegisteringText = string.not_registered;
+  ButtonType buttonType = ButtonType.LOGIN;
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +36,54 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pop(context);
         },
       ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+      floatingActionButton: Row(
+        // mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 31),
+              child: Hero(
+                tag: 'mobile',
+                transitionOnUserGestures: true,
+                child: ReusableRoundedButton(
+                  child: Icon(
+                    Icons.phone,
+                    color: Colors.white,
+                  ),
+                  // text: 'Mobile',
+                  onPressed: () {
+                    kopenPageBottom(
+                      context,
+                      MobileLoginPage(),
+                    );
+                  },
+                  height: 50,
+                  backgroundColor: Colors.redAccent,
+                ),
+              ),
+            ),
+          ),
+          LoginRoundedButton(
+            label:
+                buttonType == ButtonType.LOGIN ? string.login : string.register,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => ProfilePage(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.only(left: 20, right: 20, top: 10),
             child: Column(
-              // mainAxisSize: MainAxisSize.min,
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 TextField(
                   onChanged: (id) {},
@@ -145,8 +186,13 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () {
-                            cardKey.currentState.toggleCard();
+                            // cardKey.currentState.toggleCard();
                             setState(() {
+                              if (buttonType == ButtonType.LOGIN) {
+                                buttonType = ButtonType.REGISTER;
+                              } else {
+                                buttonType = ButtonType.LOGIN;
+                              }
                               isRegistering = !isRegistering;
                               notYetRegisteringText = isRegistering
                                   ? string.regidtered
@@ -173,73 +219,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-          FlipCard(
-            speed: 100,
-            key: cardKey,
-            flipOnTouch: false,
-            direction: FlipDirection.HORIZONTAL,
-            front: Stack(
-              children: <Widget>[
-                LoginRoundedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => ProfilePage(),
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-            back: Stack(
-              children: <Widget>[
-                LoginRoundedButton(
-                  heroTag: 'loginn',
-                  label: string.register,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => ProfilePage(),
-                      ),
-                    );
-                  },
+                SizedBox(
+                  height: 100,
                 ),
               ],
             ),
           ),
-          Positioned(
-            bottom: 50,
-            left: 30,
-            width: MediaQuery.of(context).size.width,
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Hero(
-                tag: 'mobile',
-                transitionOnUserGestures: true,
-                child: ReusableRoundedButton(
-                  child: Icon(
-                    Icons.phone,
-                    color: Colors.white,
-                  ),
-                  // text: 'Mobile',
-                  onPressed: () {
-                    kopenPageBottom(
-                      context,
-                      MobileLoginPage(),
-                    );
-                  },
-                  height: 50,
-                  backgroundColor: Colors.redAccent,
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

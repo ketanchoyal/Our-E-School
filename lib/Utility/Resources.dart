@@ -41,7 +41,7 @@ static const otp_hint = '_ _ _ _ _ _';
 static const send_otp = 'Send OTP';
 
 //Forgot Password
-static const forgot_password = 'Forgot Password';
+static const forgot_password = 'Reset';
 static const enter_registered_email = 'Enter Registered mail-id to recover your account';
 static const send_recovery_mail = 'Send recovery mail';
 
@@ -118,7 +118,7 @@ static const e_card = 'E-Card';
 static const timetable = 'Time Table';
 
 //Announcements
-static const announcement = 'Announcements';
+static const announcement = 'Announcement';
 
 static const show_announcement_of = 'Show Announcement of:';
 static const filter_announcement = 'To filter the Posts please enter Class and Division:';

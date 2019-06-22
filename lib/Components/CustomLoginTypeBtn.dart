@@ -55,6 +55,7 @@ class _CustomLoginTypeBtnState extends State<CustomLoginTypeBtn> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // constraints: BoxConstraints(maxHeight: 40, maxWidth: 50),
       height: 40,
       width: MediaQuery.of(context).size.width,
       child: Hero(

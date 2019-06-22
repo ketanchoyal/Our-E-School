@@ -28,127 +28,11 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
           Navigator.pop(context);
         },
       ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-            child: Column(
-              // mainAxisSize: MainAxisSize.min,
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                TextField(
-                  enabled: isEnabled,
-                  onChanged: (id) {},
-                  keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  decoration: kTextFieldDecoration.copyWith(
-                    hintText: string.school_name_code_hint,
-                    labelText: string.school_name_code,
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                TextField(
-                  enabled: isEnabled,
-                  onChanged: (id) {},
-                  keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  decoration: kTextFieldDecoration.copyWith(
-                    hintText: string.student_teacher_id_hint,
-                    labelText: idHint,
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                CustomLoginTypeBtn(
-                  onPressed: () {
-                    if (MobileLoginPage.loginTypeSelected == 'S') {
-                      setState(() {
-                        idHint = string.student_id;
-                      });
-                    }
-                    if (MobileLoginPage.loginTypeSelected == 'PT') {
-                      setState(() {
-                        idHint = string.student_or_teacher_id;
-                      });
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  enabled: isEnabled,
-                  onChanged: (email) {},
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  decoration: kTextFieldDecoration.copyWith(
-                    hintText: string.mobile_hint,
-                    labelText: string.mobile_no,
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                TextField(
-                  enabled: !isEnabled,
-                  onChanged: (password) {},
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  decoration: kTextFieldDecoration.copyWith(
-                    hintText: string.otp_hint,
-                    labelText: string.otp,
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Hero(
-                  tag: 'otpForget',
-                  child: Container(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: ReusableRoundedButton(
-                        child: Text(
-                          string.send_otp,
-                          style: TextStyle(
-                            // color: kmainColorTeacher,
-                            fontSize: 15,
-                          ),
-                        ),
-                        // text: "Forgot Pass?",
-                        onPressed: () {
-                          setState(() {
-                            isEnabled = !isEnabled;
-                          });
-                        },
-                        height: 40,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          LoginRoundedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => Home(),
-                ),
-              );
-            },
-          ),
-          Positioned(
-            bottom: 50,
-            left: 30,
-            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.only(left: 31),
             child: Align(
               alignment: Alignment.bottomLeft,
               child: Hero(
@@ -169,7 +53,129 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
               ),
             ),
           ),
+          LoginRoundedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => Home(),
+                ),
+              );
+            },
+          ),
         ],
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // fit: StackFit.expand,
+            children: [
+              Column(
+                // mainAxisSize: MainAxisSize.min,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  TextField(
+                    enabled: isEnabled,
+                    onChanged: (id) {},
+                    keyboardType: TextInputType.emailAddress,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    decoration: kTextFieldDecoration.copyWith(
+                      hintText: string.school_name_code_hint,
+                      labelText: string.school_name_code,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  TextField(
+                    enabled: isEnabled,
+                    onChanged: (id) {},
+                    keyboardType: TextInputType.emailAddress,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    decoration: kTextFieldDecoration.copyWith(
+                      hintText: string.student_teacher_id_hint,
+                      labelText: idHint,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomLoginTypeBtn(
+                    onPressed: () {
+                      if (MobileLoginPage.loginTypeSelected == 'S') {
+                        setState(() {
+                          idHint = string.student_id;
+                        });
+                      }
+                      if (MobileLoginPage.loginTypeSelected == 'PT') {
+                        setState(() {
+                          idHint = string.student_or_teacher_id;
+                        });
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
+                    enabled: isEnabled,
+                    onChanged: (email) {},
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    decoration: kTextFieldDecoration.copyWith(
+                      hintText: string.mobile_hint,
+                      labelText: string.mobile_no,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  TextField(
+                    enabled: !isEnabled,
+                    onChanged: (password) {},
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    decoration: kTextFieldDecoration.copyWith(
+                      hintText: string.otp_hint,
+                      labelText: string.otp,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Hero(
+                    tag: 'otpForget',
+                    child: Container(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: ReusableRoundedButton(
+                          child: Text(
+                            string.send_otp,
+                            style: TextStyle(
+                              // color: kmainColorTeacher,
+                              fontSize: 15,
+                            ),
+                          ),
+                          // text: "Forgot Pass?",
+                          onPressed: () {
+                            setState(() {
+                              isEnabled = !isEnabled;
+                            });
+                          },
+                          height: 40,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
