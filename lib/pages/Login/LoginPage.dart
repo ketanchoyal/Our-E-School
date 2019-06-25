@@ -36,48 +36,51 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pop(context);
         },
       ),
-      floatingActionButton: Row(
-        // mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 31),
-              child: Hero(
-                tag: 'mobile',
-                transitionOnUserGestures: true,
-                child: ReusableRoundedButton(
-                  child: Icon(
-                    Icons.phone,
-                    color: Colors.white,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Row(
+          // mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 31),
+                child: Hero(
+                  tag: 'mobile',
+                  transitionOnUserGestures: true,
+                  child: ReusableRoundedButton(
+                    child: Icon(
+                      Icons.phone,
+                      color: Colors.white,
+                    ),
+                    // text: 'Mobile',
+                    onPressed: () {
+                      kopenPageBottom(
+                        context,
+                        MobileLoginPage(),
+                      );
+                    },
+                    height: 50,
+                    backgroundColor: Colors.redAccent,
                   ),
-                  // text: 'Mobile',
-                  onPressed: () {
-                    kopenPageBottom(
-                      context,
-                      MobileLoginPage(),
-                    );
-                  },
-                  height: 50,
-                  backgroundColor: Colors.redAccent,
                 ),
               ),
             ),
-          ),
-          LoginRoundedButton(
-            label:
-                buttonType == ButtonType.LOGIN ? string.login : string.register,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => ProfilePage(),
-                ),
-              );
-            },
-          ),
-        ],
+            LoginRoundedButton(
+              label:
+                  buttonType == ButtonType.LOGIN ? string.login : string.register,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => ProfilePage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: SafeArea(

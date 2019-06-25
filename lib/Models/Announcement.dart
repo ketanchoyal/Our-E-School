@@ -12,6 +12,7 @@ class Announcement {
   String caption;
   String photoUrl;
   String forClass;
+  String forDiv;
 
-  Announcement({this.by, this.caption, this.forClass, this.id, this.photoUrl, this.timestamp, this.type});
+  Announcement({this.by, this.caption, this.forClass, this.id, this.photoUrl, this.timestamp, this.type, this.forDiv});
 }

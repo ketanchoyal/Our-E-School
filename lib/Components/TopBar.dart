@@ -10,7 +10,11 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  TopBar({@required this.title, @required this.child, @required this.onPressed, this.onTitleTapped})
+  TopBar(
+      {@required this.title,
+      @required this.child,
+      @required this.onPressed,
+      this.onTitleTapped})
       : preferredSize = Size.fromHeight(60.0);
 
   @override
@@ -54,8 +58,8 @@ class _TopBarState extends State<TopBar> {
                   elevation: 10,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
-                      // bottomLeft: Radius.circular(30),
-                    ),
+                        // bottomLeft: Radius.circular(30),
+                        ),
                   ),
                   child: InkWell(
                     onTap: widget.onTitleTapped,
@@ -65,13 +69,16 @@ class _TopBarState extends State<TopBar> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 30),
-                          child: Text(
-                            widget.title,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                              // color: Colors.black54,
+                          padding: const EdgeInsets.only(left: 20),
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              widget.title,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                // color: Colors.black54,
+                              ),
                             ),
                           ),
                         ),

@@ -83,8 +83,9 @@ I want to perform login and call a function for that, this function can either r
                   announcement: Announcement(
                       by: 'userid',
                       caption: randomText,
-                      forClass: '10A',
-                      id: 'postid',
+                      forClass: '10',
+                      forDiv: 'A',
+                      id: 'postid' +index.toString(),
                       photoUrl:
                           "https://cyprus-mail.com/wp-content/uploads/2013/06/schoolchildren06.jpg",
                       timestamp: 'Jan 21, 10:30 AM',

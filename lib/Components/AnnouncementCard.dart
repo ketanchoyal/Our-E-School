@@ -1,5 +1,6 @@
 import 'package:acadamicConnect/Models/Announcement.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
+import 'package:acadamicConnect/pages/common/AnnouncementViewer.dart';
 import 'package:flutter/material.dart';
 
 class AnnouncementCard extends StatelessWidget {
@@ -23,62 +24,70 @@ class AnnouncementCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      //User profile image section
-                      CircleAvatar(
-                        radius: 25.0,
-                        backgroundImage: NetworkImage(
-                          'https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png',
+                  Hero(
+                    transitionOnUserGestures: false,
+                    tag: announcement.id + 'row',
+                    child: Row(
+                      children: <Widget>[
+                        //User profile image section
+                        CircleAvatar(
+                          radius: 25.0,
+                          backgroundImage: NetworkImage(
+                            'https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png',
+                          ),
+                          backgroundColor: Colors.transparent,
                         ),
-                        backgroundColor: Colors.transparent,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          //Announcement by section
-                          Text(
-                            announcement.by,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 15,
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            //Announcement by section
+                            Text(
+                              announcement.by,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                              ),
                             ),
-                          ),
-                          //TimeStamp section
-                          Text(
-                            announcement.timestamp,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
+                            //TimeStamp section
+                            Text(
+                              announcement.timestamp,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   //Announcement Type section
-                  InkWell(
-                    onTap: () {
-                      buildShowDialogBox(context);
-                    },
-                    child: Card(
-                      shape: kCardCircularShape,
-                      // color: Colors.redAccent,
-                      elevation: 4,
-                      child: CircleAvatar(
-                        backgroundColor: ThemeData().canvasColor,
-                        child: Text(
-                          announcement.type
-                              .toString()
-                              .substring(
-                                  announcement.type.toString().indexOf('.') + 1)
-                              .substring(0, 1),
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
+                  Visibility(
+                    visible: announcement.type == null ? false : true,
+                    child: InkWell(
+                      onTap: () {
+                        buildShowDialogBox(context);
+                      },
+                      child: Card(
+                        shape: kCardCircularShape,
+                        // color: Colors.redAccent,
+                        elevation: 4,
+                        child: CircleAvatar(
+                          backgroundColor: ThemeData().canvasColor,
+                          child: Text(
+                            announcement.type
+                                .toString()
+                                .substring(
+                                    announcement.type.toString().indexOf('.') +
+                                        1)
+                                .substring(0, 1),
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ),
@@ -92,16 +101,32 @@ class AnnouncementCard extends StatelessWidget {
               child: Container(
                 constraints: BoxConstraints(maxHeight: 300, minHeight: 0),
                 width: MediaQuery.of(context).size.width,
-                child: announcement.photoUrl == null
-                    ? Container(
-                        height: 0,
-                      )
-                    : Image(
-                        fit: BoxFit.contain,
-                        image: NetworkImage(
-                          announcement.photoUrl,
-                        ),
-                      ),
+                child: Hero(
+                  transitionOnUserGestures: true,
+                  tag: announcement.id + 'photo',
+                  child: Material(
+                    child: InkWell(
+                      onTap: () {
+                        kopenPageBottom(
+                          context,
+                          AnnouncementViewer(
+                            announcement: announcement,
+                          ),
+                        );
+                      },
+                      child: announcement.photoUrl == null
+                          ? Container(
+                              height: 0,
+                            )
+                          : Image(
+                              fit: BoxFit.contain,
+                              image: NetworkImage(
+                                announcement.photoUrl,
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
               ),
             ),
             //Caption Section
@@ -110,11 +135,15 @@ class AnnouncementCard extends StatelessWidget {
               child: Container(
                 constraints: BoxConstraints(maxHeight: 80, minHeight: 10),
                 width: MediaQuery.of(context).size.width,
-                child: Text(
-                  announcement.caption,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
-                  style: TextStyle(fontWeight: FontWeight.w400),
+                child: Hero(
+                  transitionOnUserGestures: false,
+                  tag: announcement.id + 'caption',
+                  child: Text(
+                    announcement.caption,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 4,
+                    style: TextStyle(fontWeight: FontWeight.w400),
+                  ),
                 ),
               ),
             )
