@@ -1,4 +1,4 @@
-package com.ketanchoyal.acadamic_connect;
+package com.mappdeveloper.usa.our_e_school;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

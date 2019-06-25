@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ketanchoyal.acadamic_connect">
+    package="com.mappdeveloper.usa.our_e_school">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -11,7 +11,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="acadamic_connect"
+        android:label="Our E-School"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
