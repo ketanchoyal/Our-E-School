@@ -6,13 +6,13 @@ import 'package:acadamicConnect/Utility/custom_icons.dart';
 import 'package:acadamicConnect/pages/Dashboard/FeesPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/Holidays/HolidayPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/ParentingGuide/ParentingGuidePage.dart';
-import 'package:acadamicConnect/pages/Dashboard/QuizPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/ResultPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Announcement/AnnouncementPage.dart';
 import 'Assignment/AssignmentPage.dart';
 import 'E-CardPage.dart';
+import 'Exam/QuizPage.dart';
 import 'TimeTable/TimeTablePage.dart';
 
 class Dashboard extends StatefulWidget {

@@ -2,72 +2,10 @@ import 'package:acadamicConnect/Components/ProgressBar.dart';
 import 'package:acadamicConnect/Models/Question.dart';
 import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
+import 'package:acadamicConnect/blocs/Quiz_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
-class QuizState with ChangeNotifier {
-  double _progress = 0;
-  var _selected = '';
-  List<String> _selectedList = [];
-  bool _lastQuestion = false;
-  var _selectedAnswerSet = Map<String, List<String>>();
-  Duration duration = Duration(seconds: 5);
-
-  final PageController controller = PageController();
-  bool showTimer = false;
-
-  get progress => _progress;
-  get selected => _selected;
-  get lastQuestion => _lastQuestion;
-  List<String> get selectedList => _selectedList;
-  Map<String, List<String>> get selectedAnswerSet => _selectedAnswerSet;
-
-  set selectedList(var newValue) {
-    if (_selectedList.contains(newValue.toString())) {
-      _selectedList.remove(newValue.toString());
-    } else {
-      _selectedList.add(newValue.toString());
-    }
-    notifyListeners();
-  }
-
-  set lastQuestion(bool newValue) {
-    _lastQuestion = newValue;
-    notifyListeners();
-  }
-
-  set progress(double newValue) {
-    _progress = newValue;
-    notifyListeners();
-  }
-
-  set selected(var newValue) {
-    _selected = newValue;
-    notifyListeners();
-  }
-
-  void nextPage() async {
-    await controller.nextPage(
-      duration: Duration(milliseconds: 400),
-      curve: Curves.easeOut,
-    );
-    await _selectedList.clear();
-    _selected = '';
-  }
-
-  void timeUp(BuildContext context) async {
-    var currentpage = controller.page;
-    var totalPage = questions.length;
-
-    print('TotalPage' + totalPage.toString());
-    for (var i = currentpage.toInt() + 1; i <= totalPage +1; i++) {
-      print('CurrentPage' + i.toString());
-      await controller.animateToPage(i,
-          curve: Curves.easeOut, duration: Duration(milliseconds: 50));
-    }
-  }
-}
 
 class QuizPage extends StatefulWidget {
   QuizPage({Key key}) : super(key: key);
@@ -84,10 +22,10 @@ class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      builder: (_) => QuizState(),
+      builder: (_) => QuizStateProvider(),
       child: FutureBuilder(
         builder: (BuildContext context, AsyncSnapshot snap) {
-          var state = Provider.of<QuizState>(context);
+          var state = Provider.of<QuizStateProvider>(context);
           return Scaffold(
             appBar: AppBar(
               // leading: state.timer,
@@ -108,20 +46,20 @@ class _QuizPageState extends State<QuizPage> {
                 scrollDirection: Axis.vertical,
                 controller: state.controller,
                 onPageChanged: (int idx) {
-                  state.progress = (idx / (questions.length));
+                  state.progress = (idx / (state.questions.length));
                 },
                 // itemCount: questions.length,
 
                 itemBuilder: (BuildContext context, int idx) {
-                  if (idx == questions.length) {
+                  if (idx == state.questions.length) {
                     state.lastQuestion = true;
                   }
                   if (idx == 0) {
                     return StartPage();
-                  } else if (idx == questions.length + 1) {
+                  } else if (idx == state.questions.length + 1) {
                     return FinishPage();
                   } else {
-                    return QuestionPage(question: questions[idx - 1]);
+                    return QuestionPage(question: state.questions[idx - 1]);
                   }
                 },
               ),
@@ -139,7 +77,7 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var state = Provider.of<QuizState>(context);
+    var state = Provider.of<QuizStateProvider>(context);
     state.showTimer = true;
     return Container(
       padding: EdgeInsets.all(20),
@@ -181,7 +119,7 @@ class FinishPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var state = Provider.of<QuizState>(context);
+    var state = Provider.of<QuizStateProvider>(context);
     return Container(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -224,7 +162,7 @@ class QuestionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var state = Provider.of<QuizState>(context);
+    var state = Provider.of<QuizStateProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -287,7 +225,7 @@ class QuestionPage extends StatelessWidget {
   }
 
   Widget multipleChoiceQuestions(
-      QuizState state, option, BuildContext context) {
+      QuizStateProvider state, option, BuildContext context) {
     return Container(
       height: 70,
       margin: EdgeInsets.only(bottom: 10),
@@ -328,7 +266,7 @@ class QuestionPage extends StatelessWidget {
   }
 
   Widget multipleAnswersQuestion(
-      QuizState state, option, BuildContext context) {
+      QuizStateProvider state, option, BuildContext context) {
     return Container(
       height: 70,
       margin: EdgeInsets.only(bottom: 10),

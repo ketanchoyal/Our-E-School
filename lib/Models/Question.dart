@@ -20,7 +20,7 @@ class Question {
       this.description});
 }
 
-List<Question> questions = [
+List<Question> questionsList = [
   Question(
       questionLevel: QuestionLevel.EASY,
       type: QuestionType.MULTIPLE_CHOICE,

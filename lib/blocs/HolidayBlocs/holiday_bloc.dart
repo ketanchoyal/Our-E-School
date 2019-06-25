@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class HolidayBloc {
-  final _repository = Repository();
+  final _repository = RepositoryCalendarific();
   final currentSelectedCountryCode = BehaviorSubject<String>();
   final currentSelectedCountryName = BehaviorSubject<String>();
   final holidays = BehaviorSubject<HolidayData>();
