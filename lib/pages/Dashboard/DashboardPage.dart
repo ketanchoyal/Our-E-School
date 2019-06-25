@@ -3,6 +3,7 @@ import 'package:acadamicConnect/Components/RowReusableCardButton.dart';
 import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
+import 'package:acadamicConnect/pages/Dashboard/E_Book/E_bookSelect.dart';
 import 'package:acadamicConnect/pages/Dashboard/FeesPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/Holidays/HolidayPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/ParentingGuide/ParentingGuidePage.dart';
@@ -162,7 +163,9 @@ class _DashboardState extends State<Dashboard> {
                                 tileColor: Colors.tealAccent,
                                 icon: FontAwesomeIcons.book,
                                 label: string.e_book,
-                                onPressed: () {},
+                                onPressed: () {
+                                  kopenPage(context, EBookSelect());
+                                },
                               ),
                               RowReusableCardButtonBanner(
                                 tileColor: Colors.deepPurpleAccent,
