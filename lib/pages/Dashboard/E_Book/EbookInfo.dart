@@ -1,8 +1,8 @@
 import 'package:acadamicConnect/Models/E-Book.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
-import 'package:acadamicConnect/pages/common/PDFOpener.dart';
 import 'package:flutter/material.dart';
 import 'package:swipedetector/swipedetector.dart';
+import 'package:division/division.dart';
 
 const double _imageHeight = 230;
 const double _buttonHeight = 40;
@@ -49,8 +49,8 @@ class EBookInfo extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: 10,
-              right: 10,
+              left: 8,
+              right: 5,
               top: MediaQuery.of(context).size.height * 0.09,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -73,56 +73,72 @@ class EBookInfo extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 10,
+                    width: 8,
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      // SizedBox(height: 20,),
-                      Hero(
-                        tag: eBook.boodId + eBook.bookName,
-                        transitionOnUserGestures: true,
-                        child: Text(
-                          eBook.bookName,
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        // SizedBox(height: 20,),
+                        Hero(
+                          tag: eBook.boodId + eBook.bookName,
+                          transitionOnUserGestures: true,
+                          child: Text(
+                            eBook.bookName,
+                            maxLines: 2,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
+                            style: ktitleStyle.copyWith(
+                                fontSize: 20, fontWeight: FontWeight.w900),
+                          ),
+                        ),
+                        Text(
+                          'By',
                           textAlign: TextAlign.center,
                           style: ktitleStyle.copyWith(
-                              fontSize: 20, fontWeight: FontWeight.w900),
+                              fontSize: 16, fontWeight: FontWeight.w600),
                         ),
-                      ),
-                      Text(
-                        'By',
-                        textAlign: TextAlign.center,
-                        style: ktitleStyle.copyWith(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                      Hero(
-                        tag: eBook.boodId + eBook.bookAuthor,
-                        transitionOnUserGestures: true,
-                        child: Text(
-                          eBook.bookAuthor,
-                          textAlign: TextAlign.center,
-                          style: ksubtitleStyle.copyWith(fontSize: 18),
-                        ),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            'for:',
+                        Hero(
+                          tag: eBook.boodId + eBook.bookAuthor,
+                          transitionOnUserGestures: true,
+                          child: Text(
+                            eBook.bookAuthor,
                             textAlign: TextAlign.center,
                             style: ksubtitleStyle.copyWith(fontSize: 18),
                           ),
-                          Text(
-                            eBook.bookIsForStandard == 'N.A'
-                                ? ' ' + eBook.bookIsForStandard
-                                : ' ' + eBook.bookIsForStandard + 'th Standard',
-                            textAlign: TextAlign.center,
-                            style: ksubtitleStyle.copyWith(fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'for:',
+                              maxLines: 2,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                              style: ksubtitleStyle.copyWith(fontSize: 18),
+                            ),
+                            Expanded(
+                              child: Text(
+                                eBook.bookIsForStandard == 'N.A'
+                                    ? ' ' + eBook.bookIsForStandard
+                                    : ' ' +
+                                        eBook.bookIsForStandard +
+                                        'th Standard',
+                                maxLines: 2,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: ksubtitleStyle.copyWith(fontSize: 18),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -131,36 +147,22 @@ class EBookInfo extends StatelessWidget {
               right: 10,
               left: 10,
               top:
-                  _imageHeight + MediaQuery.of(context).size.height * 0.08 + 10,
+                  _imageHeight + MediaQuery.of(context).size.height * 0.08 + 15,
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: MaterialButton(
-                      height: _buttonHeight,
-                      child: Text(
-                        'Read',
-                        style: ktitleStyle,
-                      ),
-                      onPressed: () {
-                        
-                      },
-                      elevation: 5,
-                      color: Colors.blue[300],
+                    child: _ReusableEbookBtn(
+                      onTap: () {},
+                      title: 'Read',
                     ),
                   ),
                   SizedBox(
                     width: 20,
                   ),
                   Expanded(
-                    child: MaterialButton(
-                      height: _buttonHeight,
-                      child: Text(
-                        'Add to Favourite',
-                        style: ktitleStyle,
-                      ),
-                      onPressed: () {},
-                      elevation: 5,
-                      color: Colors.blue[300],
+                    child: _ReusableEbookBtn(
+                      onTap: () {},
+                      title: 'Add to Favourites',
                     ),
                   )
                 ],
@@ -195,6 +197,34 @@ class EBookInfo extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ReusableEbookBtn extends StatelessWidget {
+  final String title;
+  final Function onTap;
+  const _ReusableEbookBtn({
+    @required this.onTap,
+    @required this.title,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Division(
+      style: StyleClass()
+          .alignChild(Alignment.center)
+          .elevation(5)
+          .backgroundColor(Colors.blue[300])
+          .height(_buttonHeight)
+          .ripple(true)
+          .borderRadius(all: 8),
+      gesture: GestureClass().onTap(onTap),
+      child: Text(
+        title,
+        style: ktitleStyle,
       ),
     );
   }

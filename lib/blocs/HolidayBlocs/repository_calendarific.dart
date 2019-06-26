@@ -1,6 +1,6 @@
 import 'package:acadamicConnect/Models/holiday_data.dart';
 import 'package:acadamicConnect/blocs/HolidayBlocs/calendarific_ApiCaller.dart';
-import '../helpers/shared_preferences_helper.dart';
+import 'package:acadamicConnect/helpers/shared_preferences_helper.dart';
 
 class RepositoryCalendarific {
   final _calendarificProvider = CalendarificApiCall();

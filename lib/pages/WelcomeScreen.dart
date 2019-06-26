@@ -10,7 +10,6 @@ class WelcomeScreen extends StatelessWidget {
     return [
       PageViewModel(
         iconColor: kmainColorTeacher,
-        iconImageAssetPath: 'assets/key.png',
         pageColor: kmainColorTeacher,
         // bubbleBackgroundColor: Colors.white,
         title: Container(),
@@ -39,7 +38,6 @@ class WelcomeScreen extends StatelessWidget {
       ),
       PageViewModel(
         iconColor: kmainColorStudents,
-        iconImageAssetPath: 'assets/key.png',
         pageColor: kmainColorStudents,
         // bubbleBackgroundColor: Colors.white,
         title: Container(),
@@ -68,7 +66,6 @@ class WelcomeScreen extends StatelessWidget {
       ),
       PageViewModel(
         iconColor: kmainColorParents,
-        iconImageAssetPath: 'assets/key.png',
         pageColor: kmainColorParents,
         // bubbleBackgroundColor: Colors.white,
         title: Container(),

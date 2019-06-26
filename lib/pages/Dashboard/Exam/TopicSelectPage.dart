@@ -6,8 +6,8 @@ import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/pages/Dashboard/E_Book/EbookInfo.dart';
 import 'package:flutter/material.dart';
 
-class EBookSelect extends StatelessWidget {
-  const EBookSelect({Key key}) : super(key: key);
+class SubjectSelectPage extends StatelessWidget {
+  const SubjectSelectPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

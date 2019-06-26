@@ -4,7 +4,7 @@ import 'dart:convert';
 // import 'package:world_holidays/internal/keys.dart';
 
 class CalendarificApiCall {
-  String apiKey = '9193832ffb3b76beee6797197bb6c2bbb79e5afd'; //Please get your API key from calendarific.com :)
+  String apiKey = '9193832ffb3b76beee6797197bb6c2bbb79e5afd'; //API key from calendarific.com :)
   String currentYear = DateTime.now().year.toString();
   
 

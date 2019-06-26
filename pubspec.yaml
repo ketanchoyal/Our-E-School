@@ -21,7 +21,7 @@ dependencies:
   flip_card: ^0.3.0
   intl: ^0.15.8
   swipedetector: ^1.2.0
-
+  division: ^0.6.3
   
   # country_code_picker: ^1.1.2
   flutter_spinkit: "^3.1.0"
