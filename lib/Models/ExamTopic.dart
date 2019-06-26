@@ -24,7 +24,7 @@ class ExamTopic {
   });
 }
 
-List<ExamTopic> emailTopicList = [
+List<ExamTopic> examTopicList = [
   ExamTopic(
     description: 'Simple Maths',
     subject: 'Maths',
@@ -34,6 +34,26 @@ List<ExamTopic> emailTopicList = [
     topicId: '0',
     topicIsForStandard: '4',
     topicName: 'Add'
+  ),
+  ExamTopic(
+    description: 'Simple Maths',
+    subject: 'Maths',
+    topicCreatedBySchoolName: 'Ambe',
+    topicCreatedByTeacherId: 'teacherid',
+    topicCreatedByTeacherName: 'teacherName',
+    topicId: '0',
+    topicIsForStandard: '5',
+    topicName: 'Multiply'
+  ),
+  ExamTopic(
+    description: 'Simple Maths',
+    subject: 'Maths',
+    topicCreatedBySchoolName: 'Ambe',
+    topicCreatedByTeacherId: 'teacherid',
+    topicCreatedByTeacherName: 'teacherName',
+    topicId: '0',
+    topicIsForStandard: '4',
+    topicName: 'Subtraction'
   ),
   ExamTopic(
     description: 'Simple Maths',
@@ -52,27 +72,7 @@ List<ExamTopic> emailTopicList = [
     topicCreatedByTeacherId: 'teacherid',
     topicCreatedByTeacherName: 'teacherName',
     topicId: '0',
-    topicIsForStandard: '4',
-    topicName: 'Add'
-  ),
-  ExamTopic(
-    description: 'Simple Maths',
-    subject: 'Maths',
-    topicCreatedBySchoolName: 'Ambe',
-    topicCreatedByTeacherId: 'teacherid',
-    topicCreatedByTeacherName: 'teacherName',
-    topicId: '0',
-    topicIsForStandard: '4',
-    topicName: 'Add'
-  ),
-  ExamTopic(
-    description: 'Simple Maths',
-    subject: 'Maths',
-    topicCreatedBySchoolName: 'Ambe',
-    topicCreatedByTeacherId: 'teacherid',
-    topicCreatedByTeacherName: 'teacherName',
-    topicId: '0',
-    topicIsForStandard: '4',
-    topicName: 'Add'
+    topicIsForStandard: '2',
+    topicName: 'Division'
   ),
 ];

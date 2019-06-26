@@ -1,13 +1,14 @@
-import 'package:acadamicConnect/Components/BookGridViewCard.dart';
+import 'package:acadamicConnect/Components/ExamTopicsGridView.dart';
 import 'package:acadamicConnect/Components/TopBar.dart';
-import 'package:acadamicConnect/Models/E-Book.dart';
+import 'package:acadamicConnect/Models/ExamTopic.dart';
 import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
-import 'package:acadamicConnect/pages/Dashboard/E_Book/EbookInfo.dart';
 import 'package:flutter/material.dart';
 
-class SubjectSelectPage extends StatelessWidget {
-  const SubjectSelectPage({Key key}) : super(key: key);
+import 'QuizPage.dart';
+
+class TopicSelectPage extends StatelessWidget {
+  const TopicSelectPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class SubjectSelectPage extends StatelessWidget {
         onPressed: () {
           kbackBtn(context);
         },
-        title: string.e_book,
+        title: string.exam_topic,
       ),
       body: GridView.builder(
         physics: BouncingScrollPhysics(),
@@ -26,16 +27,11 @@ class SubjectSelectPage extends StatelessWidget {
             childAspectRatio: 9 / 13,
             crossAxisSpacing: 0,
             mainAxisSpacing: 0),
-        itemCount: ebooks.length,
-        itemBuilder: (context, index) => BookGridViewCard(
-              eBook: ebooks[index],
+        itemCount: examTopicList.length,
+        itemBuilder: (context, index) => ExamTopicsGridView(
+              examTopic: examTopicList[index],
               onTap: () {
-                kopenPage(
-                  context,
-                  EBookInfo(
-                    eBook: ebooks[index],
-                  ),
-                );
+                kopenPageBottom(context, QuizPage());
               },
             ),
       ),

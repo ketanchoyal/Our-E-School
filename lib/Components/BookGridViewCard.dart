@@ -35,7 +35,7 @@ class BookGridViewCard extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   Hero(
-                    tag: eBook.boodId + 'image',
+                    tag: eBook.bookId + 'image',
                     transitionOnUserGestures: true,
                     child: Container(
                       decoration: BoxDecoration(
@@ -62,7 +62,7 @@ class BookGridViewCard extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Hero(
-                            tag: eBook.boodId + eBook.bookName,
+                            tag: eBook.bookId + eBook.bookName,
                             transitionOnUserGestures: true,
                             child: Text(
                               eBook.bookName,
@@ -71,7 +71,7 @@ class BookGridViewCard extends StatelessWidget {
                             ),
                           ),
                           Hero(
-                            tag: eBook.boodId + eBook.bookAuthor,
+                            tag: eBook.bookId + eBook.bookAuthor,
                             transitionOnUserGestures: true,
                             child: Text(
                               eBook.bookAuthor,

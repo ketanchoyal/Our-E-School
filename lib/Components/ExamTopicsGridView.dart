@@ -1,14 +1,15 @@
 import 'package:acadamicConnect/Models/E-Book.dart';
+import 'package:acadamicConnect/Models/ExamTopic.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
 
 class ExamTopicsGridView extends StatelessWidget {
-  final EBook eBook;
+  final ExamTopic examTopic;
   final Function onTap;
 
   ExamTopicsGridView({
     this.onTap,
-    @required this.eBook,
+    @required this.examTopic,
     Key key,
   }) : super(key: key);
 
@@ -29,22 +30,16 @@ class ExamTopicsGridView extends StatelessWidget {
             child: Banner(
               color: Theme.of(context).primaryColor,
               location: BannerLocation.topStart,
-              message: eBook.bookIsForStandard == null
-                  ? 'Everyone'
-                  : eBook.bookIsForStandard,
+              message: examTopic.topicIsForStandard,
               child: Stack(
                 children: <Widget>[
-                  Hero(
-                    tag: eBook.boodId + 'image',
-                    transitionOnUserGestures: true,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            new BorderRadius.all(Radius.circular(10.0)),
-                        image: DecorationImage(
-                          image: NetworkImage(eBook.imageUrl),
-                          fit: BoxFit.cover,
-                        ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          new BorderRadius.all(Radius.circular(10.0)),
+                      image: DecorationImage(
+                        image: AssetImage('assets/no_image_available.png'),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -61,23 +56,15 @@ class ExamTopicsGridView extends StatelessWidget {
                       ),
                       child: Column(
                         children: <Widget>[
-                          Hero(
-                            tag: eBook.boodId + eBook.bookName,
-                            transitionOnUserGestures: true,
-                            child: Text(
-                              eBook.bookName,
-                              textAlign: TextAlign.center,
-                              style: ktitleStyle,
-                            ),
+                          Text(
+                            examTopic.topicName,
+                            textAlign: TextAlign.center,
+                            style: ktitleStyle,
                           ),
-                          Hero(
-                            tag: eBook.boodId + eBook.bookAuthor,
-                            transitionOnUserGestures: true,
-                            child: Text(
-                              eBook.bookAuthor,
-                              textAlign: TextAlign.center,
-                              style: ksubtitleStyle,
-                            ),
+                          Text(
+                            examTopic.subject,
+                            textAlign: TextAlign.center,
+                            style: ksubtitleStyle,
                           ),
                         ],
                       ),

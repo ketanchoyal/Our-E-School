@@ -56,7 +56,7 @@ class EBookInfo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Hero(
-                    tag: eBook.boodId + 'image',
+                    tag: eBook.bookId + 'image',
                     transitionOnUserGestures: true,
                     child: Container(
                       height: _imageHeight,
@@ -83,7 +83,7 @@ class EBookInfo extends StatelessWidget {
                       children: <Widget>[
                         // SizedBox(height: 20,),
                         Hero(
-                          tag: eBook.boodId + eBook.bookName,
+                          tag: eBook.bookId + eBook.bookName,
                           transitionOnUserGestures: true,
                           child: Text(
                             eBook.bookName,
@@ -102,7 +102,7 @@ class EBookInfo extends StatelessWidget {
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         Hero(
-                          tag: eBook.boodId + eBook.bookAuthor,
+                          tag: eBook.bookId + eBook.bookAuthor,
                           transitionOnUserGestures: true,
                           child: Text(
                             eBook.bookAuthor,

@@ -4,6 +4,7 @@ import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:acadamicConnect/Utility/custom_icons.dart';
 import 'package:acadamicConnect/pages/Dashboard/E_Book/E_bookSelect.dart';
+import 'package:acadamicConnect/pages/Dashboard/Exam/TopicSelectPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/FeesPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/Holidays/HolidayPage.dart';
 import 'package:acadamicConnect/pages/Dashboard/ParentingGuide/ParentingGuidePage.dart';
@@ -156,7 +157,7 @@ class _DashboardState extends State<Dashboard> {
                                 icon: Icons.assistant_photo,
                                 label: string.exams,
                                 onPressed: () {
-                                  kopenPageBottom(context, QuizPage());
+                                  kopenPage(context, TopicSelectPage());
                                 },
                               ),
                               RowReusableCardButtonBanner(

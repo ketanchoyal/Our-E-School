@@ -102,6 +102,7 @@ static const exams = 'Exams';
 static const start_quiz = 'Start Quiz';
 static const finish = 'Finish!';
 static const next = 'Next';
+static const exam_topic = 'Exam Topic';
 
 static const topic_name = 'Topic Name';
 static const topic_description = 'Some Description regarding the quiz topic';

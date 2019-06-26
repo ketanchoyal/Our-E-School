@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class EBook {
-  String boodId;
+  String bookId;
   String imageUrl;
   String pdfUrl;
   String bookName;
@@ -11,7 +11,7 @@ class EBook {
   String description;
 
   EBook({
-    @required this.boodId,
+    @required this.bookId,
     @required this.bookAuthor,
     this.bookIsForStandard = 'N.A',
     this.subject = 'N.A',
@@ -24,7 +24,7 @@ class EBook {
 
 List<EBook> ebooks = [
   EBook(
-    boodId: '1',
+    bookId: '1',
     bookAuthor: 'R. J. Palacio',
     bookName: 'Wonder eBook',
     imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
@@ -34,7 +34,7 @@ List<EBook> ebooks = [
     description: 'SOON TO BE A MAJOR MOTION PICTURE STARRING JULIA ROBERTS, OWEN WILSON, AND JACOB TREMBLAY! Over 5 million people have read the #1 New York Times bestseller WONDER and have fallen in love with Auggie Pullman, an ordinary boy with an extraordinary face. The book that inspired the Choose Kind movement.'
   ),
   EBook(
-    boodId: '2',
+    bookId: '2',
     bookAuthor: 'R. J. Palacio',
     bookName: 'Wonder eBook',
     imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
@@ -44,7 +44,7 @@ List<EBook> ebooks = [
     description: 'SOON TO BE A MAJOR MOTION PICTURE STARRING JULIA ROBERTS, OWEN WILSON, AND JACOB TREMBLAY! Over 5 million people have read the #1 New York Times bestseller WONDER and have fallen in love with Auggie Pullman, an ordinary boy with an extraordinary face. The book that inspired the Choose Kind movement.'
   ),
   EBook(
-    boodId: '3',
+    bookId: '3',
     bookAuthor: 'R. J. Palacio',
     bookName: 'Wonder eBook',
     imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
@@ -53,7 +53,7 @@ List<EBook> ebooks = [
     subject: 'Env'
   ),
   EBook(
-    boodId: '4',
+    bookId: '4',
     bookAuthor: 'R. J. Palacio',
     bookName: 'Wonder eBook',
     imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
@@ -62,7 +62,7 @@ List<EBook> ebooks = [
     subject: 'Social Studies'
   ),
   EBook(
-    boodId: '5',
+    bookId: '5',
     bookAuthor: 'R. J. Palacio',
     bookName: 'Wonder eBook',
     imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
@@ -71,7 +71,7 @@ List<EBook> ebooks = [
     subject: 'Science'
   ),
   EBook(
-    boodId: '6',
+    bookId: '6',
     bookAuthor: 'R. J. Palacio',
     bookName: 'Wonder eBook',
     imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
