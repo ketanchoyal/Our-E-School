@@ -1,3 +1,4 @@
+import 'package:acadamicConnect/Models/ExamTopic.dart';
 import 'package:acadamicConnect/Models/Question.dart';
 import 'package:flutter/material.dart';
 
@@ -10,10 +11,12 @@ class QuizStateProvider with ChangeNotifier {
   var _selectedAnswerSet = Map<String, List<String>>();
   Duration duration = Duration(seconds: 5);
   List<Question> _questions;
+  ExamTopic _selectedTopic;
 
   final PageController controller = PageController();
   bool showTimer = false;
 
+ExamTopic get selectedTopic => _selectedTopic;
   get progress => _progress;
   get selected => _selected;
   get lastQuestion => _lastQuestion;
@@ -27,6 +30,11 @@ class QuizStateProvider with ChangeNotifier {
 
   set questions(List<Question> questions) {
     _questions = questions;
+    notifyListeners();
+  }
+
+  set selectedTopic(ExamTopic newValue) {
+    _selectedTopic = newValue;
     notifyListeners();
   }
 

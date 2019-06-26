@@ -4,7 +4,6 @@ import 'package:acadamicConnect/Models/ExamTopic.dart';
 import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
 import 'package:flutter/material.dart';
-
 import 'QuizPage.dart';
 
 class TopicSelectPage extends StatelessWidget {
@@ -31,7 +30,9 @@ class TopicSelectPage extends StatelessWidget {
         itemBuilder: (context, index) => ExamTopicsGridView(
               examTopic: examTopicList[index],
               onTap: () {
-                kopenPageBottom(context, QuizPage());
+                kopenPageBottom(context, QuizPage(
+                  examTopic: examTopicList[index],
+                ));
               },
             ),
       ),

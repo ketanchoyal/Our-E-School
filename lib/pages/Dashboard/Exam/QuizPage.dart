@@ -1,4 +1,5 @@
 import 'package:acadamicConnect/Components/ProgressBar.dart';
+import 'package:acadamicConnect/Models/ExamTopic.dart';
 import 'package:acadamicConnect/Models/Question.dart';
 import 'package:acadamicConnect/Utility/Resources.dart';
 import 'package:acadamicConnect/Utility/constants.dart';
@@ -8,7 +9,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class QuizPage extends StatefulWidget {
-  QuizPage({Key key}) : super(key: key);
+  final ExamTopic examTopic;
+  QuizPage({
+    @required this.examTopic,
+    Key key}) : super(key: key);
 
   _QuizPageState createState() => _QuizPageState();
 }
@@ -55,9 +59,9 @@ class _QuizPageState extends State<QuizPage> {
                     state.lastQuestion = true;
                   }
                   if (idx == 0) {
-                    return StartPage();
+                    return StartPage(examTopic: widget.examTopic);
                   } else if (idx == state.questions.length + 1) {
-                    return FinishPage();
+                    return FinishPage(examTopic: widget.examTopic);
                   } else {
                     return QuestionPage(question: state.questions[idx - 1]);
                   }
@@ -75,6 +79,9 @@ class StartPage extends StatelessWidget {
   // final PageController controller;
   // StartPage({this.controller});
 
+  final ExamTopic examTopic;
+  StartPage({@required this.examTopic});
+
   @override
   Widget build(BuildContext context) {
     var state = Provider.of<QuizStateProvider>(context);
@@ -84,10 +91,10 @@ class StartPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(string.topic_name, style: Theme.of(context).textTheme.headline),
+          Text(examTopic.topicName, style: Theme.of(context).textTheme.headline),
           Divider(),
           Expanded(
-            child: Text(string.topic_description),
+            child: Text(examTopic.description),
           ),
           MaterialButton(
             color: Colors.green,
@@ -117,6 +124,9 @@ class FinishPage extends StatelessWidget {
   // final PageController controller;
   // StartPage({this.controller});
 
+  final ExamTopic examTopic;
+  FinishPage({@required this.examTopic});
+
   @override
   Widget build(BuildContext context) {
     var state = Provider.of<QuizStateProvider>(context);
@@ -125,7 +135,7 @@ class FinishPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(string.topic_name, style: Theme.of(context).textTheme.headline),
+          Text(examTopic.topicName, style: Theme.of(context).textTheme.headline),
           Divider(),
           Expanded(
             child: Text(state.selectedAnswerSet.toString()),
