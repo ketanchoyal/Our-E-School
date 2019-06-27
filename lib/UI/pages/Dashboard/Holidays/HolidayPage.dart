@@ -50,17 +50,17 @@ class _HolidayPageState extends State<HolidayPage> {
     );
   }
 
-  Widget buildRefreshButton() {
-    return IconButton(
-      key: ValueKey(5),
-      icon: Icon(
-        Icons.refresh,
-      ),
-      onPressed: () {
-        holidayBloc.refreshHolidays();
-      },
-    );
-  }
+  // Widget buildRefreshButton() {
+  //   return IconButton(
+  //     key: ValueKey(5),
+  //     icon: Icon(
+  //       Icons.refresh,
+  //     ),
+  //     onPressed: () {
+  //       holidayBloc.refreshHolidays();
+  //     },
+  //   );
+  // }
 }
 
 class HomeTab extends StatelessWidget {

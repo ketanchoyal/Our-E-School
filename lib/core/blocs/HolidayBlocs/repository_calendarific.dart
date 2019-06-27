@@ -1,7 +1,6 @@
 
 import 'package:ourESchool/core/Models/holiday_data.dart';
 import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
-
 import 'calendarific_ApiCaller.dart';
 
 class RepositoryCalendarific {

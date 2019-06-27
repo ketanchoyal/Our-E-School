@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(
-          builder: (context) => locator<QuizStateModel>()
-        )
+        // Provider(
+        //   builder: (context) => locator<QuizStateModel>()
+        // )
       ],
       child: DynamicTheme(
         defaultBrightness: Brightness.light,

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
 import 'package:ourESchool/core/viewmodel/BaseModel.dart';
 
-
 class QuizStateModel extends BaseModel {
   double _progress = 0;
   var _selected = '';
@@ -18,7 +17,7 @@ class QuizStateModel extends BaseModel {
   final PageController controller = PageController();
   bool showTimer = false;
 
-ExamTopic get selectedTopic => _selectedTopic;
+  ExamTopic get selectedTopic => _selectedTopic;
   get progress => _progress;
   get selected => _selected;
   get lastQuestion => _lastQuestion;
@@ -27,14 +26,15 @@ ExamTopic get selectedTopic => _selectedTopic;
   List<Question> get questions => _questions;
 
   QuizStateModel() {
-    setState(ViewState.Busy);
-    this.questions = questionsList;
-    setState(ViewState.Busy);
+    print('QuizModelCreated');
   }
 
-  set questions(List<Question> questions) {
-    _questions = questions;
-    notifyListeners();
+  void getQuestions() async {
+    print('In QuizStateModel');
+    setState(ViewState.Busy);
+    await Future.delayed(const Duration(seconds: 5), () {});
+    this._questions = questionsList;
+    setState(ViewState.Idle);
   }
 
   set selectedTopic(ExamTopic newValue) {
@@ -80,7 +80,7 @@ ExamTopic get selectedTopic => _selectedTopic;
     var totalPage = _questions.length;
 
     print('TotalPage' + totalPage.toString());
-    for (var i = currentpage.toInt() + 1; i <= totalPage +1; i++) {
+    for (var i = currentpage.toInt() + 1; i <= totalPage + 1; i++) {
       print('CurrentPage' + i.toString());
       await controller.animateToPage(i,
           curve: Curves.easeOut, duration: Duration(milliseconds: 50));

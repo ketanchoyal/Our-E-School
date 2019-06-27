@@ -8,36 +8,35 @@ class HolidayBloc {
   final _repository = RepositoryCalendarific();
   final currentSelectedCountryCode = BehaviorSubject<String>();
   final currentSelectedCountryName = BehaviorSubject<String>();
-  final holidays = BehaviorSubject<HolidayData>();
+  final _holidays = BehaviorSubject<HolidayData>();
 
   get holidaysValue {
-    if (holidays.value != null) {
-      return holidays;
+    if (_holidays.value != null) {
+      return _holidays;
     } else {
       getHolidays();
-      return holidays;
+      return _holidays;
     }
   }
 
   getHolidays() async {
-    holidays.sink.add(
+    _holidays.sink.add(
         await _repository.getHolidays(currentSelectedCountryCodeValue.value));
   }
 
   refreshHolidays() {
-    holidays.sink.add(null);
+    _holidays.sink.add(null);
     getHolidays();
   }
 
   void dispose() {
     currentSelectedCountryCode.close();
     currentSelectedCountryName.close();
-    holidays.close();
+    _holidays.close();
   }
 
   BehaviorSubject<String> get currentSelectedCountryCodeValue {
     if (currentSelectedCountryCode.value == null) {
-
       _repository.getCountryCode().then((countryCode) {
         currentSelectedCountryCode.sink.add(countryCode);
         return currentSelectedCountryCode;
