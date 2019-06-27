@@ -3,7 +3,6 @@ import 'package:ourESchool/UI/resources/months_color.dart';
 import 'package:ourESchool/core/Models/holiday_data.dart';
 import 'package:ourESchool/core/blocs/HolidayBlocs/repository_calendarific.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
-import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/core/viewmodel/BaseModel.dart';
 import 'package:ourESchool/locator.dart';
 
@@ -18,24 +17,42 @@ class HolidayModel extends BaseModel {
       return _holidays;
     } else {
       getHolidays();
+      // notifyListeners();
       return _holidays;
     }
   }
 
+  HolidayModel() {
+    print('HolidayModel Created');
+  }
+
   getHolidays() async {
-    _holidays = await _repositoryCalendarific
-        .getHolidays(await currentSelectedCountryCode);
+    setState(ViewState.Busy);
+    await getCurrentCuntryCodeAndName();
+    _holidays =
+        await _repositoryCalendarific.getHolidays(_currentSelectedCountryCode);
+    notifyListeners();
+    setState(ViewState.Idle);
   }
 
   refreshHolidays() {
-    _holidays = HolidayData(); //Remove it and try to run
+    // _holidays = HolidayData(); //Remove it and try to run
     getHolidays();
+    notifyListeners();
   }
 
-  Future<String> get currentSelectedCountryCode async {
+  Future getCurrentCuntryCodeAndName() async {
+    setState2(ViewState.Busy);
+    currentSelectedCountryCode;
+    currentSelectedCountryName;
+    setState2(ViewState.Idle);
+  }
+
+  String get currentSelectedCountryCode {
     if (_currentSelectedCountryCode == null) {
-      await _repositoryCalendarific.getCountryCode().then((countryCode) {
+      _repositoryCalendarific.getCountryCode().then((countryCode) {
         _currentSelectedCountryCode = countryCode;
+        notifyListeners();
         return _currentSelectedCountryCode;
       });
     }
@@ -43,10 +60,11 @@ class HolidayModel extends BaseModel {
     return _currentSelectedCountryCode;
   }
 
-  Future<String> get currentSelectedCountryName async {
+  String get currentSelectedCountryName {
     if (_currentSelectedCountryName == null) {
-      await _repositoryCalendarific.getCountryName().then((countryName) {
+      _repositoryCalendarific.getCountryName().then((countryName) {
         _currentSelectedCountryName = countryName;
+        notifyListeners();
         return _currentSelectedCountryName;
       });
     }
@@ -63,14 +81,14 @@ class HolidayModel extends BaseModel {
     _currentSelectedCountryCode = countryCode;
 
     refreshHolidays();
+    notifyListeners();
   }
 
-  Map<String, List<Holiday>> getMapOfMonthToHolidayList(
-      AsyncSnapshot snapshot) {
+  Map<String, List<Holiday>> getMapOfMonthToHolidayList(HolidayData data) {
     Map<String, List<Holiday>> monthToHolidayListMap =
         Map<String, List<Holiday>>();
 
-    HolidayData holidayData = snapshot.data;
+    HolidayData holidayData = data;
 
     if (holidayData == null) {
       return monthToHolidayListMap;
