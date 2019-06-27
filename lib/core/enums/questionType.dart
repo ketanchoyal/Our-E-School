@@ -1,0 +1,1 @@
+enum QuestionType { MULTIPLE_CHOICE, MULTIPLE_ANSWERS }

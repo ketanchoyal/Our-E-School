@@ -4,6 +4,7 @@ import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:flutter/material.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
+import 'package:ourESchool/core/enums/announcementType.dart';
 
 import 'CreateAnnouncement.dart';
 

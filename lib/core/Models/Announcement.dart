@@ -1,6 +1,6 @@
-enum AnnouncementType{
-CIRCULAR, EVENT, ACTIVITY
-}
+
+
+import 'package:ourESchool/core/enums/announcementType.dart';
 
 class Announcement {
   String by;

@@ -3,9 +3,10 @@ import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/ProgressBar.dart';
 import 'package:ourESchool/core/Models/ExamTopic.dart';
 import 'package:ourESchool/core/Models/Question.dart';
-import 'package:ourESchool/core/blocs/QuizStateModel.dart';
+import 'package:ourESchool/core/viewmodel/QuizStateModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ourESchool/core/enums/questionType.dart';
 import 'package:provider/provider.dart';
 
 class QuizPage extends StatefulWidget {

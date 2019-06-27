@@ -1,9 +1,11 @@
 import 'package:ourESchool/core/Models/ExamTopic.dart';
 import 'package:ourESchool/core/Models/Question.dart';
 import 'package:flutter/material.dart';
+import 'package:ourESchool/core/enums/ViewState.dart';
+import 'package:ourESchool/core/viewmodel/BaseModel.dart';
 
 
-class QuizStateModel with ChangeNotifier {
+class QuizStateModel extends BaseModel {
   double _progress = 0;
   var _selected = '';
   List<String> _selectedList = [];
@@ -25,7 +27,9 @@ ExamTopic get selectedTopic => _selectedTopic;
   List<Question> get questions => _questions;
 
   QuizStateModel() {
+    setState(ViewState.Busy);
     this.questions = questionsList;
+    setState(ViewState.Busy);
   }
 
   set questions(List<Question> questions) {

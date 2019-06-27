@@ -1,0 +1,1 @@
+enum QuestionLevel { EASY, MEDIUM, HARD }

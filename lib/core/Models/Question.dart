@@ -1,5 +1,6 @@
-enum QuestionType { MULTIPLE_CHOICE, MULTIPLE_ANSWERS }
-enum QuestionLevel { EASY, MEDIUM, HARD }
+
+import 'package:ourESchool/core/enums/questionLevel.dart';
+import 'package:ourESchool/core/enums/questionType.dart';
 
 class Question {
   String question;

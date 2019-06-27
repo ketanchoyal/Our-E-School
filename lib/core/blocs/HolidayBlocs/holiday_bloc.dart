@@ -2,7 +2,6 @@ import 'package:ourESchool/UI/resources/months_color.dart';
 import 'package:ourESchool/core/Models/holiday_data.dart';
 import 'package:ourESchool/core/blocs/HolidayBlocs/repository_calendarific.dart';
 import 'package:flutter/material.dart';
-
 import 'package:rxdart/rxdart.dart';
 
 class HolidayBloc {

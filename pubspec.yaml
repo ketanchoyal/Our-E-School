@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^2.0.1+1
+  provider: ^3.0.0+1
   intro_views_flutter: ^2.6.0
   font_awesome_flutter: ^8.4.0
   flutter_plugin_pdf_viewer: any
