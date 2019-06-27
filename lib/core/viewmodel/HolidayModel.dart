@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ourESchool/UI/resources/months_color.dart';
 import 'package:ourESchool/core/Models/holiday_data.dart';
-import 'package:ourESchool/core/blocs/HolidayBlocs/repository_calendarific.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
+import 'package:ourESchool/core/services/repository_calendarific.dart';
 import 'package:ourESchool/core/viewmodel/BaseModel.dart';
 import 'package:ourESchool/locator.dart';
 
