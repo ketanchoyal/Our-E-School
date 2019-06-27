@@ -1,10 +1,10 @@
-import 'package:acadamicConnect/UI/Utility/Resources.dart';
-import 'package:acadamicConnect/UI/Utility/constants.dart';
-import 'package:acadamicConnect/UI/Widgets/TopBar.dart';
-import 'package:acadamicConnect/UI/Widgets/custom_country_code_picker/custom_country_code_picker.dart';
-import 'package:acadamicConnect/UI/resources/months_color.dart';
-import 'package:acadamicConnect/core/Models/holiday_data.dart';
-import 'package:acadamicConnect/core/blocs/HolidayBlocs/holiday_bloc.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/Widgets/TopBar.dart';
+import 'package:ourESchool/UI/Widgets/custom_country_code_picker/custom_country_code_picker.dart';
+import 'package:ourESchool/UI/resources/months_color.dart';
+import 'package:ourESchool/core/Models/holiday_data.dart';
+import 'package:ourESchool/core/blocs/HolidayBlocs/holiday_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'holiday_details_page.dart';

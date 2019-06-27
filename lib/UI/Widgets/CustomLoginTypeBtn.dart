@@ -1,5 +1,5 @@
-import 'package:acadamicConnect/UI/pages/Login/LoginPage.dart';
-import 'package:acadamicConnect/UI/pages/Login/MobileLoginPage.dart';
+import 'package:ourESchool/UI/pages/Login/LoginPage.dart';
+import 'package:ourESchool/UI/pages/Login/MobileLoginPage.dart';
 import 'package:flutter/material.dart';
 import 'ReusableRoundedButton.dart';
 

@@ -1,7 +1,7 @@
-import 'package:acadamicConnect/UI/Utility/constants.dart';
-import 'package:acadamicConnect/core/Models/ExamTopic.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/core/Models/ExamTopic.dart';
 import 'package:flutter/material.dart';
-import 'package:acadamicConnect/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
 
 class ExamTopicsGridView extends StatelessWidget {
   final ExamTopic examTopic;

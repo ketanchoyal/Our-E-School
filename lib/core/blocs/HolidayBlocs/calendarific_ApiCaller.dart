@@ -1,4 +1,4 @@
-import 'package:acadamicConnect/core/Models/holiday_data.dart';
+import 'package:ourESchool/core/Models/holiday_data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 // import 'package:world_holidays/internal/keys.dart';

@@ -1,7 +1,7 @@
-import 'package:acadamicConnect/UI/Utility/Resources.dart';
-import 'package:acadamicConnect/UI/Utility/constants.dart';
-import 'package:acadamicConnect/UI/Widgets/ReusableRoundedButton.dart';
-import 'package:acadamicConnect/UI/Widgets/TopBar.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/Widgets/ReusableRoundedButton.dart';
+import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordPage extends StatefulWidget {

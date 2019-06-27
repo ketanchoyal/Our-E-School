@@ -1,4 +1,4 @@
-import 'package:acadamicConnect/core/Models/Announcement.dart';
+import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:flutter/material.dart';
 import 'package:swipedetector/swipedetector.dart';
 

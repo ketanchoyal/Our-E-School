@@ -1,17 +1,17 @@
-import 'package:acadamicConnect/UI/Utility/constants.dart';
-import 'package:acadamicConnect/UI/Widgets/ExamTopicsGridView.dart';
-import 'package:acadamicConnect/UI/Widgets/TopBar.dart';
-import 'package:acadamicConnect/core/Models/ExamTopic.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/Widgets/ExamTopicsGridView.dart';
+import 'package:ourESchool/UI/Widgets/TopBar.dart';
+import 'package:ourESchool/core/Models/ExamTopic.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'QuizPage.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
 
 class TopicSelectPage extends StatelessWidget {
   const TopicSelectPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var string;
     return Scaffold(
       appBar: TopBar(
         child: kBackBtn,

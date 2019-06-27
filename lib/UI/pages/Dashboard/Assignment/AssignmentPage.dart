@@ -1,11 +1,11 @@
-import 'package:acadamicConnect/UI/Utility/constants.dart';
-import 'package:acadamicConnect/UI/Widgets/ColumnReusableCardButton.dart';
-import 'package:acadamicConnect/UI/Widgets/TopBar.dart';
-import 'package:acadamicConnect/UI/pages/shared/PDFOpener.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/Widgets/ColumnReusableCardButton.dart';
+import 'package:ourESchool/UI/Widgets/TopBar.dart';
+import 'package:ourESchool/UI/pages/shared/PDFOpener.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:acadamicConnect/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:random_color/random_color.dart';
 
 class AssignmentsPage extends StatefulWidget {

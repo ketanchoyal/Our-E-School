@@ -1,9 +1,9 @@
-import 'package:acadamicConnect/UI/Utility/constants.dart';
-import 'package:acadamicConnect/UI/Widgets/BookGridViewCard.dart';
-import 'package:acadamicConnect/UI/Widgets/TopBar.dart';
-import 'package:acadamicConnect/core/Models/E-Book.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/Widgets/BookGridViewCard.dart';
+import 'package:ourESchool/UI/Widgets/TopBar.dart';
+import 'package:ourESchool/core/Models/E-Book.dart';
 import 'package:flutter/material.dart';
-import 'package:acadamicConnect/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'EbookInfo.dart';
 
 class EBookSelect extends StatelessWidget {

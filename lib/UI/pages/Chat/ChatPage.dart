@@ -1,9 +1,9 @@
-import 'package:acadamicConnect/UI/Utility/custom_icons.dart';
-import 'package:acadamicConnect/UI/Widgets/ColumnReusableCardButton.dart';
+import 'package:ourESchool/UI/Utility/custom_icons.dart';
+import 'package:ourESchool/UI/Widgets/ColumnReusableCardButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'MessagingScreen.dart';
-import 'package:acadamicConnect/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:random_color/random_color.dart';
 
 class ChatPage extends StatefulWidget {

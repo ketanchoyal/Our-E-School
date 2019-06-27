@@ -1,6 +1,6 @@
-import 'package:acadamicConnect/UI/Utility/constants.dart';
-import 'package:acadamicConnect/UI/pages/shared/AnnouncementViewer.dart';
-import 'package:acadamicConnect/core/Models/Announcement.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/pages/shared/AnnouncementViewer.dart';
+import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:flutter/material.dart';
 
 class AnnouncementCard extends StatelessWidget {

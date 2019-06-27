@@ -1,8 +1,8 @@
-import 'package:acadamicConnect/UI/Utility/Resources.dart';
-import 'package:acadamicConnect/UI/Utility/constants.dart';
-import 'package:acadamicConnect/UI/Utility/custom_icons.dart';
-import 'package:acadamicConnect/UI/Widgets/ColumnReusableCardButton.dart';
-import 'package:acadamicConnect/UI/Widgets/RowReusableCardButton.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/Utility/custom_icons.dart';
+import 'package:ourESchool/UI/Widgets/ColumnReusableCardButton.dart';
+import 'package:ourESchool/UI/Widgets/RowReusableCardButton.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Announcement/AnnouncementPage.dart';

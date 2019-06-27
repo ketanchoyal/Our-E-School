@@ -1,5 +1,5 @@
-import 'package:acadamicConnect/UI/Utility/Resources.dart';
-import 'package:acadamicConnect/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
 import 'Profiles/ProfilePage.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';

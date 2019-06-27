@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:acadamicConnect/UI/Utility/constants.dart';
-import 'package:acadamicConnect/UI/Widgets/TopBar.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:acadamicConnect/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'CapturePhoto.dart';

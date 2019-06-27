@@ -1,8 +1,8 @@
-import 'package:acadamicConnect/UI/Utility/Resources.dart';
-import 'package:acadamicConnect/UI/Utility/constants.dart';
-import 'package:acadamicConnect/UI/Utility/custom_icons.dart';
-import 'package:acadamicConnect/UI/Widgets/BottomBar.dart';
-import 'package:acadamicConnect/UI/Widgets/TopBar.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/Utility/custom_icons.dart';
+import 'package:ourESchool/UI/Widgets/BottomBar.dart';
+import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:flutter/material.dart';
 import 'Chat/ChatPage.dart';
 import 'Dashboard/Announcement/CreateAnnouncement.dart';

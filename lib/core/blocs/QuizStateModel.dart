@@ -1,5 +1,5 @@
-import 'package:acadamicConnect/core/Models/ExamTopic.dart';
-import 'package:acadamicConnect/core/Models/Question.dart';
+import 'package:ourESchool/core/Models/ExamTopic.dart';
+import 'package:ourESchool/core/Models/Question.dart';
 import 'package:flutter/material.dart';
 
 

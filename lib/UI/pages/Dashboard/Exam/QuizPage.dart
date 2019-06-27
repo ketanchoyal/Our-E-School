@@ -1,9 +1,9 @@
-import 'package:acadamicConnect/UI/Utility/Resources.dart';
-import 'package:acadamicConnect/UI/Utility/constants.dart';
-import 'package:acadamicConnect/UI/Widgets/ProgressBar.dart';
-import 'package:acadamicConnect/core/Models/ExamTopic.dart';
-import 'package:acadamicConnect/core/Models/Question.dart';
-import 'package:acadamicConnect/core/blocs/QuizStateModel.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/Widgets/ProgressBar.dart';
+import 'package:ourESchool/core/Models/ExamTopic.dart';
+import 'package:ourESchool/core/Models/Question.dart';
+import 'package:ourESchool/core/blocs/QuizStateModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
