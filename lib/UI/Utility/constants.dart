@@ -46,11 +46,11 @@ Widget kBackBtn = Icon(
   // color: Colors.black54,
 );
 
-Widget kBuzyState({Color color = Colors.white}) {
+Widget kBuzyState() {
     return Align(
       alignment: Alignment(0.0, 0.0),
       child: SpinKitThreeBounce(
-        color: color ?? Colors.white,
+        color: Colors.white,
         size: 20.0,
       ),
     );
