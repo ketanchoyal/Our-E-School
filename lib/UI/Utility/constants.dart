@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 var kTextFieldDecoration = InputDecoration(
   // hintText: 'Enter your password.',
@@ -52,6 +53,16 @@ kopenPage(BuildContext context, Widget page) {
       builder: (BuildContext context) => page,
     ),
   );
+}
+
+kBuzyPage({Color color = Colors.white}) {
+  return Align(
+      alignment: Alignment(0.0, 0.0),
+      child: SpinKitThreeBounce(
+        color: color ?? Colors.white,
+        size: 20.0,
+      ),
+    );
 }
 
 kbackBtn(BuildContext context) {

@@ -27,7 +27,7 @@ class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     return BaseView<QuizStateModel>(
-      onModelReady: (model) => model.getQuestions(),
+      onModelReady: (model) => model.getQuestions(forTopic: widget.examTopic),
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
@@ -56,13 +56,13 @@ class _QuizPageState extends State<QuizPage> {
                     // itemCount: questions.length,
 
                     itemBuilder: (BuildContext context, int idx) {
-                      if (idx == model.questions.length) {
-                        model.lastQuestion = true;
-                      }
+                      // if (idx == model.questions.length) {
+                      //   model.lastQuestion = true;
+                      // }
                       if (idx == 0) {
-                        return StartPage(examTopic: widget.examTopic);
+                        return StartPage();
                       } else if (idx == model.questions.length + 1) {
-                        return FinishPage(examTopic: widget.examTopic);
+                        return FinishPage();
                       } else {
                         return QuestionPage(question: model.questions[idx - 1]);
                       }
@@ -79,8 +79,8 @@ class StartPage extends StatelessWidget {
   // final PageController controller;
   // StartPage({this.controller});
 
-  final ExamTopic examTopic;
-  StartPage({@required this.examTopic});
+  // final ExamTopic examTopic;
+  // StartPage({@required this.examTopic});
 
   @override
   Widget build(BuildContext context) {
@@ -91,11 +91,11 @@ class StartPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(examTopic.topicName,
+          Text(model.selectedTopic.topicName,
               style: Theme.of(context).textTheme.headline),
           Divider(),
           Expanded(
-            child: Text(examTopic.description),
+            child: Text(model.selectedTopic.description),
           ),
           MaterialButton(
             color: Colors.green,
@@ -125,8 +125,8 @@ class FinishPage extends StatelessWidget {
   // final PageController controller;
   // StartPage({this.controller});
 
-  final ExamTopic examTopic;
-  FinishPage({@required this.examTopic});
+  // final ExamTopic examTopic;
+  // FinishPage({@required this.examTopic});
 
   @override
   Widget build(BuildContext context) {
@@ -136,11 +136,90 @@ class FinishPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(examTopic.topicName,
-              style: Theme.of(context).textTheme.headline),
+          Row(
+            children: <Widget>[
+              Text(
+                model.selectedTopic.topicName,
+                style: Theme.of(context).textTheme.headline,
+              ),
+              MaterialButton(
+                onPressed: model.checkAnswers,
+                child: Text(
+                  'Check Answers',
+                  style: ksubtitleStyle,
+                ),
+              )
+            ],
+          ),
           Divider(),
           Expanded(
-            child: Text(model.selectedAnswerSet.toString()),
+            child: model.state2 == ViewState.Busy
+                ? kBuzyPage(color: Theme.of(context).primaryColor)
+                : ListView.builder(
+                    itemCount: model.checkedAnswersMap.length,
+                    itemBuilder: (context, index) => Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Text(
+                                        'Question : ',
+                                        style: ktitleStyle,
+                                      ),
+                                      Text(
+                                        model.questions[index].question,
+                                        style: ksubtitleStyle,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text(
+                                        'Answer : ',
+                                        style: ktitleStyle,
+                                      ),
+                                      Text(
+                                        model.questions[index].answer
+                                            .toString(),
+                                        style: ksubtitleStyle,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text(
+                                        'Your Answers : ',
+                                        style: ktitleStyle,
+                                      ),
+                                      Text(
+                                        model.selectedAnswerMap[
+                                                model.questions[index].id]
+                                            .toString(),
+                                        style: ksubtitleStyle,
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(
+                                    height: 4,
+                                    indent: 2,
+                                  )
+                                ],
+                              ),
+                              Icon(
+                                model.checkedAnswersMap[model.questions[index]]
+                                    ? Icons.done
+                                    : Icons.close,
+                                color: Theme.of(context).primaryColor,
+                                size: 30,
+                              )
+                            ],
+                          ),
+                        ),
+                  ),
           ),
           MaterialButton(
             color: Colors.green,
@@ -197,16 +276,16 @@ class QuestionPage extends StatelessWidget {
               children: question.options.map(
                 (option) {
                   //Mark Question as left initially if user ticks any answer it'll get changed
-                  if (question.type == QuestionType.MULTIPLE_ANSWERS) {
-                    if (model.selectedList.isEmpty ||
-                        model.selectedList == null) {
-                      model.selectedAnswerSet[question.id] = ['Left'];
-                    }
-                  } else if (question.type == QuestionType.MULTIPLE_CHOICE) {
-                    if (model.selected == '') {
-                      model.selectedAnswerSet[question.id] = ['Left'];
-                    }
-                  }
+                  // if (question.type == QuestionType.MULTIPLE_ANSWERS) {
+                  //   if (model.selectedList.isEmpty ||
+                  //       model.selectedList == null) {
+                  //     model.selectedAnswerMap[question.id] = ['Left'];
+                  //   }
+                  // } else if (question.type == QuestionType.MULTIPLE_CHOICE) {
+                  //   if (model.selected == '') {
+                  //     model.selectedAnswerMap[question.id] = ['Left'];
+                  //   }
+                  // }
                   if (question.type == QuestionType.MULTIPLE_CHOICE) {
                     return multipleChoiceQuestions(model, option, context);
                   } else if (question.type == QuestionType.MULTIPLE_ANSWERS) {
@@ -245,10 +324,11 @@ class QuestionPage extends StatelessWidget {
       child: InkWell(
         onTap: () {
           model.selected = option.toString();
-          model.selectedAnswerSet[question.id] = [option.toString()];
+          // model.selectedAnswerMap[question.id].clear();
+          model.selectedAnswerMap[question.id] = [option.toString()];
 
           print(model.selectedList.toString());
-          print(model.selectedAnswerSet.toString());
+          print(model.selectedAnswerMap.toString());
           // _bottomSheet(context, opt);
         },
         child: Container(
@@ -286,25 +366,25 @@ class QuestionPage extends StatelessWidget {
       child: InkWell(
         onTap: () {
           model.selectedList = option.toString();
-          if (model.selectedAnswerSet == null) {
-            model.selectedAnswerSet[question.id] = [option.toString()];
-          } else if (model.selectedAnswerSet != null) {
-            if (model.selectedAnswerSet.containsKey(question.id)) {
-              if (model.selectedAnswerSet[question.id].contains('Left')) {
-                model.selectedAnswerSet[question.id].remove('Left');
+          if (model.selectedAnswerMap == null) {
+            model.selectedAnswerMap[question.id] = [option.toString()];
+          } else if (model.selectedAnswerMap != null) {
+            if (model.selectedAnswerMap.containsKey(question.id)) {
+              if (model.selectedAnswerMap[question.id].contains('Left')) {
+                model.selectedAnswerMap[question.id].remove('Left');
               }
-              if (model.selectedAnswerSet[question.id]
+              if (model.selectedAnswerMap[question.id]
                   .contains(option.toString())) {
-                model.selectedAnswerSet[question.id].remove(option.toString());
+                model.selectedAnswerMap[question.id].remove(option.toString());
               } else {
-                model.selectedAnswerSet[question.id].add(option.toString());
+                model.selectedAnswerMap[question.id].add(option.toString());
               }
             } else {
-              model.selectedAnswerSet[question.id] = [option.toString()];
+              model.selectedAnswerMap[question.id] = [option.toString()];
             }
           }
           print(model.selectedList.toString());
-          print(model.selectedAnswerSet.toString());
+          print(model.selectedAnswerMap.toString());
 
           // _bottomSheet(context, opt);
         },

@@ -240,21 +240,9 @@ class MonthCardsState extends State<MonthCards> {
     }
 // By default, show a loading spinner
     else if (model.state == ViewState.Busy || model.state2 == ViewState.Busy) {
-      return Align(
-        alignment: Alignment(0.0, 0.0),
-        child: SpinKitThreeBounce(
-          color: Colors.white,
-          size: 20.0,
-        ),
-      );
+      return kBuzyPage();
     }
-    return Align(
-      alignment: Alignment(0.0, 0.0),
-      child: SpinKitThreeBounce(
-        color: Colors.white,
-        size: 20.0,
-      ),
-    );
+    return kBuzyPage();
   }
 
   @override
