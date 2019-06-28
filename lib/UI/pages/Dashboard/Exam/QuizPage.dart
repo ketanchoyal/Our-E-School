@@ -24,8 +24,6 @@ class _QuizPageState extends State<QuizPage> {
     super.initState();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return BaseView<QuizStateModel>(
@@ -148,7 +146,67 @@ class FinishPage extends StatelessWidget {
           ),
           Divider(),
           Expanded(
-            child: Text(model.checkedAnswersMap.values.toString()),
+            child: ListView.builder(
+              itemCount: model.checkedAnswersMap.length,
+              itemBuilder: (context, index) => Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Question : ',
+                                  style: ktitleStyle,
+                                ),
+                                Text(
+                                  model.questions[index].question,
+                                  style: ksubtitleStyle,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Answer : ',
+                                  style: ktitleStyle,
+                                ),
+                                Text(
+                                  model.questions[index].answer.toString(),
+                                  style: ksubtitleStyle,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Your Answers : ',
+                                  style: ktitleStyle,
+                                ),
+                                Text(
+                                  model.selectedAnswerMap[model.questions[index]]
+                                      .toString(),
+                                  style: ksubtitleStyle,
+                                ),
+                              ],
+                            ),
+                            Divider(
+                              height: 4,
+                              indent: 2,
+                            )
+                          ],
+                        ),
+                        Icon(
+                          model.checkedAnswersMap[model.questions[index]] ? Icons.done : Icons.close,
+                          color: Theme.of(context).primaryColor,
+                          size: 30,
+                        )
+                      ],
+                    ),
+                  ),
+            ),
           ),
           MaterialButton(
             color: Colors.green,

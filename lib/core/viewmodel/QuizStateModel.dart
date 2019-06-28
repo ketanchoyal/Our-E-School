@@ -85,7 +85,7 @@ class QuizStateModel extends BaseModel {
   void checkAnswers() async {
     // setState2(ViewState.Busy);
     showTimer = false;
-    await Future.delayed(const Duration(seconds: 3), () {});
+    // await Future.delayed(const Duration(seconds: 3), () {});
     // notifyListeners();
     for (var question in _questions) {
       List correctAnswers = question.answer;
@@ -103,6 +103,6 @@ class QuizStateModel extends BaseModel {
       _checkedAnswersMap[question] = isCorrect;
     }
     // setState2(ViewState.Idle);
-    // notifyListeners();
+    notifyListeners();
   }
 }

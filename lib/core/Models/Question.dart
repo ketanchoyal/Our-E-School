@@ -4,7 +4,7 @@ import 'package:ourESchool/core/enums/questionType.dart';
 
 class Question {
   String question;
-  var answer;
+  List answer;
   QuestionType type;
   List options = [];
   String id;
