@@ -202,16 +202,15 @@ class QuestionPage extends StatelessWidget {
                         model.selectedList == null) {
                       model.selectedAnswerSet[question.id] = ['Left'];
                     }
+                    return multipleAnswersQuestion(model, option, context);
                   } else if (question.type == QuestionType.MULTIPLE_CHOICE) {
                     if (model.selected == '') {
                       model.selectedAnswerSet[question.id] = ['Left'];
                     }
-                  }
-                  if (question.type == QuestionType.MULTIPLE_CHOICE) {
                     return multipleChoiceQuestions(model, option, context);
-                  } else if (question.type == QuestionType.MULTIPLE_ANSWERS) {
-                    return multipleAnswersQuestion(model, option, context);
                   }
+                  // if (question.type == QuestionType.MULTIPLE_CHOICE) {
+                  // } else if (question.type == QuestionType.MULTIPLE_ANSWERS) {}
                 },
               ).toList(),
             ),
