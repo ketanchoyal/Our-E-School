@@ -24,6 +24,8 @@ class _QuizPageState extends State<QuizPage> {
     super.initState();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return BaseView<QuizStateModel>(
@@ -44,7 +46,7 @@ class _QuizPageState extends State<QuizPage> {
             leading: CloseButton(),
           ),
           body: model.state == ViewState.Busy
-              ? Center(child: CircularProgressIndicator())
+              ? kBuzyState()
               : SafeArea(
                   child: PageView.builder(
                     physics: NeverScrollableScrollPhysics(),
@@ -56,9 +58,9 @@ class _QuizPageState extends State<QuizPage> {
                     // itemCount: questions.length,
 
                     itemBuilder: (BuildContext context, int idx) {
-                      if (idx == model.questions.length) {
-                        model.lastQuestion = true;
-                      }
+                      // if (idx == model.questions.length) {
+                      //   model.lastQuestion = true;
+                      // }
                       if (idx == 0) {
                         return StartPage(examTopic: widget.examTopic);
                       } else if (idx == model.questions.length + 1) {
@@ -131,16 +133,22 @@ class FinishPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var model = Provider.of<QuizStateModel>(context);
+    if (model != null) {
+      model.checkAnswers();
+    }
+
     return Container(
       padding: EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(examTopic.topicName,
-              style: Theme.of(context).textTheme.headline),
+          Text(
+            examTopic.topicName,
+            style: Theme.of(context).textTheme.headline,
+          ),
           Divider(),
           Expanded(
-            child: Text(model.selectedAnswerSet.toString()),
+            child: Text(model.checkedAnswersMap.values.toString()),
           ),
           MaterialButton(
             color: Colors.green,
@@ -200,12 +208,12 @@ class QuestionPage extends StatelessWidget {
                   if (question.type == QuestionType.MULTIPLE_ANSWERS) {
                     if (model.selectedList.isEmpty ||
                         model.selectedList == null) {
-                      model.selectedAnswerSet[question.id] = ['Left'];
+                      model.selectedAnswerMap[question] = ['Left'];
                     }
                     return multipleAnswersQuestion(model, option, context);
                   } else if (question.type == QuestionType.MULTIPLE_CHOICE) {
-                    if (model.selected == '') {
-                      model.selectedAnswerSet[question.id] = ['Left'];
+                    if (model.selectedList.isEmpty) {
+                      model.selectedAnswerMap[question] = ['Left'];
                     }
                     return multipleChoiceQuestions(model, option, context);
                   }
@@ -225,7 +233,9 @@ class QuestionPage extends StatelessWidget {
                 model.nextPage();
               },
               child: Text(
-                model.lastQuestion ? string.finish : string.next,
+                model.controller.page.toInt() == model.questions.length + 1
+                    ? string.finish
+                    : string.next,
                 style: ktitleStyle,
               ),
             ),
@@ -243,11 +253,13 @@ class QuestionPage extends StatelessWidget {
       color: Colors.black26,
       child: InkWell(
         onTap: () {
-          model.selected = option.toString();
-          model.selectedAnswerSet[question.id] = [option.toString()];
+          model.selectedList.clear();
+          model.selectedList = option.toString();
+          // model.selected = option.toString();
+          model.selectedAnswerMap[question] = [option.toString()];
 
           print(model.selectedList.toString());
-          print(model.selectedAnswerSet.toString());
+          print(model.selectedAnswerMap.toString());
           // _bottomSheet(context, opt);
         },
         child: Container(
@@ -255,7 +267,7 @@ class QuestionPage extends StatelessWidget {
           child: Row(
             children: [
               Icon(
-                model.selected == option.toString()
+                model.selectedList.contains(option.toString())
                     ? FontAwesomeIcons.checkCircle
                     : FontAwesomeIcons.circle,
                 size: 30,
@@ -285,25 +297,25 @@ class QuestionPage extends StatelessWidget {
       child: InkWell(
         onTap: () {
           model.selectedList = option.toString();
-          if (model.selectedAnswerSet == null) {
-            model.selectedAnswerSet[question.id] = [option.toString()];
-          } else if (model.selectedAnswerSet != null) {
-            if (model.selectedAnswerSet.containsKey(question.id)) {
-              if (model.selectedAnswerSet[question.id].contains('Left')) {
-                model.selectedAnswerSet[question.id].remove('Left');
+          if (model.selectedAnswerMap == null) {
+            model.selectedAnswerMap[question] = [option.toString()];
+          } else if (model.selectedAnswerMap != null) {
+            if (model.selectedAnswerMap.containsKey(question)) {
+              if (model.selectedAnswerMap[question].contains('Left')) {
+                model.selectedAnswerMap[question].remove('Left');
               }
-              if (model.selectedAnswerSet[question.id]
+              if (model.selectedAnswerMap[question]
                   .contains(option.toString())) {
-                model.selectedAnswerSet[question.id].remove(option.toString());
+                model.selectedAnswerMap[question].remove(option.toString());
               } else {
-                model.selectedAnswerSet[question.id].add(option.toString());
+                model.selectedAnswerMap[question].add(option.toString());
               }
             } else {
-              model.selectedAnswerSet[question.id] = [option.toString()];
+              model.selectedAnswerMap[question] = [option.toString()];
             }
           }
           print(model.selectedList.toString());
-          print(model.selectedAnswerSet.toString());
+          print(model.selectedAnswerMap.toString());
 
           // _bottomSheet(context, opt);
         },
