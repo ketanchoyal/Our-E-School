@@ -34,9 +34,6 @@ class _CapturePhotoState extends State<CapturePhoto>
   List<CameraDescription> cameras;
   CameraController controller;
   String imagePath;
-  // String videoPath;
-  // VideoPlayerController videoController;
-  // VoidCallback videoPlayerListener;
   bool enableAudio = true;
 
   initilizaCameras() async {
@@ -128,17 +125,6 @@ class _CapturePhotoState extends State<CapturePhoto>
           : null,
       child: Icon(Icons.camera),
     );
-    // return IconButton(
-    //   icon:Icon(
-    //     Icons.camera_alt,
-    //   ),
-    //   // color: Colors.blue,
-    //   onPressed: controller != null &&
-    //           controller.value.isInitialized &&
-    //           !controller.value.isRecordingVideo
-    //       ? onTakePictureButtonPressed
-    //       : null,
-    // );
   }
 
   /// Display a row of toggle to select the camera (or a message if no camera is available).

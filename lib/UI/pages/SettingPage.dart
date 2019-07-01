@@ -1,5 +1,6 @@
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/pages/About.dart';
 import 'Profiles/ProfilePage.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,9 @@ class _SettingPageState extends State<SettingPage> {
               buildInkWell(
                   context: context,
                   icon: Icons.contact_mail,
-                  onTap: () {},
+                  onTap: () {
+                    kopenPage(context, AboutUs());
+                  },
                   subtitle: string.about_subtitle,
                   title: string.about),
             ],
