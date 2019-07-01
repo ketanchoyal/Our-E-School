@@ -48,6 +48,10 @@ linked_*.ds
 unlinked.ds
 unlinked_spec.ds
 
+# Firebase Related
+GoogleService-Info.plist
+google-services.json
+
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
@@ -84,6 +88,8 @@ unlinked_spec.ds
 **/ios/Flutter/flutter_assets/
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Runner/GoogleService-Info.plist
+
 
 # Coverage
 coverage/

@@ -1,7 +1,6 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
-import 'package:ourESchool/core/viewmodel/QuizStateModel.dart';
 // import 'package:flutter/foundation.dart'
 //     show debugDefaultTargetPlatformOverride;
 import 'package:ourESchool/locator.dart';
