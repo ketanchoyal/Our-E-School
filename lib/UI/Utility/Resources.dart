@@ -156,6 +156,9 @@ Check School posts to stay updated with school news.''';
 
   static const upload = 'UPLOAD';
 
+//Transportaion
+  static const transportation = 'Transportation';
+
 //E-Book
   static const e_book = 'E-Book';
 

@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 import * as express from 'express';
 import * as admin from 'firebase-admin';
 import * as HttpStatus from 'http-status-codes';
+// import { QuerySnapshot } from '@google-cloud/firestore';
 // import * as bodyparser from 'body-parser';
 
 interface IUserRequest extends express.Request {
@@ -32,7 +33,7 @@ const validateFirebaseIdToken = async (req: express.Request, res: express.Respon
         return;
     }
 
-    let idToken;
+    var idToken;
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
         console.log('Found "Authorization" header');
         // Read the ID Token from the Authorization header.
@@ -51,7 +52,7 @@ const validateFirebaseIdToken = async (req: express.Request, res: express.Respon
         const decodedIdToken = await admin.auth().verifyIdToken(idToken);
         console.log('ID Token correctly decoded', decodedIdToken);
         console.log('ID Token correctly decoded: Email', decodedIdToken.email);
-        let requestWrapper: IUserRequest = <IUserRequest>req;
+        var requestWrapper: IUserRequest = <IUserRequest>req;
         requestWrapper.user = decodedIdToken;
         next();
         return;
@@ -79,9 +80,9 @@ loginCredentialsCheck.post('/', async (req: express.Request, res: express.Respon
             loginType
         };
 
-        var country = "India";
+        const country = "India";
 
-        // var loginUserType;
+        // let loginUserType;
 
         // if (data.loginType == "S") {
         //     loginUserType = "Student";
@@ -92,15 +93,15 @@ loginCredentialsCheck.post('/', async (req: express.Request, res: express.Respon
         // const schoolRef = db.collection("Schools").doc(country).collection(data.schoolId);
         // const userRef = schoolRef.doc("Login").collection("Parent-Teacher");
 
-        var schoolExists = checkIfSchoolExists(country, data);
+        const schoolExists = checkIfSchoolExists(country, data);
 
-        if (schoolExists) {
-            var querySnapshot = checkIfUserExists(country, data);
-            if (querySnapshot != null) {
-                // var docs = querySnapshot.docs.map(doc => doc.data());
-                res.status(HttpStatus.OK).send("School " + HttpStatus.getStatusText(HttpStatus.OK));
+        if (schoolExists !== null) {
+            const querySnapshot = await checkIfUserExists(country, data);
+            if (querySnapshot !== null) {
+                // let docs = querySnapshot.docs.map(doc => doc.data());
+                res.status(HttpStatus.OK).send("User Found " + HttpStatus.getStatusText(HttpStatus.OK));
             } else {
-                res.status(HttpStatus.NOT_FOUND).send("Student " + HttpStatus.getStatusText(HttpStatus.NOT_FOUND));
+                res.status(HttpStatus.NOT_FOUND).send("User " + HttpStatus.getStatusText(HttpStatus.NOT_FOUND));
             }
         } else {
             res.status(HttpStatus.NOT_FOUND).send("School " + HttpStatus.getStatusText(HttpStatus.NOT_FOUND));
@@ -112,20 +113,18 @@ loginCredentialsCheck.post('/', async (req: express.Request, res: express.Respon
     }
 });
 
-function checkIfSchoolExists(country: string, data: any) {
+function checkIfSchoolExists(country: string, data: any): any {
     // const schoolRef = db.collection("Schools").doc(schoolId);
-    var ret = false;
+    let ret : any = null;
     try {
         db.collection("Schools").doc(country).collection(data.schoolId).get()
             .then(docSnapshot => {
                 console.log("Data : " + data.loginType + " " + data.schoolId + " " + data.user_email_or_mobile);
-                console.log("In School Check Function " + docSnapshot.docs.length);
+                console.log("In School Check Function " + docSnapshot.docs.toString);
                 if (docSnapshot.docs.length > 0) {
-                    ret = true;
-                    return ret;
+                    ret = docSnapshot;
                 } else {
-                    ret = false;
-                    return ret;
+                    ret = null;
                 }
             }).catch(error => {
                 console.log("error", error);
@@ -139,20 +138,21 @@ function checkIfSchoolExists(country: string, data: any) {
     return ret;
 }
 
-function checkIfUserExists(country : string, data : any) {
+function checkIfUserExists(country: string, data: any): any {
+    let ret: any = null;
     db.collection("Schools").doc(country).collection(data.schoolId).doc("Login").collection("Parent-Teacher")
         .where("email", "==", data.user_email_or_mobile).get()
         .then(docSnapshot => {
             console.log("In User Check Function " + docSnapshot.docs.toString);
             console.log("Data : " + data.loginType + " " + data.schoolId + " " + data.user_email_or_mobile);
             if (!docSnapshot.empty) {
-                // var doc = docSnapshot
-                return docSnapshot;
+                // let doc = docSnapshot
+                ret = docSnapshot;
             } else {
-                return null;
+                ret = null;
             }
         }).catch(error => {
             console.log("error", error);
         });
-    return null
+    return ret
 }
