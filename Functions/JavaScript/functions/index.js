@@ -1,3 +1,4 @@
+// /* eslint-disable promise/always-return */
 /* eslint-disable no-eq-null */
 /* eslint-disable eqeqeq */
 const functions = require('firebase-functions');
@@ -78,13 +79,13 @@ loginCredentialsCheck.post("/", async (req, res) => {
 
         var country = "India";
 
-        var loginUserType;
+        // var loginUserType;
 
-        if (data.loginType == "S") {
-            loginUserType = "Student";
-        } else {
-            loginUserType = "Parent-Teacher";
-        }
+        // if (data.loginType == "S") {
+        //     loginUserType = "Student";
+        // } else {
+        //     loginUserType = "Parent-Teacher";
+        // }
         console.log("Data : " + data.loginType + " " + data.schoolId + " " + data.user_email_or_mobile);
         const schoolRef = db.collection("Schools").doc(country).collection(data.schoolId);
         const userRef = schoolRef.doc("Login").collection("Parent-Teacher");
@@ -94,10 +95,8 @@ loginCredentialsCheck.post("/", async (req, res) => {
         if (schoolExists) {
             var querySnapshot = checkIfUserExists(country, data);
             if (querySnapshot != null) {
-                var docs = querySnapshot.docs.map(doc => doc.data());
-                res.status(HttpStatus.OK).send("School " + HttpStatus.getStatusText(HttpStatus.OK)).end(JSON.stringify({
-                    data: docs
-                }));
+                // var docs = querySnapshot.docs.map(doc => doc.data());
+                res.status(HttpStatus.OK).send("School " + HttpStatus.getStatusText(HttpStatus.OK));
             } else {
                 res.status(HttpStatus.NOT_FOUND).send("Student " + HttpStatus.getStatusText(HttpStatus.NOT_FOUND));
             }
@@ -113,20 +112,29 @@ loginCredentialsCheck.post("/", async (req, res) => {
 
 function checkIfSchoolExists(country, data) {
     // const schoolRef = db.collection("Schools").doc(schoolId);
+    var ret = false;
+    try {
+        db.collection("Schools").doc(country).collection(data.schoolId).get()
+            .then(docSnapshot => {
+                console.log("Data : " + data.loginType + " " + data.schoolId + " " + data.user_email_or_mobile);
+                console.log("In School Check Function " + docSnapshot.docs.length);
+                if (docSnapshot.docs.length > 0) {
+                    ret = true;
+                    return ret;
+                } else {
+                    ret = false;
+                    return ret;
+                }
+            }).catch(error => {
+                console.log("error", error);
+            });
+        // return ret;
 
-    db.collection("Schools").doc(country).collection(data.schoolId).get()
-        .then(docSnapshot => {
-            console.log("Data : " + data.loginType + " " + data.schoolId + " " + data.user_email_or_mobile);
-            console.log("In School Check Function " + docSnapshot.docs.length);
-            if (docSnapshot.size > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }).catch(error => {
-            console.log("error", error);
-        });
-    // return false
+    } catch (e) {
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    return ret;
 }
 
 function checkIfUserExists(country, data) {
