@@ -12,25 +12,28 @@ dependencies:
   provider: ^3.0.0+1
   intro_views_flutter: ^2.6.0
   font_awesome_flutter: ^8.4.0
-  flutter_plugin_pdf_viewer: any
   file_picker: ^1.3.5
   camera: ^0.5.2+1
   dynamic_theme: ^1.0.1
   random_color: ^1.0.3
   intl: ^0.15.8
   swipedetector: ^1.2.0
-  division: ^0.6.3
+  division: ^0.7.0
   flutter_spinkit: "^3.1.0"
-  rxdart: ^0.18.0
-  path_provider: 0.5.0+1
   http: any
   shared_preferences: any
   cupertino_icons: ^0.1.2
   get_it: ^1.0.3+2
+  path_provider: ^0.5.0
+  # flutter_cache_manager: ^1.0.0
+  flutter_plugin_pdf_viewer: ^1.0.6
+
+  
   # Firebase Dependencies
   firebase_auth: ^0.11.1+7 
   firebase_core: ^0.4.0+6
   cloud_firestore: ^0.12.5+2
+
 
 dev_dependencies:
   flutter_test:

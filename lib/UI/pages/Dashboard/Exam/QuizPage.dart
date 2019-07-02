@@ -44,7 +44,7 @@ class _QuizPageState extends State<QuizPage> {
             leading: CloseButton(),
           ),
           body: model.state == ViewState.Busy
-              ? Center(child: CircularProgressIndicator())
+              ? kBuzyPage(color: Theme.of(context).primaryColor)
               : SafeArea(
                   child: PageView.builder(
                     physics: NeverScrollableScrollPhysics(),
