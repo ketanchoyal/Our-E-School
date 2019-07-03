@@ -33,31 +33,18 @@ class AuthenticationServices {
   //   }
   // }
 
-  // Future<FirebaseUser> handleGoogleSignIn() async {
-  //   final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-  //   final GoogleSignInAuthentication googleAuth =
-  //       await googleUser.authentication;
+  bool checkDetails(String schoolCode, String email) {
+    //Check if the School code is present
+    //Then check if the user credentials are in the database or not
+    //if not then return false else return true
+    
+    return true;
+  }
 
-  //   final AuthCredential credential = GoogleAuthProvider.getCredential(
-  //     accessToken: googleAuth.accessToken,
-  //     idToken: googleAuth.idToken,
-  //   );
+  Future emailPasswordSignIn(String email, String password) async {
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
 
-  //   final FirebaseUser user = await _auth.signInWithCredential(credential);
-
-  //   print("signed in " + user.displayName);
-  //   User userr = User(
-  //     displayName: user.displayName,
-  //     mobileNo: user.phoneNumber,
-  //     email: user.email,
-  //     firebaseUuid: user.uid,
-  //     isVerified: user.isEmailVerified,
-  //     photoUrl: user.photoUrl,
-  //   );
-  //   this._user = userr;
-  //   _firebaseUser = user;
-  //   return user;
-  // }
+  }
 
   Future<User> fetchUserData() async {
     FirebaseUser user = await _auth.currentUser();

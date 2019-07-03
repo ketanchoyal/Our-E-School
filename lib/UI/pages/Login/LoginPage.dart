@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isRegistered = false;
   String notYetRegisteringText = string.not_registered;
   ButtonType buttonType = ButtonType.LOGIN;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
         onModelReady: (model) => model,
         builder: (context, model, child) {
           return Scaffold(
+            key: _scaffoldKey,
             resizeToAvoidBottomPadding: false,
             appBar: TopBar(
               title: string.login,
@@ -43,21 +45,18 @@ class _LoginPageState extends State<LoginPage> {
                 Navigator.pop(context);
               },
             ),
-            floatingActionButton: Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: LoginRoundedButton(
-                    label: buttonType == ButtonType.LOGIN
-                        ? string.login
-                        : string.register,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => ProfilePage(),
-                        ),
-                      );
-                    },
+            floatingActionButton: LoginRoundedButton(
+              label: buttonType == ButtonType.LOGIN
+                  ? string.login
+                  : string.register,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => ProfilePage(),
                   ),
+                );
+              },
             ),
             body: Stack(
               children: <Widget>[
@@ -180,6 +179,8 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     onPressed: () {
                                       // cardKey.currentState.toggleCard();
+                                      _scaffoldKey.currentState
+                                          .showSnackBar(ksnackBar(context, 'message'));
                                       setState(() {
                                         if (buttonType == ButtonType.LOGIN) {
                                           buttonType = ButtonType.REGISTER;

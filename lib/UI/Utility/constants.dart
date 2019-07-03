@@ -57,12 +57,12 @@ kopenPage(BuildContext context, Widget page) {
 
 kBuzyPage({Color color = Colors.white}) {
   return Align(
-      alignment: Alignment.center,
-      child: SpinKitThreeBounce(
-        color: color ?? Colors.white,
-        size: 20.0,
-      ),
-    );
+    alignment: Alignment.center,
+    child: SpinKitThreeBounce(
+      color: color ?? Colors.white,
+      size: 20.0,
+    ),
+  );
 }
 
 kbackBtn(BuildContext context) {
@@ -78,16 +78,26 @@ kopenPageBottom(BuildContext context, Widget page) {
   );
 }
 
- Future openFileExplorer(FileType _pickingType, bool mounted) async {
-    String _path = null;
-    if (_pickingType != FileType.CUSTOM) {
-      try {
-        _path = await FilePicker.getFilePath(type: _pickingType);
-      } on PlatformException catch (e) {
-        print("Unsupported operation" + e.toString());
-      }
-      if (!mounted) return '';
-
-      return _path;
+Future openFileExplorer(FileType _pickingType, bool mounted) async {
+  String _path = null;
+  if (_pickingType != FileType.CUSTOM) {
+    try {
+      _path = await FilePicker.getFilePath(type: _pickingType);
+    } on PlatformException catch (e) {
+      print("Unsupported operation" + e.toString());
     }
+    if (!mounted) return '';
+
+    return _path;
   }
+}
+
+SnackBar ksnackBar(BuildContext context, String message) {
+  return SnackBar(
+    content: Text(
+      message,
+      textAlign: TextAlign.center,
+    ),
+    backgroundColor: Theme.of(context).primaryColor,
+  );
+}
