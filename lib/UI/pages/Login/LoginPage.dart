@@ -67,8 +67,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             LoginRoundedButton(
-              label:
-                  buttonType == ButtonType.LOGIN ? string.login : string.register,
+              label: buttonType == ButtonType.LOGIN
+                  ? string.login
+                  : string.register,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -96,32 +97,35 @@ class _LoginPageState extends State<LoginPage> {
                     labelText: string.school_name_code,
                   ),
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                TextField(
-                  onChanged: (id) {},
-                  keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  decoration: kTextFieldDecoration.copyWith(
-                    hintText: string.student_teacher_id_hint,
-                    labelText: idHint,
-                  ),
-                ),
+                // SizedBox(
+                //   height: 15,
+                // ),
+                // TextField(
+                //   onChanged: (id) {},
+                //   keyboardType: TextInputType.emailAddress,
+                //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                //   decoration: kTextFieldDecoration.copyWith(
+                //     hintText: string.student_teacher_id_hint,
+                //     labelText: idHint,
+                //   ),
+                // ),
                 SizedBox(
                   height: 10,
                 ),
                 CustomLoginTypeBtn(
                   onPressed: () {
+                    //LoginType can be fetched from here
                     if (LoginPage.loginTypeSelected == 'S') {
-                      setState(() {
-                        idHint = string.student_id;
-                      });
+                      //from here
+                      // setState(() {
+                      //   idHint = string.student_id;
+                      // });
                     }
                     if (LoginPage.loginTypeSelected == 'PT') {
-                      setState(() {
-                        idHint = string.student_or_teacher_id;
-                      });
+                      //from here
+                      // setState(() {
+                      //   idHint = string.student_or_teacher_id;
+                      // });
                     }
                   },
                 ),

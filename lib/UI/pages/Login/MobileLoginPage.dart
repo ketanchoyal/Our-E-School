@@ -92,34 +92,37 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                         labelText: string.school_name_code,
                       ),
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextField(
-                      enabled: isEnabled,
-                      onChanged: (id) {},
-                      keyboardType: TextInputType.emailAddress,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                      decoration: kTextFieldDecoration.copyWith(
-                        hintText: string.student_teacher_id_hint,
-                        labelText: idHint,
-                      ),
-                    ),
+                    // SizedBox(
+                    //   height: 15,
+                    // ),
+                    // TextField(
+                    //   enabled: isEnabled,
+                    //   onChanged: (id) {},
+                    //   keyboardType: TextInputType.emailAddress,
+                    //   style:
+                    //       TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    //   decoration: kTextFieldDecoration.copyWith(
+                    //     hintText: string.student_teacher_id_hint,
+                    //     labelText: idHint,
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 10,
                     ),
                     CustomLoginTypeBtn(
                       onPressed: () {
+                        //LoginType can be fetched from here
                         if (MobileLoginPage.loginTypeSelected == 'S') {
-                          setState(() {
-                            idHint = string.student_id;
-                          });
+                          //from here
+                          // setState(() {
+                          //   idHint = string.student_id;
+                          // });
                         }
                         if (MobileLoginPage.loginTypeSelected == 'PT') {
-                          setState(() {
-                            idHint = string.student_or_teacher_id;
-                          });
+                          //from here
+                          // setState(() {
+                          //   idHint = string.student_or_teacher_id;
+                          // });
                         }
                       },
                     ),
