@@ -35,15 +35,14 @@ class TopicSelectPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 if (index == examTopicList.length) {
                   return Division(
-                    gesture: GestureClass().onTap(() {}),
-                    style: StyleClass()
-                        .ripple(true)
-                        // .borderRadius(all: 10)
-                        .backgroundColor(Colors.redAccent[700])
-                        .margin(all: 5)
-                        .borderRadius(all: 10)
-                        .alignChild(Alignment.center)
-                        .elevation(5),
+                    gesture: GestureClass()..onTap(() {}),
+                    style: StyleClass(useRadians: false)
+                      ..ripple(true)
+                      ..background.color(Colors.redAccent[700])
+                      ..margin(all: 5)
+                      ..borderRadius(all: 10)
+                      ..alignmentChild.center()
+                      ..elevation(5),
                     child: Stack(
                       children: <Widget>[
                         Positioned(

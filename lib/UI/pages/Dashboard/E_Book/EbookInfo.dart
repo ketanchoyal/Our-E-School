@@ -149,6 +149,8 @@ class EBookInfo extends StatelessWidget {
               top:
                   _imageHeight + MediaQuery.of(context).size.height * 0.08 + 15,
               child: Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
                     child: _ReusableEbookBtn(
@@ -214,17 +216,17 @@ class _ReusableEbookBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Division(
-      style: StyleClass()
-          .alignChild(Alignment.center)
-          .elevation(5)
-          .backgroundColor(Colors.blue[300])
-          .height(_buttonHeight)
-          .ripple(true)
-          .borderRadius(all: 8),
-      gesture: GestureClass().onTap(onTap),
+      style: StyleClass(useRadians: false)
+        ..alignmentChild.center()
+        ..elevation(5)
+        ..background.color(Colors.blue[300])
+        ..height(_buttonHeight)
+        ..ripple(true)
+        ..borderRadius(all: 8),
+      gesture: GestureClass()..onTap(onTap),
       child: Text(
         title,
-        style: ktitleStyle,
+        style: ktitleStyle.copyWith(color: Colors.white),
       ),
     );
   }
