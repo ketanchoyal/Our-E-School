@@ -137,7 +137,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     ColumnReusableCardButton(
                       tileColor: Colors.grey,
-                      label: 'Transportation',
+                      label: string.transportation,
                       onPressed: () {
                         kopenPage(context, TransportationPage());
                       },

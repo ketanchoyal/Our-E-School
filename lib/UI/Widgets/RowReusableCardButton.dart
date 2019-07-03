@@ -24,9 +24,10 @@ class RowReusableCardButtonBanner extends StatelessWidget {
   final IconData icon;
   final String label;
   final Color tileColor;
+  final double paddingTop;
 
   const RowReusableCardButtonBanner(
-      {@required this.icon, @required this.label, @required this.onPressed, @required this.tileColor});
+      {@required this.icon, @required this.label, @required this.onPressed, @required this.tileColor, this.paddingTop = 5});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ourESchool/core/Models/User.dart';
 
@@ -33,17 +31,31 @@ class AuthenticationServices {
   //   }
   // }
 
-  bool checkDetails(String schoolCode, String email) {
-    //Check if the School code is present
+  Future<String> checkDetails(
+      {String schoolCode, String email, String password}) async {
+    //Check if the School code is present and return 'School not Present' if not
     //Then check if the user credentials are in the database or not
-    //if not then return false else return true
-    
-    return true;
+    //if not then return 'Student Not Fount' else return 'Logging in'
+    String detailCheckStatus = '';
+    //Api Call to check details
+    bool isSchoolPresent = false;
+    bool isStudentPresent = false;
+
+    if (isSchoolPresent) {
+      if (isStudentPresent) {
+        _emailPasswordSignIn(email, password);
+      } else {
+        detailCheckStatus = 'Student Not Present';
+      }
+    } else {
+      detailCheckStatus = 'Please Enter correct SchoolCode';
+    }
+
+    return detailCheckStatus;
   }
 
-  Future emailPasswordSignIn(String email, String password) async {
+  Future _emailPasswordSignIn(String email, String password) async {
     await _auth.signInWithEmailAndPassword(email: email, password: password);
-
   }
 
   Future<User> fetchUserData() async {
