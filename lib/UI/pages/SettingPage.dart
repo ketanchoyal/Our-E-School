@@ -1,6 +1,8 @@
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/pages/About.dart';
+import 'package:ourESchool/core/viewmodel/LoginPageModel.dart';
+import 'package:ourESchool/locator.dart';
 import 'Profiles/ProfilePage.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +25,13 @@ class _SettingPageState extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
+    LoginPageModel model = locator<LoginPageModel>();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              buildInkWell(
+              settingTiles(
                   context: context,
                   icon: FontAwesomeIcons.user,
                   onTap: () {
@@ -36,19 +39,21 @@ class _SettingPageState extends State<SettingPage> {
                   },
                   subtitle: string.profile_subtitle,
                   title: string.profile),
-              buildInkWell(
+              settingTiles(
                   context: context,
                   icon: FontAwesomeIcons.signOutAlt,
-                  onTap: () {},
+                  onTap: () async {
+                    await model.logoutUser();
+                  },
                   subtitle: string.logout_subtitle,
                   title: string.logout),
-              buildInkWell(
+              settingTiles(
                   context: context,
                   icon: FontAwesomeIcons.solidMoon,
                   onTap: changeBrightness,
                   subtitle: string.dark_theme_subtitle,
                   title: string.dark_theme),
-              buildInkWell(
+              settingTiles(
                   context: context,
                   icon: Icons.contact_mail,
                   onTap: () {
@@ -63,7 +68,7 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
-  InkWell buildInkWell(
+  InkWell settingTiles(
       {BuildContext context,
       Function onTap,
       String title,

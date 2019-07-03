@@ -45,37 +45,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             floatingActionButton: Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
-                // mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 31),
-                      child: Hero(
-                        tag: 'mobile',
-                        transitionOnUserGestures: true,
-                        child: ReusableRoundedButton(
-                          child: Icon(
-                            FontAwesomeIcons.google,
-                            color: Colors.white,
-                          ),
-                          // text: 'Mobile',
-                          onPressed: () {
-                            model.googleLogin();
-                            // kopenPageBottom(
-                            //   context,
-                            //   MobileLoginPage(),
-                            // );
-                          },
-                          height: 50,
-                          backgroundColor: Colors.redAccent,
-                        ),
-                      ),
-                    ),
-                  ),
-                  LoginRoundedButton(
+              child: LoginRoundedButton(
                     label: buttonType == ButtonType.LOGIN
                         ? string.login
                         : string.register,
@@ -88,12 +58,10 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     },
                   ),
-                ],
-              ),
             ),
             body: Stack(
               children: <Widget>[
-                model.state == ViewState.Idle
+                model.state == ViewState.Busy
                     ? kBuzyPage(color: Theme.of(context).primaryColor)
                     : Container(),
                 Container(

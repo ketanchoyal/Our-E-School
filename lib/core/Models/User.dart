@@ -45,6 +45,6 @@ class User {
 
   @override
   String toString() {
-    return "$email - $displayName";
+    return "$email - $displayName - $photoUrl - $mobileNo - $isVerified";
   }
 }
