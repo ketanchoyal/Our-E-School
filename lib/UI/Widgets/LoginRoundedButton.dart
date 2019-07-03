@@ -19,6 +19,7 @@ class LoginRoundedButton extends StatelessWidget {
           child: Text(
             label ?? 'Login',
             style: TextStyle(
+              fontWeight: FontWeight.w800,
               color: Colors.white,
               fontSize: 15,
             ),

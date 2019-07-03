@@ -57,7 +57,7 @@ kopenPage(BuildContext context, Widget page) {
 
 kBuzyPage({Color color = Colors.white}) {
   return Align(
-      alignment: Alignment(0.0, 0.0),
+      alignment: Alignment.center,
       child: SpinKitThreeBounce(
         color: color ?? Colors.white,
         size: 20.0,

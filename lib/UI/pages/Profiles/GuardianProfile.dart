@@ -71,9 +71,11 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                           child: Image(
                             height: MediaQuery.of(context).size.width / 2.5,
                             width: MediaQuery.of(context).size.width / 2.5,
-                            image: path == '' ? NetworkImage(
-                                "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-                                ) : AssetImage(path),
+                            image: path == ''
+                                ? NetworkImage(
+                                    "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+                                  )
+                                : AssetImage(path),
                           ),
                         ),
                         Positioned(
@@ -99,8 +101,8 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                                   size: 25,
                                 ),
                                 onPressed: () async {
-                                  String _path =
-                                      await openFileExplorer(FileType.IMAGE, mounted);
+                                  String _path = await openFileExplorer(
+                                      FileType.IMAGE, mounted);
                                   setState(() {
                                     path = _path;
                                   });
@@ -127,36 +129,49 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                       onChanged: (name) {},
                       initialText: '',
                     ),
-                    ProfileFields(
-                      width: MediaQuery.of(context).size.width,
+                    InkWell(
                       onTap: () async {
                         await _selectDate(context, anniversaryDate);
                       },
-                      labelText: string.anniversary_date,
-                      textInputType: TextInputType.number,
-                      onChanged: (dob) {},
-                      hintText: '',
-                      initialText: anniversaryDate == null
-                          ? ''
-                          : anniversaryDate.toLocal().toString().substring(0, 10),
+                      borderRadius: BorderRadius.circular(16),
+                      child: IgnorePointer(
+                        child: ProfileFields(
+                          width: MediaQuery.of(context).size.width,
+                          labelText: string.anniversary_date,
+                          textInputType: TextInputType.number,
+                          onChanged: (dob) {},
+                          hintText: '',
+                          initialText: anniversaryDate == null
+                              ? ''
+                              : anniversaryDate
+                                  .toLocal()
+                                  .toString()
+                                  .substring(0, 10),
+                        ),
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        ProfileFields(
+                        InkWell(
                           onTap: () async {
                             await _selectDate(context, dateOfBirth);
                           },
-                          labelText: string.dob,
-                          textInputType: TextInputType.number,
-                          onChanged: (dob) {},
-                          hintText: '',
-                          initialText: dateOfBirth == null
-                              ? ''
-                              : dateOfBirth
-                                  .toLocal()
-                                  .toString()
-                                  .substring(0, 10),
+                          borderRadius: BorderRadius.circular(16),
+                          child: IgnorePointer(
+                            child: ProfileFields(
+                              labelText: string.dob,
+                              textInputType: TextInputType.number,
+                              onChanged: (dob) {},
+                              hintText: '',
+                              initialText: dateOfBirth == null
+                                  ? ''
+                                  : dateOfBirth
+                                      .toLocal()
+                                      .toString()
+                                      .substring(0, 10),
+                            ),
+                          ),
                         ),
                         ProfileFields(
                           // width: MediaQuery.of(context).size.width,

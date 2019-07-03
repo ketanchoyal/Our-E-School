@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         // Provider(
-        //   builder: (context) => locator<QuizStateModel>()
+        //   builder: (context) => locator<AuthenticationServices>()
         // )
       ],
       child: DynamicTheme(

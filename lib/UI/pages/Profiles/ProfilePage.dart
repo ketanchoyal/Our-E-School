@@ -5,6 +5,7 @@ import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ourESchool/UI/pages/Home.dart';
 
 import 'GuardianProfile.dart';
 
@@ -46,7 +47,9 @@ class _ProfilePageState extends State<ProfilePage> {
       floatingActionButton: FloatingActionButton(
         elevation: 20,
         backgroundColor: Colors.red,
-        onPressed: () {},
+        onPressed: () {
+          kopenPage(context, Home());
+        },
         child: Icon(Icons.check),
       ),
       body: SingleChildScrollView(
@@ -71,9 +74,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Image(
                             height: MediaQuery.of(context).size.width / 2.5,
                             width: MediaQuery.of(context).size.width / 2.5,
-                            image: path == '' ? NetworkImage(
-                                "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-                                ) : AssetImage(path),
+                            image: path == ''
+                                ? NetworkImage(
+                                    "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+                                  )
+                                : AssetImage(path),
                           ),
                         ),
                         Positioned(
@@ -99,8 +104,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   size: 25,
                                 ),
                                 onPressed: () async {
-                                  String _path =
-                                      await openFileExplorer(FileType.IMAGE, mounted);
+                                  String _path = await openFileExplorer(
+                                      FileType.IMAGE, mounted);
                                   setState(() {
                                     path = _path;
                                   });
@@ -163,20 +168,25 @@ class _ProfilePageState extends State<ProfilePage> {
                       // mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        ProfileFields(
+                        InkWell(
                           onTap: () async {
                             await _selectDate(context);
                           },
-                          labelText: string.dob,
-                          textInputType: TextInputType.number,
-                          onChanged: (dob) {},
-                          hintText: '',
-                          initialText: dateOfBirth == null
-                              ? ''
-                              : dateOfBirth
-                                  .toLocal()
-                                  .toString()
-                                  .substring(0, 10),
+                          borderRadius: BorderRadius.circular(16),
+                          child: IgnorePointer(
+                            child: ProfileFields(
+                              labelText: string.dob,
+                              textInputType: TextInputType.number,
+                              onChanged: (dob) {},
+                              hintText: '',
+                              initialText: dateOfBirth == null
+                                  ? ''
+                                  : dateOfBirth
+                                      .toLocal()
+                                      .toString()
+                                      .substring(0, 10),
+                            ),
+                          ),
                         ),
                         ProfileFields(
                           // width: MediaQuery.of(context).size.width,
