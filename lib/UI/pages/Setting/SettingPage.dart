@@ -1,10 +1,10 @@
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/DynamicThemeChanger.dart';
-import 'package:ourESchool/UI/pages/About.dart';
+import 'package:ourESchool/UI/pages/About/About.dart';
+import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
 import 'package:ourESchool/core/viewmodel/LoginPageModel.dart';
 import 'package:ourESchool/locator.dart';
-import 'Profiles/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

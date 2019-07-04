@@ -8,7 +8,7 @@ import 'Chat/ChatPage.dart';
 import 'Dashboard/Announcement/CreateAnnouncement.dart';
 import 'Dashboard/DashboardPage.dart';
 import 'Profiles/ProfilePage.dart';
-import 'SettingPage.dart';
+import 'Setting/SettingPage.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
