@@ -71,6 +71,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                     ColumnReusableCardButton(
+                      height: 70,
                       tileColor: Colors.orangeAccent,
                       label: string.announcement,
                       icon: CustomIcons.megaphone,
@@ -136,6 +137,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                     ColumnReusableCardButton(
+                      height: 70,
                       tileColor: Colors.grey,
                       label: string.transportation,
                       onPressed: () {
