@@ -6,6 +6,7 @@ const express = require('express');
 // const bodyparser = require('body-parser');
 const admin = require('firebase-admin');
 const HttpStatus = require('http-status-codes');
+const cors = require('cors');
 
 admin.initializeApp(functions.config().firebase);
 
@@ -60,11 +61,13 @@ const validateFirebaseIdToken = async (req, res, next) => {
     }
 };
 
-app.use(validateFirebaseIdToken);
+
+// app.use(validateFirebaseIdToken);
+
 // This HTTPS endpoint can only be accessed by your Firebase Users.
 // Requests need to be authorized by providing an `Authorization` HTTP header
 // with value `Bearer <Firebase ID Token>`.
-//   exports.app = functions.https.onRequest(app);
+// exports.app = functions.https.onRequest(app);
 
 loginCredentialsCheck.post("/", async (req, res) => {
     try {
@@ -154,6 +157,8 @@ function checkIfUserExists(country, data) {
         });
     return null
 }
+
+
 
 // schoolRef.then(docSnapshot => {
 //     console.log("Data : " + data.loginType + " " + data.schoolId + " " + data.user_email_or_mobile);

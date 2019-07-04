@@ -220,7 +220,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     ColumnReusableCardButton(
                       tileColor: Colors.greenAccent,
-                      height: 60,
+                      height: 70,
                       label: string.offers,
                       onPressed: () {},
                       icon: Icons.receipt,
