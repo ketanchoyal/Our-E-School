@@ -9,22 +9,20 @@ import 'package:ourESchool/UI/pages/Dashboard/Transportation/TransportationPage.
 import 'Announcement/AnnouncementPage.dart';
 import 'Assignment/AssignmentPage.dart';
 import 'E-Card/E-CardPage.dart';
-import 'E_Book/E_bookSelect.dart';
-import 'Exam/TopicSelectPage.dart';
 import 'Fees/FeesPage.dart';
 import 'Holidays/HolidayPage.dart';
 import 'ParentingGuide/ParentingGuidePage.dart';
 import 'Result/ResultPage.dart';
 import 'TimeTable/TimeTablePage.dart';
 
-class Dashboard extends StatefulWidget {
-  Dashboard({Key key}) : super(key: key);
+class ParentDashboard extends StatefulWidget {
+  ParentDashboard({Key key}) : super(key: key);
   static String pageName = string.dashboard;
 
-  _DashboardState createState() => _DashboardState();
+  _ParentDashboardState createState() => _ParentDashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _ParentDashboardState extends State<ParentDashboard> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,6 +36,15 @@ class _DashboardState extends State<Dashboard> {
               Expanded(
                 child: ListView(
                   children: [
+                    ColumnReusableCardButton(
+                      height: 70,
+                      tileColor: Colors.deepPurpleAccent,
+                      label: 'Childrens',
+                      icon: FontAwesomeIcons.child,
+                      onPressed: () {
+                        kopenPage(context, AnnouncementPage());
+                      },
+                    ),
                     Container(
                       height: 110,
                       child: Row(
@@ -140,47 +147,47 @@ class _DashboardState extends State<Dashboard> {
                       },
                       icon: FontAwesomeIcons.bus
                     ),
+                    // SizedBox(
+                    //   height: 105,
+                    //   child: ListView(
+                    //     shrinkWrap: false,
+                    //     scrollDirection: Axis.horizontal,
+                    //     children: <Widget>[
+                    //       Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: <Widget>[
+                    //           RowReusableCardButtonBanner(
+                    //             paddingTop: 0,
+                    //             tileColor: Colors.pink,
+                    //             icon: Icons.assistant_photo,
+                    //             label: string.exams,
+                    //             onPressed: () {
+                    //               kopenPage(context, TopicSelectPage());
+                    //             },
+                    //           ),
+                    //           RowReusableCardButtonBanner(
+                    //             paddingTop: 0,
+                    //             tileColor: Colors.tealAccent,
+                    //             icon: FontAwesomeIcons.book,
+                    //             label: string.e_book,
+                    //             onPressed: () {
+                    //               kopenPage(context, EBookSelect());
+                    //             },
+                    //           ),
+                    //           RowReusableCardButtonBanner(
+                    //             paddingTop: 0,
+                    //             tileColor: Colors.deepPurpleAccent,
+                    //             icon: FontAwesomeIcons.cameraRetro,
+                    //             label: string.video,
+                    //             onPressed: () {},
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 105,
-                      child: ListView(
-                        shrinkWrap: false,
-                        scrollDirection: Axis.horizontal,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              RowReusableCardButtonBanner(
-                                paddingTop: 0,
-                                tileColor: Colors.pink,
-                                icon: Icons.assistant_photo,
-                                label: string.exams,
-                                onPressed: () {
-                                  kopenPage(context, TopicSelectPage());
-                                },
-                              ),
-                              RowReusableCardButtonBanner(
-                                paddingTop: 0,
-                                tileColor: Colors.tealAccent,
-                                icon: FontAwesomeIcons.book,
-                                label: string.e_book,
-                                onPressed: () {
-                                  kopenPage(context, EBookSelect());
-                                },
-                              ),
-                              RowReusableCardButtonBanner(
-                                paddingTop: 0,
-                                tileColor: Colors.deepPurpleAccent,
-                                icon: FontAwesomeIcons.cameraRetro,
-                                label: string.video,
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 110,
                       child: ListView(
                         shrinkWrap: false,
                         scrollDirection: Axis.horizontal,
@@ -189,6 +196,7 @@ class _DashboardState extends State<Dashboard> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               RowReusableCardButtonBanner(
+                                paddingTop: 0,
                                 tileColor: Colors.pinkAccent,
                                 icon: FontAwesomeIcons.female,
                                 label: string.parenting_guide,
@@ -197,12 +205,14 @@ class _DashboardState extends State<Dashboard> {
                                 },
                               ),
                               RowReusableCardButtonBanner(
+                                paddingTop: 0,
                                 tileColor: Colors.red,
                                 icon: FontAwesomeIcons.medkit,
                                 label: string.health_tips,
                                 onPressed: () {},
                               ),
                               RowReusableCardButtonBanner(
+                                paddingTop: 0,
                                 tileColor: Colors.blue,
                                 icon: FontAwesomeIcons.userMd,
                                 label: string.vaccinations,

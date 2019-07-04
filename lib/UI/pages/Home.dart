@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'Chat/ChatPage.dart';
 import 'Dashboard/Announcement/CreateAnnouncement.dart';
 import 'Dashboard/DashboardPage.dart';
+import 'Dashboard/ParentDashboard.dart';
 import 'Profiles/ProfilePage.dart';
 import 'Setting/SettingPage.dart';
 
@@ -23,7 +24,7 @@ class _HomeState extends State<Home> {
   String pageName = string.home;
 
   List<Widget> pages = [
-    Dashboard(),
+    ParentDashboard(),
     ChatPage(),
     // NotificationPage(),
     SettingPage()
@@ -131,17 +132,6 @@ class _HomeState extends State<Home> {
           ),
           title: Text(string.chat),
         ),
-        // BubbleBottomBarItem(
-        //   backgroundColor: Colors.indigo,
-        //   icon: Icon(
-        //     Icons.notifications,
-        //   ),
-        //   activeIcon: Icon(
-        //     Icons.notifications,
-        //     color: Colors.indigo,
-        //   ),
-        //   title: Text("Notifications"),
-        // ),
         BubbleBottomBarItem(
           backgroundColor: Colors.orange,
           icon: Icon(
