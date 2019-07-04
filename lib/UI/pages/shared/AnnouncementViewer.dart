@@ -1,6 +1,6 @@
+import 'package:ourESchool/UI/Widgets/swipedetector.dart';
 import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:flutter/material.dart';
-import 'package:swipedetector/swipedetector.dart';
 
 class AnnouncementViewer extends StatelessWidget {
   final Announcement announcement;

@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ourESchool/core/Models/User.dart';
 
 class AuthenticationServices {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  // final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser _firebaseUser;
   User _user;
@@ -77,9 +77,7 @@ class AuthenticationServices {
   }
 
   logoutMethod() async {
-    await _auth.signOut().then((_) async {
-      await _googleSignIn.signOut();
-    });
+    await _auth.signOut();
     print('User Loged out');
   }
 }

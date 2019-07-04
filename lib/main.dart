@@ -1,4 +1,3 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 // import 'package:flutter/foundation.dart'
@@ -6,6 +5,7 @@ import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:ourESchool/locator.dart';
 import 'package:provider/provider.dart';
 
+import 'UI/Widgets/DynamicThemeChanger.dart';
 import 'UI/pages/WelcomeScreen.dart';
 
 void main() {
