@@ -144,7 +144,7 @@ class _DashboardState extends State<Dashboard> {
                       icon: FontAwesomeIcons.bus
                     ),
                     SizedBox(
-                      height: 110,
+                      height: 105,
                       child: ListView(
                         shrinkWrap: false,
                         scrollDirection: Axis.horizontal,
@@ -153,6 +153,7 @@ class _DashboardState extends State<Dashboard> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               RowReusableCardButtonBanner(
+                                paddingTop: 0,
                                 tileColor: Colors.pink,
                                 icon: Icons.assistant_photo,
                                 label: string.exams,
@@ -161,6 +162,7 @@ class _DashboardState extends State<Dashboard> {
                                 },
                               ),
                               RowReusableCardButtonBanner(
+                                paddingTop: 0,
                                 tileColor: Colors.tealAccent,
                                 icon: FontAwesomeIcons.book,
                                 label: string.e_book,
@@ -169,6 +171,7 @@ class _DashboardState extends State<Dashboard> {
                                 },
                               ),
                               RowReusableCardButtonBanner(
+                                paddingTop: 0,
                                 tileColor: Colors.deepPurpleAccent,
                                 icon: FontAwesomeIcons.cameraRetro,
                                 label: string.video,

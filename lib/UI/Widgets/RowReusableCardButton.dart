@@ -27,12 +27,12 @@ class RowReusableCardButtonBanner extends StatelessWidget {
   final double paddingTop;
 
   const RowReusableCardButtonBanner(
-      {@required this.icon, @required this.label, @required this.onPressed, @required this.tileColor, this.paddingTop = 5});
+      {@required this.icon, @required this.label, @required this.onPressed, @required this.tileColor, this.paddingTop = 5.0});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5, bottom: 0, right: 5),
+      padding: EdgeInsets.only(top: paddingTop, bottom: 0, right: 5),
       child: ClipRect(
         child: Container(
           color: tileColor ?? Colors.blue,
