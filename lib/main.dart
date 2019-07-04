@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
               brightness: brightness,
             ),
         themedWidgetBuilder: (context, theme) => MaterialApp(
+              debugShowCheckedModeBanner: false,
               title: 'Our E-School',
               theme: theme,
               home: WelcomeScreen(),

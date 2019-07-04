@@ -56,6 +56,7 @@ class AuthenticationServices {
 
   Future _emailPasswordSignIn(String email, String password) async {
     await _auth.signInWithEmailAndPassword(email: email, password: password);
+    print('User Loggedin using Email and Password');
   }
 
   Future<User> fetchUserData() async {
