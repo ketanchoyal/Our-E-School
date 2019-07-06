@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ourESchool/UI/pages/Dashboard/Transportation/TransportationPage.dart';
 import 'Announcement/AnnouncementPage.dart';
 import 'Assignment/AssignmentPage.dart';
+import 'Childrens/ChildrensPage.dart';
 import 'E-Card/E-CardPage.dart';
 import 'Fees/FeesPage.dart';
 import 'Holidays/HolidayPage.dart';
@@ -42,7 +43,7 @@ class _ParentDashboardState extends State<ParentDashboard> {
                       label: string.childrens,
                       icon: FontAwesomeIcons.child,
                       onPressed: () {
-                        // kopenPage(context, AnnouncementPage());
+                        kopenPage(context, ChildrensPage());
                       },
                     ),
                     Container(
