@@ -100,6 +100,9 @@ Check School posts to stay updated with school news.''';
 //Result
   static const results = 'Results';
 
+  // Childrens
+  static const childrens = 'Childrens';
+
 //QuizPage
   static const exams = 'Exams';
   static const start_quiz = 'Start Quiz';

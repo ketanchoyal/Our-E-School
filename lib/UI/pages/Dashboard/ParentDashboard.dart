@@ -39,10 +39,10 @@ class _ParentDashboardState extends State<ParentDashboard> {
                     ColumnReusableCardButton(
                       height: 70,
                       tileColor: Colors.deepPurpleAccent,
-                      label: 'Childrens',
+                      label: string.childrens,
                       icon: FontAwesomeIcons.child,
                       onPressed: () {
-                        kopenPage(context, AnnouncementPage());
+                        // kopenPage(context, AnnouncementPage());
                       },
                     ),
                     Container(
