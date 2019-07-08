@@ -1,13 +1,20 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ourESchool/core/Models/User.dart';
+import 'package:ourESchool/core/Models/UserDataLogin.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
 
 class AuthenticationServices {
   // final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser _firebaseUser;
   User _user;
+  Firestore _firestore = Firestore.instance;
+  // UserType _userType;
+  UserDataLogin _userDataLogin;
 
   FirebaseUser get firebaseUser => _firebaseUser;
   User get loggedInUser => _user;
@@ -31,32 +38,84 @@ class AuthenticationServices {
   //   }
   // }
 
-  Future<String> checkDetails(
-      {String schoolCode, String email, String password}) async {
+  Future<String> checkDetails({
+    @required String schoolCode,
+    @required String email,
+    @required String password,
+    @required UserType userType,
+  }) async {
     //Check if the School code is present and return 'School not Present' if not
     //Then check if the user credentials are in the database or not
-    //if not then return 'Student Not Fount' else return 'Logging in'
-    String detailCheckStatus = '';
+    //if not then return 'Student Not Found' else return 'Logging in'
+    String country = 'India';
     //Api Call to check details
     bool isSchoolPresent = false;
-    bool isStudentPresent = false;
+    bool isUserAvailable = false;
+    String loginType = userType == UserType.STUDENT
+        ? 'Students'
+        : userType == UserType.TEACHER ? 'Parent-Teacher' : 'Parent-Teacher';
 
-    if (isSchoolPresent) {
-      if (isStudentPresent) {
-        _emailPasswordSignIn(email, password);
-      } else {
-        detailCheckStatus = 'Student Not Present';
-      }
-    } else {
-      detailCheckStatus = 'Please Enter correct SchoolCode';
+    CollectionReference _schoolRef = _firestore
+        .collection('Schools')
+        .document(country)
+        .collection(schoolCode);
+
+    isSchoolPresent = await _schoolRef.snapshots().isEmpty;
+
+    if (!isSchoolPresent) {
+      return 'Please Enter correct SchoolCode';
     }
 
-    return detailCheckStatus;
+    CollectionReference _userRef =
+        _schoolRef.document('Login').collection(loginType);
+
+    Stream<QuerySnapshot> studentSnapshot =
+        _userRef.where('email', isEqualTo: email).snapshots();
+
+    print('Student Data : ' + studentSnapshot.toList().toString());
+
+    isUserAvailable = await studentSnapshot.isEmpty;
+
+    if (isUserAvailable) {
+      return 'Student Not Found';
+    }
+
+    await studentSnapshot.first.then((onValue) {
+      onValue.documents.map((DocumentSnapshot document) {
+        if (userType == UserType.STUDENT) {
+          _userDataLogin = UserDataLogin(
+            email: document['email'].toString(),
+            id: document['id'].toString(),
+          );
+        } else {
+          _userDataLogin = UserDataLogin(
+            email: document['email'].toString(),
+            id: document['id'].toString(),
+            isATeacher: document['isATeacher'] as bool,
+            childIds: document['chilsId'] as List,
+          );
+        }
+      });
+    });
+
+    print('Childs :' + _userDataLogin.childIds.toString());
+    print('Email :' + _userDataLogin.email);
+    print('Id :' + _userDataLogin.id);
+    print('isATeacher :' + _userDataLogin.isATeacher.toString());
+
+    // _emailPasswordSignIn(email, password);
+
+    return 'Please wait while we check your credientials';
   }
 
   Future _emailPasswordSignIn(String email, String password) async {
-    await _auth.signInWithEmailAndPassword(email: email, password: password);
+    bool successLogin = false;
+    await _auth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .whenComplete(() => successLogin = true);
     print('User Loggedin using Email and Password');
+
+    return successLogin;
   }
 
   Future<User> fetchUserData() async {

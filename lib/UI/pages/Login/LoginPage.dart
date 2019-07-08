@@ -1,6 +1,3 @@
-import 'dart:ui' as prefix0;
-
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/CustomLoginTypeBtn.dart';
@@ -179,8 +176,8 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     onPressed: () {
                                       // cardKey.currentState.toggleCard();
-                                      _scaffoldKey.currentState
-                                          .showSnackBar(ksnackBar(context, 'message'));
+                                      _scaffoldKey.currentState.showSnackBar(
+                                          ksnackBar(context, 'message'));
                                       setState(() {
                                         if (buttonType == ButtonType.LOGIN) {
                                           buttonType = ButtonType.REGISTER;
