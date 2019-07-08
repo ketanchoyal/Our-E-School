@@ -6,6 +6,7 @@ import 'package:ourESchool/UI/Widgets/ReusableRoundedButton.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
 import 'package:flutter/material.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
 import 'package:ourESchool/core/viewmodel/LoginPageModel.dart';
 import '../BaseView.dart';
@@ -14,7 +15,7 @@ import 'ForgotPassword.dart';
 enum ButtonType { LOGIN, REGISTER }
 
 class LoginPage extends StatefulWidget {
-  static String loginTypeSelected = 'S';
+  static UserType loginTypeSelected = UserType.STUDENT;
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -26,6 +27,9 @@ class _LoginPageState extends State<LoginPage> {
   String notYetRegisteringText = string.not_registered;
   ButtonType buttonType = ButtonType.LOGIN;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController schoolNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +50,31 @@ class _LoginPageState extends State<LoginPage> {
               label: buttonType == ButtonType.LOGIN
                   ? string.login
                   : string.register,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => ProfilePage(),
-                  ),
-                );
+              onPressed: () async {
+                if (emailController.text == null ||
+                    passwordController.text == null ||
+                    schoolNameController.text == null) {
+                  _scaffoldKey.currentState.showSnackBar(
+                      ksnackBar(context, 'Please enter details properly'));
+                } else {
+                  if (emailController.text.isEmpty ||
+                      passwordController.text.isEmpty ||
+                      schoolNameController.text.isEmpty) {
+                    _scaffoldKey.currentState.showSnackBar(
+                        ksnackBar(context, 'Please enter details properly'));
+                  } else {
+                    String response = await model.loginUser(
+                      email: emailController.text,
+                      password: passwordController.text,
+                      schoolCode: schoolNameController.text,
+                      userType: LoginPage.loginTypeSelected,
+                    );
+                    _scaffoldKey.currentState
+                        .showSnackBar(ksnackBar(context, response));
+                  }
+                }
+
+                // kopenPage(context, ProfilePage());
               },
             ),
             body: Stack(
@@ -68,7 +90,8 @@ class _LoginPageState extends State<LoginPage> {
                         children: <Widget>[
                           TextField(
                             onChanged: (id) {},
-                            keyboardType: TextInputType.emailAddress,
+                            controller: schoolNameController,
+                            keyboardType: TextInputType.text,
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500),
                             decoration: kTextFieldDecoration.copyWith(
@@ -92,22 +115,22 @@ class _LoginPageState extends State<LoginPage> {
                             height: 10,
                           ),
                           CustomLoginTypeBtn(
-                            onPressed: () {
-                              //LoginType can be fetched from here
-                              if (LoginPage.loginTypeSelected == 'S') {
-                                //from here
-                                // setState(() {
-                                //   idHint = string.student_id;
-                                // });
-                              }
-                              if (LoginPage.loginTypeSelected == 'PT') {
-                                //from here
-                                // setState(() {
-                                //   idHint = string.student_or_teacher_id;
-                                // });
-                              }
-                            },
-                          ),
+                              // onPressed: () {
+                              //   //LoginType can be fetched from here
+                              //   if (LoginPage.loginTypeSelected == UserType.STUDENT) {
+                              //     //from here
+                              //     // setState(() {
+                              //     //   idHint = string.student_id;
+                              //     // });
+                              //   }
+                              //   if (LoginPage.loginTypeSelected == UserType.TEACHER) {
+                              //     //from here
+                              //     // setState(() {
+                              //     //   idHint = string.student_or_teacher_id;
+                              //     // });
+                              //   }
+                              // },
+                              ),
                           SizedBox(
                             height: 10,
                           ),
@@ -120,6 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                               hintText: string.email_hint,
                               labelText: string.email,
                             ),
+                            controller: emailController,
                           ),
                           SizedBox(
                             height: 15,
@@ -134,6 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                               hintText: string.password_hint,
                               labelText: string.password,
                             ),
+                            controller: passwordController,
                           ),
                           isRegistered
                               ? SizedBox(

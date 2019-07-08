@@ -5,11 +5,12 @@ import 'package:ourESchool/UI/Widgets/LoginRoundedButton.dart';
 import 'package:ourESchool/UI/Widgets/ReusableRoundedButton.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:flutter/material.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
 
 import '../Home.dart';
 
 class MobileLoginPage extends StatefulWidget {
-  static String loginTypeSelected = 'S';
+  static UserType loginTypeSelected = UserType.STUDENT;
   @override
   _MobileLoginPageState createState() => _MobileLoginPageState();
 }
@@ -112,18 +113,18 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                     CustomLoginTypeBtn(
                       onPressed: () {
                         //LoginType can be fetched from here
-                        if (MobileLoginPage.loginTypeSelected == 'S') {
-                          //from here
-                          // setState(() {
-                          //   idHint = string.student_id;
-                          // });
-                        }
-                        if (MobileLoginPage.loginTypeSelected == 'PT') {
-                          //from here
-                          // setState(() {
-                          //   idHint = string.student_or_teacher_id;
-                          // });
-                        }
+                        // if (MobileLoginPage.loginTypeSelected == UserType.STUDENT) {
+                        //   //from here
+                        //   // setState(() {
+                        //   //   idHint = string.student_id;
+                        //   // });
+                        // }
+                        // if (MobileLoginPage.loginTypeSelected == UserType.TEACHER) {
+                        //   //from here
+                        //   // setState(() {
+                        //   //   idHint = string.student_or_teacher_id;
+                        //   // });
+                        // }
                       },
                     ),
                     SizedBox(

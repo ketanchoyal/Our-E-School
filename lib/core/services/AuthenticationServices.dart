@@ -1,11 +1,11 @@
-import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
-import 'package:ourESchool/core/Models/User.dart';
-import 'package:ourESchool/core/Models/UserDataLogin.dart';
-import 'package:ourESchool/core/enums/UserType.dart';
+import "dart:async";
+import "package:cloud_firestore/cloud_firestore.dart";
+import "package:firebase_auth/firebase_auth.dart";
+import "package:flutter/cupertino.dart";
+// import "package:google_sign_in/google_sign_in.dart";
+import "package:ourESchool/core/Models/User.dart";
+import "package:ourESchool/core/Models/UserDataLogin.dart";
+import "package:ourESchool/core/enums/UserType.dart";
 
 class AuthenticationServices {
   // final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -44,68 +44,72 @@ class AuthenticationServices {
     @required String password,
     @required UserType userType,
   }) async {
-    //Check if the School code is present and return 'School not Present' if not
+    //Check if the School code is present and return "School not Present" if not
     //Then check if the user credentials are in the database or not
-    //if not then return 'Student Not Found' else return 'Logging in'
-    String country = 'India';
+    //if not then return "Student Not Found" else return "Logging in"
+    String country = "India";
     //Api Call to check details
     bool isSchoolPresent = false;
     bool isUserAvailable = false;
     String loginType = userType == UserType.STUDENT
-        ? 'Students'
-        : userType == UserType.TEACHER ? 'Parent-Teacher' : 'Parent-Teacher';
+        ? "Students"
+        : userType == UserType.TEACHER ? "Parent-Teacher" : "Parent-Teacher";
 
     CollectionReference _schoolRef = _firestore
-        .collection('Schools')
+        .collection("Schools")
         .document(country)
         .collection(schoolCode);
 
     isSchoolPresent = await _schoolRef.snapshots().isEmpty;
 
+    // _schoolRef.document("Login").get().then((onValue) {
+    //   print("Inside Then :" + onValue.data.toString());
+    // });
+
     if (!isSchoolPresent) {
-      return 'Please Enter correct SchoolCode';
+      return "Please Enter correct SchoolCode";
     }
 
     CollectionReference _userRef =
-        _schoolRef.document('Login').collection(loginType);
+        _schoolRef.document("Login").collection(loginType);
 
     Stream<QuerySnapshot> studentSnapshot =
-        _userRef.where('email', isEqualTo: email).snapshots();
+        _userRef.where("email", isEqualTo: email).snapshots();
 
-    print('Student Data : ' + studentSnapshot.toList().toString());
+    print("Student Data : " + studentSnapshot.toList().toString());
 
     isUserAvailable = await studentSnapshot.isEmpty;
 
     if (isUserAvailable) {
-      return 'Student Not Found';
+      return "Student Not Found";
     }
 
     await studentSnapshot.first.then((onValue) {
       onValue.documents.map((DocumentSnapshot document) {
         if (userType == UserType.STUDENT) {
           _userDataLogin = UserDataLogin(
-            email: document['email'].toString(),
-            id: document['id'].toString(),
+            email: document["email"].toString(),
+            id: document["id"].toString(),
           );
         } else {
           _userDataLogin = UserDataLogin(
-            email: document['email'].toString(),
-            id: document['id'].toString(),
-            isATeacher: document['isATeacher'] as bool,
-            childIds: document['chilsId'] as List,
+            email: document["email"].toString(),
+            id: document["id"].toString(),
+            isATeacher: document["isATeacher"] as bool,
+            childIds: document["chilsId"] as List,
           );
         }
       });
     });
 
-    print('Childs :' + _userDataLogin.childIds.toString());
-    print('Email :' + _userDataLogin.email);
-    print('Id :' + _userDataLogin.id);
-    print('isATeacher :' + _userDataLogin.isATeacher.toString());
+    print("Childs :" + _userDataLogin.childIds.toString());
+    print("Email :" + _userDataLogin.email);
+    print("Id :" + _userDataLogin.id);
+    print("isATeacher :" + _userDataLogin.isATeacher.toString());
 
     // _emailPasswordSignIn(email, password);
 
-    return 'Please wait while we check your credientials';
+    return "Please wait while we check your credientials";
   }
 
   Future _emailPasswordSignIn(String email, String password) async {
@@ -113,7 +117,7 @@ class AuthenticationServices {
     await _auth
         .signInWithEmailAndPassword(email: email, password: password)
         .whenComplete(() => successLogin = true);
-    print('User Loggedin using Email and Password');
+    print("User Loggedin using Email and Password");
 
     return successLogin;
   }
@@ -121,7 +125,7 @@ class AuthenticationServices {
   Future<User> fetchUserData() async {
     FirebaseUser user = await _auth.currentUser();
     if (user == null) {
-      print('No User LogedIn');
+      print("No User LogedIn");
       return null;
     }
     User userr = User(
@@ -137,6 +141,6 @@ class AuthenticationServices {
 
   logoutMethod() async {
     await _auth.signOut();
-    print('User Loged out');
+    print("User Loged out");
   }
 }

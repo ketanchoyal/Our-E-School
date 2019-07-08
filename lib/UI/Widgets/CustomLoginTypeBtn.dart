@@ -1,6 +1,7 @@
 import 'package:ourESchool/UI/pages/Login/LoginPage.dart';
 import 'package:ourESchool/UI/pages/Login/MobileLoginPage.dart';
 import 'package:flutter/material.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
 import 'ReusableRoundedButton.dart';
 
 class CustomLoginTypeBtn extends StatefulWidget {
@@ -21,28 +22,28 @@ class _CustomLoginTypeBtnState extends State<CustomLoginTypeBtn> {
   Color studentBtnTextColor = CustomLoginTypeBtn.selectedBtnFontColor;
   Color parentTeacherBtnTextColor;
 
-  loginTypeBtnTapped(String btn) {
-    if (btn == 'S') {
+  loginTypeBtnTapped(UserType btn) {
+    if (btn == UserType.STUDENT) {
       if (studentBtnColor != CustomLoginTypeBtn.selectedBtnColor) {
         setState(() {
           parentTeacherBtnColor = null;
           parentTeacherBtnTextColor = null;
           studentBtnColor = CustomLoginTypeBtn.selectedBtnColor;
           studentBtnTextColor = CustomLoginTypeBtn.selectedBtnFontColor;
-          LoginPage.loginTypeSelected = 'S';
-          MobileLoginPage.loginTypeSelected = 'S';
+          LoginPage.loginTypeSelected = UserType.STUDENT;
+          MobileLoginPage.loginTypeSelected = UserType.STUDENT;
         });
       }
     }
-    if (btn == 'PT') {
+    if (btn == UserType.TEACHER) {
       if (parentTeacherBtnColor != CustomLoginTypeBtn.selectedBtnColor) {
         setState(() {
           parentTeacherBtnColor = CustomLoginTypeBtn.selectedBtnColor;
           parentTeacherBtnTextColor = CustomLoginTypeBtn.selectedBtnFontColor;
           studentBtnTextColor = null;
           studentBtnColor = null;
-          LoginPage.loginTypeSelected = 'PT';
-          MobileLoginPage.loginTypeSelected = 'PT';
+          LoginPage.loginTypeSelected = UserType.TEACHER;
+          MobileLoginPage.loginTypeSelected = UserType.TEACHER;
         });
       }
     }
@@ -69,7 +70,7 @@ class _CustomLoginTypeBtnState extends State<CustomLoginTypeBtn> {
               child: ReusableRoundedButton(
                 backgroundColor: studentBtnColor,
                 onPressed: () {
-                  loginTypeBtnTapped('S');
+                  loginTypeBtnTapped(UserType.STUDENT);
                 },
                 child: Text(
                   'Student',
@@ -84,7 +85,7 @@ class _CustomLoginTypeBtnState extends State<CustomLoginTypeBtn> {
               flex: 3,
               child: ReusableRoundedButton(
                 onPressed: () {
-                  loginTypeBtnTapped('PT');
+                  loginTypeBtnTapped(UserType.TEACHER);
                 },
                 backgroundColor: parentTeacherBtnColor,
                 child: Text(
