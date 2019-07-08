@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ourESchool/core/enums/announcementType.dart';
 
 import 'CapturePhoto.dart';
 
@@ -17,20 +18,8 @@ class CreateAnnouncement extends StatefulWidget {
 
 class _CreateAnnouncementState extends State<CreateAnnouncement> {
   String path = null;
-  
-//   Future _openFileExplorer(FileType _pickingType) async {
-//   String _path = '';
-//   if (_pickingType != FileType.CUSTOM) {
-//     try {
-//       _path = await FilePicker.getFilePath(type: _pickingType);
-//     } on PlatformException catch (e) {
-//       print("Unsupported operation" + e.toString());
-//     }
-//     if (!mounted) return '';
 
-//     return _path;
-//   }
-// }
+  AnnouncementType announcementType = AnnouncementType.EVENT;
 
   FocusNode _focusNode = new FocusNode();
 
@@ -115,6 +104,54 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                   ),
                 ),
                 Container(
+                  height: 60,
+                  // color: Colors.red,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Expanded(
+                        child: FlatButton(
+                          child: Text('EVENT'),
+                          onPressed: () {
+                            setState(() {
+                              announcementType = AnnouncementType.EVENT;
+                            });
+                          },
+                          color: announcementType == AnnouncementType.EVENT
+                              ? Theme.of(context).primaryColor
+                              : Colors.transparent,
+                        ),
+                      ),
+                      Expanded(
+                        child: FlatButton(
+                          child: Text('CIRCULAR'),
+                          onPressed: () {
+                            setState(() {
+                              announcementType = AnnouncementType.CIRCULAR;
+                            });
+                          },
+                          color: announcementType == AnnouncementType.CIRCULAR
+                              ? Theme.of(context).primaryColor
+                              : Colors.transparent,
+                        ),
+                      ),
+                      Expanded(
+                        child: FlatButton(
+                          child: Text('ACTIVITY'),
+                          onPressed: () {
+                            setState(() {
+                              announcementType = AnnouncementType.ACTIVITY;
+                            });
+                          },
+                          color: announcementType == AnnouncementType.ACTIVITY
+                              ? Theme.of(context).primaryColor
+                              : Colors.transparent,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
                   constraints: BoxConstraints(maxHeight: 300, minHeight: 0),
                   child: path == null
                       ? Row(
@@ -142,9 +179,9 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                               height: 100,
                               child: Icon(Icons.photo_library),
                               onPressed: () async {
-                                
-                                String _path = await openFileExplorer(FileType.IMAGE, mounted);
-                                
+                                String _path = await openFileExplorer(
+                                    FileType.IMAGE, mounted);
+
                                 setState(() {
                                   path = _path;
                                 });
@@ -177,9 +214,11 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                       minWidth: 20,
                                       height: 10,
                                       onPressed: () {
-                                        setState(() {
-                                          path = null;
-                                        });
+                                        setState(
+                                          () {
+                                            path = null;
+                                          },
+                                        );
                                       },
                                       child: Icon(
                                         Icons.close,

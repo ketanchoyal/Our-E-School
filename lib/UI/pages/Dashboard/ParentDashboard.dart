@@ -27,7 +27,7 @@ class _ParentDashboardState extends State<ParentDashboard> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-          child: Scaffold(
+      child: Scaffold(
         body: Padding(
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
           child: Column(
@@ -146,47 +146,8 @@ class _ParentDashboardState extends State<ParentDashboard> {
                       onPressed: () {
                         kopenPage(context, TransportationPage());
                       },
-                      icon: FontAwesomeIcons.bus
+                      icon: FontAwesomeIcons.bus,
                     ),
-                    // SizedBox(
-                    //   height: 105,
-                    //   child: ListView(
-                    //     shrinkWrap: false,
-                    //     scrollDirection: Axis.horizontal,
-                    //     children: <Widget>[
-                    //       Row(
-                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //         children: <Widget>[
-                    //           RowReusableCardButtonBanner(
-                    //             paddingTop: 0,
-                    //             tileColor: Colors.pink,
-                    //             icon: Icons.assistant_photo,
-                    //             label: string.exams,
-                    //             onPressed: () {
-                    //               kopenPage(context, TopicSelectPage());
-                    //             },
-                    //           ),
-                    //           RowReusableCardButtonBanner(
-                    //             paddingTop: 0,
-                    //             tileColor: Colors.tealAccent,
-                    //             icon: FontAwesomeIcons.book,
-                    //             label: string.e_book,
-                    //             onPressed: () {
-                    //               kopenPage(context, EBookSelect());
-                    //             },
-                    //           ),
-                    //           RowReusableCardButtonBanner(
-                    //             paddingTop: 0,
-                    //             tileColor: Colors.deepPurpleAccent,
-                    //             icon: FontAwesomeIcons.cameraRetro,
-                    //             label: string.video,
-                    //             onPressed: () {},
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     SizedBox(
                       height: 105,
                       child: ListView(

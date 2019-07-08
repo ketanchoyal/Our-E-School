@@ -5,8 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 var kTextFieldDecoration = InputDecoration(
-  // hintText: 'Enter your password.',
-  // labelText: 'Email',
   border: OutlineInputBorder(
     borderRadius: BorderRadius.circular(16),
   ),

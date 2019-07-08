@@ -22,10 +22,11 @@ class EBookSelect extends StatelessWidget {
       body: GridView.builder(
         physics: BouncingScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 9 / 13,
-            crossAxisSpacing: 0,
-            mainAxisSpacing: 0),
+          crossAxisCount: 2,
+          childAspectRatio: 9 / 13,
+          crossAxisSpacing: 0,
+          mainAxisSpacing: 0,
+        ),
         itemCount: ebooks.length,
         itemBuilder: (context, index) => BookGridViewCard(
               eBook: ebooks[index],

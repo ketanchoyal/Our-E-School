@@ -18,7 +18,7 @@ dependencies:
   intl: ^0.15.8
   # swipedetector: ^1.2.0
   division: ^0.7.0
-  flutter_spinkit: "^3.1.0"
+  flutter_spinkit: ^3.1.0
   http: any
   shared_preferences: any
   path_provider: ^0.5.0
