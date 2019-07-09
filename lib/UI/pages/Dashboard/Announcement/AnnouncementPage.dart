@@ -1,9 +1,11 @@
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/AnnouncementCard.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
+import 'package:ourESchool/UI/pages/Login/LoginPage.dart';
 import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:flutter/material.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/enums/announcementType.dart';
 
 import 'CreateAnnouncement.dart';
@@ -16,7 +18,8 @@ class AnnouncementPage extends StatefulWidget {
 }
 
 class _AnnouncementPageState extends State<AnnouncementPage> {
-  bool isTeacher = true;
+  //TODO: Temp solution for demo only
+  bool isTeacher = LoginPage.loginTypeSelected == UserType.STUDENT ? false : true;
 
   String url =
       'https://i1.rgstatic.net/publication/274400281_Adult_male_circumcision_with_a_circular_stapler_versus_conventional_circumcision_A_prospective_randomized_clinical_trial/links/5599d54708ae793d13805d4f/largepreview.png';

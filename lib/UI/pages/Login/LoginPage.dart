@@ -51,30 +51,30 @@ class _LoginPageState extends State<LoginPage> {
                   ? string.login
                   : string.register,
               onPressed: () async {
-                if (emailController.text == null ||
-                    passwordController.text == null ||
-                    schoolNameController.text == null) {
-                  _scaffoldKey.currentState.showSnackBar(
-                      ksnackBar(context, 'Please enter details properly'));
-                } else {
-                  if (emailController.text.isEmpty ||
-                      passwordController.text.isEmpty ||
-                      schoolNameController.text.isEmpty) {
-                    _scaffoldKey.currentState.showSnackBar(
-                        ksnackBar(context, 'Please enter details properly'));
-                  } else {
-                    String response = await model.loginUser(
-                      email: emailController.text,
-                      password: passwordController.text,
-                      schoolCode: schoolNameController.text,
-                      userType: LoginPage.loginTypeSelected,
-                    );
-                    _scaffoldKey.currentState
-                        .showSnackBar(ksnackBar(context, response));
-                  }
-                }
+                // if (emailController.text == null ||
+                //     passwordController.text == null ||
+                //     schoolNameController.text == null) {
+                //   _scaffoldKey.currentState.showSnackBar(
+                //       ksnackBar(context, 'Please enter details properly'));
+                // } else {
+                //   if (emailController.text.isEmpty ||
+                //       passwordController.text.isEmpty ||
+                //       schoolNameController.text.isEmpty) {
+                //     _scaffoldKey.currentState.showSnackBar(
+                //         ksnackBar(context, 'Please enter details properly'));
+                //   } else {
+                //     String response = await model.loginUser(
+                //       email: emailController.text,
+                //       password: passwordController.text,
+                //       schoolCode: schoolNameController.text,
+                //       userType: LoginPage.loginTypeSelected,
+                //     );
+                //     _scaffoldKey.currentState
+                //         .showSnackBar(ksnackBar(context, response));
+                //   }
+                // }
 
-                // kopenPage(context, ProfilePage());
+                kopenPage(context, ProfilePage());
               },
             ),
             body: Stack(
@@ -200,9 +200,8 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      // cardKey.currentState.toggleCard();
-                                      _scaffoldKey.currentState.showSnackBar(
-                                          ksnackBar(context, 'message'));
+                                      // _scaffoldKey.currentState.showSnackBar(
+                                      //     ksnackBar(context, 'message'));
                                       setState(() {
                                         if (buttonType == ButtonType.LOGIN) {
                                           buttonType = ButtonType.REGISTER;

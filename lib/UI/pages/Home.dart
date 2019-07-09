@@ -4,6 +4,8 @@ import 'package:ourESchool/UI/Utility/custom_icons.dart';
 import 'package:ourESchool/UI/Widgets/BottomBar.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:flutter/material.dart';
+import 'package:ourESchool/UI/pages/Login/LoginPage.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
 import 'Chat/ChatPage.dart';
 import 'Dashboard/Announcement/CreateAnnouncement.dart';
 import 'Dashboard/DashboardPage.dart';
@@ -20,11 +22,20 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var currentIndex = 0;
   Color background = Colors.white;
-  bool isTeacher = true;
+  //TODO: Temp solution for demo only
+  bool isTeacher =
+      LoginPage.loginTypeSelected == UserType.STUDENT ? false : true;
   String pageName = string.home;
 
   List<Widget> pages = [
     ParentDashboard(),
+    ChatPage(),
+    // NotificationPage(),
+    SettingPage()
+  ];
+
+  List<Widget> pages2 = [
+    Dashboard(),
     ChatPage(),
     // NotificationPage(),
     SettingPage()
@@ -78,7 +89,9 @@ class _HomeState extends State<Home> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         bottomNavigationBar: buildBubbleBottomBar(),
-        body: pages[currentIndex],
+        body: LoginPage.loginTypeSelected == UserType.STUDENT
+            ? pages2[currentIndex]
+            : pages[currentIndex],
       ),
     );
   }
