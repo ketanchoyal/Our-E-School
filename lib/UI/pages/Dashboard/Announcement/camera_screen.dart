@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:camera/camera.dart';
-// import 'package:chat_app/screens/story_create_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:chat_app/models/camera_file.dart';
 import 'package:ourESchool/UI/Widgets/camera_button.dart';
 import 'package:ourESchool/UI/Widgets/rounded_button.dart';
 import 'package:ourESchool/UI/Widgets/switch_icon.dart';
-import 'package:ourESchool/UI/Widgets/thumbnail_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -107,6 +104,7 @@ class _CameraScreenState extends State<CameraScreen>
   }
 
   String timestamp() => DateTime.now().millisecondsSinceEpoch.toString();
+
   Future<String> takePicture({bool video = false}) async {
     if (!controller.value.isInitialized) {
       showInSnackBar('Error: select a camera first.');
@@ -142,6 +140,7 @@ class _CameraScreenState extends State<CameraScreen>
     //     .then((val) {
     //   getCameras();
     // });
+
     if (!video)
       setState(() {
         imagePath = filePath;
@@ -150,6 +149,20 @@ class _CameraScreenState extends State<CameraScreen>
       imagePath = filePath;
     }
     return filePath;
+  }
+
+  void onTakePictureButtonPressed() {
+    takePicture().then((String filePath) {
+      if (mounted) {
+        setState(() {
+          imagePath = filePath;
+          Navigator.pop(context, imagePath);
+          // videoController?.dispose();
+          // videoController = null;
+        });
+        if (filePath != null) showInSnackBar('Picture saved to $filePath');
+      }
+    });
   }
 
   void _showCameraException(CameraException e) {
@@ -240,12 +253,12 @@ class _CameraScreenState extends State<CameraScreen>
     }
   }
 
-  Widget _getThumbnail() {
-    return ThumbnailWidget(
-      imagePath: imagePath,
-      size: 36.0,
-    );
-  }
+  // Widget _getThumbnail() {
+  //   return ThumbnailWidget(
+  //     imagePath: imagePath,
+  //     size: 36.0,
+  //   );
+  // }
 
   Widget _getCameraSwitch() {
     return SwitchIcon(
@@ -272,14 +285,14 @@ class _CameraScreenState extends State<CameraScreen>
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         CameraButton(
-          takePicture: takePicture,
+          takePicture: onTakePictureButtonPressed,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              _getThumbnail(),
+              // _getThumbnail(),
               Expanded(
                 child: Container(
                   height: 50.0,

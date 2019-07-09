@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'ease_in_widget.dart';
 
 class CameraButton extends StatefulWidget {
-  final dynamic takePicture;
+  final Function takePicture;
   const CameraButton(
       {Key key,
       @required this.takePicture,})
@@ -31,9 +31,10 @@ class _CameraButtonState extends State<CameraButton>
   Widget build(BuildContext context) {
     double size=62.0;
     return EaseInWidget(
-      onTap: (){
-        takePicture();
-      },
+      onTap: widget.takePicture,
+      // onTap: (){
+      //   takePicture();
+      // },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8.0),
         padding: EdgeInsets.all(4.0),
@@ -48,10 +49,10 @@ class _CameraButtonState extends State<CameraButton>
   }
 
 
-  void takePicture(){
-    widget.takePicture().then((val){
+  // void takePicture(){
+  //   widget.takePicture().then((val){
       
-    });
-  }
+  //   });
+  // }
 
 }
