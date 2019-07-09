@@ -1,19 +1,21 @@
 import "dart:async";
+import 'dart:io';
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/cupertino.dart";
+import 'package:flutter/services.dart';
 // import "package:google_sign_in/google_sign_in.dart";
 import "package:ourESchool/core/Models/User.dart";
 import "package:ourESchool/core/Models/UserDataLogin.dart";
+import 'package:ourESchool/core/enums/AuthErrors.dart';
+import 'package:ourESchool/core/enums/LoginScreenReturnType.dart';
 import "package:ourESchool/core/enums/UserType.dart";
 
 class AuthenticationServices {
-  // final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser _firebaseUser;
   User _user;
   Firestore _firestore = Firestore.instance;
-  // UserType _userType;
   UserDataLogin _userDataLogin;
 
   FirebaseUser get firebaseUser => _firebaseUser;
@@ -38,7 +40,7 @@ class AuthenticationServices {
   //   }
   // }
 
-  Future<String> checkDetails({
+  Future checkDetails({
     @required String schoolCode,
     @required String email,
     @required String password,
@@ -52,74 +54,92 @@ class AuthenticationServices {
     bool isSchoolPresent = false;
     bool isUserAvailable = false;
     String loginType = userType == UserType.STUDENT
-        ? "Students"
+        ? "Student"
         : userType == UserType.TEACHER ? "Parent-Teacher" : "Parent-Teacher";
 
-    CollectionReference _schoolRef = _firestore
+    DocumentReference _schoolRef = _firestore
         .collection("Schools")
         .document(country)
-        .collection(schoolCode);
+        .collection(schoolCode.toUpperCase().trim())
+        .document('Login');
 
-    isSchoolPresent = await _schoolRef.snapshots().isEmpty;
-
-    // _schoolRef.document("Login").get().then((onValue) {
-    //   print("Inside Then :" + onValue.data.toString());
-    // });
+    await _schoolRef.get().then((onValue) {
+      isSchoolPresent = onValue.exists;
+      print("Inside Then :" + onValue.data.toString());
+    });
 
     if (!isSchoolPresent) {
-      return "Please Enter correct SchoolCode";
+      print('School Not Found');
+      return ReturnType.SCHOOLCODEERROR;
+    } else {
+      print('School Found');
     }
 
-    CollectionReference _userRef =
-        _schoolRef.document("Login").collection(loginType);
+    CollectionReference _userRef = _schoolRef.collection(loginType);
 
-    Stream<QuerySnapshot> studentSnapshot =
-        _userRef.where("email", isEqualTo: email).snapshots();
-
-    print("Student Data : " + studentSnapshot.toList().toString());
-
-    isUserAvailable = await studentSnapshot.isEmpty;
-
-    if (isUserAvailable) {
-      return "Student Not Found";
-    }
-
-    await studentSnapshot.first.then((onValue) {
-      onValue.documents.map((DocumentSnapshot document) {
+    await _userRef
+        .where("email", isEqualTo: email)
+        .snapshots()
+        .first
+        .then((querySnapshot) {
+      querySnapshot.documents.forEach((documentSnapshot) {
+        isUserAvailable = documentSnapshot.exists;
+        print("User Data : " + documentSnapshot.data.toString());
         if (userType == UserType.STUDENT) {
           _userDataLogin = UserDataLogin(
-            email: document["email"].toString(),
-            id: document["id"].toString(),
+            email: documentSnapshot["email"].toString(),
+            id: documentSnapshot["id"].toString(),
           );
         } else {
           _userDataLogin = UserDataLogin(
-            email: document["email"].toString(),
-            id: document["id"].toString(),
-            isATeacher: document["isATeacher"] as bool,
-            childIds: document["chilsId"] as List,
+            email: documentSnapshot["email"].toString(),
+            id: documentSnapshot["id"].toString(),
+            isATeacher: documentSnapshot["isATeacher"] as bool,
+            childIds: documentSnapshot["childId"] as List<dynamic>,
           );
         }
       });
     });
+
+    if (!isUserAvailable) {
+      print('User Not Found');
+      return ReturnType.EMAILERROR;
+    } else {
+      print('User Found');
+    }
 
     print("Childs :" + _userDataLogin.childIds.toString());
     print("Email :" + _userDataLogin.email);
     print("Id :" + _userDataLogin.id);
     print("isATeacher :" + _userDataLogin.isATeacher.toString());
 
-    // _emailPasswordSignIn(email, password);
-
-    return "Please wait while we check your credientials";
+    return ReturnType.SUCCESS;
   }
 
-  Future _emailPasswordSignIn(String email, String password) async {
-    bool successLogin = false;
-    await _auth
-        .signInWithEmailAndPassword(email: email, password: password)
-        .whenComplete(() => successLogin = true);
-    print("User Loggedin using Email and Password");
+  Future emailPasswordRegister(String email, String password) async {
+    try {
+      AuthErrors authErrors = AuthErrors.UNKNOWN;
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      authErrors = AuthErrors.SUCCESS;
+      print("User Regestered using Email and Password");
 
-    return successLogin;
+      return authErrors;
+    } catch (e) {
+      return catchException(e);
+    }
+  }
+
+  Future<AuthErrors> emailPasswordSignIn(String email, String password) async {
+    try {
+      AuthErrors authErrors = AuthErrors.UNKNOWN;
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      authErrors = AuthErrors.SUCCESS;
+      print("User Loggedin using Email and Password");
+      return authErrors;
+    } on PlatformException catch (e) {
+      return catchException(e);
+    }
   }
 
   Future<User> fetchUserData() async {
@@ -142,5 +162,45 @@ class AuthenticationServices {
   logoutMethod() async {
     await _auth.signOut();
     print("User Loged out");
+  }
+
+  AuthErrors catchException(Exception e) {
+    AuthErrors errorType = AuthErrors.UNKNOWN;
+    if (e is PlatformException) {
+      if (Platform.isIOS) {
+        switch (e.message) {
+          case 'There is no user record corresponding to this identifier. The user may have been deleted.':
+            errorType = AuthErrors.UserNotFound;
+            break;
+          case 'The password is invalid or the user does not have a password.':
+            errorType = AuthErrors.PasswordNotValid;
+            break;
+          case 'A network error (such as timeout, interrupted connection or unreachable host) has occurred.':
+            errorType = AuthErrors.NetworkError;
+            break;
+          // ...
+          default:
+            print('Case ${e.message} is not yet implemented');
+        }
+      } else if (Platform.isAndroid) {
+        switch (e.code) {
+          case 'Error 17011':
+            errorType = AuthErrors.UserNotFound;
+            break;
+          case 'Error 17009':
+            errorType = AuthErrors.PasswordNotValid;
+            break;
+          case 'Error 17020':
+            errorType = AuthErrors.NetworkError;
+            break;
+          // ...
+          default:
+            print('Case ${e.message} is not yet implemented');
+        }
+      }
+    }
+
+    print('The error is $errorType');
+    return errorType;
   }
 }

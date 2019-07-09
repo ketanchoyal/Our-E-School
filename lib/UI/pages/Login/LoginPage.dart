@@ -6,13 +6,12 @@ import 'package:ourESchool/UI/Widgets/ReusableRoundedButton.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
 import 'package:flutter/material.dart';
+import 'package:ourESchool/core/enums/ButtonType.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
 import 'package:ourESchool/core/viewmodel/LoginPageModel.dart';
 import '../BaseView.dart';
 import 'ForgotPassword.dart';
-
-enum ButtonType { LOGIN, REGISTER }
 
 class LoginPage extends StatefulWidget {
   static UserType loginTypeSelected = UserType.STUDENT;
@@ -30,6 +29,40 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController schoolNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
+  loginRegisterBtnTap(LoginPageModel model) async {
+    if (emailController.text == null ||
+        passwordController.text == null ||
+        schoolNameController.text == null) {
+      _scaffoldKey.currentState
+          .showSnackBar(ksnackBar(context, 'Please enter details properly'));
+    } else {
+      if (emailController.text.trim().isEmpty ||
+          passwordController.text.trim().isEmpty ||
+          schoolNameController.text.trim().isEmpty) {
+        _scaffoldKey.currentState
+            .showSnackBar(ksnackBar(context, 'Please enter details properly'));
+      } else {
+        bool response = await model.checkUserDetails(
+          email: emailController.text,
+          password: passwordController.text,
+          schoolCode: schoolNameController.text,
+          userType: LoginPage.loginTypeSelected,
+          buttonType: buttonType,
+          confirmPassword: confirmPasswordController.text,
+        );
+        if (response) {
+          kopenPage(context, ProfilePage());
+        } else {
+          // _scaffoldKey.currentState
+          //   .showSnackBar(ksnackBar(context, 'something went wrong...'));
+        }
+        _scaffoldKey.currentState
+            .showSnackBar(ksnackBar(context, model.currentLoggingStatus));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,30 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                   ? string.login
                   : string.register,
               onPressed: () async {
-                // if (emailController.text == null ||
-                //     passwordController.text == null ||
-                //     schoolNameController.text == null) {
-                //   _scaffoldKey.currentState.showSnackBar(
-                //       ksnackBar(context, 'Please enter details properly'));
-                // } else {
-                //   if (emailController.text.isEmpty ||
-                //       passwordController.text.isEmpty ||
-                //       schoolNameController.text.isEmpty) {
-                //     _scaffoldKey.currentState.showSnackBar(
-                //         ksnackBar(context, 'Please enter details properly'));
-                //   } else {
-                //     String response = await model.loginUser(
-                //       email: emailController.text,
-                //       password: passwordController.text,
-                //       schoolCode: schoolNameController.text,
-                //       userType: LoginPage.loginTypeSelected,
-                //     );
-                //     _scaffoldKey.currentState
-                //         .showSnackBar(ksnackBar(context, response));
-                //   }
-                // }
-
-                kopenPage(context, ProfilePage());
+                await loginRegisterBtnTap(model);
               },
             ),
             body: Stack(
@@ -99,38 +109,10 @@ class _LoginPageState extends State<LoginPage> {
                               labelText: string.school_name_code,
                             ),
                           ),
-                          // SizedBox(
-                          //   height: 15,
-                          // ),
-                          // TextField(
-                          //   onChanged: (id) {},
-                          //   keyboardType: TextInputType.emailAddress,
-                          //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                          //   decoration: kTextFieldDecoration.copyWith(
-                          //     hintText: string.student_teacher_id_hint,
-                          //     labelText: idHint,
-                          //   ),
-                          // ),
                           SizedBox(
                             height: 10,
                           ),
-                          CustomLoginTypeBtn(
-                              // onPressed: () {
-                              //   //LoginType can be fetched from here
-                              //   if (LoginPage.loginTypeSelected == UserType.STUDENT) {
-                              //     //from here
-                              //     // setState(() {
-                              //     //   idHint = string.student_id;
-                              //     // });
-                              //   }
-                              //   if (LoginPage.loginTypeSelected == UserType.TEACHER) {
-                              //     //from here
-                              //     // setState(() {
-                              //     //   idHint = string.student_or_teacher_id;
-                              //     // });
-                              //   }
-                              // },
-                              ),
+                          CustomLoginTypeBtn(),
                           SizedBox(
                             height: 10,
                           ),
@@ -151,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                           TextField(
                             obscureText: true,
                             onChanged: (password) {},
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.text,
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500),
                             decoration: kTextFieldDecoration.copyWith(
@@ -169,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                               ? TextField(
                                   obscureText: true,
                                   onChanged: (password) {},
-                                  keyboardType: TextInputType.emailAddress,
+                                  keyboardType: TextInputType.text,
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500),
@@ -177,6 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                                     hintText: string.password_hint,
                                     labelText: string.confirm_password,
                                   ),
+                                  controller: confirmPasswordController,
                                 )
                               : Container(),
                           SizedBox(
