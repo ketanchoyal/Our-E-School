@@ -10,16 +10,9 @@ import "package:ourESchool/core/Models/UserDataLogin.dart";
 import 'package:ourESchool/core/enums/AuthErrors.dart';
 import 'package:ourESchool/core/enums/LoginScreenReturnType.dart';
 import "package:ourESchool/core/enums/UserType.dart";
+import 'package:ourESchool/core/services/Services.dart';
 
-class AuthenticationServices {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseUser _firebaseUser;
-  User _user;
-  Firestore _firestore = Firestore.instance;
-  UserDataLogin _userDataLogin;
-
-  FirebaseUser get firebaseUser => _firebaseUser;
-  User get loggedInUser => _user;
+class AuthenticationServices extends Services{
 
   // Future handleGoogleSignIn() async {
   //   try {
@@ -57,7 +50,7 @@ class AuthenticationServices {
         ? "Student"
         : userType == UserType.TEACHER ? "Parent-Teacher" : "Parent-Teacher";
 
-    DocumentReference _schoolRef = _firestore
+    DocumentReference _schoolRef = firestore
         .collection("Schools")
         .document(country)
         .collection(schoolCode.toUpperCase().trim())
@@ -86,12 +79,12 @@ class AuthenticationServices {
         isUserAvailable = documentSnapshot.exists;
         print("User Data : " + documentSnapshot.data.toString());
         if (userType == UserType.STUDENT) {
-          _userDataLogin = UserDataLogin(
+          userDataLogin = UserDataLogin(
             email: documentSnapshot["email"].toString(),
             id: documentSnapshot["id"].toString(),
           );
         } else {
-          _userDataLogin = UserDataLogin(
+          userDataLogin = UserDataLogin(
             email: documentSnapshot["email"].toString(),
             id: documentSnapshot["id"].toString(),
             isATeacher: documentSnapshot["isATeacher"] as bool,
@@ -108,10 +101,10 @@ class AuthenticationServices {
       print('User Found');
     }
 
-    print("Childs :" + _userDataLogin.childIds.toString());
-    print("Email :" + _userDataLogin.email);
-    print("Id :" + _userDataLogin.id);
-    print("isATeacher :" + _userDataLogin.isATeacher.toString());
+    print("Childs :" + userDataLogin.childIds.toString());
+    print("Email :" + userDataLogin.email);
+    print("Id :" + userDataLogin.id);
+    print("isATeacher :" + userDataLogin.isATeacher.toString());
 
     return ReturnType.SUCCESS;
   }
@@ -119,7 +112,7 @@ class AuthenticationServices {
   Future emailPasswordRegister(String email, String password) async {
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
-      await _auth.createUserWithEmailAndPassword(
+      await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       authErrors = AuthErrors.SUCCESS;
       print("User Regestered using Email and Password");
@@ -133,7 +126,7 @@ class AuthenticationServices {
   Future<AuthErrors> emailPasswordSignIn(String email, String password) async {
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      await auth.signInWithEmailAndPassword(email: email, password: password);
       authErrors = AuthErrors.SUCCESS;
       print("User Loggedin using Email and Password");
       return authErrors;
@@ -143,7 +136,7 @@ class AuthenticationServices {
   }
 
   Future<User> fetchUserData() async {
-    FirebaseUser user = await _auth.currentUser();
+    FirebaseUser user = await auth.currentUser();
     if (user == null) {
       print("No User LogedIn");
       return null;
@@ -156,11 +149,12 @@ class AuthenticationServices {
       isVerified: user.isEmailVerified,
       photoUrl: user.photoUrl,
     );
+    print(userr.toString());
     return userr;
   }
 
   logoutMethod() async {
-    await _auth.signOut();
+    await auth.signOut();
     print("User Loged out");
   }
 
