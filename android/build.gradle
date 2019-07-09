@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.3.1'
         classpath 'com.google.gms:google-services:4.2.0'
     }
 }
@@ -25,6 +25,15 @@ subprojects {
             options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
         }
     }
+
+    // project.configurations.all {
+    //     resolutionStrategy.eachDependency { details ->
+    //         if (details.requested.group == 'com.android.support'
+    //                 && !details.requested.name.contains('multidex') ) {
+    //             details.useVersion "26.1.0"
+    //         }
+    //     }
+    // }
 }
 subprojects {
     project.evaluationDependsOn(':app')

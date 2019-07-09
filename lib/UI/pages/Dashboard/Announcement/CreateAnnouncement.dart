@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ourESchool/UI/pages/Dashboard/Announcement/camera_screen.dart';
 import 'package:ourESchool/core/enums/announcementType.dart';
 
 import 'CapturePhoto.dart';
@@ -164,7 +165,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                               onPressed: () async {
                                 final path = Navigator.of(context).push(
                                   MaterialPageRoute(
-                                      builder: (context) => CapturePhoto()),
+                                      builder: (context) => CameraScreen()),
                                 );
                                 path.then((path) {
                                   setState(() {

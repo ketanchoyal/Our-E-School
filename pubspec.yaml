@@ -24,6 +24,7 @@ dependencies:
   path_provider: ^0.5.0
   # flutter_cache_manager: ^1.0.0
   flutter_plugin_pdf_viewer: ^1.0.6
+  permission_handler: ^3.1.0
 
   # State Management tools
   get_it: ^1.0.3+2
