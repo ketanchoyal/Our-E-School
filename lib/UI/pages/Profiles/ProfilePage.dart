@@ -143,17 +143,24 @@ class _ProfilePageState extends State<ProfilePage> {
                       // mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        ProfileFields(
-                          labelText: string.standard,
-                          onChanged: (std) {},
-                          hintText: '',
-                          initialText: '',
+                        Expanded(
+                          child: ProfileFields(
+                            labelText: string.standard,
+                            onChanged: (std) {},
+                            hintText: '',
+                            initialText: '',
+                          ),
                         ),
-                        ProfileFields(
-                          labelText: string.division,
-                          onChanged: (div) {},
-                          hintText: '',
-                          initialText: '',
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: ProfileFields(
+                            labelText: string.division,
+                            onChanged: (div) {},
+                            hintText: '',
+                            initialText: '',
+                          ),
                         ),
                       ],
                     ),
@@ -168,32 +175,39 @@ class _ProfilePageState extends State<ProfilePage> {
                       // mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        InkWell(
-                          onTap: () async {
-                            await _selectDate(context);
-                          },
-                          borderRadius: BorderRadius.circular(16),
-                          child: IgnorePointer(
-                            child: ProfileFields(
-                              labelText: string.dob,
-                              textInputType: TextInputType.number,
-                              onChanged: (dob) {},
-                              hintText: '',
-                              initialText: dateOfBirth == null
-                                  ? ''
-                                  : dateOfBirth
-                                      .toLocal()
-                                      .toString()
-                                      .substring(0, 10),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () async {
+                              await _selectDate(context);
+                            },
+                            borderRadius: BorderRadius.circular(16),
+                            child: IgnorePointer(
+                              child: ProfileFields(
+                                labelText: string.dob,
+                                textInputType: TextInputType.number,
+                                // onChanged: (dob) {},
+                                hintText: '',
+                                initialText: dateOfBirth == null
+                                    ? ''
+                                    : dateOfBirth
+                                        .toLocal()
+                                        .toString()
+                                        .substring(0, 10),
+                              ),
                             ),
                           ),
                         ),
-                        ProfileFields(
-                          // width: MediaQuery.of(context).size.width,
-                          hintText: string.blood_group_hint,
-                          labelText: string.blood_group,
-                          onChanged: (bg) {},
-                          initialText: '',
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: ProfileFields(
+                            // width: MediaQuery.of(context).size.width,
+                            hintText: string.blood_group_hint,
+                            labelText: string.blood_group,
+                            onChanged: (bg) {},
+                            initialText: '',
+                          ),
                         ),
                       ],
                     ),
@@ -223,59 +237,68 @@ class _ProfilePageState extends State<ProfilePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              ReusableRoundedButton(
-                                elevation: 5,
-                                child: Text(
-                                  string.mother,
-                                  style: ktitleStyle.copyWith(
-                                      color: Colors.white.withOpacity(0.8)),
+                              Expanded(
+                                child: ReusableRoundedButton(
+                                  elevation: 5,
+                                  child: Text(
+                                    string.mother,
+                                    textAlign: TextAlign.center,
+                                    style: ktitleStyle.copyWith(
+                                        color: Colors.white.withOpacity(0.8)),
+                                  ),
+                                  onPressed: () {
+                                    kopenPage(
+                                      context,
+                                      GuardianProfilePage(
+                                        title: string.mother,
+                                      ),
+                                    );
+                                  },
+                                  backgroundColor: kmainColorParents,
+                                  height: 40,
                                 ),
-                                onPressed: () {
-                                  kopenPage(
-                                    context,
-                                    GuardianProfilePage(
-                                      title: string.mother,
-                                    ),
-                                  );
-                                },
-                                backgroundColor: kmainColorParents,
-                                height: 40,
                               ),
-                              ReusableRoundedButton(
-                                elevation: 5,
-                                child: Text(
-                                  string.father,
-                                  style: ktitleStyle.copyWith(
-                                      color: Colors.white.withOpacity(0.8)),
+                              Expanded(
+                                child: ReusableRoundedButton(
+                                  elevation: 5,
+                                  child: Text(
+                                    string.father,
+                                    textAlign: TextAlign.center,
+                                    style: ktitleStyle.copyWith(
+                                        color: Colors.white.withOpacity(0.8)),
+                                  ),
+                                  onPressed: () {
+                                    kopenPage(
+                                      context,
+                                      GuardianProfilePage(
+                                        title: string.father,
+                                      ),
+                                    );
+                                  },
+                                  backgroundColor: kmainColorParents,
+                                  // height: 50,
                                 ),
-                                onPressed: () {
-                                  kopenPage(
-                                    context,
-                                    GuardianProfilePage(
-                                      title: string.father,
-                                    ),
-                                  );
-                                },
-                                backgroundColor: kmainColorParents,
-                                // height: 50,
                               ),
-                              ReusableRoundedButton(
-                                elevation: 5,
-                                child: Text(
-                                  string.other,
-                                  style: ktitleStyle.copyWith(
-                                      color: Colors.white.withOpacity(0.8)),
+                              Expanded(
+                                child: ReusableRoundedButton(
+                                  elevation: 5,
+                                  child: Text(
+                                    string.other,
+                                    textAlign: TextAlign.center,
+                                    style: ktitleStyle.copyWith(
+                                        color: Colors.white.withOpacity(0.8)),
+                                  ),
+                                  onPressed: () {
+                                    kopenPage(
+                                      context,
+                                      GuardianProfilePage(
+                                        title: string.other,
+                                      ),
+                                    );
+                                  },
+                                  backgroundColor: kmainColorParents,
+                                  // height: 50,
                                 ),
-                                onPressed: () {
-                                  kopenPage(
-                                    context,
-                                    GuardianProfilePage(
-                                      title: string.other,
-                                    ),
-                                  );
-                                },
-                                backgroundColor: kmainColorParents,
-                                // height: 50,
                               ),
                             ],
                           )
@@ -306,7 +329,7 @@ class ProfileFields extends StatelessWidget {
       {this.initialText,
       @required this.labelText,
       this.hintText,
-      @required this.onChanged,
+      this.onChanged,
       this.onTap,
       this.textInputType,
       this.width});
@@ -315,7 +338,7 @@ class ProfileFields extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 70,
-      width: width == null ? MediaQuery.of(context).size.width / 2.5 : width,
+      // width: width == null ? MediaQuery.of(context).size.width / 2.5 : width,
       child: TextField(
         onTap: onTap,
         controller: TextEditingController(text: initialText),

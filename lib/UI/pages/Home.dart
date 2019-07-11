@@ -26,6 +26,7 @@ class _HomeState extends State<Home> {
   Color background = Colors.white;
   AuthenticationServices _auth = locator<AuthenticationServices>();
   bool isTeacher = false;
+  
   // _auth.userType == UserType.STUDENT ? false : true;
   String pageName = string.home;
 

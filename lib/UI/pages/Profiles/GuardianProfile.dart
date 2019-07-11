@@ -118,7 +118,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -153,32 +153,37 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        InkWell(
-                          onTap: () async {
-                            await _selectDate(context, dateOfBirth);
-                          },
-                          borderRadius: BorderRadius.circular(16),
-                          child: IgnorePointer(
-                            child: ProfileFields(
-                              labelText: string.dob,
-                              textInputType: TextInputType.number,
-                              onChanged: (dob) {},
-                              hintText: '',
-                              initialText: dateOfBirth == null
-                                  ? ''
-                                  : dateOfBirth
-                                      .toLocal()
-                                      .toString()
-                                      .substring(0, 10),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () async {
+                              await _selectDate(context, dateOfBirth);
+                            },
+                            borderRadius: BorderRadius.circular(16),
+                            child: IgnorePointer(
+                              child: ProfileFields(
+                                labelText: string.dob,
+                                textInputType: TextInputType.number,
+                                onChanged: (dob) {},
+                                hintText: '',
+                                initialText: dateOfBirth == null
+                                    ? ''
+                                    : dateOfBirth
+                                        .toLocal()
+                                        .toString()
+                                        .substring(0, 10),
+                              ),
                             ),
                           ),
                         ),
-                        ProfileFields(
-                          // width: MediaQuery.of(context).size.width,
-                          hintText: string.blood_group_hint,
-                          labelText: string.blood_group,
-                          onChanged: (bg) {},
-                          initialText: '',
+                        SizedBox(width: 10,),
+                        Expanded(
+                          child: ProfileFields(
+                            // width: MediaQuery.of(context).size.width,
+                            hintText: string.blood_group_hint,
+                            labelText: string.blood_group,
+                            onChanged: (bg) {},
+                            initialText: '',
+                          ),
                         ),
                       ],
                     ),

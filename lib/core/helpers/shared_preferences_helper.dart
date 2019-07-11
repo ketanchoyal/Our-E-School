@@ -9,23 +9,25 @@ class SharedPreferencesHelper {
   //Method that saves the user logged in type
   Future<bool> setUserType(UserType userType) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    return prefs.setString(_userType, UserTypeHelper.getValue(userType));
+    bool res = await  prefs.setString(_userType, UserTypeHelper.getValue(userType));
+    print('User Type Saved' + res.toString());
+    return res;
   }
 
   //Method that return the user logged in type
   Future<UserType> getUserType() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String userType = prefs.getString(_userType);
-
+    String userType = prefs.getString(_userType) ?? UserTypeHelper.getValue(UserType.UNKNOWN);
+    print('User Type Returned' + userType);
     return UserTypeHelper.getEnum(userType);
   }
 
-  Future removeUserType() async {
+  Future<bool> removeUserType() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    return await prefs.remove(_userType);
+    bool res = await prefs.remove(_userType);
+    print('UserType Removed : ' + res.toString());
+    return res;
   }
 
   // Method that returns the last selected country code

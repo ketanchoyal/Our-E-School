@@ -1,4 +1,4 @@
-enum UserType { STUDENT, TEACHER, PARENT }
+enum UserType { STUDENT, TEACHER, PARENT, UNKNOWN }
 
 class UserTypeHelper {
   static String getValue(UserType userType) {
@@ -9,6 +9,8 @@ class UserTypeHelper {
         return "STUDENT";
       case UserType.TEACHER:
         return "TEACHER";
+      case UserType.UNKNOWN:
+        return "UNKNOWN";
       default:
         return 'UNKNOWN';
     }
@@ -19,8 +21,10 @@ class UserTypeHelper {
       return UserType.PARENT;
     } else if (userType == getValue(UserType.STUDENT)) {
       return UserType.STUDENT;
-    } else {
+    } else if (userType == getValue(UserType.TEACHER)) {
       return UserType.TEACHER;
+    } else {
+      return UserType.UNKNOWN;
     }
   }
 }

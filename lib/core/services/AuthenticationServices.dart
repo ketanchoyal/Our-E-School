@@ -41,6 +41,7 @@ class AuthenticationServices extends Services {
 
   AuthenticationServices() {
     _isLoggedIn().then((onValue) => isUserLoggedIn = onValue);
+    _userType().then((onValue) => userType = onValue);
   }
 
   Future<bool> _isLoggedIn() async {
@@ -103,6 +104,13 @@ class AuthenticationServices extends Services {
             email: documentSnapshot["email"].toString(),
             id: documentSnapshot["id"].toString(),
           );
+          DocumentReference ref = documentSnapshot["ref"] as DocumentReference;
+          print('Insude Document Reference');
+          ref.get().then(
+                (onValue) => print(
+                  'Dataaa : ' + onValue.data.toString(),
+                ),
+              );
         } else {
           userDataLogin = UserDataLogin(
             email: documentSnapshot["email"].toString(),
