@@ -6,6 +6,8 @@ import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:flutter/material.dart';
 import 'package:ourESchool/UI/pages/Login/LoginPage.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
+import 'package:ourESchool/core/services/AuthenticationServices.dart';
+import 'package:ourESchool/locator.dart';
 import 'Chat/ChatPage.dart';
 import 'Dashboard/Announcement/CreateAnnouncement.dart';
 import 'Dashboard/DashboardPage.dart';
@@ -22,9 +24,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var currentIndex = 0;
   Color background = Colors.white;
-  //TODO: Temp solution for demo only
-  bool isTeacher =
-      LoginPage.loginTypeSelected == UserType.STUDENT ? false : true;
+  AuthenticationServices _auth = locator<AuthenticationServices>();
+  bool isTeacher = false;
+  // _auth.userType == UserType.STUDENT ? false : true;
   String pageName = string.home;
 
   List<Widget> pages = [
@@ -52,6 +54,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     // floatingButtonVisibility();
+    isTeacher = _auth.userType == UserType.STUDENT ? false : true;
   }
 
   @override

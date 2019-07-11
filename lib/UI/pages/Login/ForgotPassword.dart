@@ -3,6 +3,9 @@ import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/ReusableRoundedButton.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:flutter/material.dart';
+import 'package:ourESchool/core/enums/AuthErrors.dart';
+import 'package:ourESchool/core/services/AuthenticationServices.dart';
+import 'package:ourESchool/locator.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   ForgotPasswordPage({Key key}) : super(key: key);
@@ -11,6 +14,10 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  TextEditingController _emailController;
+
+  AuthenticationServices _authService = locator<AuthenticationServices>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,12 +29,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         title: string.forgot_password,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(bottom: 25.0, left: 25.0, right: 25.0, top: 10),
+        padding: const EdgeInsets.only(
+            bottom: 25.0, left: 25.0, right: 25.0, top: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 5.0, right: 5.0, ),
+              padding: const EdgeInsets.only(
+                left: 5.0,
+                right: 5.0,
+              ),
               child: Text(
                 string.enter_registered_email,
                 // textAlign: TextAlign.center,
@@ -38,6 +49,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               height: 15,
             ),
             TextField(
+              controller: _emailController,
               obscureText: true,
               onChanged: (email) {},
               keyboardType: TextInputType.emailAddress,
@@ -64,8 +76,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         fontSize: 15,
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       //Sent Password reset link logic
+                      if (_emailController.text.trim().contains('@') &&
+                          _emailController.text.trim().contains('.')) {
+                        AuthErrors authError = await _authService.passwordReset(
+                            _emailController.text.trim().toString());
+                        ksnackBar(
+                          context,
+                          AuthErrorsHelper.getValue(authError),
+                        );
+                      } else {
+                        ksnackBar(context, 'Email is Not Valid');
+                      }
                     },
                     height: 50,
                   ),

@@ -10,10 +10,13 @@ import "package:ourESchool/core/Models/UserDataLogin.dart";
 import 'package:ourESchool/core/enums/AuthErrors.dart';
 import 'package:ourESchool/core/enums/LoginScreenReturnType.dart';
 import "package:ourESchool/core/enums/UserType.dart";
+import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/core/services/Services.dart';
+import 'package:ourESchool/locator.dart';
 
-class AuthenticationServices extends Services{
-
+class AuthenticationServices extends Services {
+  SharedPreferencesHelper _sharedPreferencesHelper =
+      locator<SharedPreferencesHelper>();
   // Future handleGoogleSignIn() async {
   //   try {
   //     AuthCredential credential;
@@ -32,6 +35,23 @@ class AuthenticationServices extends Services{
   //     print(e.toString());
   //   }
   // }
+
+  bool isUserLoggedIn = false;
+  UserType userType = UserType.STUDENT;
+
+  AuthenticationServices() {
+    _isLoggedIn().then((onValue) => isUserLoggedIn = onValue);
+  }
+
+  Future<bool> _isLoggedIn() async {
+    firebaseUser = await auth.currentUser();
+    return firebaseUser == null ? false : true;
+  }
+
+  Future<UserType> _userType() async {
+    userType = await _sharedPreferencesHelper.getUserType();
+    return userType;
+  }
 
   Future checkDetails({
     @required String schoolCode,
@@ -109,13 +129,15 @@ class AuthenticationServices extends Services{
     return ReturnType.SUCCESS;
   }
 
-  Future emailPasswordRegister(String email, String password) async {
+  Future emailPasswordRegister(
+      String email, String password, UserType userType) async {
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
       await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       authErrors = AuthErrors.SUCCESS;
       print("User Regestered using Email and Password");
+      _sharedPreferencesHelper.setUserType(userType);
 
       return authErrors;
     } catch (e) {
@@ -123,12 +145,14 @@ class AuthenticationServices extends Services{
     }
   }
 
-  Future<AuthErrors> emailPasswordSignIn(String email, String password) async {
+  Future<AuthErrors> emailPasswordSignIn(
+      String email, String password, UserType userType) async {
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
       await auth.signInWithEmailAndPassword(email: email, password: password);
       authErrors = AuthErrors.SUCCESS;
       print("User Loggedin using Email and Password");
+      _sharedPreferencesHelper.setUserType(userType);
       return authErrors;
     } on PlatformException catch (e) {
       return catchException(e);
@@ -155,7 +179,20 @@ class AuthenticationServices extends Services{
 
   logoutMethod() async {
     await auth.signOut();
+    await _sharedPreferencesHelper.removeUserType();
     print("User Loged out");
+  }
+
+  Future<AuthErrors> passwordReset(String email) async {
+    try {
+      AuthErrors authErrors = AuthErrors.UNKNOWN;
+      await auth.sendPasswordResetEmail(email: email);
+      authErrors = AuthErrors.SUCCESS;
+      print("Password Reset Link Send");
+      return authErrors;
+    } on PlatformException catch (e) {
+      return catchException(e);
+    }
   }
 
   AuthErrors catchException(Exception e) {

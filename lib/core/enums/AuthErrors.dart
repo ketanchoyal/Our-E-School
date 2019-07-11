@@ -14,9 +14,9 @@ class AuthErrorsHelper {
       case AuthErrors.PasswordNotValid:
         return "Password is not valid";
       case AuthErrors.NetworkError:
-        return "Blue";
-      case AuthErrors.SUCCESS:
         return "A network error has occurred, please try again";
+      case AuthErrors.SUCCESS:
+        return "Task performed succesfully";
       case AuthErrors.UNKNOWN:
         return "Something went wrong!";
       default:
