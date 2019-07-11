@@ -10,13 +10,10 @@ import "package:ourESchool/core/Models/UserDataLogin.dart";
 import 'package:ourESchool/core/enums/AuthErrors.dart';
 import 'package:ourESchool/core/enums/LoginScreenReturnType.dart';
 import "package:ourESchool/core/enums/UserType.dart";
-import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/core/services/Services.dart';
-import 'package:ourESchool/locator.dart';
 
 class AuthenticationServices extends Services {
-  SharedPreferencesHelper _sharedPreferencesHelper =
-      locator<SharedPreferencesHelper>();
+  
   // Future handleGoogleSignIn() async {
   //   try {
   //     AuthCredential credential;
@@ -46,11 +43,12 @@ class AuthenticationServices extends Services {
 
   Future<bool> _isLoggedIn() async {
     firebaseUser = await auth.currentUser();
+    print('Display Name' + firebaseUser.displayName.toString());
     return firebaseUser == null ? false : true;
   }
 
   Future<UserType> _userType() async {
-    userType = await _sharedPreferencesHelper.getUserType();
+    userType = await sharedPreferencesHelper.getUserType();
     return userType;
   }
 
@@ -145,7 +143,7 @@ class AuthenticationServices extends Services {
           email: email, password: password);
       authErrors = AuthErrors.SUCCESS;
       print("User Regestered using Email and Password");
-      _sharedPreferencesHelper.setUserType(userType);
+      sharedPreferencesHelper.setUserType(userType);
 
       return authErrors;
     } catch (e) {
@@ -160,7 +158,7 @@ class AuthenticationServices extends Services {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       authErrors = AuthErrors.SUCCESS;
       print("User Loggedin using Email and Password");
-      _sharedPreferencesHelper.setUserType(userType);
+      sharedPreferencesHelper.setUserType(userType);
       return authErrors;
     } on PlatformException catch (e) {
       return catchException(e);
@@ -187,7 +185,7 @@ class AuthenticationServices extends Services {
 
   logoutMethod() async {
     await auth.signOut();
-    await _sharedPreferencesHelper.removeUserType();
+    await sharedPreferencesHelper.removeUserType();
     print("User Loged out");
   }
 

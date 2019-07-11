@@ -2,8 +2,8 @@ class User {
   final String firebaseUuid;
   final String email;
   // final String registeredMobileNo;
-  final String displayName;
   final String photoUrl;
+  final String displayName;
   final bool isTeacher;
   final bool isVerified;
   final String id;
@@ -11,6 +11,7 @@ class User {
   final String division;
   final String bloodGroup;
   final String mobileNo;
+  final String guardianName;
   final String dob;
 
   // User.initial()
@@ -39,7 +40,8 @@ class User {
       this.division = '',
       this.standard = '',
       this.bloodGroup = '',
-      this.mobileNo = ''
+      this.mobileNo = '',
+      this.guardianName = '',
       // this.registeredMobileNo,
       });
 
