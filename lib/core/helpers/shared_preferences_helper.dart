@@ -6,6 +6,7 @@ class SharedPreferencesHelper {
   final String _kCountryNamePrefs = "countryName";
   final String _userType = 'userType';
   final String _loggedInUserId = '_loggedInUserId';
+  final String _schoolCode = 'schoolCode';
 
   //Method that saves the _loggedInUserId
   Future<bool> setLoggedInUserId(String id) async {
@@ -56,6 +57,22 @@ class SharedPreferencesHelper {
     bool res = await prefs.remove(_userType);
     print('UserType Removed : ' + res.toString());
     return res;
+  }
+
+  // Method that returns the last selected country code
+  Future<String> getSchoolCode() async {
+    final SharedPreferences countryCodePrefs =
+        await SharedPreferences.getInstance();
+
+    return countryCodePrefs.getString(_schoolCode) ?? "";
+  }
+
+  // Method that saves the last selected country code
+  Future<bool> setSchoolCode(String schoolCode) async {
+    final SharedPreferences countryCodePrefs =
+        await SharedPreferences.getInstance();
+
+    return countryCodePrefs.setString(_schoolCode, schoolCode);
   }
 
   //Method to remove all the Sharedpreference details when Logging Out

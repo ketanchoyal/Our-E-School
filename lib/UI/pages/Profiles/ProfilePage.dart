@@ -1,3 +1,4 @@
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/ReusableRoundedButton.dart';
@@ -5,7 +6,12 @@ import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ourESchool/UI/pages/BaseView.dart';
 import 'package:ourESchool/UI/pages/Home.dart';
+import 'package:ourESchool/core/Models/User.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
+import 'package:ourESchool/core/enums/ViewState.dart';
+import 'package:ourESchool/core/viewmodel/ProfilePageModel.dart';
 
 import 'GuardianProfile.dart';
 
@@ -30,288 +36,369 @@ class _ProfilePageState extends State<ProfilePage> {
     if (picked != null) {
       setState(() {
         dateOfBirth = picked;
+        _dob = picked.toLocal().toString().substring(0, 10);
       });
     }
   }
 
+  String _name = '';
+  String _enrollNo = '';
+  String _standard = '';
+  String _division = '';
+  String _guardianName = '';
+  String _bloodGroup = '';
+  String _dob = '';
+  String _mobileNo = '';
+  int a = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TopBar(
-        title: string.profile,
-        child: kBackBtn,
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 20,
-        backgroundColor: Colors.red,
-        onPressed: () {
-          kopenPage(context, Home());
-        },
-        child: Icon(Icons.check),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            // fit: StackFit.loose,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    constraints: BoxConstraints(maxHeight: 200, maxWidth: 200),
-                    child: Stack(
-                      children: <Widget>[
-                        Card(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: Image(
-                            height: MediaQuery.of(context).size.width / 2.5,
-                            width: MediaQuery.of(context).size.width / 2.5,
-                            image: path == ''
-                                ? NetworkImage(
-                                    "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-                                  )
-                                : AssetImage(path),
-                          ),
-                        ),
-                        Positioned(
-                          right: 0,
-                          bottom: 0,
-                          child: Container(
-                            height: 45,
-                            width: 45,
-                            child: Card(
-                              elevation: 5,
-                              color: Colors.white70,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(30),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: IconButton(
-                                color: Colors.white,
-                                icon: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.black38,
-                                  size: 25,
-                                ),
-                                onPressed: () async {
-                                  String _path = await openFileExplorer(
-                                      FileType.IMAGE, mounted);
-                                  setState(() {
-                                    path = _path;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+    return BaseView<ProfilePageModel>(
+        onModelReady: (model) => model.getUserProfileData(),
+        builder: (context, model, child) {
+          if (model.state == ViewState.Idle) {
+            if (a == 0) {
+              User user = model.userProfile;
+              _name = user.displayName;
+              _enrollNo = user.enrollNo;
+              _standard = user.standard;
+              _division = user.division;
+              _guardianName = user.guardianName;
+              _bloodGroup = user.bloodGroup;
+              _dob = user.dob;
+              _mobileNo = user.mobileNo;
+              a++;
+            }
+          }
+
+          return Scaffold(
+            appBar: TopBar(
+              title: string.profile,
+              child: kBackBtn,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            floatingActionButton: FloatingActionButton(
+              tooltip: 'Save',
+              elevation: 20,
+              backgroundColor: Colors.red,
+              onPressed: () {
+                model.state == ViewState.Idle
+                    ? model.setUserProfileData(
+                        bloodGroup: _bloodGroup.trim(),
+                        displayName: _name.trim(),
+                        division: _division.trim(),
+                        dob: _dob.trim(),
+                        guardianName: _guardianName.trim(),
+                        mobileNo: _mobileNo.trim(),
+                        standard: _standard.trim(),
+                        enrollNo: _enrollNo.trim(),
+                        userType: UserType.STUDENT
+                        // photoUrl:
+                        )
+                    : () {};
+              },
+              child: model.state == ViewState.Busy
+                  ? SpinKitDoubleBounce(
+                      color: Colors.white,
+                      size: 20,
+                    )
+                  : Icon(Icons.check),
+            ),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // fit: StackFit.loose,
                   children: <Widget>[
-                    ProfileFields(
-                      width: MediaQuery.of(context).size.width,
-                      hintText: string.student_teacher_name_hint,
-                      labelText: string.student_teacher_name,
-                      onChanged: (name) {},
-                      initialText: '',
-                    ),
-                    ProfileFields(
-                      width: MediaQuery.of(context).size.width,
-                      hintText: string.student_teacher_id_hint,
-                      labelText: string.student_or_teacher_id,
-                      onChanged: (id) {},
-                      initialText: '',
-                    ),
-                    Row(
-                      // mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Expanded(
-                          child: ProfileFields(
-                            labelText: string.standard,
-                            onChanged: (std) {},
-                            hintText: '',
-                            initialText: '',
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: ProfileFields(
-                            labelText: string.division,
-                            onChanged: (div) {},
-                            hintText: '',
-                            initialText: '',
-                          ),
-                        ),
-                      ],
-                    ),
-                    ProfileFields(
-                      width: MediaQuery.of(context).size.width,
-                      hintText: string.father_mother_name,
-                      labelText: string.guardian_name,
-                      onChanged: (guardianName) {},
-                      initialText: '',
-                    ),
-                    Row(
-                      // mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Expanded(
-                          child: InkWell(
-                            onTap: () async {
-                              await _selectDate(context);
-                            },
-                            borderRadius: BorderRadius.circular(16),
-                            child: IgnorePointer(
-                              child: ProfileFields(
-                                labelText: string.dob,
-                                textInputType: TextInputType.number,
-                                // onChanged: (dob) {},
-                                hintText: '',
-                                initialText: dateOfBirth == null
-                                    ? ''
-                                    : dateOfBirth
-                                        .toLocal()
-                                        .toString()
-                                        .substring(0, 10),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: ProfileFields(
-                            // width: MediaQuery.of(context).size.width,
-                            hintText: string.blood_group_hint,
-                            labelText: string.blood_group,
-                            onChanged: (bg) {},
-                            initialText: '',
-                          ),
-                        ),
-                      ],
-                    ),
-                    ProfileFields(
-                      width: MediaQuery.of(context).size.width,
-                      textInputType: TextInputType.number,
-                      hintText: string.your_parents,
-                      labelText: string.mobile_no,
-                      onChanged: (id) {},
-                      initialText: '',
-                    ),
-                    Visibility(
-                      visible: !isTeacher,
+                    buildProfilePhotoWidget(context),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 8),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              string.guardians_profile,
-                              style: ktitleStyle.copyWith(
-                                fontWeight: FontWeight.w500,
-                                // color: kmainColorParents.withOpacity(0.4),
-                                fontSize: 18,
-                              ),
-                            ),
+                          ProfileFields(
+                            width: MediaQuery.of(context).size.width,
+                            hintText: string.student_teacher_name_hint,
+                            labelText: string.student_teacher_name,
+                            onChanged: (name) {
+                              print(name);
+                              _name = name;
+                            },
+                            controller: TextEditingController(text: _name),
+                          ),
+                          ProfileFields(
+                            width: MediaQuery.of(context).size.width,
+                            hintText: string.student_teacher_id_hint,
+                            labelText: string.student_or_teacher_id,
+                            onChanged: (id) {
+                              _enrollNo = id;
+                            },
+                            controller: TextEditingController(text: _enrollNo),
                           ),
                           Row(
+                            // mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Expanded(
-                                child: ReusableRoundedButton(
-                                  elevation: 5,
-                                  child: Text(
-                                    string.mother,
-                                    textAlign: TextAlign.center,
-                                    style: ktitleStyle.copyWith(
-                                        color: Colors.white.withOpacity(0.8)),
-                                  ),
-                                  onPressed: () {
-                                    kopenPage(
-                                      context,
-                                      GuardianProfilePage(
-                                        title: string.mother,
-                                      ),
-                                    );
+                                child: ProfileFields(
+                                  labelText: string.standard,
+                                  onChanged: (std) {
+                                    _standard = std;
                                   },
-                                  backgroundColor: kmainColorParents,
-                                  height: 40,
+                                  hintText: '',
+                                  controller:
+                                      TextEditingController(text: _standard),
                                 ),
                               ),
-                              Expanded(
-                                child: ReusableRoundedButton(
-                                  elevation: 5,
-                                  child: Text(
-                                    string.father,
-                                    textAlign: TextAlign.center,
-                                    style: ktitleStyle.copyWith(
-                                        color: Colors.white.withOpacity(0.8)),
-                                  ),
-                                  onPressed: () {
-                                    kopenPage(
-                                      context,
-                                      GuardianProfilePage(
-                                        title: string.father,
-                                      ),
-                                    );
-                                  },
-                                  backgroundColor: kmainColorParents,
-                                  // height: 50,
-                                ),
+                              SizedBox(
+                                width: 10,
                               ),
                               Expanded(
-                                child: ReusableRoundedButton(
-                                  elevation: 5,
-                                  child: Text(
-                                    string.other,
-                                    textAlign: TextAlign.center,
-                                    style: ktitleStyle.copyWith(
-                                        color: Colors.white.withOpacity(0.8)),
-                                  ),
-                                  onPressed: () {
-                                    kopenPage(
-                                      context,
-                                      GuardianProfilePage(
-                                        title: string.other,
-                                      ),
-                                    );
+                                child: ProfileFields(
+                                  labelText: string.division,
+                                  onChanged: (div) {
+                                    _division = div;
                                   },
-                                  backgroundColor: kmainColorParents,
-                                  // height: 50,
+                                  hintText: '',
+                                  controller:
+                                      TextEditingController(text: _division),
                                 ),
                               ),
                             ],
-                          )
+                          ),
+                          ProfileFields(
+                            width: MediaQuery.of(context).size.width,
+                            hintText: string.father_mother_name,
+                            labelText: string.guardian_name,
+                            onChanged: (guardianName) {
+                              _guardianName = guardianName;
+                            },
+                            controller:
+                                TextEditingController(text: _guardianName),
+                          ),
+                          Row(
+                            // mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () async {
+                                    await _selectDate(context);
+                                  },
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: IgnorePointer(
+                                    child: ProfileFields(
+                                        labelText: string.dob,
+                                        textInputType: TextInputType.number,
+                                        onChanged: (dob) {
+                                          _dob = dob;
+                                        },
+                                        hintText: '',
+                                        controller: TextEditingController(
+                                          text: _dob,
+                                        )
+                                        // initialText: dateOfBirth == null
+                                        //     ? ''
+                                        //     : dateOfBirth
+                                        //         .toLocal()
+                                        //         .toString()
+                                        //         .substring(0, 10),
+                                        ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: ProfileFields(
+                                  // width: MediaQuery.of(context).size.width,
+                                  hintText: string.blood_group_hint,
+                                  labelText: string.blood_group,
+                                  onChanged: (bg) {
+                                    _bloodGroup = bg;
+                                  },
+                                  controller:
+                                      TextEditingController(text: _bloodGroup),
+                                ),
+                              ),
+                            ],
+                          ),
+                          ProfileFields(
+                            width: MediaQuery.of(context).size.width,
+                            textInputType: TextInputType.number,
+                            hintText: string.your_parents,
+                            labelText: string.mobile_no,
+                            onChanged: (mobile_no) {
+                              _mobileNo = mobile_no;
+                            },
+                            controller: TextEditingController(text: _mobileNo),
+                          ),
+                          Visibility(
+                            visible: !isTeacher,
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    string.guardians_profile,
+                                    style: ktitleStyle.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      // color: kmainColorParents.withOpacity(0.4),
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: ReusableRoundedButton(
+                                        elevation: 5,
+                                        child: Text(
+                                          string.mother,
+                                          textAlign: TextAlign.center,
+                                          style: ktitleStyle.copyWith(
+                                              color: Colors.white
+                                                  .withOpacity(0.8)),
+                                        ),
+                                        onPressed: () {
+                                          kopenPage(
+                                            context,
+                                            GuardianProfilePage(
+                                              title: string.mother,
+                                            ),
+                                          );
+                                        },
+                                        backgroundColor: kmainColorParents,
+                                        height: 40,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ReusableRoundedButton(
+                                        elevation: 5,
+                                        child: Text(
+                                          string.father,
+                                          textAlign: TextAlign.center,
+                                          style: ktitleStyle.copyWith(
+                                              color: Colors.white
+                                                  .withOpacity(0.8)),
+                                        ),
+                                        onPressed: () {
+                                          kopenPage(
+                                            context,
+                                            GuardianProfilePage(
+                                              title: string.father,
+                                            ),
+                                          );
+                                        },
+                                        backgroundColor: kmainColorParents,
+                                        // height: 50,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ReusableRoundedButton(
+                                        elevation: 5,
+                                        child: Text(
+                                          string.other,
+                                          textAlign: TextAlign.center,
+                                          style: ktitleStyle.copyWith(
+                                              color: Colors.white
+                                                  .withOpacity(0.8)),
+                                        ),
+                                        onPressed: () {
+                                          kopenPage(
+                                            context,
+                                            GuardianProfilePage(
+                                              title: string.other,
+                                            ),
+                                          );
+                                        },
+                                        backgroundColor: kmainColorParents,
+                                        // height: 50,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
+            ),
+          );
+        });
+  }
+
+  Widget buildProfilePhotoWidget(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      // crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          constraints: BoxConstraints(maxHeight: 200, maxWidth: 200),
+          child: Stack(
+            children: <Widget>[
+              Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+                child: Image(
+                  height: MediaQuery.of(context).size.width / 2.5,
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  image: path == ''
+                      ? NetworkImage(
+                          "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+                        )
+                      : AssetImage(path),
+                ),
+              ),
+              Positioned(
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  height: 45,
+                  width: 45,
+                  child: Card(
+                    elevation: 5,
+                    color: Colors.white70,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(10),
+                      ),
+                    ),
+                    child: IconButton(
+                      color: Colors.white,
+                      icon: Icon(
+                        Icons.camera_alt,
+                        color: Colors.black38,
+                        size: 25,
+                      ),
+                      onPressed: () async {
+                        String _path =
+                            await openFileExplorer(FileType.IMAGE, mounted);
+                        setState(() {
+                          path = _path;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -324,12 +411,14 @@ class ProfileFields extends StatelessWidget {
   final double width;
   final Function onTap;
   final TextInputType textInputType;
+  final TextEditingController controller;
 
   const ProfileFields(
       {this.initialText,
       @required this.labelText,
       this.hintText,
       this.onChanged,
+      this.controller,
       this.onTap,
       this.textInputType,
       this.width});
@@ -341,7 +430,8 @@ class ProfileFields extends StatelessWidget {
       // width: width == null ? MediaQuery.of(context).size.width / 2.5 : width,
       child: TextField(
         onTap: onTap,
-        controller: TextEditingController(text: initialText),
+        controller: controller,
+        // controller: TextEditingController(text: initialText),
         onChanged: onChanged,
         keyboardType: textInputType ?? TextInputType.text,
         style: TextStyle(

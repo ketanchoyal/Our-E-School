@@ -42,7 +42,9 @@ class AuthenticationServices extends Services {
 
   Future<bool> _isLoggedIn() async {
     firebaseUser = await auth.currentUser();
-    print('Display Name' + firebaseUser.displayName.toString());
+    String name =
+        firebaseUser != null ? firebaseUser.displayName.toString() : 'Null';
+    print('Display Name :' + name);
     return firebaseUser == null ? false : true;
   }
 
@@ -60,7 +62,7 @@ class AuthenticationServices extends Services {
     //Check if the School code is present and return "School not Present" if not
     //Then check if the user credentials are in the database or not
     //if not then return "Student Not Found" else return "Logging in"
-    String country = "India";
+
     //Api Call to check details
     bool isSchoolPresent = false;
     bool isUserAvailable = false;
@@ -131,13 +133,14 @@ class AuthenticationServices extends Services {
     return ReturnType.SUCCESS;
   }
 
-  Future emailPasswordRegister(
-      String email, String password, UserType userType) async {
+  Future emailPasswordRegister(String email, String password, UserType userType,
+      String schoolCode) async {
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
       await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       authErrors = AuthErrors.SUCCESS;
+      sharedPreferencesHelper.setSchoolCode(schoolCode);
       print("User Regestered using Email and Password");
       sharedPreferencesHelper.setUserType(userType);
 
@@ -147,12 +150,13 @@ class AuthenticationServices extends Services {
     }
   }
 
-  Future<AuthErrors> emailPasswordSignIn(
-      String email, String password, UserType userType) async {
+  Future<AuthErrors> emailPasswordSignIn(String email, String password,
+      UserType userType, String schoolCode) async {
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
       await auth.signInWithEmailAndPassword(email: email, password: password);
       authErrors = AuthErrors.SUCCESS;
+      sharedPreferencesHelper.setSchoolCode(schoolCode);
       print("User Loggedin using Email and Password");
       sharedPreferencesHelper.setUserType(userType);
       return authErrors;

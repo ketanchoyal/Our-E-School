@@ -20,6 +20,8 @@ void main() {
   );
 }
 
+//TODO: Create a light weight class which have loggedIn UserType so that it can be accessed everywhere
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   AuthenticationServices _auth = locator<AuthenticationServices>();
@@ -34,22 +36,22 @@ class MyApp extends StatelessWidget {
       child: DynamicTheme(
         defaultBrightness: Brightness.light,
         data: (brightness) => ThemeData(
-              pageTransitionsTheme: PageTransitionsTheme(builders: {
-                TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-                TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-              }),
-              fontFamily: "Nunito",
-              primaryColor: Colors.red,
-              accentColor: Colors.redAccent,
-              primaryColorDark: Color(0xff0029cb),
-              brightness: brightness,
-            ),
+          pageTransitionsTheme: PageTransitionsTheme(builders: {
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          }),
+          fontFamily: "Nunito",
+          primaryColor: Colors.red,
+          accentColor: Colors.redAccent,
+          primaryColorDark: Color(0xff0029cb),
+          brightness: brightness,
+        ),
         themedWidgetBuilder: (context, theme) => MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Our E-School',
-              theme: theme,
-              home: _auth.isUserLoggedIn ? Home() : WelcomeScreen(),
-            ),
+          debugShowCheckedModeBanner: false,
+          title: 'Our E-School',
+          theme: theme,
+          home: _auth.isUserLoggedIn ? Home() : WelcomeScreen(),
+        ),
       ),
     );
   }

@@ -15,7 +15,7 @@ Check School posts to stay updated with school news.''';
 
 //Login
   static const student_id = 'Student Id';
-  static const student_or_teacher_id = 'Student 0r Teacher Id';
+  static const student_or_teacher_id = 'Student 0r Teacher Roll no';
   static const regidtered = 'Registered?';
   static const not_registered = 'Not Registered?';
   static const login = 'Login';

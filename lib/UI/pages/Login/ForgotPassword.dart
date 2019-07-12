@@ -50,7 +50,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
             TextField(
               controller: _emailController,
-              obscureText: true,
+              // obscureText: true,
               onChanged: (email) {},
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),

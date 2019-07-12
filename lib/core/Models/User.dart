@@ -15,6 +15,7 @@ class User {
   final String mobileNo;
   final String guardianName;
   final String dob;
+  final String enrollNo;
 
   // User.initial()
   //     : this.firebaseUuid = "",
@@ -44,6 +45,7 @@ class User {
     this.bloodGroup = "",
     this.mobileNo = "",
     this.guardianName = "",
+    this.enrollNo = "",
     // this.registeredMobileNo,
   });
 
@@ -60,6 +62,7 @@ class User {
         this.standard = documentSnapshot["standard"].toString() ?? '',
         this.bloodGroup = documentSnapshot["bloodGroup"].toString() ?? '',
         this.guardianName = documentSnapshot["guardianName"].toString() ?? '',
+        this.enrollNo = documentSnapshot["enrollNo"].toString(),
         this.mobileNo = documentSnapshot["mobileNo"].toString() ?? '';
 
   @override

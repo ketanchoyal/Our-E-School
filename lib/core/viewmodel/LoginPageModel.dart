@@ -48,7 +48,8 @@ class LoginPageModel extends BaseModel {
     } else {
       currentLoggingStatus = 'Please wait while we check your credientials..';
       if (buttonType == ButtonType.LOGIN) {
-        AuthErrors res = await loginUser(email, password, userType);
+        AuthErrors res =
+            await _loginUser(email, password, userType, schoolCode);
         setState(ViewState.Idle);
         if (res == AuthErrors.SUCCESS) {
           return true;
@@ -61,7 +62,8 @@ class LoginPageModel extends BaseModel {
           setState(ViewState.Idle);
           return false;
         }
-        AuthErrors res = await registerUser(email, password, userType);
+        AuthErrors res =
+            await _registerUser(email, password, userType, schoolCode);
         setState(ViewState.Idle);
         if (res == AuthErrors.SUCCESS) {
           return true;
@@ -72,16 +74,26 @@ class LoginPageModel extends BaseModel {
     }
   }
 
-  Future loginUser(String email, String password, UserType userType) async {
+  Future _loginUser(String email, String password, UserType userType,
+      String schoolCode) async {
     AuthErrors authError = await _authenticationService.emailPasswordSignIn(
-        email, password, userType);
+      email,
+      password,
+      userType,
+      schoolCode,
+    );
     currentLoggingStatus = AuthErrorsHelper.getValue(authError);
     return authError;
   }
 
-  Future registerUser(String email, String password, UserType userType) async {
+  Future _registerUser(String email, String password, UserType userType,
+      String schoolCode) async {
     AuthErrors authError = await _authenticationService.emailPasswordRegister(
-        email, password, userType);
+      email,
+      password,
+      userType,
+      schoolCode,
+    );
     currentLoggingStatus = AuthErrorsHelper.getValue(authError);
     return authError;
   }
