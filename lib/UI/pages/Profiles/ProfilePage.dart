@@ -62,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
               _name = user.displayName;
               _enrollNo = user.enrollNo;
               _standard = user.standard;
-              _division = user.division;
+              _division = user.division.toUpperCase();
               _guardianName = user.guardianName;
               _bloodGroup = user.bloodGroup;
               _dob = user.dob;
