@@ -10,12 +10,15 @@ class ProfileServices extends Services {
   }
 
   setProfileData(
-    String name,
+    String displayName,
     String standard,
     String division,
     String bloodGroup,
     String mobileNo,
     String dob,
-    String 
-  ) {}
+    String guardianName,
+    var photoUrl,
+  ) {
+
+  }
 }

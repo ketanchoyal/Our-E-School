@@ -13,7 +13,6 @@ import "package:ourESchool/core/enums/UserType.dart";
 import 'package:ourESchool/core/services/Services.dart';
 
 class AuthenticationServices extends Services {
-  
   // Future handleGoogleSignIn() async {
   //   try {
   //     AuthCredential credential;
@@ -69,13 +68,10 @@ class AuthenticationServices extends Services {
         ? "Student"
         : userType == UserType.TEACHER ? "Parent-Teacher" : "Parent-Teacher";
 
-    DocumentReference _schoolRef = firestore
-        .collection("Schools")
-        .document(country)
-        .collection(schoolCode.toUpperCase().trim())
-        .document('Login');
+    DocumentReference _schoolLoginRef =
+        schoolRef.collection(schoolCode.toUpperCase().trim()).document('Login');
 
-    await _schoolRef.get().then((onValue) {
+    await _schoolLoginRef.get().then((onValue) {
       isSchoolPresent = onValue.exists;
       print("Inside Then :" + onValue.data.toString());
     });
@@ -87,7 +83,7 @@ class AuthenticationServices extends Services {
       print('School Found');
     }
 
-    CollectionReference _userRef = _schoolRef.collection(loginType);
+    CollectionReference _userRef = _schoolLoginRef.collection(loginType);
 
     await _userRef
         .where("email", isEqualTo: email)
@@ -102,13 +98,13 @@ class AuthenticationServices extends Services {
             email: documentSnapshot["email"].toString(),
             id: documentSnapshot["id"].toString(),
           );
-          DocumentReference ref = documentSnapshot["ref"] as DocumentReference;
-          print('Insude Document Reference');
-          ref.get().then(
-                (onValue) => print(
-                  'Dataaa : ' + onValue.data.toString(),
-                ),
-              );
+          // DocumentReference ref = documentSnapshot["ref"] as DocumentReference;
+          // print('Insude Document Reference');
+          // ref.get().then(
+          //       (onValue) => print(
+          //         'Dataaa : ' + onValue.data.toString(),
+          //       ),
+          //     );
         } else {
           userDataLogin = UserDataLogin(
             email: documentSnapshot["email"].toString(),
@@ -185,7 +181,7 @@ class AuthenticationServices extends Services {
 
   logoutMethod() async {
     await auth.signOut();
-    await sharedPreferencesHelper.removeUserType();
+    await sharedPreferencesHelper.clearAllData();
     print("User Loged out");
   }
 
