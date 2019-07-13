@@ -2,9 +2,10 @@ import * as functions from 'firebase-functions';
 import * as express from 'express';
 import * as admin from 'firebase-admin';
 import * as HttpStatus from 'http-status-codes';
-// import { QuerySnapshot } from '@google-cloud/firestore';
-// import * as bodyparser from 'body-parser';
+import * as Firestoree from '@google-cloud/firestore';
 
+
+enum UserType { STUDENT = "STUDENT", TEACHER = "TEACHER", PARENT = "PARENT", UNKNOWN = "UNKNOWN", }
 interface IUserRequest extends express.Request {
     user: any
 }
@@ -12,14 +13,15 @@ interface IUserRequest extends express.Request {
 admin.initializeApp(functions.config().firebase);
 
 const app = express();
-const loginCredentialsCheck = express();
+// const loginCredentialsCheck = express();
 
 const db = admin.firestore();
 
 exports.webApi = functions.https.onRequest(app);
-exports.loginApi = functions.https.onRequest(loginCredentialsCheck);
+// exports.loginApi = functions.https.onRequest(loginCredentialsCheck);
 
 //To Check if user is authenticated or not
+// @ts-ignore
 const validateFirebaseIdToken = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.log('Check if request is authorized with Firebase ID token');
 
@@ -63,96 +65,60 @@ const validateFirebaseIdToken = async (req: express.Request, res: express.Respon
     }
 };
 
-app.use(validateFirebaseIdToken);
-// This HTTPS endpoint can only be accessed by your Firebase Users.
-// Requests need to be authorized by providing an `Authorization` HTTP header
-// with value `Bearer <Firebase ID Token>`.
-// exports.app = functions.https.onRequest(app);
-
-loginCredentialsCheck.post('/', async (req: express.Request, res: express.Response) => {
+app.post('/profileupdate', async (req: express.Request, res: express.Response) => {
     try {
-        // let schoolId = req.params.id;
+        console.log("code"+req.body.schoolCode);
+        console.log('In Try');
+        const {
+            schoolCode,
+            profileData,
+            userType,
+            country } = req.body;
 
-        const { schoolId, user_email_or_mobile, loginType } = req.body;
         const data = {
-            schoolId,
-            user_email_or_mobile,
-            loginType
-        };
-
-        const country = "India";
-
-        // let loginUserType;
-
-        // if (data.loginType == "S") {
-        //     loginUserType = "Student";
-        // } else {
-        //     loginUserType = "Parent-Teacher";
-        // }
-        console.log("Data : " + data.loginType + " " + data.schoolId + " " + data.user_email_or_mobile);
-        // const schoolRef = db.collection("Schools").doc(country).collection(data.schoolId);
-        // const userRef = schoolRef.doc("Login").collection("Parent-Teacher");
-
-        const schoolExists = checkIfSchoolExists(country, data);
-
-        if (schoolExists !== null) {
-            const querySnapshot = await checkIfUserExists(country, data);
-            if (querySnapshot !== null) {
-                // let docs = querySnapshot.docs.map(doc => doc.data());
-                res.status(HttpStatus.OK).send("User Found " + HttpStatus.getStatusText(HttpStatus.OK));
-            } else {
-                res.status(HttpStatus.NOT_FOUND).send("User " + HttpStatus.getStatusText(HttpStatus.NOT_FOUND));
-            }
-        } else {
-            res.status(HttpStatus.NOT_FOUND).send("School " + HttpStatus.getStatusText(HttpStatus.NOT_FOUND));
+            schoolCode,
+            profileData,
+            userType,
+            country
         }
+        console.log('Here');
 
+        console.log(data.country);
+        console.log(data.userType);
+        console.log(data.country);
+
+        const profileDataMap = data.profileData as Map<String, any>;
+        const id = data.profileData.id;
+        console.log(id);
+
+        const ref = await getProfileRef(data.schoolCode, data.country, data.userType, id);
+        ref.set(profileDataMap, { merge: true });
+
+        res.status(HttpStatus.OK).send("Profile Updated " + HttpStatus.getStatusText(HttpStatus.OK));
 
     } catch (e) {
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 });
 
-function checkIfSchoolExists(country: string, data: any): any {
-    // const schoolRef = db.collection("Schools").doc(schoolId);
-    let ret : any = null;
-    try {
-        db.collection("Schools").doc(country).collection(data.schoolId).get()
-            .then(docSnapshot => {
-                console.log("Data : " + data.loginType + " " + data.schoolId + " " + data.user_email_or_mobile);
-                console.log("In School Check Function " + docSnapshot.docs.toString);
-                if (docSnapshot.docs.length > 0) {
-                    ret = docSnapshot;
-                } else {
-                    ret = null;
-                }
-            }).catch(error => {
-                console.log("error", error);
-            });
-        // return ret;
-
-    } catch (e) {
-        console.log("error", e);
-    }
-
-    return ret;
+function _getSchoolRef(schoolCode: string, country: string): Firestoree.CollectionReference {
+    return db.collection('Schools').doc(country).collection(schoolCode);
 }
 
-function checkIfUserExists(country: string, data: any): any {
-    let ret: any = null;
-    db.collection("Schools").doc(country).collection(data.schoolId).doc("Login").collection("Parent-Teacher")
-        .where("email", "==", data.user_email_or_mobile).get()
-        .then(docSnapshot => {
-            console.log("In User Check Function " + docSnapshot.docs.toString);
-            console.log("Data : " + data.loginType + " " + data.schoolId + " " + data.user_email_or_mobile);
-            if (!docSnapshot.empty) {
-                // let doc = docSnapshot
-                ret = docSnapshot;
+async function getProfileRef(schoolCode: string, country: string, userType: string, id: string): Promise<Firestoree.DocumentReference> {
+    const _profileRef = _getSchoolRef(schoolCode, country).doc('Profile');
+    let res: Firestoree.DocumentReference;
+    if (userType == UserType.STUDENT) {
+        res = await _profileRef.collection('Student').doc(id);
+    } else
+        if (userType == UserType.TEACHER) {
+            res = await _profileRef.collection('Teachers').doc(id);
+        } else
+            if (userType == UserType.PARENT) {
+                res = await _profileRef.collection('Parents').doc(id);
             } else {
-                ret = null;
+                res = await _profileRef.collection('Unknown').doc(id);
             }
-        }).catch(error => {
-            console.log("error", error);
-        });
-    return ret
+    return res;
 }
+

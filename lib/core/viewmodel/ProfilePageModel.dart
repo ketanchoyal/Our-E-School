@@ -11,7 +11,7 @@ class ProfilePageModel extends BaseModel {
   final _sharedPreferences = locator<SharedPreferencesHelper>();
   User userProfile;
 
-  Future setUserProfileData({
+  Future<bool> setUserProfileData({
     String displayName,
     String standard,
     String division,
@@ -25,20 +25,20 @@ class ProfilePageModel extends BaseModel {
   }) async {
     setState(ViewState.Busy);
 
-    _profileServices.setProfileData(
+    await _profileServices.setProfileData(
         displayName: displayName,
         standard: standard,
         division: division,
         bloodGroup: bloodGroup,
         mobileNo: mobileNo,
         dob: dob,
-        enrollNo:enrollNo,
+        enrollNo: enrollNo,
         guardianName: guardianName,
-
         userType: userType);
     await Future.delayed(const Duration(seconds: 3), () {});
 
     setState(ViewState.Idle);
+    return true;
   }
 
   Future<User> getUserProfileData() async {

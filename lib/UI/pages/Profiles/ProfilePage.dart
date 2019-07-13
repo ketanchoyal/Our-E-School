@@ -83,9 +83,10 @@ class _ProfilePageState extends State<ProfilePage> {
               tooltip: 'Save',
               elevation: 20,
               backgroundColor: Colors.red,
-              onPressed: () {
+              onPressed: () async {
+                bool res = false;
                 model.state == ViewState.Idle
-                    ? model.setUserProfileData(
+                    ? res = await model.setUserProfileData(
                         bloodGroup: _bloodGroup.trim(),
                         displayName: _name.trim(),
                         division: _division.trim(),
@@ -98,6 +99,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         // photoUrl:
                         )
                     : () {};
+
+                    res == true ?kopenPage(context, Home()) : () {};
               },
               child: model.state == ViewState.Busy
                   ? SpinKitDoubleBounce(
