@@ -1,5 +1,6 @@
 import 'dart:collection';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ourESchool/core/Models/User.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
@@ -44,6 +45,7 @@ class ProfileServices extends Services {
     profileDataHashMap["id"] = id;
 
     await ref.updateData(profileDataHashMap);
+    
     print("Data Uploaded Succesfully");
   }
 

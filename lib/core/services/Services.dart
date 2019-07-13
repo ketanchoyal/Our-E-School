@@ -18,6 +18,10 @@ class Services {
   UserDataLogin userDataLogin;
   final StorageReference _storageReference = FirebaseStorage.instance.ref();
 
+  static String baseUrl = 'https://us-central1-our-e-school.cloudfunctions.net/';
+  static String webApiUrl = baseUrl + 'webApi/';
+  String functionName = webApiUrl + 'profileupdate';
+
   DocumentReference _schoolRef =
       _firestore.collection('Schools').document('India');
 
