@@ -67,7 +67,7 @@ const validateFirebaseIdToken = async (req: express.Request, res: express.Respon
 
 app.post('/profileupdate', async (req: express.Request, res: express.Response) => {
     try {
-        console.log("code"+req.body.schoolCode);
+        console.log("code" + req.body.schoolCode);
         console.log('In Try');
         const {
             schoolCode,
@@ -92,7 +92,11 @@ app.post('/profileupdate', async (req: express.Request, res: express.Response) =
         console.log(id);
 
         const ref = await getProfileRef(data.schoolCode, data.country, data.userType, id);
-        ref.set(profileDataMap, { merge: true });
+        await ref.set(profileDataMap, { merge: true }).then((success) => {
+            res.status(HttpStatus.OK).send("Profile Updated " + HttpStatus.getStatusText(HttpStatus.OK)).json({ 'Date': success.writeTime.toDate.toString });
+        }, (failure) => {
+            res.status(HttpStatus.BAD_REQUEST).send('Failure : ' + HttpStatus.getStatusText(HttpStatus.BAD_REQUEST));
+        });
 
         res.status(HttpStatus.OK).send("Profile Updated " + HttpStatus.getStatusText(HttpStatus.OK));
 
@@ -118,6 +122,7 @@ async function getProfileRef(schoolCode: string, country: string, userType: stri
                 res = await _profileRef.collection('Parents').doc(id);
             } else {
                 res = await _profileRef.collection('Unknown').doc(id);
+                res.get;
             }
     return res;
 }
