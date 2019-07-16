@@ -169,3 +169,96 @@ async function getProfileRef(schoolCode: string, country: string, userType: stri
     return res;
 }
 
+app.post('/postAnnouncement', async (req: express.Request, res: express.Response) => {
+    try {
+        const {
+            announcement,
+            schoolCode,
+            standard,
+            division,
+            country } = req.body;
+
+        const data = {
+            announcement,
+            schoolCode,
+            standard,
+            division,
+            country
+        }
+
+        const std = data.standard + data.division;
+
+        const announcementMap = data.announcement as Map<string, any>;
+
+        console.log(data.schoolCode + " " + data.standard + " " + data.division + " " + data.country);
+
+        const _announcementRef = db.collection('Schools').doc(data.country).collection(data.schoolCode).doc('Posts').collection(std);
+
+        await _announcementRef.add(announcementMap).then((success) => {
+            success.get().then((documentSnapshot) => {
+                var inJsonFormat = Object.assign(documentSnapshot.data(), { id: documentSnapshot.id });
+                res.status(HttpStatus.OK).json(inJsonFormat);
+            }, (failure) => {
+                res.status(HttpStatus.BAD_REQUEST).send('Failure : ' + HttpStatus.getStatusText(HttpStatus.BAD_REQUEST));
+            });
+        }, (failure) => {
+            res.status(HttpStatus.BAD_REQUEST).send('Failure : ' + HttpStatus.getStatusText(HttpStatus.BAD_REQUEST));
+        });
+    }
+    catch (e) {
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+});
+
+//to get Announcements
+// app.get('/:country/:schoolCode/getAnnouncements:std/', async (req: express.Request, res: express.Response) => {
+//     try {
+//         const country: string = req.params.country;
+//         const schoolCode = req.params.schoolCode;
+//         const std = req.params.std;
+//         let previousJsonFile: Object = '';
+
+//         // const {
+//         //     schoolCode,
+//         //     standard,
+//         //     division,
+//         //     country } = req.body;
+
+//         // const data = {
+//         //     schoolCode,
+//         //     standard,
+//         //     division,
+//         //     country
+//         // }
+//         // const div = data.division as string;
+//         // const std = data.standard + div.toUpperCase;
+
+
+//         console.log(schoolCode + " " + std + " " + country);
+
+
+
+//         const _announcementRef = db.collection('Schools').doc(country).collection(schoolCode).doc('Posts').collection(std);
+//         var querySnapshot = await _announcementRef.limit(20);
+//         await querySnapshot.get().then((snapshot) => {
+//             snapshot.docs.forEach((querySnap) => {
+//                 if (previousJsonFile == '') {
+//                     previousJsonFile = Object.assign(querySnap.data(), { id: querySnap.id });
+//                 } else {
+//                     const currentJson = Object.assign(querySnap.data(), { id: querySnap.id });
+//                     previousJsonFile = Object.assign(previousJsonFile, currentJson);
+//                 }
+//             });
+//         }, (failure) => {
+//             res.status(HttpStatus.BAD_REQUEST).send('Failure : ' + HttpStatus.getStatusText(HttpStatus.BAD_REQUEST));
+//         });
+
+//         res.status(HttpStatus.OK).json(previousJsonFile);
+
+
+//     }
+//     catch (e) {
+//         res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR));
+//     }
+// });
+

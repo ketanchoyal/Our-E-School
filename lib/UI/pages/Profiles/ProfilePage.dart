@@ -11,7 +11,9 @@ import 'package:ourESchool/UI/pages/Home.dart';
 import 'package:ourESchool/core/Models/User.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
+import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/core/viewmodel/ProfilePageModel.dart';
+import 'package:ourESchool/locator.dart';
 
 import 'GuardianProfile.dart';
 
@@ -40,6 +42,8 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     }
   }
+
+  SharedPreferencesHelper _sharedPreferencesHelper = locator<SharedPreferencesHelper>();
 
   String _name = '';
   String _enrollNo = '';
@@ -95,7 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         mobileNo: _mobileNo.trim(),
                         standard: _standard.trim(),
                         enrollNo: _enrollNo.trim(),
-                        userType: UserType.STUDENT
+                        userType: await _sharedPreferencesHelper.getUserType()
                         // photoUrl:
                         )
                     : () {};
