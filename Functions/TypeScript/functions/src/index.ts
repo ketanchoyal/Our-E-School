@@ -3,9 +3,9 @@ import * as express from 'express';
 import * as admin from 'firebase-admin';
 import * as HttpStatus from 'http-status-codes';
 import * as Firestoree from '@google-cloud/firestore';
+import { UserType } from './UserType';
 
 
-enum UserType { STUDENT = "STUDENT", TEACHER = "TEACHER", PARENT = "PARENT", UNKNOWN = "UNKNOWN", }
 interface IUserRequest extends express.Request {
     user: any
 }
@@ -65,6 +65,7 @@ const validateFirebaseIdToken = async (req: express.Request, res: express.Respon
     }
 };
 
+//To add Profile data
 app.post('/profileupdate', async (req: express.Request, res: express.Response) => {
     try {
         console.log("code" + req.body.schoolCode);
@@ -93,12 +94,53 @@ app.post('/profileupdate', async (req: express.Request, res: express.Response) =
 
         const ref = await getProfileRef(data.schoolCode, data.country, data.userType, id);
         await ref.set(profileDataMap, { merge: true }).then((success) => {
-            res.status(HttpStatus.OK).send("Profile Updated " + HttpStatus.getStatusText(HttpStatus.OK)).json({ 'Date': success.writeTime.toDate.toString });
+            res.status(HttpStatus.OK).json({ Date: success.writeTime.toDate.toString, ProfileUpdated: 'OK' });
         }, (failure) => {
             res.status(HttpStatus.BAD_REQUEST).send('Failure : ' + HttpStatus.getStatusText(HttpStatus.BAD_REQUEST));
         });
 
-        res.status(HttpStatus.OK).send("Profile Updated " + HttpStatus.getStatusText(HttpStatus.OK));
+        // res.status(HttpStatus.OK).send("Profile Updated " + HttpStatus.getStatusText(HttpStatus.OK));
+
+    } catch (e) {
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+});
+
+//Method to get User Data
+//get methid not working so post is used
+app.post('/userdata', async (req: express.Request, res: express.Response) => {
+    try {
+        console.log("In User data code :" + req.body.schoolCode);
+        console.log('In Try');
+        const {
+            schoolCode,
+            id,
+            userType,
+            country } = req.body;
+
+        const data = {
+            schoolCode,
+            id,
+            userType,
+            country
+        }
+        console.log('Here');
+
+        console.log(id);
+
+        const ref = await getProfileRef(data.schoolCode, data.country, data.userType, data.id);
+        await ref.get().then((documentSnapshot) => {
+            console.log('JSON Data : ');
+            var inJsonFormat = Object.assign(documentSnapshot.data(), { id: documentSnapshot.id });
+            console.log(inJsonFormat);
+            // console.log('Data : '+ documentSnapshot);
+            // console.log('Data2 : '+ documentSnapshot.data);
+            res.status(HttpStatus.OK).send({ data: inJsonFormat });
+        }, (onFailure) => {
+            res.status(HttpStatus.NOT_FOUND).send(HttpStatus.getStatusText(HttpStatus.NOT_FOUND));
+        });
+
+        // res.status(HttpStatus.OK).send("User Data Received " + HttpStatus.getStatusText(HttpStatus.OK));
 
     } catch (e) {
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR));

@@ -30,22 +30,26 @@ class ProfileServices extends Services {
     String id = await sharedPreferencesHelper.getLoggedInUserId();
     DocumentReference ref = await getProfileRef(id, userType);
 
-    Map profileDataHashMap = HashMap<String, dynamic>();
-    profileDataHashMap["displayName"] = displayName;
-    // profileDataHashMap["photoUrl"] = photoUrl;
-    profileDataHashMap["standard"] = standard;
-    profileDataHashMap["division"] = division;
-    profileDataHashMap["bloodGroup"] = bloodGroup;
-    profileDataHashMap["guardianName"] = guardianName;
-    profileDataHashMap["mobileNo"] = mobileNo;
-    profileDataHashMap["dob"] = dob;
-    profileDataHashMap["firebaseUuid"] = firebaseUser.uid;
-    profileDataHashMap["email"] = firebaseUser.email;
-    profileDataHashMap["enrollNo"] = enrollNo;
-    profileDataHashMap["id"] = id;
+    User profileData = User(
+        bloodGroup: bloodGroup,
+        displayName: displayName,
+        division: division,
+        dob: dob,
+        email: firebaseUser.email,
+        enrollNo: enrollNo,
+        firebaseUuid: firebaseUser.uid,
+        guardianName: guardianName,
+        id: id,
+        isTeacher: false,
+        isVerified: firebaseUser.isEmailVerified,
+        mobileNo: mobileNo,
+        photoUrl: photoUrl,
+        standard: standard);
+
+    Map profileDataHashMap = profileData.toJson();
 
     await ref.updateData(profileDataHashMap);
-    
+
     print("Data Uploaded Succesfully");
   }
 

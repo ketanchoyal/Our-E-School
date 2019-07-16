@@ -1,53 +1,36 @@
-import "package:cloud_firestore/cloud_firestore.dart";
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
-  final String firebaseUuid;
-  final String email;
-  // final String registeredMobileNo;
-  final String photoUrl;
-  final String displayName;
-  final bool isTeacher;
-  final bool isVerified;
-  final String id;
-  final String standard;
-  final String division;
-  final String bloodGroup;
-  final String mobileNo;
-  final String guardianName;
-  final String dob;
-  final String enrollNo;
+  String photoUrl;
+  String email;
+  String division;
+  String id;
+  String enrollNo;
+  String firebaseUuid;
+  String displayName;
+  String standard;
+  String dob;
+  String guardianName;
+  String bloodGroup;
+  String mobileNo;
+  bool isTeacher;
+  bool isVerified;
 
-  // User.initial()
-  //     : this.firebaseUuid = "",
-  //       this.email = "",
-  //       this.displayName = "",
-  //       this.photoUrl = "",
-  //       this.isTeacher = false,
-  //       this.isVerified = false,
-  //       this.id = "",
-  //       this.dob = "",
-  //       this.division = "",
-  //       this.standard = "",
-  //       this.bloodGroup = "",
-  //       this.mobileNo = "";
-
-  User({
-    this.firebaseUuid = "",
-    this.email = "",
-    this.displayName = "",
-    this.photoUrl = "",
-    this.isTeacher = false,
-    this.isVerified = false,
-    this.id = "",
-    this.dob = "",
-    this.division = "",
-    this.standard = "",
-    this.bloodGroup = "",
-    this.mobileNo = "",
-    this.guardianName = "",
-    this.enrollNo = "",
-    // this.registeredMobileNo,
-  });
+  User(
+      {this.photoUrl,
+      this.email,
+      this.division,
+      this.id,
+      this.enrollNo,
+      this.firebaseUuid,
+      this.displayName,
+      this.standard,
+      this.dob,
+      this.guardianName,
+      this.bloodGroup,
+      this.mobileNo,
+      this.isTeacher,
+      this.isVerified});
 
   User.fromSnapshot(DocumentSnapshot documentSnapshot)
       : this.firebaseUuid = documentSnapshot["firebaseUuid"].toString() ?? '',
@@ -65,9 +48,40 @@ class User {
         this.enrollNo = documentSnapshot["enrollNo"].toString(),
         this.mobileNo = documentSnapshot["mobileNo"].toString() ?? '';
 
-  @override
-  String toString() {
-    return "$email - $displayName - $photoUrl - $mobileNo - $isVerified";
+  User.fromJson(Map<String, dynamic> json) {
+    photoUrl = json['photoUrl'];
+    email = json['email'];
+    division = json['division'];
+    id = json['id'];
+    enrollNo = json['enrollNo'];
+    firebaseUuid = json['firebaseUuid'];
+    displayName = json['displayName'];
+    standard = json['standard'];
+    dob = json['dob'];
+    guardianName = json['guardianName'];
+    bloodGroup = json['bloodGroup'];
+    mobileNo = json['mobileNo'];
+    isTeacher = json['isTeacher'];
+    isVerified = json['isVerified'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['photoUrl'] = this.photoUrl;
+    data['email'] = this.email;
+    data['division'] = this.division;
+    data['id'] = this.id;
+    data['enrollNo'] = this.enrollNo;
+    data['firebaseUuid'] = this.firebaseUuid;
+    data['displayName'] = this.displayName;
+    data['standard'] = this.standard;
+    data['dob'] = this.dob;
+    data['guardianName'] = this.guardianName;
+    data['bloodGroup'] = this.bloodGroup;
+    data['mobileNo'] = this.mobileNo;
+    data['isTeacher'] = this.isTeacher;
+    data['isVerified'] = this.isVerified;
+    return data;
   }
 }
 
