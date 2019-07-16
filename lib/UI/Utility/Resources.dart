@@ -55,7 +55,7 @@ Check School posts to stay updated with school news.''';
   static const dashboard = 'Dashboard';
 
 //Setting
-  static const profile = 'Student Profile';
+  static const profile = 'Profile';
   static const profile_subtitle = 'Kind of everything we know about you';
 
   static const logout = 'Logout';

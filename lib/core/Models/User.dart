@@ -49,20 +49,20 @@ class User {
         this.mobileNo = documentSnapshot["mobileNo"].toString() ?? '';
 
   User.fromJson(Map<String, dynamic> json) {
-    photoUrl = json['photoUrl'];
-    email = json['email'];
-    division = json['division'];
-    id = json['id'];
-    enrollNo = json['enrollNo'];
-    firebaseUuid = json['firebaseUuid'];
-    displayName = json['displayName'];
-    standard = json['standard'];
-    dob = json['dob'];
-    guardianName = json['guardianName'];
-    bloodGroup = json['bloodGroup'];
-    mobileNo = json['mobileNo'];
-    isTeacher = json['isTeacher'];
-    isVerified = json['isVerified'];
+    photoUrl = json['photoUrl'] ?? '';
+    email = json['email'] ?? '';
+    division = json['division'] ?? '';
+    id = json['id'] ?? '';
+    enrollNo = json['enrollNo'] ?? '';
+    firebaseUuid = json['firebaseUuid'] ?? '';
+    displayName = json['displayName'] ?? '';
+    standard = json['standard'] ?? '';
+    dob = json['dob'] ?? '';
+    guardianName = json['guardianName'] ?? '';
+    bloodGroup = json['bloodGroup'] ?? '';
+    mobileNo = json['mobileNo'] ?? '';
+    isTeacher = json['isTeacher'] ?? false;
+    isVerified = json['isVerified'] ?? false;
   }
 
   Map<String, dynamic> toJson() {

@@ -53,9 +53,13 @@ class _ECardPageState extends State<ECardPage> {
                                 // shape: BoxShape.circle,r
                                 image: DecorationImage(
                                   fit: BoxFit.scaleDown,
-                                  image: NetworkImage(
-                                    "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-                                  ),
+                                  image: model.userProfile.photoUrl != null
+                                      ? NetworkImage(
+                                          model.userProfile.photoUrl,
+                                        )
+                                      : NetworkImage(
+                                          "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+                                        ),
                                 ),
                               ),
                             ),

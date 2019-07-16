@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
   Color background = Colors.white;
   AuthenticationServices _auth = locator<AuthenticationServices>();
   bool isTeacher = false;
-  
+
   // _auth.userType == UserType.STUDENT ? false : true;
   String pageName = string.home;
 
@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         bottomNavigationBar: buildBubbleBottomBar(),
-        body: LoginPage.loginTypeSelected == UserType.STUDENT
+        body: _auth.userType == UserType.STUDENT
             ? pages2[currentIndex]
             : pages[currentIndex],
       ),
