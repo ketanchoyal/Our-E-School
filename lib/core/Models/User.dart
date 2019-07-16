@@ -17,20 +17,20 @@ class User {
   bool isVerified;
 
   User(
-      {this.photoUrl,
-      this.email,
-      this.division,
-      this.id,
-      this.enrollNo,
-      this.firebaseUuid,
-      this.displayName,
-      this.standard,
-      this.dob,
-      this.guardianName,
-      this.bloodGroup,
-      this.mobileNo,
-      this.isTeacher,
-      this.isVerified});
+      {this.photoUrl = '',
+      this.email = '',
+      this.division = '',
+      this.id = '',
+      this.enrollNo = '',
+      this.firebaseUuid = '',
+      this.displayName = '',
+      this.standard = '',
+      this.dob = '',
+      this.guardianName = '',
+      this.bloodGroup = '',
+      this.mobileNo = '',
+      this.isTeacher = false,
+      this.isVerified = false});
 
   User.fromSnapshot(DocumentSnapshot documentSnapshot)
       : this.firebaseUuid = documentSnapshot["firebaseUuid"].toString() ?? '',

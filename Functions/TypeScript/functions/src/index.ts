@@ -135,7 +135,7 @@ app.post('/userdata', async (req: express.Request, res: express.Response) => {
             console.log(inJsonFormat);
             // console.log('Data : '+ documentSnapshot);
             // console.log('Data2 : '+ documentSnapshot.data);
-            res.status(HttpStatus.OK).send({ data: inJsonFormat });
+            res.status(HttpStatus.OK).send(inJsonFormat);
         }, (onFailure) => {
             res.status(HttpStatus.NOT_FOUND).send(HttpStatus.getStatusText(HttpStatus.NOT_FOUND));
         });

@@ -28,7 +28,7 @@ class ProfileServices extends Services {
     var photoUrl,
   }) async {
     String id = await sharedPreferencesHelper.getLoggedInUserId();
-    DocumentReference ref = await getProfileRef(id, userType);
+    String schoolCode = await sharedPreferencesHelper.getSchoolCode();
 
     User profileData = User(
         bloodGroup: bloodGroup,
@@ -45,20 +45,54 @@ class ProfileServices extends Services {
         mobileNo: mobileNo,
         photoUrl: photoUrl,
         standard: standard);
-
     Map profileDataHashMap = profileData.toJson();
 
-    await ref.updateData(profileDataHashMap);
+    var body = json.encode({
+      "schoolCode": schoolCode.trim().toUpperCase(),
+      "profileData": profileDataHashMap,
+      "userType": UserTypeHelper.getValue(userType),
+      "country": country
+    });
 
-    print("Data Uploaded Succesfully");
+    final response = await http.post(
+      profileUpdateUrl,
+      body: body,
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      print("Data Uploaded Succesfully");
+    } else {
+      print("Data Upload error");
+    }
   }
 
   Future<User> getProfileData(String uid, UserType userType) async {
-    DocumentReference ref = await getProfileRef(uid, userType);
+    String schoolCode = await sharedPreferencesHelper.getSchoolCode();
 
-    User user = User.fromSnapshot(await ref.get()) ?? User();
-    user.toString();
+    var body = json.encode({
+      "schoolCode": schoolCode.trim().toUpperCase(),
+      "id": uid,
+      "userType": UserTypeHelper.getValue(userType),
+      "country": country
+    });
 
-    return user;
+    print(body);
+
+    final response = await http.post(
+      getProfileDataUrl,
+      body: body,
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      print("Data Retrived Succesfully");
+      final jsonData = await json.decode(response.body);
+
+      User user = User.fromJson(jsonData);
+      user.toString();
+      return user;
+    } else {
+      print("Data Retrived failed");
+      return User();
+    }
   }
 }
