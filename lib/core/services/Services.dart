@@ -13,13 +13,15 @@ import 'package:firebase_storage/firebase_storage.dart';
 class Services {
   SharedPreferencesHelper _sharedPreferencesHelper =
       locator<SharedPreferencesHelper>();
-  String country = "India"; //Get this from firstScreen(UI Not developed yet)
+  static String country =
+      "India"; //Get this from firstScreen(UI Not developed yet)
   static FirebaseAuth _auth = FirebaseAuth.instance;
   static Firestore _firestore = Firestore.instance;
   FirebaseUser firebaseUser;
   User _user;
   UserDataLogin userDataLogin;
-  final StorageReference _storageReference = FirebaseStorage.instance.ref();
+  final StorageReference _storageReference =
+      FirebaseStorage.instance.ref().child(country);
 
   Map<String, String> headers = {
     'Content-type': 'application/json',

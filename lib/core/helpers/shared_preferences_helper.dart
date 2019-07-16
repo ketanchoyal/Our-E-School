@@ -7,6 +7,23 @@ class SharedPreferencesHelper {
   final String _userType = 'userType';
   final String _loggedInUserId = '_loggedInUserId';
   final String _schoolCode = 'schoolCode';
+  final String _photoUrl = 'photoUrl';
+
+  //Method that saves the _loggedInUserId
+  Future<bool> setLoggedInUserPhotoUrl(String url) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool res = await prefs.setString(_photoUrl, url);
+    print('User Id Saved' + res.toString());
+    return res;
+  }
+
+  //Method that return the _loggedInUserId
+  Future<String> getLoggedInUserPhotoUrl() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String res = prefs.getString(_photoUrl);
+    print('User Id Retrived' + res.toString());
+    return res;
+  }
 
   //Method that saves the _loggedInUserId
   Future<bool> setLoggedInUserId(String id) async {

@@ -43,7 +43,8 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  SharedPreferencesHelper _sharedPreferencesHelper = locator<SharedPreferencesHelper>();
+  SharedPreferencesHelper _sharedPreferencesHelper =
+      locator<SharedPreferencesHelper>();
 
   String _name = '';
   String _enrollNo = '';
@@ -99,12 +100,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         mobileNo: _mobileNo.trim(),
                         standard: _standard.trim(),
                         enrollNo: _enrollNo.trim(),
-                        userType: await _sharedPreferencesHelper.getUserType()
-                        // photoUrl:
-                        )
+                        userType: await _sharedPreferencesHelper.getUserType(),
+                        photoPath: path)
                     : () {};
 
-                    res == true ?kopenPage(context, Home()) : () {};
+                res == true ? kopenPage(context, Home()) : () {};
               },
               child: model.state == ViewState.Busy
                   ? SpinKitDoubleBounce(
@@ -119,7 +119,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   // fit: StackFit.loose,
                   children: <Widget>[
-                    buildProfilePhotoWidget(context),
+                    model.state == ViewState.Busy
+                        ? kBuzyPage(color: Theme.of(context).primaryColor)
+                        : buildProfilePhotoWidget(context, model),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 8),
@@ -345,7 +347,7 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
-  Widget buildProfilePhotoWidget(BuildContext context) {
+  Widget buildProfilePhotoWidget(BuildContext context, ProfilePageModel model) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       // crossAxisAlignment: CrossAxisAlignment.center,
@@ -363,9 +365,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: MediaQuery.of(context).size.width / 2.5,
                   width: MediaQuery.of(context).size.width / 2.5,
                   image: path == ''
-                      ? NetworkImage(
-                          "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-                        )
+                      ? model.userProfile.photoUrl != null
+                          ? NetworkImage(
+                              model.userProfile.photoUrl,
+                            )
+                          : NetworkImage(
+                              "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+                            )
                       : AssetImage(path),
                 ),
               ),

@@ -21,7 +21,7 @@ class ProfilePageModel extends BaseModel {
     String enrollNo,
     String guardianName,
     UserType userType,
-    var photoUrl,
+    String photoPath,
   }) async {
     setState(ViewState.Busy);
 
@@ -32,6 +32,7 @@ class ProfilePageModel extends BaseModel {
         bloodGroup: bloodGroup,
         mobileNo: mobileNo,
         dob: dob,
+        photoPath: photoPath,
         enrollNo: enrollNo,
         guardianName: guardianName,
         userType: userType);
