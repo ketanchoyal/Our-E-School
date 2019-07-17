@@ -8,8 +8,42 @@ class SharedPreferencesHelper {
   final String _loggedInUserId = '_loggedInUserId';
   final String _schoolCode = 'schoolCode';
   final String _photoUrl = 'photoUrl';
+  final String _childIds = 'childIds';
+  final String _parentsIds = 'parentsIds';
 
-  //Method that saves the _loggedInUserId
+  //Method to save the _childIds of Parent
+  Future<bool> setChildIds(List childIds) async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool res = await preferences.setStringList(_childIds, childIds);
+    print('Childs Id Saved ' + res.toString());
+    return res;
+  }
+
+  //Method to retrive the _childIds of Parent
+  Future<List> getChildIds(List childIds) async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    List res = preferences.getStringList(_childIds);
+    print('Childs Id Retrived ' + res.toString());
+    return res;
+  }
+
+  //Method to save the _childIds of Parent
+  Future<bool> setParentsIds(List parentIds) async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool res = await preferences.setStringList(_parentsIds, parentIds);
+    print('Parents Id Saved ' + res.toString());
+    return res;
+  }
+
+  //Method to retrive the _childIds of Parent
+  Future<List> getParentsIds(List childIds) async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    List res = preferences.getStringList(_parentsIds);
+    print('Parents Id Retrived ' + res.toString());
+    return res;
+  }
+
+  //Method that saves the _loggedInUserPhotoUrl
   Future<bool> setLoggedInUserPhotoUrl(String url) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     bool res = await prefs.setString(_photoUrl, url);
@@ -17,7 +51,7 @@ class SharedPreferencesHelper {
     return res;
   }
 
-  //Method that return the _loggedInUserId
+  //Method that return the _loggedInUserPhotoUrl
   Future<String> getLoggedInUserPhotoUrl() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String res = prefs.getString(_photoUrl);

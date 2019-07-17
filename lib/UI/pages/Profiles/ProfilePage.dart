@@ -92,19 +92,34 @@ class _ProfilePageState extends State<ProfilePage> {
               backgroundColor: Colors.red,
               onPressed: () async {
                 bool res = false;
-                model.state == ViewState.Idle
-                    ? res = await model.setUserProfileData(
-                        bloodGroup: _bloodGroup.trim(),
-                        displayName: _name.trim(),
-                        division: _division.trim(),
-                        dob: _dob.trim(),
-                        guardianName: _guardianName.trim(),
-                        mobileNo: _mobileNo.trim(),
-                        standard: _standard.trim(),
-                        enrollNo: _enrollNo.trim(),
-                        userType: await _sharedPreferencesHelper.getUserType(),
-                        photoPath: path)
-                    : () {};
+
+                if (_bloodGroup.isEmpty ||
+                    _division.isEmpty ||
+                    _name.isEmpty ||
+                    _dob.isEmpty ||
+                    _guardianName.isEmpty ||
+                    _mobileNo.isEmpty ||
+                    _standard.isEmpty ||
+                    _enrollNo.isEmpty ||
+                    path.isEmpty) {
+                  ksnackBar(context,
+                      'You Need to Fill All the details and a profile Photo');
+                } else {
+                  model.state == ViewState.Idle
+                      ? res = await model.setUserProfileData(
+                          bloodGroup: _bloodGroup.trim(),
+                          displayName: _name.trim(),
+                          division: _division.trim(),
+                          dob: _dob.trim(),
+                          guardianName: _guardianName.trim(),
+                          mobileNo: _mobileNo.trim(),
+                          standard: _standard.trim(),
+                          enrollNo: _enrollNo.trim(),
+                          userType:
+                              await _sharedPreferencesHelper.getUserType(),
+                          photoPath: path)
+                      : () {};
+                }
 
                 res == true
                     ? Navigator.pushNamedAndRemoveUntil(

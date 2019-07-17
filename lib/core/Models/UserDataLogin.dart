@@ -9,8 +9,21 @@ class UserDataLogin {
   String email;
   bool isATeacher;
   List<dynamic> childIds;
+  List<dynamic> parentIds;
 
-  UserDataLogin({this.id, this.email, this.isATeacher = false, this.childIds}) {
+  UserDataLogin(
+      {this.id,
+      this.email,
+      this.isATeacher = false,
+      this.childIds,
+      this.parentIds}) {
     _sharedPreferencesHelper.setLoggedInUserId(id);
+    if (childIds.isNotEmpty) {
+      _sharedPreferencesHelper.setChildIds(childIds);
+    }
+    if (parentIds.isNotEmpty) {
+      _sharedPreferencesHelper.setParentsIds(parentIds);
+    }
+    
   }
 }

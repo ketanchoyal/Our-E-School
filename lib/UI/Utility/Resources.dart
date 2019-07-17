@@ -33,7 +33,7 @@ Check School posts to stay updated with school news.''';
 
   static const password = 'Password';
   static const confirm_password = 'Confirm Password';
-  static const password_hint = 'min length is 6';
+  static const password_hint = 'min length is 7';
 
   static const mobile_no = 'Mobile No';
   static const mobile_hint = '+9199xxxxxxxx';

@@ -103,7 +103,9 @@ class AuthenticationServices extends Services {
           userDataLogin = UserDataLogin(
             email: documentSnapshot["email"].toString(),
             id: documentSnapshot["id"].toString(),
+            parentIds: documentSnapshot['parentId'] as List<dynamic> ?? [],
           );
+
           // DocumentReference ref = documentSnapshot["ref"] as DocumentReference;
           // print('Insude Document Reference');
           // ref.get().then(
@@ -116,11 +118,21 @@ class AuthenticationServices extends Services {
             email: documentSnapshot["email"].toString(),
             id: documentSnapshot["id"].toString(),
             isATeacher: documentSnapshot["isATeacher"] as bool,
-            childIds: documentSnapshot["childId"] as List<dynamic>,
+            childIds: documentSnapshot["childId"] as List<dynamic> ?? [],
           );
         }
       });
     });
+
+    if (userType == UserType.STUDENT) {
+      sharedPreferencesHelper.setUserType(UserType.STUDENT);
+    } else {
+      if (userDataLogin.isATeacher) {
+        sharedPreferencesHelper.setUserType(UserType.TEACHER);
+      } else {
+        sharedPreferencesHelper.setUserType(UserType.PARENT);
+      }
+    }
 
     if (!isUserAvailable) {
       print('User Not Found');
