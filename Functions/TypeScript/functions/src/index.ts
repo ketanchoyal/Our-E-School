@@ -157,15 +157,12 @@ async function getProfileRef(schoolCode: string, country: string, userType: stri
     if (userType == UserType.STUDENT) {
         res = await _profileRef.collection('Student').doc(id);
     } else
-        if (userType == UserType.TEACHER) {
-            res = await _profileRef.collection('Teachers').doc(id);
-        } else
-            if (userType == UserType.PARENT) {
-                res = await _profileRef.collection('Parents').doc(id);
-            } else {
-                res = await _profileRef.collection('Unknown').doc(id);
-                res.get;
-            }
+        if (userType == UserType.TEACHER || userType == UserType.PARENT) {
+            res = await _profileRef.collection('Parent-Teacher').doc(id);
+        } else {
+            res = await _profileRef.collection('Unknown').doc(id);
+            res.get;
+        }
     return res;
 }
 

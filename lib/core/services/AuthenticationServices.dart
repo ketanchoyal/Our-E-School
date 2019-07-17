@@ -125,6 +125,8 @@ class AuthenticationServices extends Services {
       });
     });
 
+    userDataLogin.setData();
+
     sharedPreferencesHelper.setLoggedInUserId(userDataLogin.id);
 
     if (userType == UserType.STUDENT) {
