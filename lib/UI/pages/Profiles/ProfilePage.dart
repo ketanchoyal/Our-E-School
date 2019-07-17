@@ -29,6 +29,8 @@ class _ProfilePageState extends State<ProfilePage> {
   DateTime dateOfBirth;
   bool isTeacher = false;
   String path = '';
+  String tempPath = '';
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -74,16 +76,20 @@ class _ProfilePageState extends State<ProfilePage> {
               _bloodGroup = user.bloodGroup;
               _dob = user.dob;
               _mobileNo = user.mobileNo;
+              tempPath = user.photoUrl;
               a++;
             }
           }
 
           return Scaffold(
+            key: _scaffoldKey,
             appBar: TopBar(
               title: string.profile,
               child: kBackBtn,
               onPressed: () {
-                if (Navigator.canPop(context)) Navigator.pop(context);
+                if (model.state ==
+                    ViewState.Idle) if (Navigator.canPop(context))
+                  Navigator.pop(context);
               },
             ),
             floatingActionButton: FloatingActionButton(
@@ -101,9 +107,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     _mobileNo.isEmpty ||
                     _standard.isEmpty ||
                     _enrollNo.isEmpty ||
-                    path.isEmpty) {
-                  ksnackBar(context,
-                      'You Need to Fill All the details and a profile Photo');
+                    tempPath.isEmpty) {
+                  _scaffoldKey.currentState.showSnackBar(ksnackBar(context,
+                      'You Need to fill all the details and a profile Photo'));
                 } else {
                   model.state == ViewState.Idle
                       ? res = await model.setUserProfileData(
@@ -422,6 +428,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             await openFileExplorer(FileType.IMAGE, mounted);
                         setState(() {
                           path = _path;
+                          tempPath = _path;
                         });
                       },
                     ),

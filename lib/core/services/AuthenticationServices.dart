@@ -63,6 +63,7 @@ class AuthenticationServices extends Services {
     @required String password,
     @required UserType userType,
   }) async {
+    await sharedPreferencesHelper.clearAllData();
     //Check if the School code is present and return "School not Present" if not
     //Then check if the user credentials are in the database or not
     //if not then return "Student Not Found" else return "Logging in"
@@ -103,7 +104,7 @@ class AuthenticationServices extends Services {
           userDataLogin = UserDataLogin(
             email: documentSnapshot["email"].toString(),
             id: documentSnapshot["id"].toString(),
-            parentIds: documentSnapshot['parentId'] as List<dynamic> ?? [],
+            parentIds: documentSnapshot['parentId'] as List<dynamic> ?? null,
           );
 
           // DocumentReference ref = documentSnapshot["ref"] as DocumentReference;
@@ -118,11 +119,13 @@ class AuthenticationServices extends Services {
             email: documentSnapshot["email"].toString(),
             id: documentSnapshot["id"].toString(),
             isATeacher: documentSnapshot["isATeacher"] as bool,
-            childIds: documentSnapshot["childId"] as List<dynamic> ?? [],
+            childIds: documentSnapshot["childId"] as List<dynamic> ?? null,
           );
         }
       });
     });
+
+    sharedPreferencesHelper.setLoggedInUserId(userDataLogin.id);
 
     if (userType == UserType.STUDENT) {
       sharedPreferencesHelper.setUserType(UserType.STUDENT);
@@ -151,7 +154,7 @@ class AuthenticationServices extends Services {
 
   Future emailPasswordRegister(String email, String password, UserType userType,
       String schoolCode) async {
-    await sharedPreferencesHelper.clearAllData();
+    // await sharedPreferencesHelper.clearAllData();
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
       await auth.createUserWithEmailAndPassword(
@@ -169,7 +172,7 @@ class AuthenticationServices extends Services {
 
   Future<AuthErrors> emailPasswordSignIn(String email, String password,
       UserType userType, String schoolCode) async {
-    await sharedPreferencesHelper.clearAllData();
+    // await sharedPreferencesHelper.clearAllData();
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
       await auth.signInWithEmailAndPassword(email: email, password: password);

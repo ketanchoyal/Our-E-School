@@ -12,7 +12,7 @@ class SharedPreferencesHelper {
   final String _parentsIds = 'parentsIds';
 
   //Method to save the _childIds of Parent
-  Future<bool> setChildIds(List childIds) async {
+  Future<bool> setChildIds(List<String> childIds) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     bool res = await preferences.setStringList(_childIds, childIds);
     print('Childs Id Saved ' + res.toString());
@@ -28,7 +28,7 @@ class SharedPreferencesHelper {
   }
 
   //Method to save the _childIds of Parent
-  Future<bool> setParentsIds(List parentIds) async {
+  Future<bool> setParentsIds(List<String> parentIds) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     bool res = await preferences.setStringList(_parentsIds, parentIds);
     print('Parents Id Saved ' + res.toString());
@@ -76,12 +76,12 @@ class SharedPreferencesHelper {
   }
 
   // Method to remove userType when logging out
-  Future<bool> _removeLoggedInUserId() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool res = await prefs.remove(_loggedInUserId);
-    print('LoggedInUserId Removed : ' + res.toString());
-    return res;
-  }
+  // Future<bool> _removeLoggedInUserId() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool res = await prefs.remove(_loggedInUserId);
+  //   print('LoggedInUserId Removed : ' + res.toString());
+  //   return res;
+  // }
 
   //Method that saves the user logged in type
   Future<bool> setUserType(UserType userType) async {

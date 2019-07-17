@@ -1,3 +1,4 @@
+import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/locator.dart';
 
@@ -8,8 +9,8 @@ class UserDataLogin {
   String id;
   String email;
   bool isATeacher;
-  List<dynamic> childIds;
-  List<dynamic> parentIds;
+  List<dynamic> childIds = null;
+  List<dynamic> parentIds = null;
 
   UserDataLogin(
       {this.id,
@@ -17,13 +18,22 @@ class UserDataLogin {
       this.isATeacher = false,
       this.childIds,
       this.parentIds}) {
-    _sharedPreferencesHelper.setLoggedInUserId(id);
-    if (childIds.isNotEmpty) {
-      _sharedPreferencesHelper.setChildIds(childIds);
+    setData();
+  }
+
+  setData() async {
+    print('In UserDataLogin Object');
+    await _sharedPreferencesHelper.setLoggedInUserId(id);
+    if (childIds != null) {
+      List<String> childsId = [];
+      childIds.forEach((val) => childsId.add(val.toString()));
+      _sharedPreferencesHelper.setChildIds(childsId);
     }
-    if (parentIds.isNotEmpty) {
-      _sharedPreferencesHelper.setParentsIds(parentIds);
+
+    if (parentIds != null) {
+      List<String> parentsId = [];
+      parentIds.forEach((val) => parentsId.add(val));
+      _sharedPreferencesHelper.setParentsIds(parentsId);
     }
-    
   }
 }

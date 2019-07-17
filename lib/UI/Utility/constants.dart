@@ -92,7 +92,7 @@ Future openFileExplorer(FileType _pickingType, bool mounted) async {
 
 SnackBar ksnackBar(BuildContext context, String message) {
   return SnackBar(
-    duration: Duration(milliseconds: 400),
+    duration: Duration(seconds: 2),
     content: Text(
       message,
       textAlign: TextAlign.center,
