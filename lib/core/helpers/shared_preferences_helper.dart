@@ -12,33 +12,33 @@ class SharedPreferencesHelper {
   final String _parentsIds = 'parentsIds';
 
   //Method to save the _childIds of Parent
-  Future<bool> setChildIds(List<String> childIds) async {
+  Future<bool> setChildIds(String childIds) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool res = await preferences.setStringList(_childIds, childIds);
+    bool res = await preferences.setString(_childIds, childIds);
     print('Childs Id Saved ' + res.toString());
     return res;
   }
 
   //Method to retrive the _childIds of Parent
-  Future<List> getChildIds(List childIds) async {
+  Future<String> getChildIds() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    List res = preferences.getStringList(_childIds);
+    String res = preferences.getString(_childIds);
     print('Childs Id Retrived ' + res.toString());
     return res;
   }
 
   //Method to save the _childIds of Parent
-  Future<bool> setParentsIds(List<String> parentIds) async {
+  Future<bool> setParentsIds(String parentIds) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool res = await preferences.setStringList(_parentsIds, parentIds);
+    bool res = await preferences.setString(_parentsIds, parentIds);
     print('Parents Id Saved ' + res.toString());
     return res;
   }
 
   //Method to retrive the _childIds of Parent
-  Future<List> getParentsIds(List childIds) async {
+  Future<String> getParentsIds() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    List res = preferences.getStringList(_parentsIds);
+    String res = preferences.getString(_parentsIds);
     print('Parents Id Retrived ' + res.toString());
     return res;
   }

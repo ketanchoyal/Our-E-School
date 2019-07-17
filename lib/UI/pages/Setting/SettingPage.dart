@@ -4,6 +4,7 @@ import 'package:ourESchool/UI/Widgets/DynamicThemeChanger.dart';
 import 'package:ourESchool/UI/pages/About/About.dart';
 import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
 import 'package:ourESchool/UI/pages/WelcomeScreen.dart';
+import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/core/viewmodel/LoginPageModel.dart';
 import 'package:ourESchool/locator.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,9 @@ class _SettingPageState extends State<SettingPage> {
             ? Brightness.light
             : Brightness.dark);
   }
+
+  SharedPreferencesHelper preferencesHelper =
+      locator<SharedPreferencesHelper>();
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,8 @@ class _SettingPageState extends State<SettingPage> {
               settingTiles(
                   context: context,
                   icon: Icons.contact_mail,
-                  onTap: () {
+                  onTap: () async {
+                    print((await preferencesHelper.getParentsIds()).toString());
                     kopenPage(context, AboutUs());
                   },
                   subtitle: string.about_subtitle,

@@ -207,6 +207,20 @@ app.post('/postAnnouncement', async (req: express.Request, res: express.Response
     }
 });
 
+app.get('/jsonModel', async (req: express.Request, res: express.Response) => {
+    try {
+        db.collection("Schools").doc("India").collection("AMBE001").doc("Login").collection("Student").doc("5YBx4YxiQoVQNsKhtj1P").get().then((success) => {
+            var inJson = Object.assign(success.data(), { id: success.id });
+            res.status(HttpStatus.OK).json(inJson);
+        }, (failure) => {
+            res.status(HttpStatus.BAD_REQUEST).send('Failure : ' + HttpStatus.getStatusText(HttpStatus.BAD_REQUEST));
+        });
+    }
+    catch (e) {
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+});
+
 //to get Announcements
 // app.get('/:country/:schoolCode/getAnnouncements:std/', async (req: express.Request, res: express.Response) => {
 //     try {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/locator.dart';
@@ -9,8 +11,8 @@ class UserDataLogin {
   String id;
   String email;
   bool isATeacher;
-  List<dynamic> childIds = null;
-  List<dynamic> parentIds = null;
+  Map childIds = Map<dynamic, dynamic>();
+  Map parentIds = Map<dynamic, dynamic>();
 
   UserDataLogin(
       {this.id,
@@ -25,14 +27,12 @@ class UserDataLogin {
     print('In UserDataLogin Object');
     await _sharedPreferencesHelper.setLoggedInUserId(id);
     if (childIds != null) {
-      List<String> childsId = [];
-      childIds.forEach((val) => childsId.add(val.toString()));
+      String childsId = json.encode(childIds);
       _sharedPreferencesHelper.setChildIds(childsId);
     }
 
     if (parentIds != null) {
-      List<String> parentsId = [];
-      parentIds.forEach((val) => parentsId.add(val));
+      String parentsId = json.encode(parentIds);
       _sharedPreferencesHelper.setParentsIds(parentsId);
     }
   }
