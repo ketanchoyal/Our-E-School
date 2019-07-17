@@ -12,7 +12,6 @@ class LoginPageModel extends BaseModel {
   final _authenticationService = locator<AuthenticationServices>();
   User _loggedInUser;
   String currentLoggingStatus = 'Please wait';
-
   User get loggedInUser => _loggedInUser;
 
   // googleLogin() async {
@@ -20,6 +19,10 @@ class LoginPageModel extends BaseModel {
   //   await _authenticationService.handleGoogleSignIn();
   //   setState(ViewState.Idle);
   // }
+
+  bool isUserLoggedIn() {
+    return _authenticationService.isUserLoggedIn;
+  }
 
   Future checkUserDetails({
     String schoolCode,
@@ -104,9 +107,10 @@ class LoginPageModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  logoutUser() {
+  logoutUser() async {
     setState(ViewState.Busy);
-    _authenticationService.logoutMethod();
+    await _authenticationService.logoutMethod();
+    isUserLoggedIn();
     setState(ViewState.Idle);
   }
 }

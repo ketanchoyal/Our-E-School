@@ -3,6 +3,7 @@ import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/DynamicThemeChanger.dart';
 import 'package:ourESchool/UI/pages/About/About.dart';
 import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
+import 'package:ourESchool/UI/pages/WelcomeScreen.dart';
 import 'package:ourESchool/core/viewmodel/LoginPageModel.dart';
 import 'package:ourESchool/locator.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,10 @@ class _SettingPageState extends State<SettingPage> {
                   icon: FontAwesomeIcons.signOutAlt,
                   onTap: () async {
                     await model.logoutUser();
-                    
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, WelcomeScreen.id, (r) => false);
+                    // Navigator.of(context)
+                    //     .popUntil(ModalRoute.withName(WelcomeScreen.id));
                   },
                   subtitle: string.logout_subtitle,
                   title: string.logout),

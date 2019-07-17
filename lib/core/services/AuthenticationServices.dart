@@ -36,16 +36,20 @@ class AuthenticationServices extends Services {
   UserType userType = UserType.STUDENT;
 
   AuthenticationServices() {
-    _isLoggedIn().then((onValue) => isUserLoggedIn = onValue);
+    isLoggedIn().then((onValue) => isUserLoggedIn = onValue);
     _userType().then((onValue) => userType = onValue);
   }
 
-  Future<bool> _isLoggedIn() async {
+  Future<bool> isLoggedIn() async {
     firebaseUser = await auth.currentUser();
-    String name =
-        firebaseUser != null ? firebaseUser.displayName.toString() : 'Null';
-    print('Display Name :' + name);
-    return firebaseUser == null ? false : true;
+    String name = firebaseUser != null ? firebaseUser.email.toString() : 'Null';
+    print('User Email :' + name);
+    // if (firebaseUser == null) {
+    //   await logoutMethod();
+    // }
+    isUserLoggedIn = firebaseUser == null ? false : true;
+    print(isUserLoggedIn.toString());
+    return isUserLoggedIn;
   }
 
   Future<UserType> _userType() async {
@@ -135,6 +139,7 @@ class AuthenticationServices extends Services {
 
   Future emailPasswordRegister(String email, String password, UserType userType,
       String schoolCode) async {
+    await sharedPreferencesHelper.clearAllData();
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
       await auth.createUserWithEmailAndPassword(
@@ -152,6 +157,7 @@ class AuthenticationServices extends Services {
 
   Future<AuthErrors> emailPasswordSignIn(String email, String password,
       UserType userType, String schoolCode) async {
+    await sharedPreferencesHelper.clearAllData();
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
       await auth.signInWithEmailAndPassword(email: email, password: password);
@@ -185,6 +191,7 @@ class AuthenticationServices extends Services {
 
   logoutMethod() async {
     await auth.signOut();
+    isUserLoggedIn = false;
     await sharedPreferencesHelper.clearAllData();
     print("User Loged out");
   }

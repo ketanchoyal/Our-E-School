@@ -7,11 +7,14 @@ import 'package:ourESchool/core/viewmodel/QuizStateModel.dart';
 
 import 'core/services/repository_calendarific.dart';
 import 'core/viewmodel/LoginPageModel.dart';
+import 'core/viewmodel/MainPageModel.dart';
 import 'core/viewmodel/ProfilePageModel.dart';
 
 GetIt locator = GetIt();
 
 void setupLocator() {
+  locator.registerLazySingleton(() => MainPageModel());
+
   locator.registerLazySingleton(() => SharedPreferencesHelper());
   locator.registerFactory(() => QuizStateModel());
 

@@ -6,6 +6,7 @@ import 'package:ourESchool/UI/Widgets/ReusableRoundedButton.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
 import 'package:flutter/material.dart';
+import 'package:ourESchool/UI/pages/WelcomeScreen.dart';
 import 'package:ourESchool/core/enums/ButtonType.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
@@ -14,6 +15,7 @@ import '../BaseView.dart';
 import 'ForgotPassword.dart';
 
 class LoginPage extends StatefulWidget {
+  static const id = 'LoginPage';
   static UserType loginTypeSelected = UserType.STUDENT;
 
   @override
@@ -53,7 +55,8 @@ class _LoginPageState extends State<LoginPage> {
           confirmPassword: confirmPasswordController.text,
         );
         if (response) {
-          kopenPage(context, ProfilePage());
+          Navigator.pushNamedAndRemoveUntil(
+              context, ProfilePage.id, (r) => false);
         } else {
           // _scaffoldKey.currentState
           //   .showSnackBar(ksnackBar(context, 'something went wrong...'));

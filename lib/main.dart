@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:ourESchool/UI/pages/Home.dart';
+import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
 import 'package:ourESchool/core/services/AuthenticationServices.dart';
 // import 'package:flutter/foundation.dart'
 //     show debugDefaultTargetPlatformOverride;
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
   AuthenticationServices _auth = locator<AuthenticationServices>();
   @override
   Widget build(BuildContext context) {
+    _auth.isLoggedIn();
     return MultiProvider(
       providers: [
         // Provider(
@@ -50,7 +52,12 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Our E-School',
           theme: theme,
-          home: _auth.isUserLoggedIn ? Home() : WelcomeScreen(),
+          routes: {
+            WelcomeScreen.id: (context) => WelcomeScreen(),
+            Home.id: (context) => Home(),
+            ProfilePage.id: (context) => ProfilePage()
+          },
+          home:  _auth.isUserLoggedIn ? Home() : WelcomeScreen(),
         ),
       ),
     );

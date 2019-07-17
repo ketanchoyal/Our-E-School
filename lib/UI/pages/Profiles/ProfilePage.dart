@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
@@ -18,6 +19,7 @@ import 'package:ourESchool/locator.dart';
 import 'GuardianProfile.dart';
 
 class ProfilePage extends StatefulWidget {
+  static const id = 'ProfilePage';
   ProfilePage({Key key}) : super(key: key);
 
   _ProfilePageState createState() => _ProfilePageState();
@@ -81,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
               title: string.profile,
               child: kBackBtn,
               onPressed: () {
-                Navigator.pop(context);
+                if (Navigator.canPop(context)) Navigator.pop(context);
               },
             ),
             floatingActionButton: FloatingActionButton(
@@ -104,7 +106,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         photoPath: path)
                     : () {};
 
-                res == true ? kopenPage(context, Home()) : () {};
+                res == true
+                    ? Navigator.pushNamedAndRemoveUntil(
+                        context, Home.id, (r) => false)
+                    : () {};
               },
               child: model.state == ViewState.Busy
                   ? SpinKitDoubleBounce(
@@ -119,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   // fit: StackFit.loose,
                   children: <Widget>[
-                    model.state == ViewState.Busy
+                    model.state2 == ViewState.Busy
                         ? kBuzyPage(color: Theme.of(context).primaryColor)
                         : buildProfilePhotoWidget(context, model),
                     Padding(

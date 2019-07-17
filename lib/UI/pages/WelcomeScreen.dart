@@ -6,6 +6,7 @@ import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'Login/LoginPage.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  static const id = 'WelcomeScreen';
   List<PageViewModel> page(BuildContext context) {
     return [
       PageViewModel(

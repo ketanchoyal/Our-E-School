@@ -16,6 +16,7 @@ import 'Profiles/ProfilePage.dart';
 import 'Setting/SettingPage.dart';
 
 class Home extends StatefulWidget {
+  static const id = 'Home';
   Home({Key key}) : super(key: key);
 
   _HomeState createState() => _HomeState();
