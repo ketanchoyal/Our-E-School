@@ -37,7 +37,8 @@ class AuthenticationServices extends Services {
   bool isUserLoggedIn = false;
   UserType userType = UserType.STUDENT;
 
-  prefix0.StreamController<FirebaseUser> fireBaseUserStream = StreamController<FirebaseUser>();
+  prefix0.StreamController<FirebaseUser> fireBaseUserStream =
+      StreamController<FirebaseUser>();
 
   StreamController<bool> isUserLoggedInStream = StreamController<bool>();
   StreamController<UserType> userTypeStream = StreamController<UserType>();
@@ -174,7 +175,7 @@ class AuthenticationServices extends Services {
     // await sharedPreferencesHelper.clearAllData();
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
-      await auth.createUserWithEmailAndPassword(
+      firebaseUser = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       authErrors = AuthErrors.SUCCESS;
       sharedPreferencesHelper.setSchoolCode(schoolCode);
@@ -182,6 +183,7 @@ class AuthenticationServices extends Services {
       sharedPreferencesHelper.setUserType(userType);
       isUserLoggedIn = true;
       isUserLoggedInStream.add(isUserLoggedIn);
+      fireBaseUserStream.add(firebaseUser);
       return authErrors;
     } catch (e) {
       return catchException(e);
@@ -193,11 +195,13 @@ class AuthenticationServices extends Services {
     // await sharedPreferencesHelper.clearAllData();
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
-      await auth.signInWithEmailAndPassword(email: email, password: password);
+      firebaseUser = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
       authErrors = AuthErrors.SUCCESS;
       sharedPreferencesHelper.setSchoolCode(schoolCode);
       print("User Loggedin using Email and Password");
       sharedPreferencesHelper.setUserType(userType);
+      fireBaseUserStream.add(firebaseUser);
       return authErrors;
     } on PlatformException catch (e) {
       return catchException(e);

@@ -28,7 +28,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   DateTime dateOfBirth;
-  bool isTeacher = false;
+  UserType userType = UserType.UNKNOWN;
+  bool guardiansPanel = false;
   String path = 'default';
   // String tempPath = '';
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -63,6 +64,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    userType = Provider.of<UserType>(context);
+    if (userType == UserType.STUDENT) {
+      guardiansPanel = false;
+    } else {
+      guardiansPanel = true;
+    }
     return BaseView<ProfilePageModel>(
         onModelReady: (model) => model.getUserProfileData(),
         builder: (context, model, child) {
@@ -138,10 +145,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   }
                 }
 
-                res == true
-                    ? Navigator.pushNamedAndRemoveUntil(
-                        context, Home.id, (r) => false)
-                    : () {};
+                if (res == true) {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, Home.id, (r) => false);
+                }
               },
               child: model.state == ViewState.Busy
                   ? SpinKitDoubleBounce(
@@ -284,7 +291,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             controller: TextEditingController(text: _mobileNo),
                           ),
                           Visibility(
-                            visible: !isTeacher,
+                            visible: !guardiansPanel,
                             child: Column(
                               children: <Widget>[
                                 Padding(
@@ -458,7 +465,6 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 class ProfileFields extends StatelessWidget {
-  final String initialText;
   final String labelText;
   final String hintText;
   final Function onChanged;
@@ -469,8 +475,7 @@ class ProfileFields extends StatelessWidget {
   final bool isEditable;
 
   const ProfileFields(
-      {this.initialText,
-      @required this.labelText,
+      {@required this.labelText,
       this.hintText,
       this.onChanged,
       this.controller,

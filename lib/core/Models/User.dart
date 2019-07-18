@@ -17,7 +17,7 @@ class User {
   bool isVerified;
 
   User(
-      {this.photoUrl = '',
+      {this.photoUrl = 'default',
       this.email = '',
       this.division = '',
       this.id = '',
@@ -36,7 +36,7 @@ class User {
       : this.firebaseUuid = documentSnapshot["firebaseUuid"].toString() ?? '',
         this.email = documentSnapshot["email"].toString() ?? '',
         this.displayName = documentSnapshot["displayName"].toString() ?? '',
-        this.photoUrl = documentSnapshot["photoUrl"].toString() ?? '',
+        this.photoUrl = documentSnapshot["photoUrl"].toString() ?? 'default',
         this.isTeacher = documentSnapshot["isTeacher"] as bool ?? false,
         this.isVerified = documentSnapshot["isVerified"] as bool ?? false,
         this.id = documentSnapshot["id"].toString() ?? '',
@@ -49,7 +49,7 @@ class User {
         this.mobileNo = documentSnapshot["mobileNo"].toString() ?? '';
 
   User.fromJson(Map<String, dynamic> json) {
-    photoUrl = json['photoUrl'] ?? '';
+    photoUrl = json['photoUrl'] ?? 'default';
     email = json['email'] ?? '';
     division = json['division'] ?? '';
     id = json['id'] ?? '';

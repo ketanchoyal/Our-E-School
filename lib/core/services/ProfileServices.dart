@@ -26,20 +26,21 @@ class ProfileServices extends Services {
   setProfileData({
     User user,
     UserType userType,
-    
   }) async {
     UserType userType = await sharedPreferencesHelper.getUserType();
     String photoUrl = '';
-    String url =
-        await sharedPreferencesHelper.getLoggedInUserPhotoUrl() ?? user.photoUrl;
-    if (user.photoUrl == url) {
+    String url = await sharedPreferencesHelper.getLoggedInUserPhotoUrl() ??
+        user.photoUrl;
+    if (user.photoUrl.contains('https')) {
       photoUrl = url;
+    } else if (user.photoUrl == 'default') {
+      photoUrl = user.photoUrl;
     } else {
       photoUrl = await setProfilePhoto(user.photoUrl);
     }
 
     user.photoUrl = photoUrl;
-    
+
     Map profileDataHashMap = user.toJson();
 
     var body = json.encode({

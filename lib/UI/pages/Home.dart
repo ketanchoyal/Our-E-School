@@ -75,10 +75,10 @@ class _HomeState extends State<Home> {
             ),
           ),
           onPressed: () {
-            if (userType == UserType.STUDENT) {
-              kopenPage(context, ProfilePage());
-            } else {
+            if (userType == UserType.PARENT) {
               kopenPage(context, GuardianProfilePage());
+            } else {
+              kopenPage(context, ProfilePage());
             }
           },
         ),

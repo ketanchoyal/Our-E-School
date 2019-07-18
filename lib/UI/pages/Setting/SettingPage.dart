@@ -50,6 +50,8 @@ class _SettingPageState extends State<SettingPage> {
                   icon: FontAwesomeIcons.signOutAlt,
                   onTap: () async {
                     await model.logoutUser();
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, WelcomeScreen.id, (r) => false);
                   },
                   subtitle: string.logout_subtitle,
                   title: string.logout),

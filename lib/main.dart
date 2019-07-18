@@ -42,7 +42,9 @@ class MyApp extends StatelessWidget {
               locator<AuthenticationServices>().userTypeStream,
         ),
         StreamProvider<FirebaseUser>.controller(
-          builder: (context) =>locator<AuthenticationServices>().fireBaseUserStream,
+          initialData: locator<AuthenticationServices>().firebaseUser,
+          builder: (context) =>
+              locator<AuthenticationServices>().fireBaseUserStream,
         )
       ],
       child: DynamicTheme(
@@ -89,7 +91,7 @@ class OurSchoolApp extends StatelessWidget {
               title: 'Guardian Profile',
             ),
       },
-      home: isUserLoggedIn ? Home() : WelcomeScreen(),
+      home: Provider.of<bool>(context) ? Home() : WelcomeScreen(),
     );
   }
 }
