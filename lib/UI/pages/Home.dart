@@ -4,14 +4,12 @@ import 'package:ourESchool/UI/Utility/custom_icons.dart';
 import 'package:ourESchool/UI/Widgets/BottomBar.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:flutter/material.dart';
-import 'package:ourESchool/UI/pages/Login/LoginPage.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
-import 'package:ourESchool/core/services/AuthenticationServices.dart';
-import 'package:ourESchool/locator.dart';
+import 'package:provider/provider.dart';
 import 'Chat/ChatPage.dart';
 import 'Dashboard/Announcement/CreateAnnouncement.dart';
-import 'Dashboard/DashboardPage.dart';
-import 'Dashboard/ParentDashboard.dart';
+import 'Dashboard/MainDashboard.dart';
+import 'Dashboard/StudentDashboardPage.dart';
 import 'Profiles/ProfilePage.dart';
 import 'Setting/SettingPage.dart';
 
@@ -25,21 +23,22 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var currentIndex = 0;
   Color background = Colors.white;
-  AuthenticationServices _auth = locator<AuthenticationServices>();
+  // AuthenticationServices _auth = locator<AuthenticationServices>();
   bool isTeacher = false;
+  // MainPageModel mainPageModel;
 
   // _auth.userType == UserType.STUDENT ? false : true;
   String pageName = string.home;
 
   List<Widget> pages = [
-    ParentDashboard(),
+    MainDashboard(),
     ChatPage(),
     // NotificationPage(),
     SettingPage()
   ];
 
   List<Widget> pages2 = [
-    Dashboard(),
+    StudentDashboard(),
     ChatPage(),
     // NotificationPage(),
     SettingPage()
@@ -55,13 +54,14 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    // floatingButtonVisibility();
-    isTeacher = _auth.userType == UserType.STUDENT ? false : true;
   }
 
   @override
   Widget build(BuildContext context) {
-    // setTheme();
+    var userType = Provider.of<UserType>(context);
+    if (userType == UserType.TEACHER) {
+      isTeacher = true;
+    }
     return Container(
       child: Scaffold(
         appBar: TopBar(
@@ -94,7 +94,7 @@ class _HomeState extends State<Home> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         bottomNavigationBar: buildBubbleBottomBar(),
-        body: _auth.userType == UserType.STUDENT
+        body: userType == UserType.STUDENT
             ? pages2[currentIndex]
             : pages[currentIndex],
       ),
@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
       onTap: (v) {
         setState(() {
           if (v == 0) {
-            pageName = Dashboard.pageName;
+            pageName = StudentDashboard.pageName;
           } else if (v == 1) {
             pageName = ChatPage.pageName;
           } else if (v == 2) {

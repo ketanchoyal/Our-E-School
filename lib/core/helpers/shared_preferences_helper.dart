@@ -88,7 +88,10 @@ class SharedPreferencesHelper {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     bool res =
         await prefs.setString(_userType, UserTypeHelper.getValue(userType));
-    print('User Type Saved' + res.toString());
+    print('User Type Saved' +
+        UserTypeHelper.getValue(userType) +
+        ' ' +
+        res.toString());
     return res;
   }
 

@@ -452,6 +452,7 @@ class ProfileFields extends StatelessWidget {
   final Function onTap;
   final TextInputType textInputType;
   final TextEditingController controller;
+  final bool isEditable;
 
   const ProfileFields(
       {this.initialText,
@@ -461,6 +462,7 @@ class ProfileFields extends StatelessWidget {
       this.controller,
       this.onTap,
       this.textInputType,
+      this.isEditable = true,
       this.width});
 
   @override
@@ -469,6 +471,7 @@ class ProfileFields extends StatelessWidget {
       height: 70,
       // width: width == null ? MediaQuery.of(context).size.width / 2.5 : width,
       child: TextField(
+        enabled: isEditable,
         onTap: onTap,
         controller: controller,
         // controller: TextEditingController(text: initialText),

@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:ourESchool/UI/pages/Home.dart';
+import 'package:ourESchool/UI/pages/Profiles/GuardianProfile.dart';
 import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/services/AuthenticationServices.dart';
 // import 'package:flutter/foundation.dart'
 //     show debugDefaultTargetPlatformOverride;
@@ -12,7 +14,6 @@ import 'package:provider/provider.dart';
 
 import 'UI/Widgets/DynamicThemeChanger.dart';
 import 'UI/pages/WelcomeScreen.dart';
-import 'core/viewmodel/MainPageModel.dart';
 
 void main() {
   // debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -24,19 +25,20 @@ void main() {
   );
 }
 
-//TODO: Create a light weight class which have loggedIn UserType so that it can be accessed everywhere
-
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  AuthenticationServices _auth = locator<AuthenticationServices>();
   @override
   Widget build(BuildContext context) {
-    _auth.isLoggedIn();
     return MultiProvider(
       providers: [
-        StreamProvider<MainPageModel>.controller(
-          initialData: MainPageModel.initials(),
-          builder: (context) => locator<StreamController<MainPageModel>>(),
+        StreamProvider<bool>.controller(
+          initialData: false,
+          builder: (context) =>
+              locator<AuthenticationServices>().isUserLoggedInStream,
+        ),
+        StreamProvider<UserType>.controller(
+          initialData: UserType.UNKNOWN,
+          builder: (context) =>
+              locator<AuthenticationServices>().userTypeStream,
         ),
       ],
       child: DynamicTheme(
@@ -70,7 +72,7 @@ class OurSchoolApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var model = Provider.of<MainPageModel>(context);
+    var isUserLoggedIn = Provider.of<bool>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Our E-School',
@@ -78,9 +80,12 @@ class OurSchoolApp extends StatelessWidget {
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         Home.id: (context) => Home(),
-        ProfilePage.id: (context) => ProfilePage()
+        ProfilePage.id: (context) => ProfilePage(),
+        GuardianProfilePage.id: (context) => GuardianProfilePage(
+              title: 'Guardian Profile',
+            ),
       },
-      home: model.isUserLoggedIn ? Home() : WelcomeScreen(),
+      home: isUserLoggedIn ? Home() : WelcomeScreen(),
     );
   }
 }

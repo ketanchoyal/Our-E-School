@@ -13,6 +13,7 @@ class LoginPageModel extends BaseModel {
   User _loggedInUser;
   String currentLoggingStatus = 'Please wait';
   User get loggedInUser => _loggedInUser;
+  
 
   // googleLogin() async {
   //   setState(ViewState.Busy);

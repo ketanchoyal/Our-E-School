@@ -11,7 +11,7 @@ import 'package:ourESchool/core/enums/AuthErrors.dart';
 import 'package:ourESchool/core/enums/LoginScreenReturnType.dart';
 import "package:ourESchool/core/enums/UserType.dart";
 import 'package:ourESchool/core/services/Services.dart';
-import 'package:ourESchool/core/viewmodel/MainPageModel.dart';
+import 'package:ourESchool/locator.dart';
 
 class AuthenticationServices extends Services {
   // Future handleGoogleSignIn() async {
@@ -36,8 +36,8 @@ class AuthenticationServices extends Services {
   bool isUserLoggedIn = false;
   UserType userType = UserType.STUDENT;
 
-  // StreamController<MainPageModel> mainPageModel =
-  //     StreamController<MainPageModel>();
+  StreamController<bool> isUserLoggedInStream = StreamController<bool>();
+  StreamController<UserType> userTypeStream = StreamController<UserType>();
 
   AuthenticationServices() {
     isLoggedIn().then((onValue) => isUserLoggedIn = onValue);
@@ -52,12 +52,14 @@ class AuthenticationServices extends Services {
     //   await logoutMethod();
     // }
     isUserLoggedIn = firebaseUser == null ? false : true;
+    isUserLoggedInStream.add(isUserLoggedIn);
     print(isUserLoggedIn.toString());
     return isUserLoggedIn;
   }
 
   Future<UserType> _userType() async {
     userType = await sharedPreferencesHelper.getUserType();
+    userTypeStream.add(userType);
     return userType;
   }
 
@@ -129,25 +131,27 @@ class AuthenticationServices extends Services {
       });
     });
 
-    userDataLogin.setData();
-
-    sharedPreferencesHelper.setLoggedInUserId(userDataLogin.id);
-
-    if (userType == UserType.STUDENT) {
-      sharedPreferencesHelper.setUserType(UserType.STUDENT);
-    } else {
-      if (userDataLogin.isATeacher) {
-        sharedPreferencesHelper.setUserType(UserType.TEACHER);
-      } else {
-        sharedPreferencesHelper.setUserType(UserType.PARENT);
-      }
-    }
-
     if (!isUserAvailable) {
       print('User Not Found');
       return ReturnType.EMAILERROR;
     } else {
       print('User Found');
+      userDataLogin.setData();
+    }
+
+    sharedPreferencesHelper.setLoggedInUserId(userDataLogin.id);
+
+    if (userType == UserType.STUDENT) {
+      this.userType = userType;
+      sharedPreferencesHelper.setUserType(UserType.STUDENT);
+    } else {
+      if (userDataLogin.isATeacher) {
+        this.userType = UserType.TEACHER;
+        sharedPreferencesHelper.setUserType(UserType.TEACHER);
+      } else {
+        this.userType = UserType.PARENT;
+        sharedPreferencesHelper.setUserType(UserType.PARENT);
+      }
     }
 
     print("Childs :" + userDataLogin.childIds.toString());
@@ -169,7 +173,8 @@ class AuthenticationServices extends Services {
       sharedPreferencesHelper.setSchoolCode(schoolCode);
       print("User Regestered using Email and Password");
       sharedPreferencesHelper.setUserType(userType);
-
+      isUserLoggedIn = true;
+      isUserLoggedInStream.add(isUserLoggedIn);
       return authErrors;
     } catch (e) {
       return catchException(e);
@@ -213,6 +218,7 @@ class AuthenticationServices extends Services {
   logoutMethod() async {
     await auth.signOut();
     isUserLoggedIn = false;
+    isUserLoggedInStream.add(isUserLoggedIn);
     await sharedPreferencesHelper.clearAllData();
     print("User Loged out");
   }

@@ -8,26 +8,27 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ourESchool/UI/pages/Dashboard/Transportation/TransportationPage.dart';
 import 'Announcement/AnnouncementPage.dart';
 import 'Assignment/AssignmentPage.dart';
-import 'Childrens/ChildrensPage.dart';
 import 'E-Card/E-CardPage.dart';
+import 'E_Book/E_bookSelect.dart';
+import 'Exam/TopicSelectPage.dart';
 import 'Fees/FeesPage.dart';
 import 'Holidays/HolidayPage.dart';
 import 'ParentingGuide/ParentingGuidePage.dart';
 import 'Result/ResultPage.dart';
 import 'TimeTable/TimeTablePage.dart';
 
-class ParentDashboard extends StatefulWidget {
-  ParentDashboard({Key key}) : super(key: key);
+class StudentDashboard extends StatefulWidget {
+  StudentDashboard({Key key}) : super(key: key);
   static String pageName = string.dashboard;
 
-  _ParentDashboardState createState() => _ParentDashboardState();
+  _StudentDashboardState createState() => _StudentDashboardState();
 }
 
-class _ParentDashboardState extends State<ParentDashboard> {
+class _StudentDashboardState extends State<StudentDashboard> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+          child: Scaffold(
         body: Padding(
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
           child: Column(
@@ -37,15 +38,6 @@ class _ParentDashboardState extends State<ParentDashboard> {
               Expanded(
                 child: ListView(
                   children: [
-                    ColumnReusableCardButton(
-                      height: 70,
-                      tileColor: Colors.deepPurpleAccent,
-                      label: string.childrens,
-                      icon: FontAwesomeIcons.child,
-                      onPressed: () {
-                        kopenPage(context, ChildrensPage());
-                      },
-                    ),
                     Container(
                       height: 110,
                       child: Row(
@@ -146,7 +138,7 @@ class _ParentDashboardState extends State<ParentDashboard> {
                       onPressed: () {
                         kopenPage(context, TransportationPage());
                       },
-                      icon: FontAwesomeIcons.bus,
+                      icon: FontAwesomeIcons.bus
                     ),
                     SizedBox(
                       height: 105,
@@ -155,10 +147,48 @@ class _ParentDashboardState extends State<ParentDashboard> {
                         scrollDirection: Axis.horizontal,
                         children: <Widget>[
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               RowReusableCardButtonBanner(
                                 paddingTop: 0,
+                                tileColor: Colors.pink,
+                                icon: Icons.assistant_photo,
+                                label: string.exams,
+                                onPressed: () {
+                                  kopenPage(context, TopicSelectPage());
+                                },
+                              ),
+                              RowReusableCardButtonBanner(
+                                paddingTop: 0,
+                                tileColor: Colors.tealAccent,
+                                icon: FontAwesomeIcons.book,
+                                label: string.e_book,
+                                onPressed: () {
+                                  kopenPage(context, EBookSelect());
+                                },
+                              ),
+                              RowReusableCardButtonBanner(
+                                paddingTop: 0,
+                                tileColor: Colors.deepPurpleAccent,
+                                icon: FontAwesomeIcons.cameraRetro,
+                                label: string.video,
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 110,
+                      child: ListView(
+                        shrinkWrap: false,
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              RowReusableCardButtonBanner(
                                 tileColor: Colors.pinkAccent,
                                 icon: FontAwesomeIcons.female,
                                 label: string.parenting_guide,
@@ -167,14 +197,12 @@ class _ParentDashboardState extends State<ParentDashboard> {
                                 },
                               ),
                               RowReusableCardButtonBanner(
-                                paddingTop: 0,
                                 tileColor: Colors.red,
                                 icon: FontAwesomeIcons.medkit,
                                 label: string.health_tips,
                                 onPressed: () {},
                               ),
                               RowReusableCardButtonBanner(
-                                paddingTop: 0,
                                 tileColor: Colors.blue,
                                 icon: FontAwesomeIcons.userMd,
                                 label: string.vaccinations,

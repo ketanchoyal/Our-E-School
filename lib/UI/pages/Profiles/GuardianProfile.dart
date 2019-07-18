@@ -4,12 +4,18 @@ import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
+import 'package:provider/provider.dart';
 
 import 'ProfilePage.dart';
 
 class GuardianProfilePage extends StatefulWidget {
+  static const id = 'GuardianPage';
   final String title;
-  GuardianProfilePage({@required this.title, Key key}) : super(key: key);
+  GuardianProfilePage({
+    this.title = 'Profile',
+    Key key,
+  }) : super(key: key);
 
   _GuardianProfilePageState createState() => _GuardianProfilePageState();
 }
@@ -18,6 +24,8 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
   DateTime dateOfBirth;
   DateTime anniversaryDate;
   String path = '';
+  UserType userType = UserType.UNKNOWN;
+  bool isEditable = false;
 
   Future<Null> _selectDate(BuildContext context, DateTime date) async {
     final DateTime picked = await showDatePicker(
@@ -34,7 +42,18 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    userType = Provider.of<UserType>(context);
+    print("In Guardian ProfilePage "+ UserTypeHelper.getValue(userType));
+    if (userType == UserType.PARENT || userType == UserType.TEACHER) {
+      isEditable = true;
+    }
     return Scaffold(
       appBar: TopBar(
         title: widget.title,
@@ -43,11 +62,14 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
           Navigator.pop(context);
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 20,
-        backgroundColor: Colors.red,
-        onPressed: () {},
-        child: Icon(Icons.check),
+      floatingActionButton: Visibility(
+        visible: isEditable,
+        child: FloatingActionButton(
+          elevation: 20,
+          backgroundColor: Colors.red,
+          onPressed: () {},
+          child: Icon(Icons.check),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -78,35 +100,38 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                                 : AssetImage(path),
                           ),
                         ),
-                        Positioned(
-                          right: 0,
-                          bottom: 0,
-                          child: Container(
-                            height: 45,
-                            width: 45,
-                            child: Card(
-                              elevation: 5,
-                              color: Colors.white70,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(30),
-                                  bottomRight: Radius.circular(10),
+                        Visibility(
+                          visible: isEditable,
+                          child: Positioned(
+                            right: 0,
+                            bottom: 0,
+                            child: Container(
+                              height: 45,
+                              width: 45,
+                              child: Card(
+                                elevation: 5,
+                                color: Colors.white70,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30),
+                                    bottomRight: Radius.circular(10),
+                                  ),
                                 ),
-                              ),
-                              child: IconButton(
-                                color: Colors.white,
-                                icon: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.black38,
-                                  size: 25,
+                                child: IconButton(
+                                  color: Colors.white,
+                                  icon: Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.black38,
+                                    size: 25,
+                                  ),
+                                  onPressed: () async {
+                                    String _path = await openFileExplorer(
+                                        FileType.IMAGE, mounted);
+                                    setState(() {
+                                      path = _path;
+                                    });
+                                  },
                                 ),
-                                onPressed: () async {
-                                  String _path = await openFileExplorer(
-                                      FileType.IMAGE, mounted);
-                                  setState(() {
-                                    path = _path;
-                                  });
-                                },
                               ),
                             ),
                           ),
@@ -123,7 +148,8 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     ProfileFields(
-                      width: MediaQuery.of(context).size.width,
+                      isEditable: false,
+                      // width: MediaQuery.of(context).size.width,
                       hintText: string.name_hint,
                       labelText: string.name,
                       onChanged: (name) {},
@@ -136,6 +162,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                       borderRadius: BorderRadius.circular(16),
                       child: IgnorePointer(
                         child: ProfileFields(
+                          isEditable: false,
                           width: MediaQuery.of(context).size.width,
                           labelText: string.anniversary_date,
                           textInputType: TextInputType.number,
@@ -161,6 +188,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                             borderRadius: BorderRadius.circular(16),
                             child: IgnorePointer(
                               child: ProfileFields(
+                                isEditable: false,
                                 labelText: string.dob,
                                 textInputType: TextInputType.number,
                                 onChanged: (dob) {},
@@ -175,10 +203,12 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Expanded(
                           child: ProfileFields(
-                            // width: MediaQuery.of(context).size.width,
+                            isEditable: false,
                             hintText: string.blood_group_hint,
                             labelText: string.blood_group,
                             onChanged: (bg) {},
@@ -188,7 +218,8 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                       ],
                     ),
                     ProfileFields(
-                      width: MediaQuery.of(context).size.width,
+                      isEditable: false,
+                      // width: MediaQuery.of(context).size.width,
                       textInputType: TextInputType.number,
                       hintText: '',
                       labelText: string.mobile_no,

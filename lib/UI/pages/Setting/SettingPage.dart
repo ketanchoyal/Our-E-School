@@ -2,6 +2,7 @@ import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/DynamicThemeChanger.dart';
 import 'package:ourESchool/UI/pages/About/About.dart';
+import 'package:ourESchool/UI/pages/Login/ForgotPassword.dart';
 import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
 import 'package:ourESchool/UI/pages/WelcomeScreen.dart';
 import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
@@ -49,8 +50,6 @@ class _SettingPageState extends State<SettingPage> {
                   icon: FontAwesomeIcons.signOutAlt,
                   onTap: () async {
                     await model.logoutUser();
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, WelcomeScreen.id, (r) => false);
                   },
                   subtitle: string.logout_subtitle,
                   title: string.logout),
@@ -60,6 +59,14 @@ class _SettingPageState extends State<SettingPage> {
                   onTap: changeBrightness,
                   subtitle: string.dark_theme_subtitle,
                   title: string.dark_theme),
+              settingTiles(
+                  context: context,
+                  icon: Icons.restore,
+                  onTap: () {
+                    kopenPage(context, ForgotPasswordPage());
+                  },
+                  subtitle: string.send_recovery_mail,
+                  title: 'Forgot Password'),
               settingTiles(
                   context: context,
                   icon: Icons.contact_mail,
