@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:ourESchool/UI/pages/Home.dart';
@@ -40,6 +41,9 @@ class MyApp extends StatelessWidget {
           builder: (context) =>
               locator<AuthenticationServices>().userTypeStream,
         ),
+        StreamProvider<FirebaseUser>.controller(
+          builder: (context) =>locator<AuthenticationServices>().fireBaseUserStream,
+        )
       ],
       child: DynamicTheme(
         defaultBrightness: Brightness.light,

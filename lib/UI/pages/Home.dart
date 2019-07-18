@@ -4,6 +4,7 @@ import 'package:ourESchool/UI/Utility/custom_icons.dart';
 import 'package:ourESchool/UI/Widgets/BottomBar.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:flutter/material.dart';
+import 'package:ourESchool/UI/pages/Profiles/GuardianProfile.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:provider/provider.dart';
 import 'Chat/ChatPage.dart';
@@ -74,12 +75,11 @@ class _HomeState extends State<Home> {
             ),
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => ProfilePage(),
-              ),
-            );
+            if (userType == UserType.STUDENT) {
+              kopenPage(context, ProfilePage());
+            } else {
+              kopenPage(context, GuardianProfilePage());
+            }
           },
         ),
         floatingActionButton: Visibility(

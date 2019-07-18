@@ -24,44 +24,23 @@ class ProfileServices extends Services {
   }
 
   setProfileData({
-    String enrollNo,
-    String displayName,
-    String standard,
-    String division,
-    String bloodGroup,
-    String mobileNo,
-    String dob,
-    String guardianName,
+    User user,
     UserType userType,
-    String photoPath,
+    
   }) async {
-    String id = await sharedPreferencesHelper.getLoggedInUserId();
-    // String schoolCode = await sharedPreferencesHelper.getSchoolCode();
+    UserType userType = await sharedPreferencesHelper.getUserType();
     String photoUrl = '';
     String url =
-        await sharedPreferencesHelper.getLoggedInUserPhotoUrl() ?? photoPath;
-    if (photoPath == url) {
+        await sharedPreferencesHelper.getLoggedInUserPhotoUrl() ?? user.photoUrl;
+    if (user.photoUrl == url) {
       photoUrl = url;
     } else {
-      photoUrl = await setProfilePhoto(photoPath);
+      photoUrl = await setProfilePhoto(user.photoUrl);
     }
 
-    User profileData = User(
-        bloodGroup: bloodGroup,
-        displayName: displayName,
-        division: division,
-        dob: dob,
-        email: firebaseUser.email,
-        enrollNo: enrollNo,
-        firebaseUuid: firebaseUser.uid,
-        guardianName: guardianName,
-        id: id,
-        isTeacher: false,
-        isVerified: firebaseUser.isEmailVerified,
-        mobileNo: mobileNo,
-        photoUrl: photoUrl,
-        standard: standard);
-    Map profileDataHashMap = profileData.toJson();
+    user.photoUrl = photoUrl;
+    
+    Map profileDataHashMap = user.toJson();
 
     var body = json.encode({
       "schoolCode": schoolCode.trim().toUpperCase(),

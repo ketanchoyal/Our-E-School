@@ -12,29 +12,14 @@ class ProfilePageModel extends BaseModel {
   User userProfile;
 
   Future<bool> setUserProfileData({
-    String displayName,
-    String standard,
-    String division,
-    String bloodGroup,
-    String mobileNo,
-    String dob,
-    String enrollNo,
-    String guardianName,
+    User user,
     UserType userType,
-    String photoPath,
+    
   }) async {
     setState(ViewState.Busy);
 
     await _profileServices.setProfileData(
-        displayName: displayName,
-        standard: standard,
-        division: division,
-        bloodGroup: bloodGroup,
-        mobileNo: mobileNo,
-        dob: dob,
-        photoPath: photoPath,
-        enrollNo: enrollNo,
-        guardianName: guardianName,
+        user :user,
         userType: userType);
     await Future.delayed(const Duration(seconds: 3), () {});
 
@@ -52,4 +37,26 @@ class ProfilePageModel extends BaseModel {
     setState(ViewState.Idle);
     return userProfile;
   }
+
+  // Future<User> getUserProfileDatabyId(UserType userType, String id) async {
+  //   setState(ViewState.Busy);
+  //   setState2(ViewState.Busy);
+  //   // String id = await _sharedPreferences.getLoggedInUserId();
+  //   // UserType userType = await _sharedPreferences.getUserType();
+  //   userProfile = await _profileServices.getProfileData(id, userType);
+  //   setState2(ViewState.Idle);
+  //   setState(ViewState.Idle);
+  //   return userProfile;
+  // }
+
+  // Future<User> getUserProfileDataOfGuardian(UserType userType, String id) async {
+  //   setState(ViewState.Busy);
+  //   setState2(ViewState.Busy);
+  //   // String id = await _sharedPreferences.getLoggedInUserId();
+  //   // UserType userType = await _sharedPreferences.getUserType();
+  //   userProfile = await _profileServices.getProfileData(id, userType);
+  //   setState2(ViewState.Idle);
+  //   setState(ViewState.Idle);
+  //   return userProfile;
+  // }
 }

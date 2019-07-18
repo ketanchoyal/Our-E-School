@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
@@ -9,10 +10,12 @@ import 'package:flutter/services.dart';
 import 'package:ourESchool/UI/pages/BaseView.dart';
 import 'package:ourESchool/UI/pages/Home.dart';
 import 'package:ourESchool/core/Models/User.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
 import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/core/viewmodel/ProfilePageModel.dart';
 import 'package:ourESchool/locator.dart';
+import 'package:provider/provider.dart';
 
 import 'GuardianProfile.dart';
 
@@ -56,7 +59,6 @@ class _ProfilePageState extends State<ProfilePage> {
   String _bloodGroup = '';
   String _dob = '';
   String _mobileNo = '';
-  String _photoUrl = '';
   int a = 0;
 
   @override
@@ -110,17 +112,29 @@ class _ProfilePageState extends State<ProfilePage> {
                       'You Need to fill all the details and a profile Photo'));
                 } else {
                   if (model.state == ViewState.Idle) {
+                    var firebaseUser = Provider.of<FirebaseUser>(context);
+                    var userType = await _sharedPreferencesHelper.getUserType();
+
                     res = await model.setUserProfileData(
-                        bloodGroup: _bloodGroup.trim(),
-                        displayName: _name.trim(),
-                        division: _division.trim(),
-                        dob: _dob.trim(),
-                        guardianName: _guardianName.trim(),
-                        mobileNo: _mobileNo.trim(),
-                        standard: _standard.trim(),
-                        enrollNo: _enrollNo.trim(),
-                        userType: await _sharedPreferencesHelper.getUserType(),
-                        photoPath: path);
+                      user: User(
+                          bloodGroup: _bloodGroup.trim(),
+                          displayName: _name.trim(),
+                          division: _division.trim(),
+                          dob: _dob.trim(),
+                          guardianName: _guardianName.trim(),
+                          mobileNo: _mobileNo.trim(),
+                          standard: _standard.trim(),
+                          enrollNo: _enrollNo.trim(),
+                          email: firebaseUser.email,
+                          firebaseUuid: firebaseUser.uid,
+                          id: await _sharedPreferencesHelper
+                              .getLoggedInUserId(),
+                          isTeacher:
+                              userType == UserType.TEACHER ? true : false,
+                          isVerified: firebaseUser.isEmailVerified,
+                          photoUrl: path),
+                      userType: userType,
+                    );
                   }
                 }
 
