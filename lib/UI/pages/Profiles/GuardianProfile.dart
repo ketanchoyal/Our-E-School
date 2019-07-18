@@ -1,5 +1,6 @@
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
+import 'package:ourESchool/UI/Widgets/ReusableRoundedButton.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,9 @@ class GuardianProfilePage extends StatefulWidget {
     this.title = 'Profile',
     Key key,
   }) : super(key: key);
+
+  final Color selectedButtonColor = Colors.red;
+  final Color buttonBackGroundColor = Colors.white;
 
   _GuardianProfilePageState createState() => _GuardianProfilePageState();
 }
@@ -41,16 +45,31 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
     }
   }
 
+  Color motherButtonColor;
+  Color fatherButtonColor;
+  Color otherButtonColor;
+
+  // setColors(BuildContext context) {
+  //   selectedButtonColor = Theme.of(context).primaryColor;
+  //   buttonBackGroundColor = Theme.of(context).canvasColor;
+  // }
+
   @override
   void initState() {
     // TODO: implement initState
+    motherButtonColor = widget.selectedButtonColor;
+    fatherButtonColor = widget.buttonBackGroundColor;
+    otherButtonColor = widget.buttonBackGroundColor;
     super.initState();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
+    // setColors(context);
     userType = Provider.of<UserType>(context);
-    print("In Guardian ProfilePage "+ UserTypeHelper.getValue(userType));
+    print("In Guardian ProfilePage " + UserTypeHelper.getValue(userType));
     if (userType == UserType.PARENT || userType == UserType.TEACHER) {
       isEditable = true;
     }
@@ -59,7 +78,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
         title: widget.title,
         child: kBackBtn,
         onPressed: () {
-          Navigator.pop(context);
+          if (Navigator.canPop(context)) Navigator.pop(context);
         },
       ),
       floatingActionButton: Visibility(
@@ -148,7 +167,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     ProfileFields(
-                      isEditable: false,
+                      isEditable: isEditable,
                       // width: MediaQuery.of(context).size.width,
                       hintText: string.name_hint,
                       labelText: string.name,
@@ -162,7 +181,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                       borderRadius: BorderRadius.circular(16),
                       child: IgnorePointer(
                         child: ProfileFields(
-                          isEditable: false,
+                          isEditable: isEditable,
                           width: MediaQuery.of(context).size.width,
                           labelText: string.anniversary_date,
                           textInputType: TextInputType.number,
@@ -188,7 +207,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                             borderRadius: BorderRadius.circular(16),
                             child: IgnorePointer(
                               child: ProfileFields(
-                                isEditable: false,
+                                isEditable: isEditable,
                                 labelText: string.dob,
                                 textInputType: TextInputType.number,
                                 onChanged: (dob) {},
@@ -208,7 +227,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                         ),
                         Expanded(
                           child: ProfileFields(
-                            isEditable: false,
+                            isEditable: isEditable,
                             hintText: string.blood_group_hint,
                             labelText: string.blood_group,
                             onChanged: (bg) {},
@@ -218,7 +237,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                       ],
                     ),
                     ProfileFields(
-                      isEditable: false,
+                      isEditable: isEditable,
                       // width: MediaQuery.of(context).size.width,
                       textInputType: TextInputType.number,
                       hintText: '',
@@ -226,6 +245,68 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                       onChanged: (id) {},
                       initialText: '',
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'You Are....',
+                        style: ktitleStyle.copyWith(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        ReusableRoundedButton(
+                          height: 50,
+                          onPressed: () {},
+                          backgroundColor: motherButtonColor,
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              'Mother',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                          ),
+                        ),
+                        ReusableRoundedButton(
+                          height: 50,
+                          onPressed: () {},
+                          backgroundColor: fatherButtonColor,
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              'Father',
+                              style: TextStyle(
+                                  // color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                          ),
+                        ),
+                        ReusableRoundedButton(
+                          height: 50,
+                          onPressed: () {},
+                          backgroundColor: otherButtonColor,
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              'Other',
+                              style: TextStyle(
+                                  // color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 50,
+                    )
                   ],
                 ),
               ),
