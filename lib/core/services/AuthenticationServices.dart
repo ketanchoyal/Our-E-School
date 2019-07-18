@@ -11,6 +11,7 @@ import 'package:ourESchool/core/enums/AuthErrors.dart';
 import 'package:ourESchool/core/enums/LoginScreenReturnType.dart';
 import "package:ourESchool/core/enums/UserType.dart";
 import 'package:ourESchool/core/services/Services.dart';
+import 'package:ourESchool/core/viewmodel/MainPageModel.dart';
 
 class AuthenticationServices extends Services {
   // Future handleGoogleSignIn() async {
@@ -34,6 +35,9 @@ class AuthenticationServices extends Services {
 
   bool isUserLoggedIn = false;
   UserType userType = UserType.STUDENT;
+
+  // StreamController<MainPageModel> mainPageModel =
+  //     StreamController<MainPageModel>();
 
   AuthenticationServices() {
     isLoggedIn().then((onValue) => isUserLoggedIn = onValue);

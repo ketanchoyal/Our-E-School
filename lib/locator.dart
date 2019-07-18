@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get_it/get_it.dart';
 import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/core/services/AuthenticationServices.dart';
@@ -13,7 +15,7 @@ import 'core/viewmodel/ProfilePageModel.dart';
 GetIt locator = GetIt();
 
 void setupLocator() {
-  locator.registerLazySingleton(() => MainPageModel());
+  locator.registerLazySingleton(() => StreamController<MainPageModel>());
 
   locator.registerLazySingleton(() => SharedPreferencesHelper());
   locator.registerFactory(() => QuizStateModel());

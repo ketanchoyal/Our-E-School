@@ -38,10 +38,12 @@ class ProfileServices extends Services {
     String id = await sharedPreferencesHelper.getLoggedInUserId();
     // String schoolCode = await sharedPreferencesHelper.getSchoolCode();
     String photoUrl = '';
-    if (photoPath != '') {
-      photoUrl = await setProfilePhoto(photoPath);
+    String url =
+        await sharedPreferencesHelper.getLoggedInUserPhotoUrl() ?? photoPath;
+    if (photoPath == url) {
+      photoUrl = url;
     } else {
-      photoUrl = await sharedPreferencesHelper.getLoggedInUserPhotoUrl();
+      photoUrl = await setProfilePhoto(photoPath);
     }
 
     User profileData = User(

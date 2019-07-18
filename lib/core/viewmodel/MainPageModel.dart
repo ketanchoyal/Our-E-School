@@ -11,20 +11,32 @@ class MainPageModel extends BaseModel {
   bool isUserLoggedIn = false;
   UserType userType = UserType.UNKNOWN;
 
-  MainPageModel() {
-    getUserType();
-    isUserLoggedInCheck();
-  }
+  // MainPageModel() {
+  //   print("In Main Model : " + isUserLoggedIn.toString());
+  //   setState(ViewState.Busy);
+  //   _getUserType();
+  //   _isUserLoggedInCheck();
+  //   setState(ViewState.Idle);
+  //   print("In Main Model : " + isUserLoggedIn.toString());
+  // }
 
-  isUserLoggedInCheck() async {
+  MainPageModel.initials() {
+    // print("In Main Model : " + isUserLoggedIn.toString());
     setState(ViewState.Busy);
-    isUserLoggedIn = await _authenticationService.isLoggedIn();
+    _getUserType();
+    _isUserLoggedInCheck();
     setState(ViewState.Idle);
-    print("In Main Model : " + isUserLoggedIn.toString());
+    // print("In Main Model : " + isUserLoggedIn.toString());
   }
 
-  getUserType() async {
-    await _authenticationService.sharedPreferencesHelper.getUserType();
+  _isUserLoggedInCheck() async {
+    isUserLoggedIn = await _authenticationService.isLoggedIn();
+    print("User Loggedin : " + isUserLoggedIn.toString());
+  }
+
+  _getUserType() async {
+    userType =
+        await _authenticationService.sharedPreferencesHelper.getUserType();
   }
 
   // bool isUserLoggedIn() {

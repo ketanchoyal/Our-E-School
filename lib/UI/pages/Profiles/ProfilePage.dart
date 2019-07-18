@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:ourESchool/UI/pages/BaseView.dart';
 import 'package:ourESchool/UI/pages/Home.dart';
 import 'package:ourESchool/core/Models/User.dart';
-import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
 import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/core/viewmodel/ProfilePageModel.dart';
@@ -28,8 +26,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   DateTime dateOfBirth;
   bool isTeacher = false;
-  String path = '';
-  String tempPath = '';
+  String path = 'default';
+  // String tempPath = '';
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<Null> _selectDate(BuildContext context) async {
@@ -58,6 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String _bloodGroup = '';
   String _dob = '';
   String _mobileNo = '';
+  String _photoUrl = '';
   int a = 0;
 
   @override
@@ -76,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
               _bloodGroup = user.bloodGroup;
               _dob = user.dob;
               _mobileNo = user.mobileNo;
-              tempPath = user.photoUrl;
+              path = user.photoUrl;
               a++;
             }
           }
@@ -106,25 +105,23 @@ class _ProfilePageState extends State<ProfilePage> {
                     _guardianName.isEmpty ||
                     _mobileNo.isEmpty ||
                     _standard.isEmpty ||
-                    _enrollNo.isEmpty ||
-                    tempPath.isEmpty) {
+                    _enrollNo.isEmpty) {
                   _scaffoldKey.currentState.showSnackBar(ksnackBar(context,
                       'You Need to fill all the details and a profile Photo'));
                 } else {
-                  model.state == ViewState.Idle
-                      ? res = await model.setUserProfileData(
-                          bloodGroup: _bloodGroup.trim(),
-                          displayName: _name.trim(),
-                          division: _division.trim(),
-                          dob: _dob.trim(),
-                          guardianName: _guardianName.trim(),
-                          mobileNo: _mobileNo.trim(),
-                          standard: _standard.trim(),
-                          enrollNo: _enrollNo.trim(),
-                          userType:
-                              await _sharedPreferencesHelper.getUserType(),
-                          photoPath: path)
-                      : () {};
+                  if (model.state == ViewState.Idle) {
+                    res = await model.setUserProfileData(
+                        bloodGroup: _bloodGroup.trim(),
+                        displayName: _name.trim(),
+                        division: _division.trim(),
+                        dob: _dob.trim(),
+                        guardianName: _guardianName.trim(),
+                        mobileNo: _mobileNo.trim(),
+                        standard: _standard.trim(),
+                        enrollNo: _enrollNo.trim(),
+                        userType: await _sharedPreferencesHelper.getUserType(),
+                        photoPath: path);
+                  }
                 }
 
                 res == true
@@ -388,18 +385,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 child: Image(
-                  height: MediaQuery.of(context).size.width / 2.5,
-                  width: MediaQuery.of(context).size.width / 2.5,
-                  image: path == ''
-                      ? model.userProfile.photoUrl != null
-                          ? NetworkImage(
-                              model.userProfile.photoUrl,
-                            )
-                          : NetworkImage(
-                              "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-                            )
-                      : AssetImage(path),
-                ),
+                    height: MediaQuery.of(context).size.width / 2.5,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    image: setImage()),
               ),
               Positioned(
                 right: 0,
@@ -428,7 +416,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             await openFileExplorer(FileType.IMAGE, mounted);
                         setState(() {
                           path = _path;
-                          tempPath = _path;
+                          // tempPath = _path;
                         });
                       },
                     ),
@@ -440,6 +428,18 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ],
     );
+  }
+
+  ImageProvider<dynamic> setImage() {
+    if (path.contains('https')) {
+      return NetworkImage(path);
+    } else if (path == 'default') {
+      return NetworkImage(
+        "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+      );
+    } else {
+      return AssetImage(path);
+    }
   }
 }
 

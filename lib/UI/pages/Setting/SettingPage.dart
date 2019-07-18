@@ -51,8 +51,6 @@ class _SettingPageState extends State<SettingPage> {
                     await model.logoutUser();
                     Navigator.pushNamedAndRemoveUntil(
                         context, WelcomeScreen.id, (r) => false);
-                    // Navigator.of(context)
-                    //     .popUntil(ModalRoute.withName(WelcomeScreen.id));
                   },
                   subtitle: string.logout_subtitle,
                   title: string.logout),

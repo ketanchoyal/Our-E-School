@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:ourESchool/UI/pages/Home.dart';
@@ -10,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import 'UI/Widgets/DynamicThemeChanger.dart';
 import 'UI/pages/WelcomeScreen.dart';
+import 'core/viewmodel/MainPageModel.dart';
 
 void main() {
   // debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -31,9 +34,10 @@ class MyApp extends StatelessWidget {
     _auth.isLoggedIn();
     return MultiProvider(
       providers: [
-        // Provider(
-        //   builder: (context) => locator<AuthenticationServices>()
-        // )
+        StreamProvider<MainPageModel>.controller(
+          initialData: MainPageModel.initials(),
+          builder: (context) => locator<StreamController<MainPageModel>>(),
+        ),
       ],
       child: DynamicTheme(
         defaultBrightness: Brightness.light,
@@ -48,18 +52,35 @@ class MyApp extends StatelessWidget {
           primaryColorDark: Color(0xff0029cb),
           brightness: brightness,
         ),
-        themedWidgetBuilder: (context, theme) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Our E-School',
+        themedWidgetBuilder: (context, theme) => new OurSchoolApp(
           theme: theme,
-          routes: {
-            WelcomeScreen.id: (context) => WelcomeScreen(),
-            Home.id: (context) => Home(),
-            ProfilePage.id: (context) => ProfilePage()
-          },
-          home:  _auth.isUserLoggedIn ? Home() : WelcomeScreen(),
         ),
       ),
+    );
+  }
+}
+
+class OurSchoolApp extends StatelessWidget {
+  const OurSchoolApp({
+    Key key,
+    @required this.theme,
+  }) : super(key: key);
+
+  final ThemeData theme;
+
+  @override
+  Widget build(BuildContext context) {
+    var model = Provider.of<MainPageModel>(context);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Our E-School',
+      theme: theme,
+      routes: {
+        WelcomeScreen.id: (context) => WelcomeScreen(),
+        Home.id: (context) => Home(),
+        ProfilePage.id: (context) => ProfilePage()
+      },
+      home: model.isUserLoggedIn ? Home() : WelcomeScreen(),
     );
   }
 }
