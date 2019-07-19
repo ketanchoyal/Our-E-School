@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/enums/announcementType.dart';
+import 'package:provider/provider.dart';
 
 import 'CreateAnnouncement.dart';
 
@@ -18,8 +19,7 @@ class AnnouncementPage extends StatefulWidget {
 }
 
 class _AnnouncementPageState extends State<AnnouncementPage> {
-  //TODO: Temp solution for demo only
-  bool isTeacher = LoginPage.loginTypeSelected == UserType.STUDENT ? false : true;
+  bool isTeacher = false;
 
   String url =
       'https://i1.rgstatic.net/publication/274400281_Adult_male_circumcision_with_a_circular_stapler_versus_conventional_circumcision_A_prospective_randomized_clinical_trial/links/5599d54708ae793d13805d4f/largepreview.png';
@@ -32,6 +32,10 @@ I want to perform login and call a function for that, this function can either r
 
   @override
   Widget build(BuildContext context) {
+    var userType = Provider.of<UserType>(context);
+    if (userType == UserType.TEACHER) {
+      isTeacher = true;
+    }
     return Scaffold(
       appBar: TopBar(
           title: string.announcement,
@@ -85,17 +89,17 @@ I want to perform login and call a function for that, this function can either r
           child: ListView.builder(
             itemCount: 5,
             itemBuilder: (context, index) => AnnouncementCard(
-                  announcement: Announcement(
-                      by: 'userid',
-                      caption: randomText,
-                      forClass: '10',
-                      forDiv: 'A',
-                      id: 'postid' +index.toString(),
-                      photoUrl:
-                          "https://cyprus-mail.com/wp-content/uploads/2013/06/schoolchildren06.jpg",
-                      timestamp: 'Jan 21, 10:30 AM',
-                      type: AnnouncementType.CIRCULAR),
-                ),
+              announcement: Announcement(
+                  by: 'userid',
+                  caption: randomText,
+                  forClass: '10',
+                  forDiv: 'A',
+                  id: 'postid' + index.toString(),
+                  photoUrl:
+                      "https://cyprus-mail.com/wp-content/uploads/2013/06/schoolchildren06.jpg",
+                  timestamp: 'Jan 21, 10:30 AM',
+                  type: AnnouncementType.CIRCULAR),
+            ),
           ),
         ),
       ),

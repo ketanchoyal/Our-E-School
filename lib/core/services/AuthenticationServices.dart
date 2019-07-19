@@ -1,5 +1,4 @@
 import "dart:async";
-import 'dart:async' as prefix0;
 import 'dart:io';
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
@@ -37,7 +36,7 @@ class AuthenticationServices extends Services {
   bool isUserLoggedIn = false;
   UserType userType = UserType.STUDENT;
 
-  prefix0.StreamController<FirebaseUser> fireBaseUserStream =
+  StreamController<FirebaseUser> fireBaseUserStream =
       StreamController<FirebaseUser>();
 
   StreamController<bool> isUserLoggedInStream = StreamController<bool>();
@@ -49,7 +48,7 @@ class AuthenticationServices extends Services {
   }
 
   Future<bool> isLoggedIn() async {
-    firebaseUser = await auth.currentUser();
+    await getFirebaseUser();
     fireBaseUserStream.add(firebaseUser);
     String name = firebaseUser != null ? firebaseUser.email.toString() : 'Null';
     print('User Email :' + name);

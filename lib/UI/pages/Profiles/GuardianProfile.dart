@@ -232,7 +232,8 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                             Expanded(
                               child: InkWell(
                                 onTap: () async {
-                                  dateOfBirth = await _selectDate(context, dateOfBirth);
+                                  dateOfBirth =
+                                      await _selectDate(context, dateOfBirth);
                                   setState(() {
                                     _dob = dateOfBirth
                                         .toLocal()
@@ -413,8 +414,8 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                         size: 25,
                       ),
                       onPressed: () async {
-                        String _path =
-                            await openFileExplorer(FileType.IMAGE, mounted);
+                        String _path = await openFileExplorer(
+                            FileType.IMAGE, mounted, context);
                         setState(() {
                           path = _path;
                           // tempPath = _path;

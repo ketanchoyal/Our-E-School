@@ -1,4 +1,4 @@
-# acadamic_connect
+# Our E School
 
 A new Flutter project.
 

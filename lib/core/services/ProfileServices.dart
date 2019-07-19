@@ -1,6 +1,5 @@
-import 'dart:io';
-import 'package:path/path.dart' as p;
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:ourESchool/core/services/StorageServices.dart';
+import 'package:ourESchool/locator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:ourESchool/core/Models/User.dart';
@@ -8,15 +7,17 @@ import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/services/Services.dart';
 
 class ProfileServices extends Services {
-  String country = Services.country;
-  String schoolCode;
-  getFirebaseUser() async {
-    firebaseUser = await auth.currentUser();
-  }
+  StorageServices storageServices = locator<StorageServices>();
 
-  getSchoolCode() async {
-    schoolCode = await sharedPreferencesHelper.getSchoolCode();
-  }
+  String country = Services.country;
+  // String schoolCode;
+  // getFirebaseUser() async {
+  //   firebaseUser = await auth.currentUser();
+  // }
+
+  // getSchoolCode() async {
+  //   schoolCode = await sharedPreferencesHelper.getSchoolCode();
+  // }
 
   ProfileServices() {
     getSchoolCode();
@@ -36,7 +37,7 @@ class ProfileServices extends Services {
     } else if (user.photoUrl == 'default') {
       photoUrl = user.photoUrl;
     } else {
-      photoUrl = await setProfilePhoto(user.photoUrl);
+      photoUrl = await storageServices.setProfilePhoto(user.photoUrl);
     }
 
     user.photoUrl = photoUrl;
@@ -92,22 +93,22 @@ class ProfileServices extends Services {
     }
   }
 
-  Future<String> setProfilePhoto(String filePath) async {
-    // String schoolCode = await sharedPreferencesHelper.getSchoolCode();
+  // Future<String> setProfilePhoto(String filePath) async {
+  //   // String schoolCode = await sharedPreferencesHelper.getSchoolCode();
 
-    String _extension = p.extension(filePath);
-    String fileName = firebaseUser.uid + _extension;
-    final StorageUploadTask uploadTask =
-        storageReference.child(schoolCode + '/' + fileName).putFile(
-              File(filePath),
-              StorageMetadata(contentType: "image"),
-            );
+  //   String _extension = p.extension(filePath);
+  //   String fileName = firebaseUser.uid + _extension;
+  //   final StorageUploadTask uploadTask =
+  //       storageReference.child(schoolCode + '/' + fileName).putFile(
+  //             File(filePath),
+  //             StorageMetadata(contentType: "image"),
+  //           );
 
-    final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
-    final String profileUrl = await downloadUrl.ref.getDownloadURL();
+  //   final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
+  //   final String profileUrl = await downloadUrl.ref.getDownloadURL();
 
-    await sharedPreferencesHelper.setLoggedInUserPhotoUrl(profileUrl);
+  //   await sharedPreferencesHelper.setLoggedInUserPhotoUrl(profileUrl);
 
-    return profileUrl;
-  }
+  //   return profileUrl;
+  // }
 }

@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'ImageCompress.dart' as CompressImage;
 
 var kTextFieldDecoration = InputDecoration(
   border: OutlineInputBorder(
@@ -76,9 +79,16 @@ kopenPageBottom(BuildContext context, Widget page) {
   );
 }
 
-Future openFileExplorer(FileType _pickingType, bool mounted) async {
+Future openFileExplorer(
+    FileType _pickingType, bool mounted, BuildContext context) async {
   String _path = null;
-  if (_pickingType != FileType.CUSTOM) {
+  if (_pickingType == FileType.IMAGE) {
+    File file = await CompressImage.takeCompressedPicture(context);
+    _path = file.path;
+    if (!mounted) return '';
+
+    return _path;
+  } else if (_pickingType != FileType.CUSTOM) {
     try {
       _path = await FilePicker.getFilePath(type: _pickingType);
     } on PlatformException catch (e) {

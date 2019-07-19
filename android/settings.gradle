@@ -12,4 +12,9 @@ plugins.each { name, path ->
     def pluginDirectory = flutterProjectRoot.resolve(path).resolve('android').toFile()
     include ":$name"
     project(":$name").projectDir = pluginDirectory
+
+    // if (name == 'flutter_flipperkit') {
+    //     include ':flipper-no-op'
+    //     project(':flipper-no-op').projectDir = new File(pluginDirectory, 'flipper-no-op')
+    // }
 }

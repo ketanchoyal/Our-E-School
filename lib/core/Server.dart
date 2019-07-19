@@ -3,4 +3,5 @@ class Server {
   static String webApi = 'webApi/';
   static String profileUpdate = 'profileupdate';
   static String getProfileData = 'userdata';
+  static String postAnnouncement = 'postAnnouncement';
 }

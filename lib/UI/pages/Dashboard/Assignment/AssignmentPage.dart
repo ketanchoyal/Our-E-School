@@ -48,23 +48,23 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
             child: ListView.builder(
               itemCount: 3,
               itemBuilder: (context, i) => ColumnReusableCardButton(
-                    tileColor: _randomColor.randomColor(
-                        colorBrightness: ColorBrightness.veryDark,
-                        colorHue: ColorHue.purple,
-                        colorSaturation: ColorSaturation.highSaturation),
-                    label: 'Subject $i',
-                    icon: FontAwesomeIcons.bookOpen,
-                    onPressed: () {
-                      kopenPage(
-                        context,
-                        PDFOpener(
-                          url: 'http://www.pdf995.com/samples/pdf.pdf',
-                          title: 'Assignment $i',
-                        ),
-                      );
-                    },
-                    height: 70,
-                  ),
+                tileColor: _randomColor.randomColor(
+                    colorBrightness: ColorBrightness.veryDark,
+                    colorHue: ColorHue.purple,
+                    colorSaturation: ColorSaturation.highSaturation),
+                label: 'Subject $i',
+                icon: FontAwesomeIcons.bookOpen,
+                onPressed: () {
+                  kopenPage(
+                    context,
+                    PDFOpener(
+                      url: 'http://www.pdf995.com/samples/pdf.pdf',
+                      title: 'Assignment $i',
+                    ),
+                  );
+                },
+                height: 70,
+              ),
             )),
       ),
     );
@@ -119,7 +119,8 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
           actions: <Widget>[
             FlatButton(
               onPressed: () async {
-                _path = await openFileExplorer(FileType.IMAGE, mounted);
+                _path =
+                    await openFileExplorer(FileType.IMAGE, mounted, context);
                 setState(() {
                   _fileName = _path != null ? _path.split('/').last : '...';
                   print(_fileName);

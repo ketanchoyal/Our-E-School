@@ -28,6 +28,8 @@ dependencies:
     git:
       url: git://github.com/tamhiupanTam/flutter_plugin_pdf_viewer
   permission_handler: ^3.1.0
+  image: ^2.1.4
+  image_picker: ^0.6.0+17
 
   # State Management tools
   get_it: ^1.0.3+2

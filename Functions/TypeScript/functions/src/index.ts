@@ -171,23 +171,19 @@ app.post('/postAnnouncement', async (req: express.Request, res: express.Response
         const {
             announcement,
             schoolCode,
-            standard,
-            division,
             country } = req.body;
 
         const data = {
             announcement,
             schoolCode,
-            standard,
-            division,
             country
         }
 
-        const std = data.standard + data.division;
-
         const announcementMap = data.announcement as Map<string, any>;
 
-        console.log(data.schoolCode + " " + data.standard + " " + data.division + " " + data.country);
+        const std = data.announcement.forClass + data.announcement.forDiv;
+
+        console.log(data.schoolCode + " " + data.announcement.forClass + " " + data.announcement.forDiv + " " + data.country);
 
         const _announcementRef = db.collection('Schools').doc(data.country).collection(data.schoolCode).doc('Posts').collection(std);
 

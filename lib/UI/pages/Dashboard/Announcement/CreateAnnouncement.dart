@@ -9,8 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ourESchool/UI/pages/Dashboard/Announcement/camera_screen.dart';
 import 'package:ourESchool/core/enums/announcementType.dart';
 
-import 'CapturePhoto.dart';
-
 class CreateAnnouncement extends StatefulWidget {
   CreateAnnouncement({Key key}) : super(key: key);
 
@@ -20,13 +18,28 @@ class CreateAnnouncement extends StatefulWidget {
 class _CreateAnnouncementState extends State<CreateAnnouncement> {
   String path = null;
 
+  TextEditingController _standardController;
+  TextEditingController _divisionController;
+  TextEditingController _captionController;
+
   AnnouncementType announcementType = AnnouncementType.EVENT;
 
   FocusNode _focusNode = new FocusNode();
+  GlobalKey _scaffoldKey;
+
+  @override
+  void initState() {
+    super.initState();
+    _scaffoldKey = GlobalKey<ScaffoldState>();
+    _standardController = TextEditingController();
+    _captionController = TextEditingController();
+    _divisionController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: TopBar(
         onTitleTapped: () {},
         child: kBackBtn,
@@ -69,10 +82,10 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width / 2.2,
+                          Expanded(
+                            // width: MediaQuery.of(context).size.width / 2.2,
                             child: TextField(
-                              onChanged: (standard) {},
+                              controller: _standardController,
                               keyboardType: TextInputType.number,
                               style: TextStyle(
                                 fontSize: 20,
@@ -84,10 +97,13 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                               ),
                             ),
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width / 2.2,
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            // width: MediaQuery.of(context).size.width / 2.2,
                             child: TextField(
-                              onChanged: (division) {},
+                              controller: _divisionController,
                               keyboardType: TextInputType.text,
                               style: TextStyle(
                                 fontSize: 20,
@@ -112,7 +128,15 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                     children: <Widget>[
                       Expanded(
                         child: FlatButton(
-                          child: Text('EVENT'),
+                          child: Text(
+                            'EVENT',
+                            style: TextStyle(
+                              color: announcementType == AnnouncementType.EVENT
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                           onPressed: () {
                             setState(() {
                               announcementType = AnnouncementType.EVENT;
@@ -125,7 +149,16 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                       ),
                       Expanded(
                         child: FlatButton(
-                          child: Text('CIRCULAR'),
+                          child: Text(
+                            'CIRCULAR',
+                            style: TextStyle(
+                              color:
+                                  announcementType == AnnouncementType.CIRCULAR
+                                      ? Colors.white
+                                      : Colors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                           onPressed: () {
                             setState(() {
                               announcementType = AnnouncementType.CIRCULAR;
@@ -138,7 +171,16 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                       ),
                       Expanded(
                         child: FlatButton(
-                          child: Text('ACTIVITY'),
+                          child: Text(
+                            'ACTIVITY',
+                            style: TextStyle(
+                              color:
+                                  announcementType == AnnouncementType.ACTIVITY
+                                      ? Colors.white
+                                      : Colors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                           onPressed: () {
                             setState(() {
                               announcementType = AnnouncementType.ACTIVITY;
@@ -181,7 +223,10 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                               child: Icon(Icons.photo_library),
                               onPressed: () async {
                                 String _path = await openFileExplorer(
-                                    FileType.IMAGE, mounted);
+                                  FileType.IMAGE,
+                                  mounted,
+                                  context,
+                                );
 
                                 setState(() {
                                   path = _path;
