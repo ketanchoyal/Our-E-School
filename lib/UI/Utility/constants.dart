@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -84,7 +86,7 @@ Future openFileExplorer(
   String _path = null;
   if (_pickingType == FileType.IMAGE) {
     File file = await CompressImage.takeCompressedPicture(context);
-    _path = file.path;
+    if (file != null) _path = file.path;
     if (!mounted) return '';
 
     return _path;
@@ -109,4 +111,11 @@ SnackBar ksnackBar(BuildContext context, String message) {
     ),
     backgroundColor: Theme.of(context).primaryColor,
   );
+}
+
+String createCryptoRandomString([int length = 32]) {
+  final Random _random = Random.secure();
+  var values = List<int>.generate(length, (i) => _random.nextInt(256));
+
+  return base64Url.encode(values);
 }

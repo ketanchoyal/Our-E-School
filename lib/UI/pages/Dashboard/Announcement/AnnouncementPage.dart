@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/AnnouncementCard.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
@@ -90,15 +91,16 @@ I want to perform login and call a function for that, this function can either r
             itemCount: 5,
             itemBuilder: (context, index) => AnnouncementCard(
               announcement: Announcement(
-                  by: 'userid',
-                  caption: randomText,
-                  forClass: '10',
-                  forDiv: 'A',
-                  id: 'postid' + index.toString(),
-                  photoUrl:
-                      "https://cyprus-mail.com/wp-content/uploads/2013/06/schoolchildren06.jpg",
-                  timestamp: 'Jan 21, 10:30 AM',
-                  type: AnnouncementType.CIRCULAR),
+                by: 'userid',
+                caption: randomText,
+                forClass: '10',
+                forDiv: 'A',
+                id: 'postid' + index.toString(),
+                photoUrl:
+                    "https://cyprus-mail.com/wp-content/uploads/2013/06/schoolchildren06.jpg",
+                timestamp: Timestamp.now(),
+                type: AnnouncementType.CIRCULAR,
+              ),
             ),
           ),
         ),

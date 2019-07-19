@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/pages/shared/AnnouncementViewer.dart';
 import 'package:ourESchool/core/Models/Announcement.dart';
@@ -54,7 +55,11 @@ class AnnouncementCard extends StatelessWidget {
                             ),
                             //TimeStamp section
                             Text(
-                              announcement.timestamp,
+                              DateFormat("MMM d, E").add_jm()
+                                  .format(DateTime.parse(announcement.timestamp
+                                      .toDate()
+                                      .toLocal()
+                                      .toString())),
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,

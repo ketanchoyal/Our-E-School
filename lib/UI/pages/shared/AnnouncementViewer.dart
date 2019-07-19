@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:ourESchool/UI/Widgets/swipedetector.dart';
 import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,11 @@ class AnnouncementViewer extends StatelessWidget {
                             ),
                             //TimeStamp section
                             Text(
-                              announcement.timestamp,
+                              DateFormat("MMM d, E").add_jm()
+                                  .format(DateTime.parse(announcement.timestamp
+                                      .toDate()
+                                      .toLocal()
+                                      .toString())),
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,

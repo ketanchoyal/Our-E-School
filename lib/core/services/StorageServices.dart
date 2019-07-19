@@ -4,6 +4,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ourESchool/core/services/Services.dart';
 
 class StorageServices extends Services {
+  StorageServices() {
+    getFirebaseUser();
+    getSchoolCode();
+  }
   Future<String> setProfilePhoto(String filePath) async {
     if (firebaseUser == null) await getFirebaseUser();
     if (schoolCode == null) await getSchoolCode();

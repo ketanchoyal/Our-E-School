@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ourESchool/core/enums/announcementType.dart';
 
 // class Announcement {
@@ -19,7 +20,7 @@ class Announcement {
   String caption;
   String by;
   String forDiv;
-  String timestamp;
+  Timestamp timestamp;
   String forClass;
   String photoUrl;
   AnnouncementType type;
@@ -39,7 +40,7 @@ class Announcement {
     caption = json['caption'] ?? '';
     by = json['by'];
     forDiv = json['forDiv'];
-    timestamp = json['timestamp'];
+    timestamp = json['timestamp'] as Timestamp;
     forClass = json['forClass'];
     photoUrl = json['photoUrl'] ?? '';
     type = AnnouncementTypeHelper.getEnum(json['type']);
@@ -51,11 +52,11 @@ class Announcement {
     data['caption'] = this.caption;
     data['by'] = this.by;
     data['forDiv'] = this.forDiv;
-    data['timestamp'] = this.timestamp;
+    // data['timestamp'] = this.timestamp;
     data['forClass'] = this.forClass;
     data['photoUrl'] = this.photoUrl;
     data['type'] = AnnouncementTypeHelper.getValue(this.type);
-    data['id'] = this.id;
+    // data['id'] = this.id;
     return data;
   }
 }

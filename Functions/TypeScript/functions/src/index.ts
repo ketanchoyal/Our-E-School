@@ -168,6 +168,7 @@ async function getProfileRef(schoolCode: string, country: string, userType: stri
 
 app.post('/postAnnouncement', async (req: express.Request, res: express.Response) => {
     try {
+        console.log('in Post Announcement Function');
         const {
             announcement,
             schoolCode,
@@ -179,13 +180,16 @@ app.post('/postAnnouncement', async (req: express.Request, res: express.Response
             country
         }
 
-        const announcementMap = data.announcement as Map<string, any>;
+        console.log('below data');
+
+        let announcementMap = data.announcement;
+        announcementMap = Object.assign(announcementMap, { timeStamp: Firestoree.Timestamp.now() });
 
         const std = data.announcement.forClass + data.announcement.forDiv;
 
         console.log(data.schoolCode + " " + data.announcement.forClass + " " + data.announcement.forDiv + " " + data.country);
 
-        const _announcementRef = db.collection('Schools').doc(data.country).collection(data.schoolCode).doc('Posts').collection(std);
+        const _announcementRef = db.collection("Schools").doc(data.country).collection(data.schoolCode).doc("Posts").collection(std);
 
         await _announcementRef.add(announcementMap).then((success) => {
             success.get().then((documentSnapshot) => {
