@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:path/path.dart' as p;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ourESchool/core/services/Services.dart';
@@ -8,6 +9,7 @@ class StorageServices extends Services {
     getFirebaseUser();
     getSchoolCode();
   }
+
   Future<String> setProfilePhoto(String filePath) async {
     if (firebaseUser == null) await getFirebaseUser();
     if (schoolCode == null) await getSchoolCode();
@@ -18,7 +20,12 @@ class StorageServices extends Services {
     final StorageUploadTask uploadTask =
         storageReference.child(schoolCode + '/' + fileName).putFile(
               File(filePath),
-              StorageMetadata(contentType: "image"),
+              StorageMetadata(
+                contentType: "image",
+                customMetadata: {
+                  "uploadedBy": firebaseUser.uid,
+                },
+              ),
             );
 
     final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
@@ -27,5 +34,30 @@ class StorageServices extends Services {
     await sharedPreferencesHelper.setLoggedInUserPhotoUrl(profileUrl);
 
     return profileUrl;
+  }
+
+  Future<String> uploadAnnouncemantPhoto(String filePath) async {
+    if (schoolCode == null) await getSchoolCode();
+    if (firebaseUser == null) await getFirebaseUser();
+
+    String _extension = p.extension(filePath);
+    String fileName =
+        createCryptoRandomString(8) + createCryptoRandomString(8) + _extension;
+    final StorageUploadTask uploadTask = storageReference
+        .child(schoolCode + "/" + "Posts" + '/' + fileName)
+        .putFile(
+          File(filePath),
+          StorageMetadata(
+            contentType: "image",
+            customMetadata: {
+              "uploadedBy": firebaseUser.uid,
+            },
+          ),
+        );
+
+    final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
+    final String postmageUrl = await downloadUrl.ref.getDownloadURL();
+
+    return postmageUrl;
   }
 }

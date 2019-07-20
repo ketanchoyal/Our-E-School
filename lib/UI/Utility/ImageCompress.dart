@@ -35,28 +35,30 @@ Future<String> _compressImage(_CompressImage object) async {
 String _decodeImage(_CompressImage object) {
   Im.Image image = Im.decodeImage(object.imageFile.readAsBytesSync());
 
-  int maxHeight = 800;
-  int maxWidth = 800;
-  int imageHeight = image.height;
-  int imageWidth = image.width;
-  int height;
-  int width;
-  int ratio;
+  
 
-  if (imageWidth > maxWidth) {
-    ratio = (maxWidth ~/ imageWidth);
-    height = imageHeight * ratio;
-    width = imageWidth * ratio;
-  }
+  // int maxHeight = 800;
+  // int maxWidth = 800;
+  // int imageHeight = image.height;
+  // int imageWidth = image.width;
+  // int height;
+  // int width;
+  // int ratio;
 
-  if (imageHeight > maxHeight) {
-    ratio = (maxHeight ~/ imageHeight);
-    height = imageHeight * ratio;
-    width = imageWidth * ratio;
-  }
+  // if (imageWidth > maxWidth) {
+  //   ratio = (maxWidth ~/ imageWidth);
+  //   height = imageHeight * ratio;
+  //   width = imageWidth * ratio;
+  // }
+
+  // if (imageHeight > maxHeight) {
+  //   ratio = (maxHeight ~/ imageHeight);
+  //   height = imageHeight * ratio;
+  //   width = imageWidth * ratio;
+  // }
 
   Im.Image smallerImage = Im.copyResize(image,
-      height: 400); // choose the size here, it will maintain aspect ratio
+      height: 500); // choose the size here, it will maintain aspect ratio
   var decodedImageFile = File(object.path + '/img_${object.rand}.jpg');
   decodedImageFile.writeAsBytesSync(Im.encodeJpg(smallerImage, quality: 80));
   return decodedImageFile.path;

@@ -45,8 +45,8 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
   floatingButtonPressed(CreateAnnouncementModel model) async {
     var announcement = Announcement(
       caption: _captionController.text,
-      forClass: _standardController.text,
-      forDiv: _divisionController.text,
+      forClass: _standardController.text.trim(),
+      forDiv: _divisionController.text.toUpperCase().trim(),
       photoUrl: path,
       type: announcementType,
     );

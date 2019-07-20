@@ -2,8 +2,12 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:ourESchool/core/services/Services.dart';
+import 'package:ourESchool/core/services/StorageServices.dart';
+import 'package:ourESchool/locator.dart';
 
 class AnnouncementServices extends Services {
+  StorageServices storageServices = locator<StorageServices>();
+
   AnnouncementServices() {
     getFirebaseUser();
     getSchoolCode();
@@ -20,6 +24,11 @@ class AnnouncementServices extends Services {
     announcement.by = firebaseUser.uid;
     //Timestmap will be directly set by Firebase Functions(througn REST Api)
     // announcement.timestamp = Timestamp.now();
+
+    if (announcement.photoUrl != '') {
+      announcement.photoUrl =
+          await storageServices.uploadAnnouncemantPhoto(announcement.photoUrl);
+    }
 
     Map announcementMap = announcement.toJson();
 

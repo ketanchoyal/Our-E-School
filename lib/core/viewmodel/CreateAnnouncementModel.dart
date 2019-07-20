@@ -18,4 +18,11 @@ class CreateAnnouncementModel extends BaseModel {
     await announcementServices.postAnnouncement(announcement);
     setState(ViewState.Idle);
   }
+
+  @override
+  void dispose() {
+    if (state == ViewState.Idle && state2 == ViewState.Idle) {
+      super.dispose();
+    }
+  }
 }
