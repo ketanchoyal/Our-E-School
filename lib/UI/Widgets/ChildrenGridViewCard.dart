@@ -63,7 +63,9 @@ class ChildrenGridViewCard extends StatelessWidget {
                         style: ktitleStyle.copyWith(color: Colors.white),
                       ),
                       Text(
-                        registerd ? user.standard + '-' + user.division : user.id,
+                        registerd
+                            ? user.standard + '-' + user.division
+                            : user.id,
                         textAlign: TextAlign.center,
                         style: ksubtitleStyle.copyWith(color: Colors.white),
                       ),

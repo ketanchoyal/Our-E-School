@@ -4,6 +4,7 @@ import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/ChildrenGridViewCard.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:ourESchool/UI/pages/BaseView.dart';
+import 'package:ourESchool/UI/pages/Dashboard/E-Card/E-CardPage.dart';
 import 'package:ourESchool/core/Models/User.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
 import 'package:ourESchool/core/viewmodel/ProfilePageModel.dart';
@@ -35,7 +36,14 @@ class ChildrensPage extends StatelessWidget {
                     itemCount: model.childrens.length,
                     itemBuilder: (context, index) => ChildrenGridViewCard(
                       user: model.childrens[index],
-                      onTap: () {},
+                      onTap: () {
+                        kopenPage(
+                          context,
+                          ECardPage(
+                            user: model.childrens[index],
+                          ),
+                        );
+                      },
                     ),
                   ),
           );

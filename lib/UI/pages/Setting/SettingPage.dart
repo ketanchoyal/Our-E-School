@@ -3,13 +3,16 @@ import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/DynamicThemeChanger.dart';
 import 'package:ourESchool/UI/pages/About/About.dart';
 import 'package:ourESchool/UI/pages/Login/ForgotPassword.dart';
+import 'package:ourESchool/UI/pages/Profiles/GuardianProfile.dart';
 import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
 import 'package:ourESchool/UI/pages/WelcomeScreen.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/core/viewmodel/LoginPageModel.dart';
 import 'package:ourESchool/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class SettingPage extends StatefulWidget {
   SettingPage({Key key}) : super(key: key);
@@ -41,7 +44,12 @@ class _SettingPageState extends State<SettingPage> {
                   context: context,
                   icon: FontAwesomeIcons.user,
                   onTap: () {
-                    kopenPage(context, ProfilePage());
+                    UserType userType = Provider.of<UserType>(context);
+                    if (userType == UserType.PARENT) {
+                      kopenPage(context, GuardianProfilePage());
+                    } else {
+                      kopenPage(context, ProfilePage());
+                    }
                   },
                   subtitle: string.profile_subtitle,
                   title: string.profile),

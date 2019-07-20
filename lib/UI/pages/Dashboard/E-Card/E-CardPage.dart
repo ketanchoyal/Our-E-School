@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ourESchool/UI/pages/BaseView.dart';
 import 'package:ourESchool/core/Models/User.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
 import 'package:ourESchool/core/viewmodel/ProfilePageModel.dart';
+import 'package:provider/provider.dart';
 
 class ECardPage extends StatefulWidget {
-  const ECardPage({Key key}) : super(key: key);
+  const ECardPage({Key key, this.user}) : super(key: key);
+  final User user;
 
   @override
   _ECardPageState createState() => _ECardPageState();
@@ -18,10 +21,12 @@ class ECardPage extends StatefulWidget {
 class _ECardPageState extends State<ECardPage> {
   @override
   Widget build(BuildContext context) {
+    UserType userType = widget.user ==null ? Provider.of<UserType>(context) : UserType.STUDENT;
     return BaseView<ProfilePageModel>(
-        onModelReady: (model) => model.getUserProfileData(),
+        onModelReady: (model) =>
+            widget.user == null ? model.getUserProfileData() : model,
         builder: (context, model, child) {
-          User user = model.userProfile;
+          User user = widget.user == null ? model.userProfile : widget.user;
 
           return Scaffold(
             appBar: TopBar(
@@ -53,9 +58,9 @@ class _ECardPageState extends State<ECardPage> {
                                 // shape: BoxShape.circle,r
                                 image: DecorationImage(
                                   fit: BoxFit.scaleDown,
-                                  image: model.userProfile.photoUrl != null
+                                  image: user.photoUrl != null
                                       ? NetworkImage(
-                                          model.userProfile.photoUrl,
+                                          user.photoUrl,
                                         )
                                       : NetworkImage(
                                           "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
@@ -75,36 +80,43 @@ class _ECardPageState extends State<ECardPage> {
                                 labelText: string.student_teacher_name,
                                 initialText: user.displayName,
                               ),
+                              userType == UserType.PARENT
+                                  ? Container()
+                                  : ProfileFieldsECard(
+                                      width: MediaQuery.of(context).size.width,
+                                      labelText: string.student_or_teacher_id,
+                                      initialText: user.enrollNo,
+                                    ),
+                              userType == UserType.PARENT
+                                  ? Container()
+                                  : Row(
+                                      // mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: ProfileFieldsECard(
+                                            labelText: string.standard,
+                                            initialText: user.standard,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                          child: ProfileFieldsECard(
+                                            labelText: string.division,
+                                            initialText:
+                                                user.division.toUpperCase(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                               ProfileFieldsECard(
                                 width: MediaQuery.of(context).size.width,
-                                labelText: string.student_or_teacher_id,
-                                initialText: user.enrollNo,
-                              ),
-                              Row(
-                                // mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: ProfileFieldsECard(
-                                      labelText: string.standard,
-                                      initialText: user.standard,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: ProfileFieldsECard(
-                                      labelText: string.division,
-                                      initialText: user.division.toUpperCase(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              ProfileFieldsECard(
-                                width: MediaQuery.of(context).size.width,
-                                labelText: string.guardian_name,
+                                labelText: userType == UserType.PARENT
+                                    ? "Childrens Name.."
+                                    : string.guardian_name,
                                 initialText: user.guardianName,
                               ),
                               Row(
@@ -166,9 +178,14 @@ class ProfileFieldsECard extends StatelessWidget {
           fontSize: 18,
           fontWeight: FontWeight.w500,
         ),
-        decoration: kTextFieldDecoration.copyWith(
-          // hintText: hintText,
+        decoration: InputDecoration(
           labelText: labelText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          hintStyle: TextStyle(height: 2.0, fontWeight: FontWeight.w300),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
         ),
       ),
     );

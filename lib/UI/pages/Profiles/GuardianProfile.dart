@@ -26,9 +26,6 @@ class GuardianProfilePage extends StatefulWidget {
     Key key,
   }) : super(key: key);
 
-  final Color selectedButtonColor = Colors.red;
-  final Color buttonBackGroundColor = Colors.white;
-
   _GuardianProfilePageState createState() => _GuardianProfilePageState();
 }
 
@@ -55,10 +52,6 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
     return picked;
   }
 
-  Color motherButtonColor;
-  Color fatherButtonColor;
-  Color otherButtonColor;
-
   // setColors(BuildContext context) {
   //   selectedButtonColor = Theme.of(context).primaryColor;
   //   buttonBackGroundColor = Theme.of(context).canvasColor;
@@ -66,10 +59,6 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    motherButtonColor = widget.selectedButtonColor;
-    fatherButtonColor = widget.buttonBackGroundColor;
-    otherButtonColor = widget.buttonBackGroundColor;
     super.initState();
   }
 
@@ -87,7 +76,6 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    // setColors(context);
     userType = Provider.of<UserType>(context);
     print("In Guardian ProfilePage " + UserTypeHelper.getValue(userType));
     if (userType == UserType.PARENT || userType == UserType.TEACHER) {
@@ -311,9 +299,10 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             ReusableRoundedButton(
+                              elevation: 5,
                               height: 50,
                               onPressed: () {},
-                              backgroundColor: motherButtonColor,
+                              backgroundColor: Theme.of(context).primaryColor,
                               child: FittedBox(
                                 fit: BoxFit.fitWidth,
                                 child: Text(
@@ -328,7 +317,8 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                             ReusableRoundedButton(
                               height: 50,
                               onPressed: () {},
-                              backgroundColor: fatherButtonColor,
+                              elevation: 5,
+                              backgroundColor: Theme.of(context).canvasColor,
                               child: FittedBox(
                                 fit: BoxFit.fitWidth,
                                 child: Text(
@@ -342,8 +332,9 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                             ),
                             ReusableRoundedButton(
                               height: 50,
+                              elevation: 5,
                               onPressed: () {},
-                              backgroundColor: otherButtonColor,
+                              backgroundColor: Theme.of(context).canvasColor,
                               child: FittedBox(
                                 fit: BoxFit.fitWidth,
                                 child: Text(
