@@ -120,7 +120,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
             FlatButton(
               onPressed: () async {
                 _path =
-                    await openFileExplorer(FileType.IMAGE, mounted, context);
+                    await openFileExplorer(FileType.ANY, mounted, context);
                 setState(() {
                   _fileName = _path != null ? _path.split('/').last : '...';
                   print(_fileName);

@@ -17,16 +17,17 @@ class StorageServices extends Services {
 
     String _extension = p.extension(filePath);
     String fileName = firebaseUser.uid + _extension;
-    final StorageUploadTask uploadTask =
-        storageReference.child(schoolCode + '/' + fileName).putFile(
-              File(filePath),
-              StorageMetadata(
-                contentType: "image",
-                customMetadata: {
-                  "uploadedBy": firebaseUser.uid,
-                },
-              ),
-            );
+    final StorageUploadTask uploadTask = storageReference
+        .child(schoolCode + '/' + "Profile" + '/' + fileName)
+        .putFile(
+          File(filePath),
+          StorageMetadata(
+            contentType: "image",
+            customMetadata: {
+              "uploadedBy": firebaseUser.uid,
+            },
+          ),
+        );
 
     final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
     final String profileUrl = await downloadUrl.ref.getDownloadURL();
@@ -49,6 +50,32 @@ class StorageServices extends Services {
           File(filePath),
           StorageMetadata(
             contentType: "image",
+            customMetadata: {
+              "uploadedBy": firebaseUser.uid,
+            },
+          ),
+        );
+
+    final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
+    final String postmageUrl = await downloadUrl.ref.getDownloadURL();
+
+    return postmageUrl;
+  }
+
+  Future<String> uploadAssignment(String filePath) async {
+    if (schoolCode == null) await getSchoolCode();
+    if (firebaseUser == null) await getFirebaseUser();
+
+    String _extension = p.extension(filePath);
+    String fileName =
+        createCryptoRandomString(8) + createCryptoRandomString(8) + _extension;
+
+    final StorageUploadTask uploadTask = storageReference
+        .child(schoolCode + "/" + "Assignments" + '/' + fileName)
+        .putFile(
+          File(filePath),
+          StorageMetadata(
+            contentType: "PDF",
             customMetadata: {
               "uploadedBy": firebaseUser.uid,
             },
