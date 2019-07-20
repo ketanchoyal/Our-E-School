@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/AnnouncementCard.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
@@ -45,42 +46,49 @@ I want to perform login and call a function for that, this function can either r
             kbackBtn(context);
           }),
       // floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      floatingActionButton: Visibility(
-        visible: isTeacher,
-        child: Visibility(
-          visible: isTeacher,
-          child: Stack(
-            children: <Widget>[
-              Align(
-                alignment: Alignment.bottomRight,
-                child: FloatingActionButton(
-                  elevation: 12,
-                  onPressed: () {
-                    kopenPageBottom(context, CreateAnnouncement());
-                  },
-                  child: Icon(Icons.add),
-                  backgroundColor: Colors.red,
-                ),
+      floatingActionButton: Stack(
+        children: <Widget>[
+          Visibility(
+            visible: isTeacher,
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                elevation: 12,
+                onPressed: () {
+                  kopenPageBottom(context, CreateAnnouncement());
+                },
+                child: Icon(Icons.add),
+                backgroundColor: Colors.red,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 31),
-                child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: FloatingActionButton(
-                    heroTag: 'abc',
-                    elevation: 12,
-                    onPressed: () {
-                      //Filter Posts Code Here
-                      filterDialogBox(context);
-                    },
-                    child: Icon(Icons.filter_list),
-                    backgroundColor: Colors.red,
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          Padding(
+            padding: EdgeInsets.only(left: 31),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: isTeacher
+                  ? FloatingActionButton.extended(
+                      label: Text('Filter'),
+                      heroTag: 'abc',
+                      elevation: 12,
+                      onPressed: () {
+                        //Filter Posts Code Here
+                        filterDialogBox(context);
+                      },
+                      icon: Icon(Icons.filter_list),
+                      backgroundColor: Colors.red,
+                    )
+                  : FloatingActionButton.extended(
+                      label: Text('Global'),
+                      heroTag: 'abc',
+                      elevation: 12,
+                      onPressed: () {},
+                      icon: Icon(FontAwesomeIcons.globe),
+                      backgroundColor: Colors.red,
+                    ),
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Container(
