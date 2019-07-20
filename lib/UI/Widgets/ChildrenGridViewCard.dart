@@ -1,3 +1,4 @@
+import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ourESchool/core/Models/User.dart';
@@ -14,6 +15,7 @@ class ChildrenGridViewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool registerd = user.firebaseUuid == '' ? false : true;
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -32,11 +34,12 @@ class ChildrenGridViewCard extends StatelessWidget {
                 transitionOnUserGestures: true,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius:
-                        new BorderRadius.all(Radius.circular(10.0)),
+                    borderRadius: new BorderRadius.all(Radius.circular(10.0)),
                     image: DecorationImage(
-                      image: NetworkImage(user.photoUrl),
-                      fit: BoxFit.cover,
+                      image: registerd
+                          ? NetworkImage(user.photoUrl)
+                          : AssetImage(assetsString.no_image_available),
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ),
@@ -55,18 +58,14 @@ class ChildrenGridViewCard extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        user.displayName,
+                        registerd ? user.displayName : "Not Registered Yet",
                         textAlign: TextAlign.center,
-                        style: ktitleStyle.copyWith(
-                          color: Colors.white
-                        ),
+                        style: ktitleStyle.copyWith(color: Colors.white),
                       ),
                       Text(
-                        user.standard+'-'+user.division,
+                        registerd ? user.standard + '-' + user.division : user.id,
                         textAlign: TextAlign.center,
-                        style: ksubtitleStyle.copyWith(
-                          color: Colors.white
-                        ),
+                        style: ksubtitleStyle.copyWith(color: Colors.white),
                       ),
                     ],
                   ),

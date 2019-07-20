@@ -1,7 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
+import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
+
+import '../../locator.dart';
 
 class BaseModel extends ChangeNotifier {
+  final sharedPreferencesHelper = locator<SharedPreferencesHelper>();
   ViewState _state = ViewState.Idle;
   ViewState _state2 = ViewState.Idle;
 

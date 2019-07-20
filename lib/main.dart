@@ -78,7 +78,6 @@ class OurSchoolApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isUserLoggedIn = Provider.of<bool>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Our E-School',

@@ -43,6 +43,9 @@ class AuthenticationServices extends Services {
   StreamController<UserType> userTypeStream = StreamController<UserType>();
 
   AuthenticationServices() {
+    firestore.settings(
+      persistenceEnabled: false,
+    );
     isLoggedIn().then((onValue) => isUserLoggedIn = onValue);
     _userType().then((onValue) => userType = onValue);
   }
@@ -179,7 +182,7 @@ class AuthenticationServices extends Services {
       authErrors = AuthErrors.SUCCESS;
       sharedPreferencesHelper.setSchoolCode(schoolCode);
       print("User Regestered using Email and Password");
-      sharedPreferencesHelper.setUserType(userType);
+      // sharedPreferencesHelper.setUserType(userType);
       isUserLoggedIn = true;
       isUserLoggedInStream.add(isUserLoggedIn);
       fireBaseUserStream.add(firebaseUser);
@@ -199,7 +202,7 @@ class AuthenticationServices extends Services {
       authErrors = AuthErrors.SUCCESS;
       sharedPreferencesHelper.setSchoolCode(schoolCode);
       print("User Loggedin using Email and Password");
-      sharedPreferencesHelper.setUserType(userType);
+      // sharedPreferencesHelper.setUserType(userType);
       fireBaseUserStream.add(firebaseUser);
       return authErrors;
     } on PlatformException catch (e) {
@@ -259,9 +262,12 @@ class AuthenticationServices extends Services {
           case 'A network error (such as timeout, interrupted connection or unreachable host) has occurred.':
             errorType = AuthErrors.NetworkError;
             break;
+          case 'Too many unsuccessful login attempts.  Please include reCaptcha verification or try again later':
+            errorType = AuthErrors.TOOMANYATTEMPTS;
+            break;
           // ...
           default:
-            print('Case ${e.message} is not yet implemented');
+            print('Case iOS ${e.message} is not yet implemented');
         }
       } else if (Platform.isAndroid) {
         switch (e.code) {
@@ -269,6 +275,7 @@ class AuthenticationServices extends Services {
             errorType = AuthErrors.UserNotFound;
             break;
           case 'Error 17009':
+          case 'ERROR_WRONG_PASSWORD':
             errorType = AuthErrors.PasswordNotValid;
             break;
           case 'Error 17020':
@@ -276,7 +283,7 @@ class AuthenticationServices extends Services {
             break;
           // ...
           default:
-            print('Case ${e.message} is not yet implemented');
+            print('Case Android ${e.message} ${e.code} is not yet implemented');
         }
       }
     }

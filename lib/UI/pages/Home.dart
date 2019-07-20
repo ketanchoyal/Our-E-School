@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'Chat/ChatPage.dart';
 import 'Dashboard/Announcement/CreateAnnouncement.dart';
 import 'Dashboard/MainDashboard.dart';
-import 'Dashboard/StudentDashboardPage.dart';
+import 'Dashboard/StudentDashboard.dart';
 import 'Profiles/ProfilePage.dart';
 import 'Setting/SettingPage.dart';
 

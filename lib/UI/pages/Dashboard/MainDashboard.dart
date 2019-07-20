@@ -99,25 +99,6 @@ class _MainDashboardState extends State<MainDashboard> {
                             width: 5,
                           ),
                           RowReusableCardButton(
-                            tileColor: Colors.indigoAccent,
-                            icon: Icons.assessment,
-                            label: string.results,
-                            onPressed: () {
-                              kopenPage(context, ResultPage());
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      height: 110,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          RowReusableCardButton(
                             tileColor: Colors.lightGreen,
                             label: string.assignment,
                             onPressed: () {
@@ -125,20 +106,47 @@ class _MainDashboardState extends State<MainDashboard> {
                             },
                             icon: Icons.assignment,
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          RowReusableCardButton(
-                            tileColor: Colors.lime,
-                            icon: Icons.attach_money,
-                            label: string.fees,
-                            onPressed: () {
-                              kopenPage(context, FeesPage());
-                            },
-                          ),
+                          // RowReusableCardButton(
+                          //   tileColor: Colors.indigoAccent,
+                          //   icon: Icons.assessment,
+                          //   label: string.results,
+                          //   onPressed: () {
+                          //     kopenPage(context, ResultPage());
+                          //   },
+                          // ),
                         ],
                       ),
                     ),
+                    // SizedBox(
+                    //   height: 5,
+                    // ),
+                    // Container(
+                    //   height: 110,
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: <Widget>[
+                    //       RowReusableCardButton(
+                    //         tileColor: Colors.lightGreen,
+                    //         label: string.assignment,
+                    //         onPressed: () {
+                    //           kopenPage(context, AssignmentsPage());
+                    //         },
+                    //         icon: Icons.assignment,
+                    //       ),
+                    //       SizedBox(
+                    //         width: 5,
+                    //       ),
+                    //       RowReusableCardButton(
+                    //         tileColor: Colors.lime,
+                    //         icon: Icons.attach_money,
+                    //         label: string.fees,
+                    //         onPressed: () {
+                    //           kopenPage(context, FeesPage());
+                    //         },
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     ColumnReusableCardButton(
                       height: 70,
                       tileColor: Colors.grey,

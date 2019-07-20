@@ -10,14 +10,6 @@ class ProfileServices extends Services {
   StorageServices storageServices = locator<StorageServices>();
 
   String country = Services.country;
-  // String schoolCode;
-  // getFirebaseUser() async {
-  //   firebaseUser = await auth.currentUser();
-  // }
-
-  // getSchoolCode() async {
-  //   schoolCode = await sharedPreferencesHelper.getSchoolCode();
-  // }
 
   ProfileServices() {
     getSchoolCode();
@@ -89,26 +81,7 @@ class ProfileServices extends Services {
       return user;
     } else {
       print("Data Retrived failed");
-      return User();
+      return User(id: uid);
     }
   }
-
-  // Future<String> setProfilePhoto(String filePath) async {
-  //   // String schoolCode = await sharedPreferencesHelper.getSchoolCode();
-
-  //   String _extension = p.extension(filePath);
-  //   String fileName = firebaseUser.uid + _extension;
-  //   final StorageUploadTask uploadTask =
-  //       storageReference.child(schoolCode + '/' + fileName).putFile(
-  //             File(filePath),
-  //             StorageMetadata(contentType: "image"),
-  //           );
-
-  //   final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
-  //   final String profileUrl = await downloadUrl.ref.getDownloadURL();
-
-  //   await sharedPreferencesHelper.setLoggedInUserPhotoUrl(profileUrl);
-
-  //   return profileUrl;
-  // }
 }

@@ -3,6 +3,7 @@ enum AuthErrors {
   PasswordNotValid,
   NetworkError,
   SUCCESS,
+  TOOMANYATTEMPTS,
   UNKNOWN
 }
 
@@ -19,6 +20,8 @@ class AuthErrorsHelper {
         return "Task performed succesfully";
       case AuthErrors.UNKNOWN:
         return "Something went wrong!";
+      case AuthErrors.TOOMANYATTEMPTS:
+        return "Too many unsuccessful login attempts.  Please include reCaptcha verification or try again later";
       default:
         return "opps, please Try again";
     }
