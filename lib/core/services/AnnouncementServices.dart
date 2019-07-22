@@ -29,12 +29,10 @@ class AnnouncementServices extends Services {
 
     if (schoolCode == null) await getSchoolCode();
 
-    var _schoolRef = firestore
-        .collection('Schools')
-      .document('India')
-      .collection('AMBE001')
-      .document('Posts')
-      .collection(stdDiv_Global);
+    var _schoolRef = schoolRef
+        .collection(schoolCode)
+        .document('Posts')
+        .collection(stdDiv_Global);
     QuerySnapshot data;
     //  = await _schoolRef.getDocuments();
     if (lastPostSnapshot == null)

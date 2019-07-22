@@ -112,7 +112,10 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                             label: Text('Global'),
                             heroTag: 'abc',
                             elevation: 12,
-                            onPressed: () {},
+                            onPressed: () {
+                              stdDiv_Global = 'Global';
+                              setState(() {});
+                            },
                             icon: Icon(FontAwesomeIcons.globe),
                             backgroundColor: Colors.red,
                           ),
