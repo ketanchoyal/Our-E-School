@@ -23,7 +23,6 @@ class AnnouncementServices extends Services {
     if (firebaseUser == null) await getFirebaseUser();
     if (schoolCode == null) await getSchoolCode();
 
-    announcement.by = firebaseUser.uid;
     //Timestmap will be directly set by Firebase Functions(througn REST Api)
     // announcement.timestamp = Timestamp.now();
 

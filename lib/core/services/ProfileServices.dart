@@ -56,7 +56,7 @@ class ProfileServices extends Services {
   }
 
   Future<User> getProfileData(String uid, UserType userType) async {
-    // String schoolCode = await sharedPreferencesHelper.getSchoolCode();
+    if (schoolCode == null) await getSchoolCode();
 
     var body = json.encode({
       "schoolCode": schoolCode.trim().toUpperCase(),

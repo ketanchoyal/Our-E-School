@@ -50,6 +50,18 @@ class Announcement {
     id = json['id'];
   }
 
+  Announcement.fromSnapshot(DocumentSnapshot snapshot) {
+    caption = snapshot['caption'].toString() ?? '';
+    by = snapshot['by'].toString();
+    forDiv = snapshot['forDiv'].toString();
+    timestamp = snapshot['timeStamp'] as Timestamp;
+    forClass = snapshot['forClass'].toString();
+    photoUrl = snapshot['photoUrl'].toString() ?? '';
+    photoPath = snapshot['photoPath'].toString() ?? '';
+    type = AnnouncementTypeHelper.getEnum(snapshot['type'].toString());
+    id = snapshot.documentID;
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['caption'] = this.caption;

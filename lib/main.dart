@@ -15,6 +15,8 @@ import 'package:provider/provider.dart';
 
 import 'UI/Widgets/DynamicThemeChanger.dart';
 import 'UI/pages/WelcomeScreen.dart';
+import 'core/Models/User.dart';
+import 'core/viewmodel/ProfilePageModel.dart';
 
 void main() {
   // debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -31,6 +33,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        StreamProvider<User>.controller(
+          initialData: User(),
+          builder: (context) => locator<ProfilePageModel>().loggedInUserStream,
+        ),
         StreamProvider<bool>.controller(
           initialData: false,
           builder: (context) =>

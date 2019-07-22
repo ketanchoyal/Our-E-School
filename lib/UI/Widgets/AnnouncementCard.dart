@@ -1,13 +1,40 @@
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/pages/shared/AnnouncementViewer.dart';
 import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:flutter/material.dart';
+import 'package:ourESchool/core/Models/User.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
+import 'package:ourESchool/core/enums/ViewState.dart';
+import 'package:ourESchool/core/viewmodel/ProfilePageModel.dart';
+import 'package:ourESchool/locator.dart';
 
-class AnnouncementCard extends StatelessWidget {
-  const AnnouncementCard({@required this.announcement});
+class AnnouncementCard extends StatefulWidget {
+  AnnouncementCard({@required this.announcement});
 
   final Announcement announcement;
+
+  @override
+  _AnnouncementCardState createState() => _AnnouncementCardState();
+}
+
+class _AnnouncementCardState extends State<AnnouncementCard> {
+  final ProfilePageModel model = locator<ProfilePageModel>();
+
+  User user = User();
+
+  getUserData() async {
+    user = await model.getUserProfileDatabyId(
+        UserType.TEACHER, widget.announcement.by);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +54,25 @@ class AnnouncementCard extends StatelessWidget {
                 children: <Widget>[
                   Hero(
                     transitionOnUserGestures: false,
-                    tag: announcement.id + 'row',
+                    tag: widget.announcement.id + 'row',
                     child: Row(
                       children: <Widget>[
                         //User profile image section
-                        CircleAvatar(
-                          radius: 25.0,
-                          backgroundImage: NetworkImage(
-                            'https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png',
-                          ),
-                          backgroundColor: Colors.transparent,
-                        ),
+                        model.state == ViewState.Busy
+                            ? CircleAvatar(
+                                radius: 25.0,
+                                backgroundImage: AssetImage(assetsString.teacher_welcome),
+                                backgroundColor: Colors.transparent,
+                              )
+                            : CircleAvatar(
+                                radius: 25.0,
+                                backgroundImage: NetworkImage(
+                                  user.photoUrl == 'default'
+                                      ? 'https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png'
+                                      : user.photoUrl,
+                                ),
+                                backgroundColor: Colors.transparent,
+                              ),
                         SizedBox(
                           width: 5,
                         ),
@@ -47,7 +82,9 @@ class AnnouncementCard extends StatelessWidget {
                           children: <Widget>[
                             //Announcement by section
                             Text(
-                              announcement.by,
+                              model.state == ViewState.Busy
+                                  ? 'Loading...'
+                                  : user.displayName,
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 15,
@@ -55,8 +92,9 @@ class AnnouncementCard extends StatelessWidget {
                             ),
                             //TimeStamp section
                             Text(
+                              // 'data',
                               DateFormat("MMM d, E").add_jm()
-                                  .format(DateTime.parse(announcement.timestamp
+                                  .format(DateTime.parse(widget.announcement.timestamp
                                       .toDate()
                                       .toLocal()
                                       .toString())),
@@ -72,9 +110,10 @@ class AnnouncementCard extends StatelessWidget {
                   ),
                   //Announcement Type section
                   Visibility(
-                    visible: announcement.type == null ? false : true,
+                    visible: widget.announcement.type == null ? false : true,
                     child: InkWell(
                       onTap: () {
+                        print(widget.announcement.timestamp.toString());
                         buildShowDialogBox(context);
                       },
                       child: Card(
@@ -84,11 +123,12 @@ class AnnouncementCard extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundColor: ThemeData().canvasColor,
                           child: Text(
-                            announcement.type
+                            widget.announcement.type
                                 .toString()
-                                .substring(
-                                    announcement.type.toString().indexOf('.') +
-                                        1)
+                                .substring(widget.announcement.type
+                                        .toString()
+                                        .indexOf('.') +
+                                    1)
                                 .substring(0, 1),
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
@@ -108,25 +148,25 @@ class AnnouncementCard extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 child: Hero(
                   transitionOnUserGestures: true,
-                  tag: announcement.id + 'photo',
+                  tag: widget.announcement.id + 'photo',
                   child: Material(
                     child: InkWell(
                       onTap: () {
                         kopenPageBottom(
                           context,
                           AnnouncementViewer(
-                            announcement: announcement,
+                            announcement: widget.announcement,
                           ),
                         );
                       },
-                      child: announcement.photoUrl == null
+                      child: widget.announcement.photoUrl == ''
                           ? Container(
                               height: 0,
                             )
                           : Image(
                               fit: BoxFit.contain,
                               image: NetworkImage(
-                                announcement.photoUrl,
+                                widget.announcement.photoUrl,
                               ),
                             ),
                     ),
@@ -142,9 +182,9 @@ class AnnouncementCard extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 child: Hero(
                   transitionOnUserGestures: false,
-                  tag: announcement.id + 'caption',
+                  tag: widget.announcement.id + 'caption',
                   child: Text(
-                    announcement.caption,
+                    widget.announcement.caption,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 4,
                     style: TextStyle(fontWeight: FontWeight.w400),

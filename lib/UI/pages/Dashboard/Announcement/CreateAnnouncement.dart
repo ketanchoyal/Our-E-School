@@ -10,9 +10,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ourESchool/UI/pages/BaseView.dart';
 import 'package:ourESchool/UI/pages/Dashboard/Announcement/camera_screen.dart';
 import 'package:ourESchool/core/Models/Announcement.dart';
+import 'package:ourESchool/core/Models/User.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
 import 'package:ourESchool/core/enums/announcementType.dart';
 import 'package:ourESchool/core/viewmodel/CreateAnnouncementModel.dart';
+import 'package:provider/provider.dart';
 
 class CreateAnnouncement extends StatefulWidget {
   CreateAnnouncement({Key key}) : super(key: key);
@@ -21,7 +23,7 @@ class CreateAnnouncement extends StatefulWidget {
 }
 
 class _CreateAnnouncementState extends State<CreateAnnouncement> {
-  String path = null;
+  String path = '';
 
   TextEditingController _standardController;
   TextEditingController _divisionController;
@@ -30,10 +32,10 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
   AnnouncementType announcementType = AnnouncementType.EVENT;
 
   FocusNode _focusNode = new FocusNode();
-  GlobalKey _scaffoldKey;
+  var _scaffoldKey;
   bool isPosting = false;
   Color postTypeFontColor = Colors.black;
-
+  bool isReadyToPost = false;
   String postType = 'GLOBAL';
 
   @override
@@ -45,8 +47,11 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
     _divisionController = TextEditingController();
   }
 
-  floatingButtonPressed(CreateAnnouncementModel model) async {
+  floatingButtonPressed(
+      CreateAnnouncementModel model, BuildContext context) async {
+    User user = Provider.of<User>(context);
     var announcement = Announcement(
+      by: user.id,
       caption: _captionController.text,
       forClass:
           postType == 'SPECIFIC' ? _standardController.text.trim() : 'Global',
@@ -56,9 +61,19 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
       photoUrl: path,
       type: announcementType,
     );
-
-    await model.postAnnouncement(announcement);
-    kbackBtn(context);
+    if (postType == 'SPECIFIC') {
+      if (_standardController.text.trim() == '' ||
+          _divisionController.text.trim() == '') {
+        _scaffoldKey.currentState.showSnackBar(
+            ksnackBar(context, 'Please Specify Class and Division'));
+      } else {
+        await model.postAnnouncement(announcement);
+        kbackBtn(context);
+      }
+    } else {
+      await model.postAnnouncement(announcement);
+      kbackBtn(context);
+    }
   }
 
   @override
@@ -82,9 +97,11 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              floatingButtonPressed(model);
+              if (isReadyToPost) floatingButtonPressed(model, context);
             },
-            backgroundColor: Colors.red,
+            backgroundColor: isReadyToPost
+                ? Theme.of(context).primaryColor
+                : Colors.blueGrey,
             child: model.state == ViewState.Busy
                 ? SpinKitDoubleBounce(
                     color: Colors.white,
@@ -317,7 +334,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                     ),
                     Container(
                       constraints: BoxConstraints(maxHeight: 300, minHeight: 0),
-                      child: path == null
+                      child: path == ''
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
@@ -385,7 +402,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                           onPressed: () {
                                             setState(
                                               () {
-                                                path = null;
+                                                path = '';
                                               },
                                             );
                                           },
@@ -412,6 +429,11 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                         enabled: !isPosting,
                         focusNode: _focusNode,
                         maxLength: null,
+                        onChanged: (caption) {
+                          setState(() {
+                            isReadyToPost = caption == '' ? false : true;
+                          });
+                        },
                         maxLines: 50,
                         keyboardType: TextInputType.multiline,
                         style: TextStyle(

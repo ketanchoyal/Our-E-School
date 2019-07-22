@@ -30,7 +30,7 @@ void setupLocator() {
   locator.registerFactory(() => LoginPageModel());
 
   locator.registerLazySingleton(() => ProfileServices());
-  locator.registerFactory(() => ProfilePageModel());
+  locator.registerLazySingleton(() => ProfilePageModel());
 
   locator.registerLazySingleton(() => StorageServices());
 }

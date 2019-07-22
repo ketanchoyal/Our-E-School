@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:ourESchool/core/Models/User.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
@@ -10,10 +11,13 @@ class ProfilePageModel extends BaseModel {
   final _profileServices = locator<ProfileServices>();
 
   User userProfile;
+  StreamController<User> loggedInUserStream = StreamController<User>();
 
   List<User> childrens = [];
 
-  ProfilePageModel() {}
+  ProfilePageModel() {
+    getUserProfileData();
+  }
 
   ProfilePageModel.getChildrens() {
     getChildrens();
@@ -38,6 +42,7 @@ class ProfilePageModel extends BaseModel {
     String id = await sharedPreferencesHelper.getLoggedInUserId();
     UserType userType = await sharedPreferencesHelper.getUserType();
     userProfile = await _profileServices.getProfileData(id, userType);
+    loggedInUserStream.add(userProfile);
     setState2(ViewState.Idle);
     setState(ViewState.Idle);
     return userProfile;
@@ -74,6 +79,13 @@ class ProfilePageModel extends BaseModel {
     setState2(ViewState.Idle);
     setState(ViewState.Idle);
     return userProfile;
+  }
+
+  @override
+  void dispose() {
+    if (true) {
+    } else
+      super.dispose();
   }
 
   // Future<User> getUserProfileDataOfGuardian(UserType userType, String id) async {

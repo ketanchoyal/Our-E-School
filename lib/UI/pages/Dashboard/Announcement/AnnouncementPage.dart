@@ -32,6 +32,77 @@ I’m confused if they’re business logic or UI logic.
 For example:
 I want to perform login and call a function for that, this function can either return a token or raise an exception, depending on the case my UI will display different information. Should I handle the exception in my business logic and convert it to a state or should I handle it in the UI?''';
 
+  ScrollController controller;
+  DocumentSnapshot _lastPost;
+  Firestore firestore;
+  bool _isLoading;
+  CollectionReference get postFeed => firestore
+      .collection('Schools')
+      .document('India')
+      .collection('AMBE001')
+      .document('Posts')
+      .collection('9B');
+  List<DocumentSnapshot> _data = new List<DocumentSnapshot>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    firestore = Firestore.instance;
+    controller = new ScrollController()..addListener(_scrollListener);
+    super.initState();
+    _isLoading = true;
+    _getData();
+  }
+
+  Future<Null> _getData() async {
+//    await new Future.delayed(new Duration(seconds: 5));
+    QuerySnapshot data;
+    if (_lastPost == null)
+      data = await postFeed
+          .orderBy('timeStamp', descending: true)
+          .limit(3)
+          .getDocuments();
+    else
+      data = await postFeed
+          .orderBy('timeStamp', descending: true)
+          .startAfter([_lastPost['timeStamp']])
+          .limit(3)
+          .getDocuments();
+
+    if (data != null && data.documents.length > 0) {
+      _lastPost = data.documents[data.documents.length - 1];
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          _data.addAll(data.documents);
+        });
+      }
+    } else {
+      setState(() => _isLoading = false);
+      scaffoldKey.currentState?.showSnackBar(
+        SnackBar(
+          content: Text('No more posts!'),
+        ),
+      );
+    }
+    return null;
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if (!_isLoading) {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        setState(() => _isLoading = true);
+        _getData();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var userType = Provider.of<UserType>(context);
@@ -95,21 +166,32 @@ I want to perform login and call a function for that, this function can either r
           constraints: BoxConstraints(
             maxWidth: 700,
           ),
-          child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (context, index) => AnnouncementCard(
-              announcement: Announcement(
-                by: 'userid',
-                caption: randomText,
-                forClass: '10',
-                forDiv: 'A',
-                id: 'postid' + index.toString(),
-                photoUrl:
-                    "https://cyprus-mail.com/wp-content/uploads/2013/06/schoolchildren06.jpg",
-                timestamp: Timestamp.now(),
-                type: AnnouncementType.CIRCULAR,
-              ),
+          child: RefreshIndicator(
+            child: ListView.builder(
+              controller: controller,
+              itemCount: _data.length + 1,
+              itemBuilder: (context, index) {
+                if (index < _data.length) {
+                  return AnnouncementCard(
+                      announcement: Announcement.fromSnapshot(_data[index]));
+                } else {
+                  return Center(
+                    child: new Opacity(
+                      opacity: _isLoading ? 1.0 : 0.0,
+                      child: new SizedBox(
+                          width: 32.0,
+                          height: 32.0,
+                          child: new CircularProgressIndicator()),
+                    ),
+                  );
+                }
+              },
             ),
+            onRefresh: () async {
+              _data.clear();
+              _lastPost = null;
+              await _getData();
+            },
           ),
         ),
       ),
