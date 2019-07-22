@@ -37,13 +37,11 @@ class StorageServices extends Services {
     return profileUrl;
   }
 
-  Future<String> uploadAnnouncemantPhoto(String filePath) async {
+  Future<String> uploadAnnouncemantPhoto(
+      String filePath, String fileName) async {
     if (schoolCode == null) await getSchoolCode();
     if (firebaseUser == null) await getFirebaseUser();
 
-    String _extension = p.extension(filePath);
-    String fileName =
-        createCryptoRandomString(8) + createCryptoRandomString(8) + _extension;
     final StorageUploadTask uploadTask = storageReference
         .child(schoolCode + "/" + "Posts" + '/' + fileName)
         .putFile(
@@ -62,16 +60,15 @@ class StorageServices extends Services {
     return postmageUrl;
   }
 
-  Future<String> uploadAssignment(String filePath) async {
+  Future<String> uploadAssignment(String filePath, String fileName) async {
     if (schoolCode == null) await getSchoolCode();
     if (firebaseUser == null) await getFirebaseUser();
 
     String _extension = p.extension(filePath);
-    String fileName =
-        createCryptoRandomString(8) + createCryptoRandomString(8) + _extension;
+    String file = fileName + _extension;
 
     final StorageUploadTask uploadTask = storageReference
-        .child(schoolCode + "/" + "Assignments" + '/' + fileName)
+        .child(schoolCode + "/" + "Assignments" + '/' + file)
         .putFile(
           File(filePath),
           StorageMetadata(

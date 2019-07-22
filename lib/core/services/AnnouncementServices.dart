@@ -1,9 +1,11 @@
 import 'package:http/http.dart' as http;
+import 'package:ourESchool/UI/Utility/constants.dart';
 import 'dart:convert';
 import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:ourESchool/core/services/Services.dart';
 import 'package:ourESchool/core/services/StorageServices.dart';
 import 'package:ourESchool/locator.dart';
+import 'package:path/path.dart' as p;
 
 class AnnouncementServices extends Services {
   StorageServices storageServices = locator<StorageServices>();
@@ -25,11 +27,20 @@ class AnnouncementServices extends Services {
     //Timestmap will be directly set by Firebase Functions(througn REST Api)
     // announcement.timestamp = Timestamp.now();
 
-    if (announcement.photoUrl != '') {
-      announcement.photoUrl =
-          await storageServices.uploadAnnouncemantPhoto(announcement.photoUrl);
-    }
+    String fileName = "";
+    String filePath = "";
 
+    if (announcement.photoUrl != '') {
+      fileName = createCryptoRandomString(8) +
+          createCryptoRandomString(8) +
+          p.extension(announcement.photoUrl);
+
+      announcement.photoUrl = await storageServices.uploadAnnouncemantPhoto(
+          announcement.photoUrl, fileName);
+
+      filePath = '${Services.country}/${schoolCode}/Posts/${fileName}';
+    }
+    announcement.photoPath = filePath;
     Map announcementMap = announcement.toJson();
 
     var body = json.encode({
