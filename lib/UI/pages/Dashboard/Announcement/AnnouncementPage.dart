@@ -3,12 +3,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/AnnouncementCard.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
+import 'package:ourESchool/UI/pages/BaseView.dart';
 import 'package:ourESchool/UI/pages/Login/LoginPage.dart';
 import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:flutter/material.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
+import 'package:ourESchool/core/enums/ViewState.dart';
 import 'package:ourESchool/core/enums/announcementType.dart';
+import 'package:ourESchool/core/viewmodel/AnnouncementPageModel.dart';
 import 'package:provider/provider.dart';
 
 import 'CreateAnnouncement.dart';
@@ -20,72 +23,20 @@ class AnnouncementPage extends StatefulWidget {
   _AnnouncementPageState createState() => _AnnouncementPageState();
 }
 
-class _AnnouncementPageState extends State<AnnouncementPage> {
+class _AnnouncementPageState extends State<AnnouncementPage>
+    with AutomaticKeepAliveClientMixin {
   bool isTeacher = false;
 
-  String url =
-      'https://i1.rgstatic.net/publication/274400281_Adult_male_circumcision_with_a_circular_stapler_versus_conventional_circumcision_A_prospective_randomized_clinical_trial/links/5599d54708ae793d13805d4f/largepreview.png';
-
-  String randomText =
-      '''When using any kind of state management strategy how should I handle exceptions?
-I’m confused if they’re business logic or UI logic.
-For example:
-I want to perform login and call a function for that, this function can either return a token or raise an exception, depending on the case my UI will display different information. Should I handle the exception in my business logic and convert it to a state or should I handle it in the UI?''';
-
   ScrollController controller;
-  DocumentSnapshot _lastPost;
-  Firestore firestore;
-  bool _isLoading;
-  CollectionReference get postFeed => firestore
-      .collection('Schools')
-      .document('India')
-      .collection('AMBE001')
-      .document('Posts')
-      .collection('9B');
-  List<DocumentSnapshot> _data = new List<DocumentSnapshot>();
+  AnnouncementPageModel model = AnnouncementPageModel();
+  String stdDiv_Global = 'Global';
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isLast = false;
 
   @override
   void initState() {
-    firestore = Firestore.instance;
-    controller = new ScrollController()..addListener(_scrollListener);
+    controller = ScrollController()..addListener(_scrollListener);
     super.initState();
-    _isLoading = true;
-    _getData();
-  }
-
-  Future<Null> _getData() async {
-//    await new Future.delayed(new Duration(seconds: 5));
-    QuerySnapshot data;
-    if (_lastPost == null)
-      data = await postFeed
-          .orderBy('timeStamp', descending: true)
-          .limit(3)
-          .getDocuments();
-    else
-      data = await postFeed
-          .orderBy('timeStamp', descending: true)
-          .startAfter([_lastPost['timeStamp']])
-          .limit(3)
-          .getDocuments();
-
-    if (data != null && data.documents.length > 0) {
-      _lastPost = data.documents[data.documents.length - 1];
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-          _data.addAll(data.documents);
-        });
-      }
-    } else {
-      setState(() => _isLoading = false);
-      scaffoldKey.currentState?.showSnackBar(
-        SnackBar(
-          content: Text('No more posts!'),
-        ),
-      );
-    }
-    return null;
   }
 
   @override
@@ -95,10 +46,11 @@ I want to perform login and call a function for that, this function can either r
   }
 
   void _scrollListener() {
-    if (!_isLoading) {
+    if (model.state == ViewState.Idle) {
       if (controller.position.pixels == controller.position.maxScrollExtent) {
-        setState(() => _isLoading = true);
-        _getData();
+        // setState(() => _isLoading = true);
+        model.getAnnouncements(stdDiv_Global, scaffoldKey);
+        // scaffoldKey.currentState.widget
       }
     }
   }
@@ -109,93 +61,102 @@ I want to perform login and call a function for that, this function can either r
     if (userType == UserType.TEACHER) {
       isTeacher = true;
     }
-    return Scaffold(
-      appBar: TopBar(
-          title: string.announcement,
-          child: kBackBtn,
-          onPressed: () {
-            kbackBtn(context);
-          }),
-      // floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      floatingActionButton: Stack(
-        children: <Widget>[
-          Visibility(
-            visible: isTeacher,
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: FloatingActionButton(
-                elevation: 12,
+    stdDiv_Global = '9B';
+    return BaseView<AnnouncementPageModel>(
+        onModelReady: (model) =>
+            model.getAnnouncements(stdDiv_Global, scaffoldKey),
+        builder: (context, model, child) {
+          this.model = model;
+          return Scaffold(
+            key: scaffoldKey,
+            appBar: TopBar(
+                title: string.announcement,
+                child: kBackBtn,
                 onPressed: () {
-                  kopenPageBottom(context, CreateAnnouncement());
-                },
-                child: Icon(Icons.add),
-                backgroundColor: Colors.red,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 31),
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: isTeacher
-                  ? FloatingActionButton.extended(
-                      label: Text('Filter'),
-                      heroTag: 'abc',
+                  kbackBtn(context);
+                }),
+            // floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+            floatingActionButton: Stack(
+              children: <Widget>[
+                Visibility(
+                  visible: isTeacher,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton(
                       elevation: 12,
                       onPressed: () {
-                        //Filter Posts Code Here
-                        filterDialogBox(context);
+                        kopenPageBottom(context, CreateAnnouncement());
                       },
-                      icon: Icon(Icons.filter_list),
-                      backgroundColor: Colors.red,
-                    )
-                  : FloatingActionButton.extended(
-                      label: Text('Global'),
-                      heroTag: 'abc',
-                      elevation: 12,
-                      onPressed: () {},
-                      icon: Icon(FontAwesomeIcons.globe),
+                      child: Icon(Icons.add),
                       backgroundColor: Colors.red,
                     ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 31),
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: isTeacher
+                        ? FloatingActionButton.extended(
+                            label: Text('Filter'),
+                            heroTag: 'abc',
+                            elevation: 12,
+                            onPressed: () {
+                              //Filter Posts Code Here
+                              filterDialogBox(context);
+                            },
+                            icon: Icon(Icons.filter_list),
+                            backgroundColor: Colors.red,
+                          )
+                        : FloatingActionButton.extended(
+                            label: Text('Global'),
+                            heroTag: 'abc',
+                            elevation: 12,
+                            onPressed: () {},
+                            icon: Icon(FontAwesomeIcons.globe),
+                            backgroundColor: Colors.red,
+                          ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-      body: Center(
-        child: Container(
-          constraints: BoxConstraints(
-            maxWidth: 700,
-          ),
-          child: RefreshIndicator(
-            child: ListView.builder(
-              controller: controller,
-              itemCount: _data.length + 1,
-              itemBuilder: (context, index) {
-                if (index < _data.length) {
-                  return AnnouncementCard(
-                      announcement: Announcement.fromSnapshot(_data[index]));
-                } else {
-                  return Center(
-                    child: new Opacity(
-                      opacity: _isLoading ? 1.0 : 0.0,
-                      child: new SizedBox(
-                          width: 32.0,
-                          height: 32.0,
-                          child: new CircularProgressIndicator()),
-                    ),
-                  );
-                }
-              },
+            body: Center(
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: 700,
+                ),
+                child: RefreshIndicator(
+                  child: ListView.builder(
+                    addAutomaticKeepAlives: true,
+                    cacheExtent: 10,
+                    controller: controller,
+                    itemCount: model.postSnapshotList.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index < model.postSnapshotList.length) {
+                        return AnnouncementCard(
+                            announcement: Announcement.fromSnapshot(
+                                model.postSnapshotList[index]));
+                      } else {
+                        return Center(
+                          child: new Opacity(
+                            opacity: model.state == ViewState.Busy ? 1.0 : 0.0,
+                            child: new SizedBox(
+                                width: 32.0,
+                                height: 32.0,
+                                child: new CircularProgressIndicator()),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  onRefresh: () async {
+                    await model.onRefresh(stdDiv_Global, scaffoldKey);
+                  },
+                ),
+              ),
             ),
-            onRefresh: () async {
-              _data.clear();
-              _lastPost = null;
-              await _getData();
-            },
-          ),
-        ),
-      ),
-    );
+          );
+        });
   }
 
   Future filterDialogBox(BuildContext context) {
@@ -286,4 +247,8 @@ I want to perform login and call a function for that, this function can either r
       },
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

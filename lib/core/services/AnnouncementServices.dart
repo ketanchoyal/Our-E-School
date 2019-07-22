@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'dart:convert';
@@ -9,18 +11,58 @@ import 'package:path/path.dart' as p;
 
 class AnnouncementServices extends Services {
   StorageServices storageServices = locator<StorageServices>();
+  DocumentSnapshot lastPostSnapshot = null;
+  List<DocumentSnapshot> postDocumentSnapshots = new List<DocumentSnapshot>();
 
   AnnouncementServices() {
     getFirebaseUser();
     getSchoolCode();
   }
+
   init() async {
     if (firebaseUser == null) await getFirebaseUser();
     if (schoolCode == null) await getSchoolCode();
   }
 
+  getAnnouncements(String stdDiv_Global, var scaffoldKey) async {
+    // List<DocumentSnapshot> _data = new List<DocumentSnapshot>();
+
+    if (schoolCode == null) await getSchoolCode();
+
+    var _schoolRef = firestore
+        .collection('Schools')
+      .document('India')
+      .collection('AMBE001')
+      .document('Posts')
+      .collection(stdDiv_Global);
+    QuerySnapshot data;
+    //  = await _schoolRef.getDocuments();
+    if (lastPostSnapshot == null)
+      data = await _schoolRef
+          .orderBy('timeStamp', descending: true)
+          .limit(10)
+          .getDocuments();
+    else
+      data = await _schoolRef
+          .orderBy('timeStamp', descending: true)
+          .startAfter([lastPostSnapshot['timeStamp']])
+          .limit(5)
+          .getDocuments();
+
+    if (data != null && data.documents.length > 0) {
+      lastPostSnapshot = data.documents[data.documents.length - 1];
+      postDocumentSnapshots.addAll(data.documents);
+    } else {
+      scaffoldKey.currentState?.showSnackBar(
+        SnackBar(
+          content: Text('You have reached to the end..'),
+        ),
+      );
+    }
+  }
+
   postAnnouncement(Announcement announcement) async {
-    if (firebaseUser == null) await getFirebaseUser();
+    // if (firebaseUser == null) await getFirebaseUser();
     if (schoolCode == null) await getSchoolCode();
 
     //Timestmap will be directly set by Firebase Functions(througn REST Api)
@@ -37,7 +79,7 @@ class AnnouncementServices extends Services {
       announcement.photoUrl = await storageServices.uploadAnnouncemantPhoto(
           announcement.photoUrl, fileName);
 
-      filePath = '${Services.country}/${schoolCode}/Posts/${fileName}';
+      filePath = '${Services.country}/$schoolCode/Posts/$fileName';
     }
     announcement.photoPath = filePath;
     Map announcementMap = announcement.toJson();

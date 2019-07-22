@@ -42,7 +42,7 @@ class Services {
       Server.baseUrl + Server.webApi + Server.postAnnouncement;
 
   DocumentReference _schoolRef =
-      _firestore.collection('Schools').document('India');
+      _firestore.collection('Schools').document(country);
 
   Firestore get firestore => _firestore;
   FirebaseAuth get auth => _auth;

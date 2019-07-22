@@ -1,4 +1,3 @@
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
@@ -28,6 +27,7 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
   getUserData() async {
     user = await model.getUserProfileDatabyId(
         UserType.TEACHER, widget.announcement.by);
+    setState(() {});
   }
 
   @override
@@ -45,9 +45,9 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
         child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 5),
+              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               // color: Colors.red[200],
-              height: 50,
+              height: 60,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +61,8 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
                         model.state == ViewState.Busy
                             ? CircleAvatar(
                                 radius: 25.0,
-                                backgroundImage: AssetImage(assetsString.teacher_welcome),
+                                backgroundImage:
+                                    AssetImage(assetsString.teacher_welcome),
                                 backgroundColor: Colors.transparent,
                               )
                             : CircleAvatar(
@@ -93,8 +94,8 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
                             //TimeStamp section
                             Text(
                               // 'data',
-                              DateFormat("MMM d, E").add_jm()
-                                  .format(DateTime.parse(widget.announcement.timestamp
+                              DateFormat("MMM d, E").add_jm().format(
+                                  DateTime.parse(widget.announcement.timestamp
                                       .toDate()
                                       .toLocal()
                                       .toString())),

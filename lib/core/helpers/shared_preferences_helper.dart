@@ -118,7 +118,11 @@ class SharedPreferencesHelper {
     final SharedPreferences countryCodePrefs =
         await SharedPreferences.getInstance();
 
-    return countryCodePrefs.getString(_schoolCode) ?? "";
+    String res = countryCodePrefs.getString(_schoolCode) ?? "";
+
+    print('School Code Retrived : ' + res);
+
+    return res.toUpperCase();
   }
 
   // Method that saves the last selected country code
@@ -126,7 +130,7 @@ class SharedPreferencesHelper {
     final SharedPreferences countryCodePrefs =
         await SharedPreferences.getInstance();
 
-    return countryCodePrefs.setString(_schoolCode, schoolCode);
+    return countryCodePrefs.setString(_schoolCode, schoolCode.toUpperCase());
   }
 
   //Method to remove all the Sharedpreference details when Logging Out

@@ -4,6 +4,7 @@ import 'package:ourESchool/core/services/AnnouncementServices.dart';
 import 'package:ourESchool/core/services/AuthenticationServices.dart';
 import 'package:ourESchool/core/services/ProfileServices.dart';
 import 'package:ourESchool/core/services/StorageServices.dart';
+import 'package:ourESchool/core/viewmodel/AnnouncementPageModel.dart';
 import 'package:ourESchool/core/viewmodel/HolidayModel.dart';
 import 'package:ourESchool/core/viewmodel/QuizStateModel.dart';
 import 'core/services/repository_calendarific.dart';
@@ -19,6 +20,7 @@ void setupLocator() {
 
   locator.registerLazySingleton(() => AnnouncementServices());
   locator.registerFactory(() => CreateAnnouncementModel());
+  locator.registerFactory(() => AnnouncementPageModel());
 
   locator.registerLazySingleton(() => SharedPreferencesHelper());
   locator.registerFactory(() => QuizStateModel());
