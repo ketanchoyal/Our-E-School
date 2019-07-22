@@ -185,7 +185,7 @@ app.post('/postAnnouncement', async (req: express.Request, res: express.Response
         let announcementMap = data.announcement;
         announcementMap = Object.assign(announcementMap, { timeStamp: Firestoree.Timestamp.now() });
 
-        const std = data.announcement.forClass + data.announcement.forDiv;
+        const std = data.announcement.forClass == 'Global' ? 'Global' : data.announcement.forClass + data.announcement.forDiv;
 
         console.log(data.schoolCode + " " + data.announcement.forClass + " " + data.announcement.forDiv + " " + data.country);
 

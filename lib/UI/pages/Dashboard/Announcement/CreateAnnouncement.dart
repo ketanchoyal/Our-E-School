@@ -32,6 +32,9 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
   FocusNode _focusNode = new FocusNode();
   GlobalKey _scaffoldKey;
   bool isPosting = false;
+  Color postTypeFontColor = Colors.black;
+
+  String postType = 'GLOBAL';
 
   @override
   void initState() {
@@ -45,8 +48,11 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
   floatingButtonPressed(CreateAnnouncementModel model) async {
     var announcement = Announcement(
       caption: _captionController.text,
-      forClass: _standardController.text.trim(),
-      forDiv: _divisionController.text.toUpperCase().trim(),
+      forClass:
+          postType == 'SPECIFIC' ? _standardController.text.trim() : 'Global',
+      forDiv: postType == 'SPECIFIC'
+          ? _divisionController.text.toUpperCase().trim()
+          : 'Global',
       photoUrl: path,
       type: announcementType,
     );
@@ -57,6 +63,9 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
 
   @override
   Widget build(BuildContext context) {
+    postTypeFontColor = Theme.of(context).brightness == Brightness.dark
+        ? Colors.white
+        : Colors.black;
     return BaseView<CreateAnnouncementModel>(
       onModelReady: (model) => model.getUserData(),
       builder: (context, model, child) {
@@ -96,7 +105,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      height: 110,
+                      // height: 165,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -109,51 +118,123 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                   fontSize: 18, fontWeight: FontWeight.w600),
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Expanded(
-                                // width: MediaQuery.of(context).size.width / 2.2,
-                                child: TextField(
-                                  enabled: !isPosting,
-                                  controller: _standardController,
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  decoration: kTextFieldDecoration.copyWith(
-                                    hintText: string.standard_hint,
-                                    labelText: string.standard,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                // width: MediaQuery.of(context).size.width / 2.2,
-                                child: TextField(
-                                  enabled: !isPosting,
-                                  controller: _divisionController,
-                                  keyboardType: TextInputType.text,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  decoration: kTextFieldDecoration.copyWith(
-                                    hintText: string.division_hint,
-                                    labelText: string.division,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          SizedBox(
+                            height: 5,
                           ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Expanded(
+                                  child: RawMaterialButton(
+                                    elevation: 0,
+                                    constraints: BoxConstraints(minHeight: 50),
+                                    child: Text(
+                                      'GLOBAL POST',
+                                      style: TextStyle(
+                                        color: postType == 'GLOBAL'
+                                            ? Colors.white
+                                            : postTypeFontColor,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        postType = 'GLOBAL';
+                                      });
+                                    },
+                                    fillColor: postType == 'GLOBAL'
+                                        ? Theme.of(context).primaryColor
+                                        : Colors.transparent,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: RawMaterialButton(
+                                    elevation: 0,
+                                    constraints: BoxConstraints(minHeight: 50),
+                                    child: Text(
+                                      'SPECIFIC',
+                                      style: TextStyle(
+                                        color: postType == 'SPECIFIC'
+                                            ? Colors.white
+                                            : postTypeFontColor,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        postType = 'SPECIFIC';
+                                      });
+                                    },
+                                    fillColor: postType == 'SPECIFIC'
+                                        ? Theme.of(context).primaryColor
+                                        : Colors.transparent,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          postType == 'SPECIFIC'
+                              ? SizedBox(
+                                  height: 5,
+                                )
+                              : Container(),
+                          postType == 'SPECIFIC'
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Expanded(
+                                      // width: MediaQuery.of(context).size.width / 2.2,
+                                      child: TextField(
+                                        enabled: !isPosting,
+                                        controller: _standardController,
+                                        keyboardType: TextInputType.number,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        decoration:
+                                            kTextFieldDecoration.copyWith(
+                                          hintText: string.standard_hint,
+                                          labelText: string.standard,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      // width: MediaQuery.of(context).size.width / 2.2,
+                                      child: TextField(
+                                        enabled: !isPosting,
+                                        controller: _divisionController,
+                                        keyboardType: TextInputType.text,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        decoration:
+                                            kTextFieldDecoration.copyWith(
+                                          hintText: string.division_hint,
+                                          labelText: string.division,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Container(),
                         ],
                       ),
                     ),
+                    postType == 'SPECIFIC'
+                        ? SizedBox(
+                            height: 5,
+                          )
+                        : Container(),
                     Container(
-                      height: 60,
+                      // height: 60,
                       // color: Colors.red,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -166,7 +247,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                   color:
                                       announcementType == AnnouncementType.EVENT
                                           ? Colors.white
-                                          : Colors.black,
+                                          : postTypeFontColor,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -189,7 +270,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                   color: announcementType ==
                                           AnnouncementType.CIRCULAR
                                       ? Colors.white
-                                      : Colors.black,
+                                      : postTypeFontColor,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -214,7 +295,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                   color: announcementType ==
                                           AnnouncementType.ACTIVITY
                                       ? Colors.white
-                                      : Colors.black,
+                                      : postTypeFontColor,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
