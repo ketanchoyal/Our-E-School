@@ -22,9 +22,16 @@ class AssignmentServices extends Services {
   uploadAssignment(Assignment assignment) async {
     await getSchoolCode();
 
-    String fileName = createCryptoRandomString(8) +
-        createCryptoRandomString(8) +
-        p.extension(assignment.url);
+    String extension = p.extension(assignment.url);
+
+    if (extension == '.pdf') {
+      assignment.type = 'PDF';
+    } else {
+      assignment.type = 'Image';
+    }
+
+    String fileName =
+        createCryptoRandomString(8) + createCryptoRandomString(8) + extension;
 
     assignment.url =
         await _storageServices.uploadAssignment(assignment.url, fileName);
