@@ -1,23 +1,26 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/AnnouncementCard.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:ourESchool/UI/pages/BaseView.dart';
-import 'package:ourESchool/UI/pages/Login/LoginPage.dart';
 import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:flutter/material.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
+import 'package:ourESchool/core/Models/User.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
-import 'package:ourESchool/core/enums/announcementType.dart';
 import 'package:ourESchool/core/viewmodel/AnnouncementPageModel.dart';
 import 'package:provider/provider.dart';
 
 import 'CreateAnnouncement.dart';
 
 class AnnouncementPage extends StatefulWidget {
-  const AnnouncementPage({Key key}) : super(key: key);
+  const AnnouncementPage({
+    Key key,
+    this.announcementFor = '',
+  }) : super(key: key);
+
+  final String announcementFor;
 
   @override
   _AnnouncementPageState createState() => _AnnouncementPageState();
@@ -32,11 +35,15 @@ class _AnnouncementPageState extends State<AnnouncementPage>
   String stdDiv_Global = 'Global';
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLast = false;
+  bool isLoaded = false;
+  String buttonLabel = 'Global';
 
   @override
   void initState() {
     controller = ScrollController()..addListener(_scrollListener);
     super.initState();
+    stdDiv_Global =
+        widget.announcementFor == '' ? 'Global' : widget.announcementFor;
   }
 
   @override
@@ -58,10 +65,19 @@ class _AnnouncementPageState extends State<AnnouncementPage>
   @override
   Widget build(BuildContext context) {
     var userType = Provider.of<UserType>(context);
+    User currentUser = Provider.of<User>(context);
     if (userType == UserType.TEACHER) {
       isTeacher = true;
+    } else if (userType == UserType.PARENT) {
+    } else if (userType == UserType.STUDENT) {
+      if (!isLoaded) {
+        stdDiv_Global =
+            currentUser.standard + currentUser.division.toUpperCase();
+        isLoaded = true;
+      }
+
+      print(stdDiv_Global);
     }
-    stdDiv_Global = '9B';
     return BaseView<AnnouncementPageModel>(
         onModelReady: (model) =>
             model.getAnnouncements(stdDiv_Global, scaffoldKey),
@@ -70,7 +86,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
           return Scaffold(
             key: scaffoldKey,
             appBar: TopBar(
-                title: string.announcement,
+                title: stdDiv_Global + " Posts",
                 child: kBackBtn,
                 onPressed: () {
                   kbackBtn(context);
@@ -96,29 +112,44 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                   padding: EdgeInsets.only(left: 31),
                   child: Align(
                     alignment: Alignment.bottomLeft,
-                    child: isTeacher
+                    child: userType == UserType.STUDENT
                         ? FloatingActionButton.extended(
-                            label: Text('Filter'),
+                            label: Text(buttonLabel),
                             heroTag: 'abc',
                             elevation: 12,
-                            onPressed: () {
-                              //Filter Posts Code Here
-                              filterDialogBox(context);
-                            },
-                            icon: Icon(Icons.filter_list),
-                            backgroundColor: Colors.red,
-                          )
-                        : FloatingActionButton.extended(
-                            label: Text('Global'),
-                            heroTag: 'abc',
-                            elevation: 12,
-                            onPressed: () {
-                              stdDiv_Global = 'Global';
-                              setState(() {});
+                            onPressed: () async {
+                              if (stdDiv_Global == 'Global') {
+                                setState(() {
+                                  buttonLabel = stdDiv_Global;
+                                  stdDiv_Global = currentUser.standard +
+                                      currentUser.division.toUpperCase();
+                                });
+                              } else {
+                                setState(() {
+                                  buttonLabel = stdDiv_Global;
+                                  stdDiv_Global = 'Global';
+                                });
+                              }
+
+                              await await model.onRefresh(
+                                  stdDiv_Global, scaffoldKey);
                             },
                             icon: Icon(FontAwesomeIcons.globe),
                             backgroundColor: Colors.red,
-                          ),
+                          )
+                        : userType == UserType.TEACHER
+                            ? FloatingActionButton.extended(
+                                label: Text('Filter'),
+                                heroTag: 'abc',
+                                elevation: 12,
+                                onPressed: () {
+                                  //Filter Posts Code Here
+                                  filterDialogBox(context);
+                                },
+                                icon: Icon(Icons.filter_list),
+                                backgroundColor: Colors.red,
+                              )
+                            : Container(),
                   ),
                 ),
               ],
@@ -129,29 +160,40 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                   maxWidth: 700,
                 ),
                 child: RefreshIndicator(
-                  child: ListView.builder(
-                    addAutomaticKeepAlives: true,
-                    cacheExtent: 10,
-                    controller: controller,
-                    itemCount: model.postSnapshotList.length + 1,
-                    itemBuilder: (context, index) {
-                      if (index < model.postSnapshotList.length) {
-                        return AnnouncementCard(
-                            announcement: Announcement.fromSnapshot(
-                                model.postSnapshotList[index]));
-                      } else {
-                        return Center(
-                          child: new Opacity(
-                            opacity: model.state == ViewState.Busy ? 1.0 : 0.0,
-                            child: new SizedBox(
-                                width: 32.0,
-                                height: 32.0,
-                                child: new CircularProgressIndicator()),
+                  child: model.postSnapshotList.length == 0
+                      ? Container(
+                          child: Center(
+                            child: Text(
+                              'No Posts available....!',
+                              style: ksubtitleStyle.copyWith(fontSize: 25),
+                            ),
                           ),
-                        );
-                      }
-                    },
-                  ),
+                          // color: Colors.red,
+                        )
+                      : ListView.builder(
+                          addAutomaticKeepAlives: true,
+                          cacheExtent: 10,
+                          controller: controller,
+                          itemCount: model.postSnapshotList.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index < model.postSnapshotList.length) {
+                              return AnnouncementCard(
+                                  announcement: Announcement.fromSnapshot(
+                                      model.postSnapshotList[index]));
+                            } else {
+                              return Center(
+                                child: new Opacity(
+                                  opacity:
+                                      model.state == ViewState.Busy ? 1.0 : 0.0,
+                                  child: new SizedBox(
+                                      width: 32.0,
+                                      height: 32.0,
+                                      child: new CircularProgressIndicator()),
+                                ),
+                              );
+                            }
+                          },
+                        ),
                   onRefresh: () async {
                     await model.onRefresh(stdDiv_Global, scaffoldKey);
                   },

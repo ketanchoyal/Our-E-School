@@ -49,6 +49,7 @@ class ProfileServices extends Services {
       headers: headers,
     );
     if (response.statusCode == 200) {
+      getProfileData(user.id, userType);
       print("Data Uploaded Succesfully");
     } else {
       print("Data Upload error");

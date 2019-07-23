@@ -17,6 +17,7 @@ class ChildrenGridViewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     bool registerd = user.firebaseUuid == '' ? false : true;
     return InkWell(
+      enableFeedback: true,
       onTap: onTap,
       child: Padding(
         padding: EdgeInsets.all(2),
@@ -36,9 +37,7 @@ class ChildrenGridViewCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: new BorderRadius.all(Radius.circular(10.0)),
                     image: DecorationImage(
-                      image: registerd
-                          ? NetworkImage(user.photoUrl)
-                          : AssetImage(assetsString.no_image_available),
+                      image: setImage(user),
                       fit: BoxFit.fitHeight,
                     ),
                   ),
@@ -78,5 +77,15 @@ class ChildrenGridViewCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  ImageProvider<dynamic> setImage(User user) {
+    if (user.photoUrl.contains('https')) {
+      return NetworkImage(user.photoUrl);
+    } else {
+      return NetworkImage(
+        "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+      );
+    }
   }
 }

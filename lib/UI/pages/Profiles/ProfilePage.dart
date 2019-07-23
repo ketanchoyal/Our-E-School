@@ -433,8 +433,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         size: 25,
                       ),
                       onPressed: () async {
-                        String _path =
-                            await openFileExplorer(FileType.IMAGE, mounted, context);
+                        String _path = await openFileExplorer(
+                            FileType.IMAGE, mounted, context);
                         setState(() {
                           path = _path;
                           // tempPath = _path;
@@ -454,7 +454,7 @@ class _ProfilePageState extends State<ProfilePage> {
   ImageProvider<dynamic> setImage() {
     if (path.contains('https')) {
       return NetworkImage(path);
-    } else if (path == 'default') {
+    } else if (path == 'default' || path == null) {
       return NetworkImage(
         "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
       );

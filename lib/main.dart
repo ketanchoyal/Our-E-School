@@ -84,6 +84,8 @@ class OurSchoolApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User currentUser = Provider.of<User>(context);
+    UserType userType = Provider.of<UserType>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Our E-School',
@@ -96,7 +98,11 @@ class OurSchoolApp extends StatelessWidget {
               title: 'Guardian Profile',
             ),
       },
-      home: Provider.of<bool>(context) ? Home() : WelcomeScreen(),
+      home: Provider.of<bool>(context)
+          ? userType == UserType.STUDENT
+              ? currentUser.isEmpty() ? ProfilePage() : Home()
+              : Home()
+          : WelcomeScreen(),
     );
   }
 }

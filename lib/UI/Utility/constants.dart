@@ -69,7 +69,7 @@ kBuzyPage({Color color = Colors.white}) {
 }
 
 kbackBtn(BuildContext context) {
-  Navigator.of(context).pop();
+  Navigator.pop(context);
 }
 
 kopenPageBottom(BuildContext context, Widget page) {

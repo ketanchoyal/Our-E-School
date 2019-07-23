@@ -32,6 +32,18 @@ class User {
       this.isTeacher = false,
       this.isVerified = false});
 
+  bool isEmpty() {
+    if (this.displayName == '') return true;
+
+    if (this.division == '') return true;
+
+    if (this.standard == '') return true;
+
+    if (this.guardianName == '') return true;
+
+    return false;
+  }
+
   User.fromSnapshot(DocumentSnapshot documentSnapshot)
       : this.firebaseUuid = documentSnapshot["firebaseUuid"].toString() ?? '',
         this.email = documentSnapshot["email"].toString() ?? '',
@@ -85,29 +97,29 @@ class User {
   }
 }
 
-List<User> users = [
-  User(
-      displayName: "Name Surname",
-      division: "A",
-      standard: "9",
-      photoUrl:
-          "https://www.discover.com/content/dam/dfs/student-loans/hero/homebanner/home_mob.jpg",
-      bloodGroup: "B+",
-      dob: "29/02/1998",
-      email: "student@std.com",
-      firebaseUuid: "randomid123",
-      isTeacher: false,
-      mobileNo: "1234567890"),
-  User(
-      displayName: "Name2 Surname",
-      division: "B",
-      standard: "6",
-      photoUrl:
-          "https://www.collegechoice.net/wp-content/uploads/2014/07/00_Student.jpg",
-      bloodGroup: "B+",
-      dob: "21/01/2000",
-      email: "student@std.com",
-      firebaseUuid: "randomid1234",
-      isTeacher: false,
-      mobileNo: "1234567450")
-];
+// List<User> users = [
+//   User(
+//       displayName: "Name Surname",
+//       division: "A",
+//       standard: "9",
+//       photoUrl:
+//           "https://www.discover.com/content/dam/dfs/student-loans/hero/homebanner/home_mob.jpg",
+//       bloodGroup: "B+",
+//       dob: "29/02/1998",
+//       email: "student@std.com",
+//       firebaseUuid: "randomid123",
+//       isTeacher: false,
+//       mobileNo: "1234567890"),
+//   User(
+//       displayName: "Name2 Surname",
+//       division: "B",
+//       standard: "6",
+//       photoUrl:
+//           "https://www.collegechoice.net/wp-content/uploads/2014/07/00_Student.jpg",
+//       bloodGroup: "B+",
+//       dob: "21/01/2000",
+//       email: "student@std.com",
+//       firebaseUuid: "randomid1234",
+//       isTeacher: false,
+//       mobileNo: "1234567450")
+// ];
