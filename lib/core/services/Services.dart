@@ -22,7 +22,7 @@ class Services {
 
   UserDataLogin userDataLogin;
 
-  String schoolCode;
+  String schoolCode = null;
 
   final StorageReference _storageReference =
       FirebaseStorage.instance.ref().child(country);
@@ -33,13 +33,20 @@ class Services {
   };
 
   String baseUrl = Server.baseUrl;
+
   String webApiUrl = Server.baseUrl + Server.webApi;
+
   String profileUpdateUrl =
       Server.baseUrl + Server.webApi + Server.profileUpdate;
+
   String getProfileDataUrl =
       Server.baseUrl + Server.webApi + Server.getProfileData;
+
   String postAnnouncemnetUrl =
       Server.baseUrl + Server.webApi + Server.postAnnouncement;
+
+  String addAssignmentUrl =
+      Server.baseUrl + Server.webApi + Server.addAssignment;
 
   DocumentReference _schoolRef =
       _firestore.collection('Schools').document(country);
@@ -60,6 +67,6 @@ class Services {
   }
 
   getSchoolCode() async {
-    schoolCode = await sharedPreferencesHelper.getSchoolCode();
+    schoolCode = await _sharedPreferencesHelper.getSchoolCode();
   }
 }

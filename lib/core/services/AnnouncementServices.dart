@@ -10,7 +10,7 @@ import 'package:ourESchool/locator.dart';
 import 'package:path/path.dart' as p;
 
 class AnnouncementServices extends Services {
-  StorageServices storageServices = locator<StorageServices>();
+  StorageServices _storageServices = locator<StorageServices>();
   DocumentSnapshot lastPostSnapshot = null;
   List<DocumentSnapshot> postDocumentSnapshots = new List<DocumentSnapshot>();
 
@@ -74,7 +74,7 @@ class AnnouncementServices extends Services {
           createCryptoRandomString(8) +
           p.extension(announcement.photoUrl);
 
-      announcement.photoUrl = await storageServices.uploadAnnouncemantPhoto(
+      announcement.photoUrl = await _storageServices.uploadAnnouncemantPhoto(
           announcement.photoUrl, fileName);
 
       filePath = '${Services.country}/$schoolCode/Posts/$fileName';

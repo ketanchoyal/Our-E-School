@@ -38,6 +38,9 @@ class _AnnouncementPageState extends State<AnnouncementPage>
   bool isLoaded = false;
   String buttonLabel = 'Global';
 
+  TextEditingController _standardController = TextEditingController();
+  TextEditingController _divisionController = TextEditingController();
+
   @override
   void initState() {
     controller = ScrollController()..addListener(_scrollListener);
@@ -131,8 +134,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                                 });
                               }
 
-                              await await model.onRefresh(
-                                  stdDiv_Global, scaffoldKey);
+                              await model.onRefresh(stdDiv_Global, scaffoldKey);
                             },
                             icon: Icon(FontAwesomeIcons.globe),
                             backgroundColor: Colors.red,
@@ -144,7 +146,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                                 elevation: 12,
                                 onPressed: () {
                                   //Filter Posts Code Here
-                                  filterDialogBox(context);
+                                  filterDialogBox(context, model);
                                 },
                                 icon: Icon(Icons.filter_list),
                                 backgroundColor: Colors.red,
@@ -204,7 +206,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
         });
   }
 
-  Future filterDialogBox(BuildContext context) {
+  Future filterDialogBox(BuildContext context, AnnouncementPageModel model) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -227,6 +229,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: TextField(
+                  controller: _standardController,
                   onChanged: (standard) {},
                   keyboardType: TextInputType.number,
                   style: TextStyle(
@@ -252,6 +255,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: TextField(
+                  controller: _divisionController,
                   onChanged: (division) {},
                   keyboardType: TextInputType.text,
                   style: TextStyle(
@@ -282,8 +286,28 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                   width: 10,
                 ),
                 FlatButton(
+                  child: Text('Global'.toUpperCase()),
+                  onPressed: () async {
+                    setState(() {
+                      stdDiv_Global = 'Global';
+                    });
+                    await model.onRefresh(stdDiv_Global, scaffoldKey);
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                FlatButton(
                   child: Text(string.filter),
-                  onPressed: () {},
+                  onPressed: () async {
+                    setState(() {
+                      stdDiv_Global = _standardController.text.trim() +
+                          _divisionController.text.trim().toUpperCase();
+                    });
+                    await model.onRefresh(stdDiv_Global, scaffoldKey);
+                    Navigator.pop(context);
+                  },
                 ),
               ],
             )
