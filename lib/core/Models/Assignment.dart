@@ -41,31 +41,9 @@ class Assignment {
     data['div'] = this.div;
     data['subject'] = this.subject;
     data['standard'] = this.standard;
-    // if (this.timeStamp != null) {
-    //   data['timeStamp'] = this.timeStamp.toJson();
-    // }
     data['url'] = this.url;
     data['details'] = this.details;
     data['id'] = this.id;
     return data;
   }
 }
-
-// class TimeStamp {
-//   int iSeconds;
-//   int iNanoseconds;
-
-//   TimeStamp({this.iSeconds, this.iNanoseconds});
-
-//   TimeStamp.fromJson(Map<String, dynamic> json) {
-//     iSeconds = json['_seconds'];
-//     iNanoseconds = json['_nanoseconds'];
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['_seconds'] = this.iSeconds;
-//     data['_nanoseconds'] = this.iNanoseconds;
-//     return data;
-//   }
-// }
