@@ -207,6 +207,47 @@ app.post('/postAnnouncement', async (req: express.Request, res: express.Response
     }
 });
 
+app.post('/addAssignment', async (req: express.Request, res: express.Response) => {
+    try {
+        console.log('in add Assignment Function');
+        const {
+            assignment,
+            schoolCode,
+            country } = req.body;
+
+        const data = {
+            assignment,
+            schoolCode,
+            country
+        }
+
+        console.log('below data');
+
+        let assignmemtMap = data.assignment;
+        assignmemtMap = Object.assign(assignmemtMap, { timeStamp: Firestoree.Timestamp.now() });
+
+        const std = data.assignment.standard == 'Global' ? 'Global' : data.assignment.standard + data.assignment.div;
+
+        console.log(data.schoolCode + " " + data.assignment.standard + " " + data.assignment.div + " " + data.country);
+
+        const _announcementRef = db.collection("Schools").doc(data.country).collection(data.schoolCode).doc("Assignments").collection(std);
+
+        await _announcementRef.add(assignmemtMap).then((success) => {
+            success.get().then((documentSnapshot) => {
+                var inJsonFormat = Object.assign(documentSnapshot.data(), { id: documentSnapshot.id });
+                res.status(HttpStatus.OK).json(inJsonFormat);
+            }, (failure) => {
+                res.status(HttpStatus.BAD_REQUEST).send('Failure : ' + HttpStatus.getStatusText(HttpStatus.BAD_REQUEST));
+            });
+        }, (failure) => {
+            res.status(HttpStatus.BAD_REQUEST).send('Failure : ' + HttpStatus.getStatusText(HttpStatus.BAD_REQUEST));
+        });
+    }
+    catch (e) {
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+});
+
 app.get('/jsonModel', async (req: express.Request, res: express.Response) => {
     try {
         db.collection("Schools").doc("India").collection("AMBE001").doc("Login").collection("Student").doc("5YBx4YxiQoVQNsKhtj1P").get().then((success) => {
