@@ -29,19 +29,19 @@ class AnnouncementServices extends Services {
 
     if (schoolCode == null) await getSchoolCode();
 
-    var _schoolRef = schoolRef
+    var _postRef = schoolRef
         .collection(schoolCode)
         .document('Posts')
         .collection(stdDiv_Global);
     QuerySnapshot data;
     //  = await _schoolRef.getDocuments();
     if (lastPostSnapshot == null)
-      data = await _schoolRef
+      data = await _postRef
           .orderBy('timeStamp', descending: true)
           .limit(10)
           .getDocuments();
     else
-      data = await _schoolRef
+      data = await _postRef
           .orderBy('timeStamp', descending: true)
           .startAfter([lastPostSnapshot['timeStamp']])
           .limit(5)

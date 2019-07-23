@@ -8,6 +8,7 @@ class Assignment {
   String standard;
   Timestamp timeStamp;
   String url;
+  String type;
   String details;
   String id;
 
@@ -27,6 +28,7 @@ class Assignment {
     path = json['path'];
     div = json['div'];
     subject = json['subject'];
+    type = json['type'];
     standard = json['standard'];
     timeStamp = json['timeStamp'] as Timestamp ?? null;
     url = json['url'];
@@ -34,11 +36,25 @@ class Assignment {
     id = json['id'];
   }
 
+  Assignment.fromSnapshot(DocumentSnapshot documentSnapshot) {
+    by = documentSnapshot['by'].toString();
+    path = documentSnapshot['path'].toString();
+    div = documentSnapshot['div'].toString();
+    subject = documentSnapshot['subject'].toString();
+    type = documentSnapshot['type'].toString();
+    standard = documentSnapshot['standard'].toString();
+    timeStamp = documentSnapshot['timeStamp'] as Timestamp ?? null;
+    url = documentSnapshot['url'].toString();
+    details = documentSnapshot['details'].toString();
+    id = documentSnapshot.documentID;
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['by'] = this.by;
     data['path'] = this.path;
     data['div'] = this.div;
+    data['type'] = this.type;
     data['subject'] = this.subject;
     data['standard'] = this.standard;
     data['url'] = this.url;

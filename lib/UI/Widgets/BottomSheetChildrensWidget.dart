@@ -6,32 +6,31 @@ import 'package:ourESchool/UI/pages/Dashboard/Announcement/AnnouncementPage.dart
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/pages/Dashboard/E-Card/E-CardPage.dart';
 import 'package:ourESchool/core/Models/User.dart';
-import 'RowReusableCardButton.dart';
 
-class BottomSheetWidget extends StatefulWidget {
-  const BottomSheetWidget({Key key, this.user}) : super(key: key);
+class BottomSheetChildrensWidget extends StatefulWidget {
+  const BottomSheetChildrensWidget({Key key, this.user}) : super(key: key);
 
   final User user;
 
   @override
-  _BottomSheetWidgetState createState() => _BottomSheetWidgetState();
+  _BottomSheetChildrensWidgetState createState() => _BottomSheetChildrensWidgetState();
 }
 
-class _BottomSheetWidgetState extends State<BottomSheetWidget> {
+class _BottomSheetChildrensWidgetState extends State<BottomSheetChildrensWidget> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 15),
+        margin: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 10),
         height: 150,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).canvasColor,
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(
-                  blurRadius: 10, color: Colors.grey[300], spreadRadius: 5)
+                  blurRadius: 15, color: Colors.red[300], spreadRadius: 5)
             ],
           ),
           child: Column(

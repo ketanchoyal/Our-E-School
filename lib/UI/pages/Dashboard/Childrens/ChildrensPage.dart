@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
-import 'package:ourESchool/UI/Widgets/BottomSheetWidget.dart';
+import 'package:ourESchool/UI/Widgets/BottomSheetChildrensWidget.dart';
 import 'package:ourESchool/UI/Widgets/ChildrenGridViewCard.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:ourESchool/UI/pages/BaseView.dart';
@@ -36,20 +36,14 @@ class ChildrensPage extends StatelessWidget {
                     itemBuilder: (context, index) => ChildrenGridViewCard(
                       user: model.childrens[index],
                       onTap: () {
-                        // kopenPage(
-                        //   context,
-                        //   ECardPage(
-                        //     user: model.childrens[index],
-                        //   ),
-                        // );
-
-                        var sheetController = showBottomSheet(
-                          elevation: 10,
-                          context: context,
-                          builder: (context) => BottomSheetWidget(
-                            user: model.childrens[index],
-                          ),
-                        );
+                        if (model.childrens[index].displayName != '')
+                          showBottomSheet(
+                            elevation: 10,
+                            context: context,
+                            builder: (context) => BottomSheetChildrensWidget(
+                              user: model.childrens[index],
+                            ),
+                          );
                       },
                     ),
                   ),
