@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
+import 'package:ourESchool/core/enums/UserType.dart';
+import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
 
 class AssignmentsPage extends StatefulWidget {
@@ -16,7 +18,7 @@ class AssignmentsPage extends StatefulWidget {
 }
 
 class _AssignmentsPageState extends State<AssignmentsPage> {
-  bool isTeacher = true;
+  bool isTeacher = false;
   RandomColor _randomColor = RandomColor();
 
   String _fileName;
@@ -25,6 +27,10 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
 
   @override
   Widget build(BuildContext context) {
+    var userType = Provider.of<UserType>(context);
+    if (userType == UserType.TEACHER) {
+      isTeacher = true;
+    }
     return Container(
       child: Scaffold(
         appBar: TopBar(
@@ -119,8 +125,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
           actions: <Widget>[
             FlatButton(
               onPressed: () async {
-                _path =
-                    await openFileExplorer(FileType.ANY, mounted, context);
+                _path = await openFileExplorer(FileType.ANY, mounted, context);
                 setState(() {
                   _fileName = _path != null ? _path.split('/').last : '...';
                   print(_fileName);

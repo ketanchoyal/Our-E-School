@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/AnnouncementCard.dart';
+import 'package:ourESchool/UI/Widgets/ParentingGuideCard.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,7 @@ I want to perform login and call a function for that, this function can either r
                   timestamp: Timestamp.now()
                   // timestamp: 'Jan 21, 10:30 AM',
                   );
-              return new AnnouncementCard(
+              return ParentingGuideCard(
                 announcement: announcement2,
               );
             },
