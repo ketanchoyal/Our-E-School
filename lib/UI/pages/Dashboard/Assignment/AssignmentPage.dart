@@ -1,8 +1,10 @@
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/AssignmentBottomSheet.dart';
+import 'package:ourESchool/UI/Widgets/AssignmentDetailBottomSheet.dart';
 import 'package:ourESchool/UI/Widgets/ColumnReusableCardButton.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:ourESchool/UI/pages/BaseView.dart';
+import 'package:ourESchool/UI/pages/Dashboard/Assignment/AssignmentImageViewer.dart';
 import 'package:ourESchool/UI/pages/shared/PDFOpener.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -72,101 +74,109 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
       print(stdDiv_Global);
     }
     return BaseView<AssignmentPageModel>(
-        onModelReady: (model) => model.getAssignments(stdDiv_Global),
-        builder: (context, model, child) {
-          return Scaffold(
-            key: _scaffoldKey,
-            appBar: TopBar(
-                title: string.assignment,
-                child: kBackBtn,
-                onPressed: () {
-                  kbackBtn(context);
-                }),
-            floatingActionButton: Visibility(
-              visible: isTeacher,
-              child: FloatingActionButton(
-                onPressed: () {
-                  // buildShowDialogBox(context);
-                  // showAboutDialog(context: context);
-                  showModalBottomSheet(
-                    elevation: 10,
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (context) => AssignmentBottomSheet(),
-                  );
-                },
-                child: Icon(Icons.add),
-                backgroundColor: Colors.red,
-              ),
+      onModelReady: (model) => model.getAssignments(stdDiv_Global),
+      builder: (context, model, child) {
+        return Scaffold(
+          key: _scaffoldKey,
+          appBar: TopBar(
+              title: string.assignment,
+              child: kBackBtn,
+              onPressed: () {
+                kbackBtn(context);
+              }),
+          floatingActionButton: Visibility(
+            visible: isTeacher,
+            child: FloatingActionButton(
+              onPressed: () {
+                // buildShowDialogBox(context);
+                // showAboutDialog(context: context);
+                showModalBottomSheet(
+                  elevation: 10,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) => AssignmentBottomSheet(),
+                );
+              },
+              child: Icon(Icons.add),
+              backgroundColor: Colors.red,
             ),
-            body: Center(
-              child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: 700,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: RefreshIndicator(
-                    child: model.assignmentSnapshotList.length == 0
-                        ? Container(
-                            child: Center(
-                              child: Text(
-                                'No Assignments available....!',
-                                style: ksubtitleStyle.copyWith(fontSize: 25),
+          ),
+          body: Center(
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: 700,
+              ),
+              child: model.state == ViewState.Busy
+                  ? kBuzyPage(color: Theme.of(context).primaryColor)
+                  : RefreshIndicator(
+                      displacement: 10,
+                      child: model.assignmentSnapshotList.length == 0
+                          ? Container(
+                              child: Center(
+                                child: Text(
+                                  'No Assignments available....!',
+                                  style: ksubtitleStyle.copyWith(fontSize: 25),
+                                ),
                               ),
-                            ),
-                            // color: Colors.red,
-                          )
-                        : ListView.builder(
-                            controller: controller,
-                            itemCount: model.assignmentSnapshotList.length + 1,
-                            itemBuilder: (context, i) {
-                              if (i < model.assignmentSnapshotList.length) {
-                                Assignment assignment = Assignment.fromSnapshot(
-                                    model.assignmentSnapshotList[i]);
-                                return ColumnReusableCardButton(
-                                  tileColor: _randomColor.randomColor(
-                                      colorBrightness: ColorBrightness.veryDark,
-                                      colorHue: ColorHue.purple,
-                                      colorSaturation:
-                                          ColorSaturation.highSaturation),
-                                  label: assignment.title,
-                                  icon: FontAwesomeIcons.bookOpen,
-                                  onPressed: () {
-                                    if (assignment.type == 'PDF')
-                                      kopenPage(
-                                        context,
-                                        PDFOpener(
-                                          url: assignment.url,
-                                          title: assignment.title,
+                              // color: Colors.red,
+                            )
+                          : ListView.builder(
+                              addAutomaticKeepAlives: true,
+                              cacheExtent: 10,
+                              controller: controller,
+                              itemCount:
+                                  model.assignmentSnapshotList.length + 1,
+                              itemBuilder: (context, i) {
+                                if (i < model.assignmentSnapshotList.length) {
+                                  Assignment assignment =
+                                      Assignment.fromSnapshot(
+                                          model.assignmentSnapshotList[i]);
+                                  return ColumnReusableCardButton(
+                                    tileColor: _randomColor.randomColor(
+                                        colorBrightness:
+                                            ColorBrightness.veryDark,
+                                        colorHue: ColorHue.purple,
+                                        colorSaturation:
+                                            ColorSaturation.highSaturation),
+                                    label: assignment.title,
+                                    icon: FontAwesomeIcons.bookOpen,
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                        elevation: 10,
+                                        isScrollControlled: true,
+                                        context: context,
+                                        builder: (context) =>
+                                            AssignmentDetailBottomSheet(
+                                          assignment: assignment,
                                         ),
                                       );
-                                  },
-                                  height: 70,
-                                );
-                              } else {
-                                return Center(
-                                  child: new Opacity(
-                                    opacity: model.state == ViewState.Busy
-                                        ? 1.0
-                                        : 0.0,
-                                    child: new SizedBox(
+                                    },
+                                    height: 70,
+                                  );
+                                } else {
+                                  return Center(
+                                    child: new Opacity(
+                                      opacity: model.state == ViewState.Busy
+                                          ? 1.0
+                                          : 0.0,
+                                      child: new SizedBox(
                                         width: 32.0,
                                         height: 32.0,
-                                        child: new CircularProgressIndicator()),
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                    onRefresh: () async {
-                      await model.onRefresh(stdDiv_Global);
-                    },
-                  ),
-                ),
-              ),
+                                        child: new CircularProgressIndicator(),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                      onRefresh: () async {
+                        await model.onRefresh(stdDiv_Global);
+                      },
+                    ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

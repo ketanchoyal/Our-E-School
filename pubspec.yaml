@@ -28,6 +28,8 @@ dependencies:
   permission_handler: ^3.1.0
   image: ^2.1.4
   image_picker: ^0.6.0+17
+  photo_view: ^0.4.2
+  path_provider: ^1.2.0
 
   # State Management tools
   get_it: ^1.0.3+2
