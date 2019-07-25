@@ -15,12 +15,20 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   TextEditingController _emailController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   AuthenticationServices _authService = locator<AuthenticationServices>();
 
   @override
+  void initState() {
+    _emailController = TextEditingController();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: TopBar(
         child: kBackBtn,
         onPressed: () {
@@ -82,6 +90,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           _emailController.text.trim().contains('.')) {
                         AuthErrors authError = await _authService.passwordReset(
                             _emailController.text.trim().toString());
+                        scaffoldKey.currentState.showSnackBar(
+                          ksnackBar(
+                            context,
+                            AuthErrorsHelper.getValue(authError),
+                          ),
+                        );
                         ksnackBar(
                           context,
                           AuthErrorsHelper.getValue(authError),

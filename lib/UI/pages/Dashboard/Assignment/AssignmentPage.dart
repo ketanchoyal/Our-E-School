@@ -131,7 +131,6 @@ If you are a parent then go to childrens section to check assignments''',
                                 fontSize: 25,
                               )),
                         ),
-                        // color: Colors.red,
                       )
                     : model.state == ViewState.Busy
                         ? kBuzyPage(color: Theme.of(context).primaryColor)
@@ -140,11 +139,11 @@ If you are a parent then go to childrens section to check assignments''',
                                 child: Center(
                                   child: Text(
                                     'No Assignments available....!',
+                                    textAlign: TextAlign.center,
                                     style:
                                         ksubtitleStyle.copyWith(fontSize: 25),
                                   ),
                                 ),
-                                // color: Colors.red,
                               )
                             : ListView.builder(
                                 addAutomaticKeepAlives: true,
