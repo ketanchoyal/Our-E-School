@@ -29,7 +29,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
   RandomColor _randomColor = RandomColor();
   ScrollController controller;
   AssignmentPageModel model;
-  String stdDiv_Global = '9B';
+  String stdDiv_Global;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLast = false;
   bool isLoaded = false;
@@ -62,6 +62,11 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
 
     User currentUser = Provider.of<User>(context);
     if (userType == UserType.TEACHER) {
+      if (!isLoaded) {
+        stdDiv_Global =
+            currentUser.standard + currentUser.division.toUpperCase() ?? 'N.A';
+        isLoaded = true;
+      }
       isTeacher = true;
     } else if (userType == UserType.PARENT) {
     } else if (userType == UserType.STUDENT) {
@@ -70,9 +75,8 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
             currentUser.standard + currentUser.division.toUpperCase();
         isLoaded = true;
       }
-
-      print(stdDiv_Global);
     }
+    print(stdDiv_Global); 
     return BaseView<AssignmentPageModel>(
       onModelReady: (model) => model.getAssignments(stdDiv_Global),
       builder: (context, model, child) {
@@ -106,73 +110,85 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
               constraints: BoxConstraints(
                 maxWidth: 700,
               ),
-              child: model.state == ViewState.Busy
-                  ? kBuzyPage(color: Theme.of(context).primaryColor)
-                  : RefreshIndicator(
-                      displacement: 10,
-                      child: model.assignmentSnapshotList.length == 0
-                          ? Container(
-                              child: Center(
-                                child: Text(
-                                  'No Assignments available....!',
-                                  style: ksubtitleStyle.copyWith(fontSize: 25),
+              child: RefreshIndicator(
+                displacement: 10,
+                child: stdDiv_Global == 'N.A'
+                    ? Container(
+                        child: Center(
+                          child: Text(
+                            'You Don\'t have any Class associated with you....!',
+                            style: ksubtitleStyle.copyWith(fontSize: 25),
+                          ),
+                        ),
+                        // color: Colors.red,
+                      )
+                    : model.state == ViewState.Busy
+                        ? kBuzyPage(color: Theme.of(context).primaryColor)
+                        : model.assignmentSnapshotList.length == 0
+                            ? Container(
+                                child: Center(
+                                  child: Text(
+                                    'No Assignments available....!',
+                                    style:
+                                        ksubtitleStyle.copyWith(fontSize: 25),
+                                  ),
                                 ),
-                              ),
-                              // color: Colors.red,
-                            )
-                          : ListView.builder(
-                              addAutomaticKeepAlives: true,
-                              cacheExtent: 10,
-                              controller: controller,
-                              itemCount:
-                                  model.assignmentSnapshotList.length + 1,
-                              itemBuilder: (context, i) {
-                                if (i < model.assignmentSnapshotList.length) {
-                                  Assignment assignment =
-                                      Assignment.fromSnapshot(
-                                          model.assignmentSnapshotList[i]);
-                                  return ColumnReusableCardButton(
-                                    tileColor: _randomColor.randomColor(
-                                        colorBrightness:
-                                            ColorBrightness.veryDark,
-                                        colorHue: ColorHue.purple,
-                                        colorSaturation:
-                                            ColorSaturation.highSaturation),
-                                    label: assignment.title,
-                                    icon: FontAwesomeIcons.bookOpen,
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        elevation: 10,
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (context) =>
-                                            AssignmentDetailBottomSheet(
-                                          assignment: assignment,
+                                // color: Colors.red,
+                              )
+                            : ListView.builder(
+                                addAutomaticKeepAlives: true,
+                                cacheExtent: 10,
+                                controller: controller,
+                                itemCount:
+                                    model.assignmentSnapshotList.length + 1,
+                                itemBuilder: (context, i) {
+                                  if (i < model.assignmentSnapshotList.length) {
+                                    Assignment assignment =
+                                        Assignment.fromSnapshot(
+                                            model.assignmentSnapshotList[i]);
+                                    return ColumnReusableCardButton(
+                                      tileColor: _randomColor.randomColor(
+                                          colorBrightness:
+                                              ColorBrightness.veryDark,
+                                          colorHue: ColorHue.purple,
+                                          colorSaturation:
+                                              ColorSaturation.highSaturation),
+                                      label: assignment.title,
+                                      icon: FontAwesomeIcons.bookOpen,
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                          elevation: 10,
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (context) =>
+                                              AssignmentDetailBottomSheet(
+                                            assignment: assignment,
+                                          ),
+                                        );
+                                      },
+                                      height: 70,
+                                    );
+                                  } else {
+                                    return Center(
+                                      child: new Opacity(
+                                        opacity: model.state == ViewState.Busy
+                                            ? 1.0
+                                            : 0.0,
+                                        child: new SizedBox(
+                                          width: 32.0,
+                                          height: 32.0,
+                                          child:
+                                              new CircularProgressIndicator(),
                                         ),
-                                      );
-                                    },
-                                    height: 70,
-                                  );
-                                } else {
-                                  return Center(
-                                    child: new Opacity(
-                                      opacity: model.state == ViewState.Busy
-                                          ? 1.0
-                                          : 0.0,
-                                      child: new SizedBox(
-                                        width: 32.0,
-                                        height: 32.0,
-                                        child: new CircularProgressIndicator(),
                                       ),
-                                    ),
-                                  );
-                                }
-                              },
-                            ),
-                      onRefresh: () async {
-                        await model.onRefresh(stdDiv_Global);
-                      },
-                    ),
+                                    );
+                                  }
+                                },
+                              ),
+                onRefresh: () async {
+                  await model.onRefresh(stdDiv_Global);
+                },
+              ),
             ),
           ),
         );
