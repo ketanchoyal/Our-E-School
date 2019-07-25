@@ -19,10 +19,10 @@ class CreateAnnouncementModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  @override
-  void dispose() {
-    if (state == ViewState.Idle && state2 == ViewState.Idle) {
-      super.dispose();
-    }
-  }
+  // @override
+  // void dispose() {
+  //   if (state == ViewState.Idle && state2 == ViewState.Idle) {
+  //     super.dispose();
+  //   }
+  // }
 }

@@ -82,14 +82,21 @@ kopenPageBottom(BuildContext context, Widget page) {
 }
 
 Future openFileExplorer(
-    FileType _pickingType, bool mounted, BuildContext context) async {
+    FileType _pickingType, bool mounted, BuildContext context,
+    {String extension}) async {
   String _path = null;
   if (_pickingType == FileType.IMAGE) {
-    File file = await CompressImage.takeCompressedPicture(context);
-    if (file != null) _path = file.path;
-    if (!mounted) return '';
+    if (extension == null) {
+      File file = await CompressImage.takeCompressedPicture(context);
+      if (file != null) _path = file.path;
+      if (!mounted) return '';
 
-    return _path;
+      return _path;
+    } else {
+      _path = await FilePicker.getFilePath(type: _pickingType);
+      if (!mounted) return '';
+      return _path;
+    }
   } else if (_pickingType != FileType.CUSTOM) {
     try {
       _path = await FilePicker.getFilePath(type: _pickingType);
@@ -98,6 +105,16 @@ Future openFileExplorer(
     }
     if (!mounted) return '';
 
+    return _path;
+  } else if (_pickingType == FileType.CUSTOM) {
+    try {
+      if (extension == null) extension = 'PDF';
+      _path = await FilePicker.getFilePath(
+          type: _pickingType, fileExtension: extension);
+    } on PlatformException catch (e) {
+      print("Unsupported operation" + e.toString());
+    }
+    if (!mounted) return '';
     return _path;
   }
 }

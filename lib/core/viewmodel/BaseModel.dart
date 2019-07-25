@@ -21,4 +21,9 @@ class BaseModel extends ChangeNotifier {
     _state2 = viewState;
     notifyListeners();
   }
+
+  @override
+  void dispose() {
+    if (_state == ViewState.Idle && _state2 == ViewState.Idle) super.dispose();
+  }
 }

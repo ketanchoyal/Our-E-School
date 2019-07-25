@@ -11,9 +11,11 @@ class Assignment {
   String type;
   String details;
   String id;
+  String title;
 
   Assignment(
       {this.by,
+      this.title,
       this.path,
       this.div,
       this.subject,
@@ -26,6 +28,7 @@ class Assignment {
   Assignment.fromJson(Map<String, dynamic> json) {
     by = json['by'];
     path = json['path'];
+    title = json['title'];
     div = json['div'];
     subject = json['subject'];
     type = json['type'];
@@ -38,6 +41,7 @@ class Assignment {
 
   Assignment.fromSnapshot(DocumentSnapshot documentSnapshot) {
     by = documentSnapshot['by'].toString();
+    title = documentSnapshot['title'].toString();
     path = documentSnapshot['path'].toString();
     div = documentSnapshot['div'].toString();
     subject = documentSnapshot['subject'].toString();
@@ -53,13 +57,13 @@ class Assignment {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['by'] = this.by;
     data['path'] = this.path;
+    data['title'] = this.title;
     data['div'] = this.div;
     data['type'] = this.type;
     data['subject'] = this.subject;
     data['standard'] = this.standard;
     data['url'] = this.url;
     data['details'] = this.details;
-    data['id'] = this.id;
     return data;
   }
 }

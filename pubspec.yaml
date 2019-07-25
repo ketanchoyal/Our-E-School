@@ -21,12 +21,10 @@ dependencies:
   flutter_spinkit: ^3.1.0
   http: any
   shared_preferences: any
-  path_provider: ^0.5.0
-  # flutter_cache_manager: ^1.0.0
-  # flutter_plugin_pdf_viewer: ^1.0.6
-  flutter_plugin_pdf_viewer:
-    git:
-      url: git://github.com/tamhiupanTam/flutter_plugin_pdf_viewer
+  flutter_plugin_pdf_viewer: any
+  # flutter_plugin_pdf_viewer:
+  #   git:
+  #     url: git://github.com/tamhiupanTam/flutter_plugin_pdf_viewer
   permission_handler: ^3.1.0
   image: ^2.1.4
   image_picker: ^0.6.0+17

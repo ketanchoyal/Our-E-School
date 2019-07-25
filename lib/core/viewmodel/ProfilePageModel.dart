@@ -81,12 +81,12 @@ class ProfilePageModel extends BaseModel {
     return userProfile;
   }
 
-  @override
-  void dispose() {
-    if (true) {
-    } else
-      super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   if (true) {
+  //   } else
+  //     super.dispose();
+  // }
 
   // Future<User> getUserProfileDataOfGuardian(UserType userType, String id) async {
   //   setState(ViewState.Busy);
