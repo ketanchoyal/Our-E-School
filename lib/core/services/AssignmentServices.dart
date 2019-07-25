@@ -11,8 +11,7 @@ import 'package:path/path.dart' as p;
 class AssignmentServices extends Services {
   StorageServices _storageServices = locator<StorageServices>();
   DocumentSnapshot lastAssignmnetSnapshot = null;
-  List<DocumentSnapshot> assignmnetDocumentSnapshots =
-      new List<DocumentSnapshot>();
+  List<DocumentSnapshot> assignmnetDocumentSnapshots = List<DocumentSnapshot>();
 
   AssignmentServices() {
     getFirebaseUser();
@@ -70,21 +69,25 @@ class AssignmentServices extends Services {
 
     QuerySnapshot data;
     //  = await _schoolRef.getDocuments();
-    if (lastAssignmnetSnapshot == null)
-      data = await _assignmentRef
-          .orderBy('timeStamp', descending: true)
-          .limit(10)
-          .getDocuments();
-    else
-      data = await _assignmentRef
-          .orderBy('timeStamp', descending: true)
-          .startAfter([lastAssignmnetSnapshot['timeStamp']])
-          .limit(5)
-          .getDocuments();
+    try {
+      if (lastAssignmnetSnapshot == null)
+        data = await _assignmentRef
+            .orderBy('timeStamp', descending: true)
+            .limit(10)
+            .getDocuments();
+      else
+        data = await _assignmentRef
+            .orderBy('timeStamp', descending: true)
+            .startAfter([lastAssignmnetSnapshot['timeStamp']])
+            .limit(5)
+            .getDocuments();
 
-    if (data != null && data.documents.length > 0) {
-      lastAssignmnetSnapshot = data.documents[data.documents.length - 1];
-      assignmnetDocumentSnapshots.addAll(data.documents);
+      if (data != null && data.documents.length > 0) {
+        lastAssignmnetSnapshot = data.documents[data.documents.length - 1];
+        assignmnetDocumentSnapshots.addAll(data.documents);
+      }
+    } catch (e) {
+      print('In Exception : ');
     }
   }
 }

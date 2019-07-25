@@ -18,7 +18,8 @@ import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
 
 class AssignmentsPage extends StatefulWidget {
-  const AssignmentsPage({Key key}) : super(key: key);
+  const AssignmentsPage({Key key, this.standard}) : super(key: key);
+  final String standard;
 
   @override
   _AssignmentsPageState createState() => _AssignmentsPageState();
@@ -58,27 +59,34 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var userType = Provider.of<UserType>(context);
-
-    User currentUser = Provider.of<User>(context);
-    if (userType == UserType.TEACHER) {
-      if (!isLoaded) {
-        stdDiv_Global =
-            currentUser.standard + currentUser.division.toUpperCase() ?? 'N.A';
-        isLoaded = true;
+    if (widget.standard == null) {
+      var userType = Provider.of<UserType>(context);
+      User currentUser = Provider.of<User>(context);
+      if (userType == UserType.TEACHER) {
+        if (!isLoaded) {
+          stdDiv_Global =
+              currentUser.standard + currentUser.division.toUpperCase() ??
+                  'N.A';
+          isLoaded = true;
+        }
+        isTeacher = true;
+      } else if (userType == UserType.PARENT) {
+        stdDiv_Global = 'N.A';
+      } else if (userType == UserType.STUDENT) {
+        if (!isLoaded) {
+          stdDiv_Global =
+              currentUser.standard + currentUser.division.toUpperCase();
+          isLoaded = true;
+        }
       }
-      isTeacher = true;
-    } else if (userType == UserType.PARENT) {
-    } else if (userType == UserType.STUDENT) {
-      if (!isLoaded) {
-        stdDiv_Global =
-            currentUser.standard + currentUser.division.toUpperCase();
-        isLoaded = true;
-      }
+    } else {
+      stdDiv_Global = widget.standard;
     }
-    print(stdDiv_Global); 
+
+    print(stdDiv_Global);
     return BaseView<AssignmentPageModel>(
-      onModelReady: (model) => model.getAssignments(stdDiv_Global),
+      onModelReady: (model) =>
+          stdDiv_Global != 'N.A' ? model.getAssignments(stdDiv_Global) : model,
       builder: (context, model, child) {
         return Scaffold(
           key: _scaffoldKey,
@@ -116,9 +124,12 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
                     ? Container(
                         child: Center(
                           child: Text(
-                            'You Don\'t have any Class associated with you....!',
-                            style: ksubtitleStyle.copyWith(fontSize: 25),
-                          ),
+                              '''Sorry, You Don\'t have any Class associated with you....!
+If you are a parent then go to childrens section to check assignments''',
+                              textAlign: TextAlign.center,
+                              style: ksubtitleStyle.copyWith(
+                                fontSize: 25,
+                              )),
                         ),
                         // color: Colors.red,
                       )

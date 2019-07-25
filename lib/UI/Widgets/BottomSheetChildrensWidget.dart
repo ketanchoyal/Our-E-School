@@ -4,6 +4,7 @@ import 'package:ourESchool/UI/Utility/custom_icons.dart';
 import 'package:ourESchool/UI/Widgets/ColumnReusableCardButton.dart';
 import 'package:ourESchool/UI/pages/Dashboard/Announcement/AnnouncementPage.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
+import 'package:ourESchool/UI/pages/Dashboard/Assignment/AssignmentPage.dart';
 import 'package:ourESchool/UI/pages/Dashboard/E-Card/E-CardPage.dart';
 import 'package:ourESchool/core/Models/User.dart';
 
@@ -13,24 +14,25 @@ class BottomSheetChildrensWidget extends StatefulWidget {
   final User user;
 
   @override
-  _BottomSheetChildrensWidgetState createState() => _BottomSheetChildrensWidgetState();
+  _BottomSheetChildrensWidgetState createState() =>
+      _BottomSheetChildrensWidgetState();
 }
 
-class _BottomSheetChildrensWidgetState extends State<BottomSheetChildrensWidget> {
+class _BottomSheetChildrensWidgetState
+    extends State<BottomSheetChildrensWidget> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 10),
-        height: 150,
+        height: 200,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           decoration: BoxDecoration(
             color: Theme.of(context).canvasColor,
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
-              BoxShadow(
-                  blurRadius: 15, color: Colors.red[300], spreadRadius: 5)
+              BoxShadow(blurRadius: 15, color: Colors.red[300], spreadRadius: 5)
             ],
           ),
           child: Column(
@@ -51,6 +53,21 @@ class _BottomSheetChildrensWidgetState extends State<BottomSheetChildrensWidget>
                       ),
                     );
                   },
+                ),
+              ),
+              Expanded(
+                child: ColumnReusableCardButton(
+                  tileColor: Colors.lightGreen,
+                  label: string.assignment,
+                  onPressed: () {
+                    kopenPage(
+                        context,
+                        AssignmentsPage(
+                          standard: widget.user.standard +
+                              widget.user.division.toUpperCase(),
+                        ));
+                  },
+                  icon: Icons.assignment,
                 ),
               ),
               // SizedBox(
