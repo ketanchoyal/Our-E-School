@@ -17,6 +17,29 @@ const app = express();
 
 const db = admin.firestore();
 
+export const autoEntry = functions.firestore.document('Schools/{country}/{schoolCode}/Profile/Student/{studentId}').onWrite(async (eventSnapshot, context) => {
+
+    const schoolCode = context.params.schoolCode;
+    const studentId = context.params.studentId;
+    const country = context.params.country;
+
+    console.log(schoolCode);
+    console.log(studentId);
+
+    const newValue = eventSnapshot.after!.data();
+    const reference = eventSnapshot.after.ref;
+
+    const standard = newValue!.standard;
+    const division = newValue!.division;
+
+    const map = {
+        student: reference,
+    }
+
+    return await db.collection('Schools').doc(country).collection(schoolCode).doc('Students').collection(standard + division).doc(studentId).set(map, { merge: true });
+});
+
+
 exports.webApi = functions.https.onRequest(app);
 // exports.loginApi = functions.https.onRequest(loginCredentialsCheck);
 

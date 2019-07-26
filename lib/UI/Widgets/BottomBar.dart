@@ -94,8 +94,8 @@ class _BottomNavigationTile extends StatelessWidget {
           children: <Widget>[
             InkResponse(
               borderRadius: BorderRadius.horizontal(
-                right: Radius.circular(50),
-                left: Radius.circular(50),
+                // right: Radius.circular(50),
+                // left: Radius.circular(50),
               ),
               containedInkWell: true,
               onTap: onTap,

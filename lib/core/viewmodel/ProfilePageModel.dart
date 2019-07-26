@@ -51,7 +51,7 @@ class ProfilePageModel extends BaseModel {
   getChildrens() async {
     setState(ViewState.Busy);
     String childrens = await sharedPreferencesHelper.getChildIds();
-    Map<String, String> childIds = await Map.from(
+    Map<String, String> childIds = Map.from(
       jsonDecode(childrens).map(
         (key, values) {
           String value = values.toString();

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';
@@ -139,7 +141,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           isTeacher:
                               userType == UserType.TEACHER ? true : false,
                           isVerified: firebaseUser.isEmailVerified,
-                          photoUrl: path),
+                          photoUrl: path,
+                          connection: jsonDecode(userType == UserType.STUDENT
+                              ? await _sharedPreferencesHelper.getParentsIds()
+                              : await _sharedPreferencesHelper.getChildIds())),
                       userType: userType,
                     );
                   }

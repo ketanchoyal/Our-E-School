@@ -15,6 +15,7 @@ class User {
   String mobileNo;
   bool isTeacher;
   bool isVerified;
+  Map<String, dynamic> connection;
 
   User(
       {this.photoUrl = 'default',
@@ -23,6 +24,7 @@ class User {
       this.id = '',
       this.enrollNo = '',
       this.firebaseUuid = '',
+      this.connection,
       this.displayName = '',
       this.standard = '',
       this.dob = '',
@@ -93,6 +95,7 @@ class User {
     data['mobileNo'] = this.mobileNo;
     data['isTeacher'] = this.isTeacher;
     data['isVerified'] = this.isVerified;
+    data['connection'] = this.connection;
     return data;
   }
 }
