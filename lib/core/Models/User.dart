@@ -24,7 +24,7 @@ class User {
       this.id = '',
       this.enrollNo = '',
       this.firebaseUuid = '',
-      this.connection,
+      this.connection = null,
       this.displayName = '',
       this.standard = '',
       this.dob = '',

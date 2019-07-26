@@ -118,7 +118,7 @@ class AuthenticationServices extends Services {
             email: documentSnapshot["email"].toString(),
             id: documentSnapshot["id"].toString(),
             parentIds:
-                documentSnapshot['parentId'] as Map<dynamic, dynamic> ?? {'':''},
+                documentSnapshot['parentId'] as Map<dynamic, dynamic> ?? null,
           );
 
           // DocumentReference ref = documentSnapshot["ref"] as DocumentReference;
@@ -134,7 +134,7 @@ class AuthenticationServices extends Services {
             id: documentSnapshot["id"].toString(),
             isATeacher: documentSnapshot["isATeacher"] as bool,
             childIds:
-                documentSnapshot["childId"] as Map<dynamic, dynamic> ?? {'':''},
+                documentSnapshot["childId"] as Map<dynamic, dynamic> ?? null,
           );
         }
       });

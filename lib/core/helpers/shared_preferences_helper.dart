@@ -22,7 +22,7 @@ class SharedPreferencesHelper {
   //Method to retrive the _childIds of Parent
   Future<String> getChildIds() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    String res = preferences.getString(_childIds);
+    String res = preferences.getString(_childIds) ?? 'N.A';
     print('Childs Id Retrived ' + res.toString());
     return res;
   }
@@ -38,7 +38,7 @@ class SharedPreferencesHelper {
   //Method to retrive the _childIds of Parent
   Future<String> getParentsIds() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    String res = preferences.getString(_parentsIds);
+    String res = preferences.getString(_parentsIds) ?? 'N.A';
     print('Parents Id Retrived ' + res.toString());
     return res;
   }
@@ -54,8 +54,8 @@ class SharedPreferencesHelper {
   //Method that return the _loggedInUserPhotoUrl
   Future<String> getLoggedInUserPhotoUrl() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String res = prefs.getString(_photoUrl);
-    print('User Id Retrived' + res.toString());
+    String res = prefs.getString(_photoUrl) ?? 'default';
+    print('User photo url Retrived' + res.toString());
     return res;
   }
 

@@ -24,29 +24,45 @@ class ChildrensPage extends StatelessWidget {
             ),
             body: model.state == ViewState.Busy
                 ? kBuzyPage(color: Theme.of(context).primaryColor)
-                : GridView.builder(
-                    physics: BouncingScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 9 / 9,
-                      crossAxisSpacing: 0,
-                      mainAxisSpacing: 0,
-                    ),
-                    itemCount: model.childrens.length,
-                    itemBuilder: (context, index) => ChildrenGridViewCard(
-                      user: model.childrens[index],
-                      onTap: () {
-                        if (model.childrens[index].displayName != '')
-                          showBottomSheet(
-                            elevation: 10,
-                            context: context,
-                            builder: (context) => BottomSheetChildrensWidget(
-                              user: model.childrens[index],
-                            ),
+                : model.childrens.length == 0
+                    ? Center(
+                        child: Text('No Child Added in database!',
+                            style: ktitleStyle.copyWith(fontSize: 20)),
+                      )
+                    : GridView.builder(
+                        physics: BouncingScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 9 / 9,
+                          crossAxisSpacing: 0,
+                          mainAxisSpacing: 0,
+                        ),
+                        itemCount: model.childrens.length,
+                        itemBuilder: (context, index) {
+                          // if (model.childrens.isEmpty) {
+                          //   return Center(
+                          //     child: Text(
+                          //       'No Child Added in database!',
+                          //       style: ktitleStyle.copyWith(
+                          //           color: Colors.red, fontSize: 25),
+                          //     ),
+                          //   );
+                          // }
+                          return ChildrenGridViewCard(
+                            user: model.childrens[index],
+                            onTap: () {
+                              if (model.childrens[index].displayName != '')
+                                showBottomSheet(
+                                  elevation: 10,
+                                  context: context,
+                                  builder: (context) =>
+                                      BottomSheetChildrensWidget(
+                                    user: model.childrens[index],
+                                  ),
+                                );
+                            },
                           );
-                      },
-                    ),
-                  ),
+                        }),
           );
         });
   }

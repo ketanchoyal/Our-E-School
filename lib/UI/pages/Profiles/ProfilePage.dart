@@ -64,6 +64,63 @@ class _ProfilePageState extends State<ProfilePage> {
   String _mobileNo = '';
   int a = 0;
 
+  floatingButoonPressed(var model, UserType userType) async {
+    bool res = false;
+
+    if (_bloodGroup.isEmpty ||
+        _division.isEmpty ||
+        _name.isEmpty ||
+        _dob.isEmpty ||
+        _guardianName.isEmpty ||
+        _mobileNo.isEmpty ||
+        _standard.isEmpty ||
+        _enrollNo.isEmpty) {
+      _scaffoldKey.currentState.showSnackBar(ksnackBar(
+          context, 'You Need to fill all the details and a profile Photo'));
+    } else {
+      if (model.state == ViewState.Idle) {
+        var firebaseUser = Provider.of<FirebaseUser>(context);
+
+        res = await model.setUserProfileData(
+          user: User(
+            bloodGroup: _bloodGroup.trim(),
+            displayName: _name.trim(),
+            division: _division.trim(),
+            dob: _dob.trim(),
+            guardianName: _guardianName.trim(),
+            mobileNo: _mobileNo.trim(),
+            standard: _standard.trim(),
+            enrollNo: _enrollNo.trim(),
+            email: firebaseUser.email,
+            firebaseUuid: firebaseUser.uid,
+            id: await _sharedPreferencesHelper.getLoggedInUserId(),
+            isTeacher: userType == UserType.TEACHER ? true : false,
+            isVerified: firebaseUser.isEmailVerified,
+            photoUrl: path,
+            connection: await getConnection(userType),
+          ),
+          userType: userType,
+        );
+      }
+    }
+
+    if (res == true) {
+      Navigator.pushNamedAndRemoveUntil(context, Home.id, (r) => false);
+    }
+  }
+
+  Future<Map<String, dynamic>> getConnection(UserType userType) async {
+    String connection = userType == UserType.STUDENT
+        ? await _sharedPreferencesHelper.getParentsIds()
+        : await _sharedPreferencesHelper.getChildIds();
+
+    if (connection == 'N.A') {
+      return null;
+    }
+
+    return jsonDecode(connection);
+  }
+
   @override
   Widget build(BuildContext context) {
     userType = Provider.of<UserType>(context);
@@ -107,53 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
               elevation: 20,
               backgroundColor: Colors.red,
               onPressed: () async {
-                bool res = false;
-
-                if (_bloodGroup.isEmpty ||
-                    _division.isEmpty ||
-                    _name.isEmpty ||
-                    _dob.isEmpty ||
-                    _guardianName.isEmpty ||
-                    _mobileNo.isEmpty ||
-                    _standard.isEmpty ||
-                    _enrollNo.isEmpty) {
-                  _scaffoldKey.currentState.showSnackBar(ksnackBar(context,
-                      'You Need to fill all the details and a profile Photo'));
-                } else {
-                  if (model.state == ViewState.Idle) {
-                    var firebaseUser = Provider.of<FirebaseUser>(context);
-                    var userType = await _sharedPreferencesHelper.getUserType();
-
-                    res = await model.setUserProfileData(
-                      user: User(
-                          bloodGroup: _bloodGroup.trim(),
-                          displayName: _name.trim(),
-                          division: _division.trim(),
-                          dob: _dob.trim(),
-                          guardianName: _guardianName.trim(),
-                          mobileNo: _mobileNo.trim(),
-                          standard: _standard.trim(),
-                          enrollNo: _enrollNo.trim(),
-                          email: firebaseUser.email,
-                          firebaseUuid: firebaseUser.uid,
-                          id: await _sharedPreferencesHelper
-                              .getLoggedInUserId(),
-                          isTeacher:
-                              userType == UserType.TEACHER ? true : false,
-                          isVerified: firebaseUser.isEmailVerified,
-                          photoUrl: path,
-                          connection: jsonDecode(userType == UserType.STUDENT
-                              ? await _sharedPreferencesHelper.getParentsIds()
-                              : await _sharedPreferencesHelper.getChildIds())),
-                      userType: userType,
-                    );
-                  }
-                }
-
-                if (res == true) {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, Home.id, (r) => false);
-                }
+                await floatingButoonPressed(model, userType);
               },
               child: model.state == ViewState.Busy
                   ? SpinKitDoubleBounce(
