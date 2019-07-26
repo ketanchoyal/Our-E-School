@@ -17,7 +17,7 @@ const app = express();
 
 const db = admin.firestore();
 
-export const autoEntry = functions.firestore.document('Schools/{country}/{schoolCode}/Profile/Student/{studentId}').onWrite(async (eventSnapshot, context) => {
+export const autoStudentEntry = functions.firestore.document('Schools/{country}/{schoolCode}/Profile/Student/{studentId}').onWrite(async (eventSnapshot, context) => {
 
     const schoolCode = context.params.schoolCode;
     const studentId = context.params.studentId;
