@@ -40,17 +40,10 @@ class _HomeState extends State<Home> {
 
   List<Widget> pages2 = [
     StudentDashboard(),
-    ChatPage(),
+    // ChatPage(),
     // NotificationPage(),
     SettingPage()
   ];
-
-  floatingButtonVisibility() {
-    //Function to check if user id teacher or not
-    setState(() {
-      isTeacher = true;
-    });
-  }
 
   @override
   void initState() {
@@ -93,7 +86,7 @@ class _HomeState extends State<Home> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        bottomNavigationBar: buildBubbleBottomBar(),
+        bottomNavigationBar: buildBubbleBottomBar(userType),
         body: userType == UserType.STUDENT
             ? pages2[currentIndex]
             : pages[currentIndex],
@@ -101,22 +94,111 @@ class _HomeState extends State<Home> {
     );
   }
 
-  BubbleBottomBar buildBubbleBottomBar() {
+  List<BubbleBottomBarItem> bottomBarItems2 = [
+    BubbleBottomBarItem(
+      backgroundColor: Colors.red,
+      icon: Icon(
+        Icons.dashboard,
+      ),
+      activeIcon: Icon(
+        Icons.dashboard,
+        color: Colors.red,
+      ),
+      title: Text(string.dashboard),
+    ),
+    // BubbleBottomBarItem(
+    //   backgroundColor: Colors.deepPurple,
+    //   icon: Icon(
+    //     CustomIcons.chat_bubble,
+    //     // size: 25,
+    //   ),
+    //   activeIcon: Icon(
+    //     CustomIcons.chat_bubble,
+    //     color: Colors.deepPurple,
+    //   ),
+    //   title: Text(string.chat),
+    // ),
+    BubbleBottomBarItem(
+      backgroundColor: Colors.orange,
+      icon: Icon(
+        Icons.settings,
+      ),
+      activeIcon: Icon(
+        Icons.settings,
+        color: Colors.orange,
+      ),
+      title: Text(
+        string.setting,
+      ),
+    )
+  ];
+
+  List<BubbleBottomBarItem> bottomBarItems = [
+    BubbleBottomBarItem(
+      backgroundColor: Colors.red,
+      icon: Icon(
+        Icons.dashboard,
+      ),
+      activeIcon: Icon(
+        Icons.dashboard,
+        color: Colors.red,
+      ),
+      title: Text(string.dashboard),
+    ),
+    BubbleBottomBarItem(
+      backgroundColor: Colors.deepPurple,
+      icon: Icon(
+        CustomIcons.chat_bubble,
+        // size: 25,
+      ),
+      activeIcon: Icon(
+        CustomIcons.chat_bubble,
+        color: Colors.deepPurple,
+      ),
+      title: Text(string.chat),
+    ),
+    BubbleBottomBarItem(
+      backgroundColor: Colors.orange,
+      icon: Icon(
+        Icons.settings,
+      ),
+      activeIcon: Icon(
+        Icons.settings,
+        color: Colors.orange,
+      ),
+      title: Text(
+        string.setting,
+      ),
+    )
+  ];
+
+  BubbleBottomBar buildBubbleBottomBar(UserType userType) {
     return BubbleBottomBar(
       backgroundColor: Theme.of(context).canvasColor,
       opacity: .2,
       currentIndex: currentIndex,
       onTap: (v) {
-        setState(() {
-          if (v == 0) {
-            pageName = StudentDashboard.pageName;
-          } else if (v == 1) {
-            pageName = ChatPage.pageName;
-          } else if (v == 2) {
-            pageName = SettingPage.pageName;
-          }
-          currentIndex = v;
-        });
+        if (userType == UserType.STUDENT) {
+          setState(() {
+            if (v == 0) {
+              pageName = StudentDashboard.pageName;
+            } else {
+              pageName = SettingPage.pageName;
+            }
+            currentIndex = v;
+          });
+        } else {
+          setState(() {
+            if (v == 0) {
+              pageName = MainDashboard.pageName;
+            } else if (v == 1) {
+              pageName = ChatPage.pageName;
+            } else if (v == 2) {
+              pageName = SettingPage.pageName;
+            }
+            currentIndex = v;
+          });
+        }
       },
       borderRadius: BorderRadius.vertical(
         top: Radius.circular(16),
@@ -126,44 +208,7 @@ class _HomeState extends State<Home> {
       hasNotch: isTeacher, //new
       hasInk: true, //new, gives a cute ink effect
       inkColor: Colors.black12, //optional, uses theme color if not specified
-      items: <BubbleBottomBarItem>[
-        BubbleBottomBarItem(
-          backgroundColor: Colors.red,
-          icon: Icon(
-            Icons.dashboard,
-          ),
-          activeIcon: Icon(
-            Icons.dashboard,
-            color: Colors.red,
-          ),
-          title: Text(string.dashboard),
-        ),
-        BubbleBottomBarItem(
-          backgroundColor: Colors.deepPurple,
-          icon: Icon(
-            CustomIcons.chat_bubble,
-            // size: 25,
-          ),
-          activeIcon: Icon(
-            CustomIcons.chat_bubble,
-            color: Colors.deepPurple,
-          ),
-          title: Text(string.chat),
-        ),
-        BubbleBottomBarItem(
-          backgroundColor: Colors.orange,
-          icon: Icon(
-            Icons.settings,
-          ),
-          activeIcon: Icon(
-            Icons.settings,
-            color: Colors.orange,
-          ),
-          title: Text(
-            string.setting,
-          ),
-        )
-      ],
+      items: userType == UserType.STUDENT ? bottomBarItems2 : bottomBarItems,
     );
   }
 }
