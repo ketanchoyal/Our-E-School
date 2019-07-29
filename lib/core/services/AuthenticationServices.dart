@@ -11,7 +11,6 @@ import 'package:ourESchool/core/enums/AuthErrors.dart';
 import 'package:ourESchool/core/enums/LoginScreenReturnType.dart';
 import "package:ourESchool/core/enums/UserType.dart";
 import 'package:ourESchool/core/services/Services.dart';
-import 'package:ourESchool/locator.dart';
 
 class AuthenticationServices extends Services {
   // Future handleGoogleSignIn() async {

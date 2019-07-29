@@ -7,7 +7,7 @@ import 'package:ourESchool/locator.dart';
 class AnnouncementPageModel extends BaseModel {
   AnnouncementServices _announcementServices = locator<AnnouncementServices>();
 
-  AnnouncementPageModel() {}
+  AnnouncementPageModel();
 
   List<DocumentSnapshot> get postSnapshotList =>
       _announcementServices.postDocumentSnapshots;

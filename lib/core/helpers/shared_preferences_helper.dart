@@ -106,12 +106,12 @@ class SharedPreferencesHelper {
   }
 
   // Method to remove userType when logging out
-  Future<bool> _removeUserType() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool res = await prefs.remove(_userType);
-    print('UserType Removed : ' + res.toString());
-    return res;
-  }
+  // Future<bool> _removeUserType() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool res = await prefs.remove(_userType);
+  //   print('UserType Removed : ' + res.toString());
+  //   return res;
+  // }
 
   // Method that returns the last selected country code
   Future<String> getSchoolCode() async {

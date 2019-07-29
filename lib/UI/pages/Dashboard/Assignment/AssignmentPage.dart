@@ -4,8 +4,6 @@ import 'package:ourESchool/UI/Widgets/AssignmentDetailBottomSheet.dart';
 import 'package:ourESchool/UI/Widgets/ColumnReusableCardButton.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:ourESchool/UI/pages/BaseView.dart';
-import 'package:ourESchool/UI/pages/Dashboard/Assignment/AssignmentImageViewer.dart';
-import 'package:ourESchool/UI/pages/shared/PDFOpener.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ourESchool/UI/Utility/Resources.dart';

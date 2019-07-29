@@ -288,7 +288,7 @@ class QuestionPage extends StatelessWidget {
                   // }
                   if (question.type == QuestionType.MULTIPLE_CHOICE) {
                     return multipleChoiceQuestions(model, option, context);
-                  } else if (question.type == QuestionType.MULTIPLE_ANSWERS) {
+                  } else {
                     return multipleAnswersQuestion(model, option, context);
                   }
                 },
