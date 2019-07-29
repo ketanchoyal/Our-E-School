@@ -11,7 +11,7 @@ class ProfilePageModel extends BaseModel {
   final _profileServices = locator<ProfileServices>();
 
   User userProfile;
-  StreamController<User> loggedInUserStream = StreamController<User>();
+  
 
   List<User> childrens = [];
 
@@ -42,7 +42,7 @@ class ProfilePageModel extends BaseModel {
     String id = await sharedPreferencesHelper.getLoggedInUserId();
     UserType userType = await sharedPreferencesHelper.getUserType();
     userProfile = await _profileServices.getProfileData(id, userType);
-    loggedInUserStream.add(userProfile);
+    // loggedInUserStream.add(userProfile);
     setState2(ViewState.Idle);
     setState(ViewState.Idle);
     return userProfile;

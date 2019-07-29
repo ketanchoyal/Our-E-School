@@ -62,7 +62,7 @@ class BookGridViewCard extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Hero(
-                            tag: eBook.bookId + eBook.bookName,
+                            tag: eBook.bookId + eBook.bookName + 'ds',
                             transitionOnUserGestures: true,
                             child: Text(
                               eBook.bookName,
@@ -71,7 +71,7 @@ class BookGridViewCard extends StatelessWidget {
                             ),
                           ),
                           Hero(
-                            tag: eBook.bookId + eBook.bookAuthor,
+                            tag: eBook.bookId + eBook.bookAuthor + 'sd',
                             transitionOnUserGestures: true,
                             child: Text(
                               eBook.bookAuthor,

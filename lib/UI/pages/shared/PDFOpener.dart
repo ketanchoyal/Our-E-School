@@ -24,9 +24,10 @@ class _PDFOpenerState extends State<PDFOpener> {
 
   loadPDF() async {
     doc = await PDFDocument.fromAsset((await getFileFromUrl(widget.url)).path);
-    setState(() {
-      _isLoading = false;
-    });
+    if (mounted)
+      setState(() {
+        _isLoading = false;
+      });
   }
 
   @override

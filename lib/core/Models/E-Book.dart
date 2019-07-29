@@ -27,57 +27,13 @@ List<EBook> ebooks = [
     bookId: '1',
     bookAuthor: 'R. J. Palacio',
     bookName: 'Wonder eBook',
-    imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
-    pdfUrl: 'http://pb03.twirpx.net/2094/2094484_1703F69E/palacio_r_j_wonder.pdf',
+    imageUrl:
+        'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
+    pdfUrl:
+        'http://pb03.twirpx.net/2094/2094484_1703F69E/palacio_r_j_wonder.pdf',
     bookIsForStandard: '10',
     subject: 'English',
-    description: 'SOON TO BE A MAJOR MOTION PICTURE STARRING JULIA ROBERTS, OWEN WILSON, AND JACOB TREMBLAY! Over 5 million people have read the #1 New York Times bestseller WONDER and have fallen in love with Auggie Pullman, an ordinary boy with an extraordinary face. The book that inspired the Choose Kind movement.'
-  ),
-  EBook(
-    bookId: '2',
-    bookAuthor: 'R. J. Palacio',
-    bookName: 'Wonder eBook',
-    imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
-    pdfUrl: 'http://pb03.twirpx.net/2094/2094484_1703F69E/palacio_r_j_wonder.pdf',
-    bookIsForStandard: '9',
-    subject: 'Maths',
-    description: 'SOON TO BE A MAJOR MOTION PICTURE STARRING JULIA ROBERTS, OWEN WILSON, AND JACOB TREMBLAY! Over 5 million people have read the #1 New York Times bestseller WONDER and have fallen in love with Auggie Pullman, an ordinary boy with an extraordinary face. The book that inspired the Choose Kind movement.'
-  ),
-  EBook(
-    bookId: '3',
-    bookAuthor: 'R. J. Palacio',
-    bookName: 'Wonder eBook',
-    imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
-    pdfUrl: 'http://pb03.twirpx.net/2094/2094484_1703F69E/palacio_r_j_wonder.pdf',
-    bookIsForStandard: '5',
-    subject: 'Env'
-  ),
-  EBook(
-    bookId: '4',
-    bookAuthor: 'R. J. Palacio',
-    bookName: 'Wonder eBook',
-    imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
-    pdfUrl: 'http://pb03.twirpx.net/2094/2094484_1703F69E/palacio_r_j_wonder.pdf',
-    bookIsForStandard: '8',
-    subject: 'Social Studies'
-  ),
-  EBook(
-    bookId: '5',
-    bookAuthor: 'R. J. Palacio',
-    bookName: 'Wonder eBook',
-    imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
-    pdfUrl: 'http://pb03.twirpx.net/2094/2094484_1703F69E/palacio_r_j_wonder.pdf',
-    bookIsForStandard: '7',
-    subject: 'Science'
-  ),
-  EBook(
-    bookId: '6',
-    bookAuthor: 'R. J. Palacio',
-    bookName: 'Wonder eBook',
-    imageUrl: 'https://kbimages1-a.akamaihd.net/792207e2-bd6e-4de4-acce-c6d39fb0445f/353/569/90/False/wonder-4.jpg',
-    pdfUrl: 'http://pb03.twirpx.net/2094/2094484_1703F69E/palacio_r_j_wonder.pdf',
-    description: 'SOON TO BE A MAJOR MOTION PICTURE STARRING JULIA ROBERTS, OWEN WILSON, AND JACOB TREMBLAY! Over 5 million people have read the #1 New York Times bestseller WONDER and have fallen in love with Auggie Pullman, an ordinary boy with an extraordinary face. The book that inspired the Choose Kind movement.',
-    // bookIsForStandard: '7',
-    // subject: 'Science'
+    description:
+        'SOON TO BE A MAJOR MOTION PICTURE STARRING JULIA ROBERTS, OWEN WILSON, AND JACOB TREMBLAY! Over 5 million people have read the #1 New York Times bestseller WONDER and have fallen in love with Auggie Pullman, an ordinary boy with an extraordinary face. The book that inspired the Choose Kind movement.',
   ),
 ];

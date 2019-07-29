@@ -1,5 +1,6 @@
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/swipedetector.dart';
+import 'package:ourESchool/UI/pages/shared/PDFOpener.dart';
 import 'package:ourESchool/core/Models/E-Book.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
@@ -131,7 +132,7 @@ class EBookInfo extends StatelessWidget {
                                 maxLines: 2,
                                 softWrap: true,
                                 overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
+                                textAlign: TextAlign.left,
                                 style: ksubtitleStyle.copyWith(fontSize: 18),
                               ),
                             ),
@@ -154,7 +155,13 @@ class EBookInfo extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: _ReusableEbookBtn(
-                      onTap: () {},
+                      onTap: () => kopenPage(
+                        context,
+                        PDFOpener(
+                          title: eBook.bookName,
+                          url: eBook.pdfUrl,
+                        ),
+                      ),
                       title: 'Read',
                     ),
                   ),
@@ -223,7 +230,11 @@ class _ReusableEbookBtn extends StatelessWidget {
         ..height(_buttonHeight)
         ..ripple(true)
         ..borderRadius(all: 8),
-      gesture: GestureClass()..onTap(onTap),
+      gesture: GestureClass()
+        // ..onTap(() => onTap())
+        // ..onLongPress(() => onTap)
+        ..onDoubleTap(() => onTap())
+        ..onTapCancel(() => onTap()),
       child: Text(
         title,
         style: ktitleStyle.copyWith(color: Colors.white),

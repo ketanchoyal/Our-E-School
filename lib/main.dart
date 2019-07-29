@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'UI/Widgets/DynamicThemeChanger.dart';
 import 'UI/pages/WelcomeScreen.dart';
 import 'core/Models/User.dart';
+import 'core/services/ProfileServices.dart';
 import 'core/viewmodel/ProfilePageModel.dart';
 
 void main() {
@@ -33,7 +34,12 @@ class MyApp extends StatelessWidget {
       providers: [
         StreamProvider<User>.controller(
           initialData: User(),
-          builder: (context) => locator<ProfilePageModel>().loggedInUserStream,
+          builder: (context) => locator<ProfileServices>().loggedInUserStream,
+        ),
+        StreamProvider<FirebaseUser>.controller(
+          initialData: locator<AuthenticationServices>().firebaseUser,
+          builder: (context) =>
+              locator<AuthenticationServices>().fireBaseUserStream,
         ),
         StreamProvider<bool>.controller(
           initialData: false,
@@ -45,11 +51,6 @@ class MyApp extends StatelessWidget {
           builder: (context) =>
               locator<AuthenticationServices>().userTypeStream,
         ),
-        StreamProvider<FirebaseUser>.controller(
-          initialData: locator<AuthenticationServices>().firebaseUser,
-          builder: (context) =>
-              locator<AuthenticationServices>().fireBaseUserStream,
-        )
       ],
       child: DynamicTheme(
         defaultBrightness: Brightness.light,

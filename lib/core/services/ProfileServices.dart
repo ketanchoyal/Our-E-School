@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ourESchool/core/services/StorageServices.dart';
 import 'package:ourESchool/locator.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +10,7 @@ import 'package:ourESchool/core/services/Services.dart';
 
 class ProfileServices extends Services {
   StorageServices storageServices = locator<StorageServices>();
+  StreamController<User> loggedInUserStream = StreamController<User>();
 
   String country = Services.country;
 
@@ -79,6 +82,7 @@ class ProfileServices extends Services {
       final jsonData = await json.decode(response.body);
 
       User user = User.fromJson(jsonData);
+      loggedInUserStream.add(user);
       user.toString();
       return user;
     } else {

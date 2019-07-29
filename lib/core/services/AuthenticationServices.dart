@@ -37,7 +37,6 @@ class AuthenticationServices extends Services {
 
   StreamController<FirebaseUser> fireBaseUserStream =
       StreamController<FirebaseUser>();
-
   StreamController<bool> isUserLoggedInStream = StreamController<bool>();
   StreamController<UserType> userTypeStream = StreamController<UserType>();
 
@@ -204,7 +203,9 @@ class AuthenticationServices extends Services {
       sharedPreferencesHelper.setSchoolCode(schoolCode);
       print("User Loggedin using Email and Password");
       // sharedPreferencesHelper.setUserType(userType);
+      isUserLoggedIn = true;
       fireBaseUserStream.add(firebaseUser);
+      isUserLoggedInStream.add(isUserLoggedIn);
       return authErrors;
     } on PlatformException catch (e) {
       return catchException(e);
