@@ -15,7 +15,6 @@ import 'UI/Widgets/DynamicThemeChanger.dart';
 import 'UI/pages/WelcomeScreen.dart';
 import 'core/Models/User.dart';
 import 'core/services/ProfileServices.dart';
-import 'core/viewmodel/ProfilePageModel.dart';
 
 void main() {
   // debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -37,19 +36,19 @@ class MyApp extends StatelessWidget {
           builder: (context) => locator<ProfileServices>().loggedInUserStream,
         ),
         StreamProvider<FirebaseUser>.controller(
-          initialData: locator<AuthenticationServices>().firebaseUser,
+          initialData: null,
           builder: (context) =>
               locator<AuthenticationServices>().fireBaseUserStream,
-        ),
-        StreamProvider<bool>.controller(
-          initialData: false,
-          builder: (context) =>
-              locator<AuthenticationServices>().isUserLoggedInStream,
         ),
         StreamProvider<UserType>.controller(
           initialData: UserType.UNKNOWN,
           builder: (context) =>
               locator<AuthenticationServices>().userTypeStream,
+        ),
+        StreamProvider<bool>.controller(
+          initialData: false,
+          builder: (context) =>
+              locator<AuthenticationServices>().isUserLoggedInStream,
         ),
       ],
       child: DynamicTheme(
@@ -83,8 +82,6 @@ class OurSchoolApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User currentUser = Provider.of<User>(context);
-    UserType userType = Provider.of<UserType>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Our E-School',
@@ -97,11 +94,30 @@ class OurSchoolApp extends StatelessWidget {
               title: 'Guardian Profile',
             ),
       },
-      home: Provider.of<bool>(context)
-          ? userType == UserType.STUDENT
-              ? currentUser.isEmpty() ? ProfilePage() : Home()
-              : Home()
-          : WelcomeScreen(),
+      home: getHome(context),
     );
+  }
+
+  Widget getHome(BuildContext context) {
+    User currentUser = Provider.of<User>(context);
+    UserType userType = Provider.of<UserType>(context);
+
+    if (Provider.of<FirebaseUser>(context) == null) {
+      return WelcomeScreen();
+    }
+
+    if (userType == UserType.UNKNOWN) {
+      return WelcomeScreen();
+    }
+
+    if (Provider.of<bool>(context)) {
+      if (userType == UserType.STUDENT) {
+        return currentUser.isEmpty() ? ProfilePage() : Home();
+      } else {
+        return Home();
+      }
+    } else {
+      return WelcomeScreen();
+    }
   }
 }

@@ -212,28 +212,30 @@ class AuthenticationServices extends Services {
     }
   }
 
-  Future<User> fetchUserData() async {
-    FirebaseUser user = await auth.currentUser();
-    if (user == null) {
-      print("No User LogedIn");
-      return null;
-    }
-    User userr = User(
-      displayName: user.displayName,
-      mobileNo: user.phoneNumber,
-      email: user.email,
-      firebaseUuid: user.uid,
-      isVerified: user.isEmailVerified,
-      photoUrl: user.photoUrl,
-    );
-    print(userr.toString());
-    return userr;
-  }
+  // Future<User> fetchUserData() async {
+  //   FirebaseUser user = await auth.currentUser();
+  //   if (user == null) {
+  //     print("No User LogedIn");
+  //     return null;
+  //   }
+  //   User userr = User(
+  //     displayName: user.displayName,
+  //     mobileNo: user.phoneNumber,
+  //     email: user.email,
+  //     firebaseUuid: user.uid,
+  //     isVerified: user.isEmailVerified,
+  //     photoUrl: user.photoUrl,
+  //   );
+  //   print(userr.toString());
+  //   return userr;
+  // }
 
   logoutMethod() async {
     await auth.signOut();
     isUserLoggedIn = false;
-    isUserLoggedInStream.add(isUserLoggedIn);
+    isUserLoggedInStream.add(false);
+    fireBaseUserStream.add(null);
+    userTypeStream.add(UserType.UNKNOWN);
     await sharedPreferencesHelper.clearAllData();
     print("User Loged out");
   }

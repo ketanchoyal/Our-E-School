@@ -102,11 +102,11 @@ class LoginPageModel extends BaseModel {
     return authError;
   }
 
-  getUserData() async {
-    setState(ViewState.Busy);
-    _loggedInUser = await _authenticationService.fetchUserData();
-    setState(ViewState.Idle);
-  }
+  // getUserDataa() async {
+  //   setState(ViewState.Busy);
+  //   _loggedInUser = await _authenticationService.fetchUserData();
+  //   setState(ViewState.Idle);
+  // }
 
   logoutUser() async {
     setState(ViewState.Busy);
