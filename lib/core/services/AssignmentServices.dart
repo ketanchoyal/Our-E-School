@@ -73,7 +73,7 @@ class AssignmentServices extends Services {
       if (lastAssignmnetSnapshot == null)
         data = await _assignmentRef
             .orderBy('timeStamp', descending: true)
-            .limit(10)
+            .limit(5)
             .getDocuments();
       else
         data = await _assignmentRef

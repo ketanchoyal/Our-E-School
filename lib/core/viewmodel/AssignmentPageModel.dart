@@ -35,6 +35,7 @@ class AssignmentPageModel extends BaseModel {
   @override
   void dispose() {
     // TODO: implement dispose
+    assignmentSnapshotList.clear();
     super.dispose();
     print('Assignment Page Model Disposed');
   }

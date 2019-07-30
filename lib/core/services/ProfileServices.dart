@@ -52,15 +52,19 @@ class ProfileServices extends Services {
       headers: headers,
     );
     if (response.statusCode == 200) {
-      getProfileData(user.id, userType);
+      // getProfileData(user.id, userType);
       print("Data Uploaded Succesfully");
+      final jsonData = await json.decode(response.body);
+
+      User user = User.fromJson(jsonData);
+      loggedInUserStream.add(user);
     } else {
       print("Data Upload error");
     }
   }
 
   Future<User> getProfileData(String uid, UserType userType) async {
-    // if (schoolCode == null) 
+    // if (schoolCode == null)
     await getSchoolCode();
 
     var body = json.encode({

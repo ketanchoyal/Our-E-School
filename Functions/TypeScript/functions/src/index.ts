@@ -102,7 +102,7 @@ app.post('/profileupdate', async (req: express.Request, res: express.Response) =
 
         const ref = await getProfileRef(data.schoolCode, data.country, data.userType, id);
         await ref.set(profileDataMap, { merge: true }).then((success) => {
-            res.status(HttpStatus.OK).json({ Date: success.writeTime.toDate.toString, ProfileUpdated: 'OK' });
+            res.status(HttpStatus.OK).send(profileData);
         }, (failure) => {
             res.status(HttpStatus.BAD_REQUEST).send('Failure : ' + HttpStatus.getStatusText(HttpStatus.BAD_REQUEST));
         });

@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
 
 class AssignmentsPage extends StatefulWidget {
-  const AssignmentsPage({Key key, this.standard}) : super(key: key);
+  const AssignmentsPage({Key key, this.standard = ''}) : super(key: key);
   final String standard;
 
   @override
@@ -57,7 +57,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.standard == null) {
+    if (widget.standard == '') {
       var userType = Provider.of<UserType>(context);
       User currentUser = Provider.of<User>(context);
       if (userType == UserType.TEACHER) {
@@ -79,6 +79,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
       }
     } else {
       stdDiv_Global = widget.standard;
+      isLoaded = true;
     }
 
     print(stdDiv_Global);
