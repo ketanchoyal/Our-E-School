@@ -100,7 +100,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
               email: firebaseUser.email,
               firebaseUuid: firebaseUser.uid,
               id: await _sharedPreferencesHelper.getLoggedInUserId(),
-              isTeacher: userType == UserType.TEACHER ? true : false,
+              isTeacher: false,
               isVerified: firebaseUser.isEmailVerified,
               connection: await getConnection(userType),
               photoUrl: path),

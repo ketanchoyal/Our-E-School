@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin';
 import * as HttpStatus from 'http-status-codes';
 import * as Firestoree from '@google-cloud/firestore';
 import { UserType } from './UserType';
-
+import * as atomicFunction from './Functions';
 
 interface IUserRequest extends express.Request {
     user: any
@@ -15,30 +15,15 @@ admin.initializeApp(functions.config().firebase);
 const app = express();
 // const loginCredentialsCheck = express();
 
-const db = admin.firestore();
+export const db = admin.firestore();
 
-export const autoStudentEntry = functions.firestore.document('Schools/{country}/{schoolCode}/Profile/Student/{studentId}').onWrite(async (eventSnapshot, context) => {
-
-    const schoolCode = context.params.schoolCode;
-    const studentId = context.params.studentId;
-    const country = context.params.country;
-
-    console.log(schoolCode);
-    console.log(studentId);
-
-    const newValue = eventSnapshot.after!.data();
-    const reference = eventSnapshot.after.ref;
-
-    const standard = newValue!.standard;
-    const division = newValue!.division;
-
-    const map = {
-        student: reference,
-    }
-
-    return await db.collection('Schools').doc(country).collection(schoolCode).doc('Students').collection(standard + division).doc(studentId).set(map, { merge: true });
+export const autoStudentParentEntry = functions.firestore.document('Schools/{country}/{schoolCode}/Profile/Student/{studentId}').onWrite(async (eventSnapshot, context) => {
+    return atomicFunction.studentParentAutoEntry(eventSnapshot, context);
 });
 
+export const autoTeacherEntry = functions.firestore.document('Schools/{country}/{schoolCode}/Profile/Parent-Teacher/{teacherId}').onWrite(async (eventSnapshot, context) => {
+    return atomicFunction.teacherAutoEntry(eventSnapshot, context);
+});
 
 exports.webApi = functions.https.onRequest(app);
 // exports.loginApi = functions.https.onRequest(loginCredentialsCheck);
@@ -91,7 +76,7 @@ const validateFirebaseIdToken = async (req: express.Request, res: express.Respon
 //To add Profile data
 app.post('/profileupdate', async (req: express.Request, res: express.Response) => {
     try {
-        console.log("code" + req.body.schoolCode);
+        // console.log("code" + req.body.schoolCode);
         console.log('In Try');
         const {
             schoolCode,
@@ -105,15 +90,15 @@ app.post('/profileupdate', async (req: express.Request, res: express.Response) =
             userType,
             country
         }
-        console.log('Here');
+        // console.log('Here');
 
-        console.log(data.country);
-        console.log(data.userType);
-        console.log(data.country);
+        // console.log(data.country);
+        // console.log(data.userType);
+        // console.log(data.country);
 
         const profileDataMap = data.profileData as Map<String, any>;
         const id = data.profileData.id;
-        console.log(id);
+        // console.log(id);
 
         const ref = await getProfileRef(data.schoolCode, data.country, data.userType, id);
         await ref.set(profileDataMap, { merge: true }).then((success) => {
@@ -133,8 +118,8 @@ app.post('/profileupdate', async (req: express.Request, res: express.Response) =
 //get methid not working so post is used
 app.post('/userdata', async (req: express.Request, res: express.Response) => {
     try {
-        console.log("In User data code :" + req.body.schoolCode);
-        console.log('In Try');
+        // console.log("In User data code :" + req.body.schoolCode);
+        // console.log('In Try');
         const {
             schoolCode,
             id,
@@ -147,15 +132,15 @@ app.post('/userdata', async (req: express.Request, res: express.Response) => {
             userType,
             country
         }
-        console.log('Here');
+        // console.log('Here');
 
-        console.log(id);
+        // console.log(id);
 
         const ref = await getProfileRef(data.schoolCode, data.country, data.userType, data.id);
         await ref.get().then((documentSnapshot) => {
-            console.log('JSON Data : ');
+            // console.log('JSON Data : ');
             var inJsonFormat = Object.assign(documentSnapshot.data(), { id: documentSnapshot.id });
-            console.log(inJsonFormat);
+            // console.log(inJsonFormat);
             // console.log('Data : '+ documentSnapshot);
             // console.log('Data2 : '+ documentSnapshot.data);
             res.status(HttpStatus.OK).send(inJsonFormat);
@@ -170,11 +155,11 @@ app.post('/userdata', async (req: express.Request, res: express.Response) => {
     }
 });
 
-function _getSchoolRef(schoolCode: string, country: string): Firestoree.CollectionReference {
+export function _getSchoolRef(schoolCode: string, country: string): Firestoree.CollectionReference {
     return db.collection('Schools').doc(country).collection(schoolCode);
 }
 
-async function getProfileRef(schoolCode: string, country: string, userType: string, id: string): Promise<Firestoree.DocumentReference> {
+export async function getProfileRef(schoolCode: string, country: string, userType: string, id: string): Promise<Firestoree.DocumentReference> {
     const _profileRef = _getSchoolRef(schoolCode, country).doc('Profile');
     let res: Firestoree.DocumentReference;
     if (userType == UserType.STUDENT) {
@@ -191,7 +176,7 @@ async function getProfileRef(schoolCode: string, country: string, userType: stri
 
 app.post('/postAnnouncement', async (req: express.Request, res: express.Response) => {
     try {
-        console.log('in Post Announcement Function');
+        // console.log('in Post Announcement Function');
         const {
             announcement,
             schoolCode,
@@ -203,7 +188,7 @@ app.post('/postAnnouncement', async (req: express.Request, res: express.Response
             country
         }
 
-        console.log('below data');
+        // console.log('below data');
 
         let announcementMap = data.announcement;
         announcementMap = Object.assign(announcementMap, { timeStamp: Firestoree.Timestamp.now() });
@@ -232,7 +217,7 @@ app.post('/postAnnouncement', async (req: express.Request, res: express.Response
 
 app.post('/addAssignment', async (req: express.Request, res: express.Response) => {
     try {
-        console.log('in add Assignment Function');
+        // console.log('in add Assignment Function');
         const {
             assignment,
             schoolCode,
@@ -244,14 +229,14 @@ app.post('/addAssignment', async (req: express.Request, res: express.Response) =
             country
         }
 
-        console.log('below data');
+        // console.log('below data');
 
         let assignmemtMap = data.assignment;
         assignmemtMap = Object.assign(assignmemtMap, { timeStamp: Firestoree.Timestamp.now() });
 
         const std = data.assignment.standard == 'Global' ? 'Global' : data.assignment.standard + data.assignment.div;
 
-        console.log(data.schoolCode + " " + data.assignment.standard + " " + data.assignment.div + " " + data.country);
+        // console.log(data.schoolCode + " " + data.assignment.standard + " " + data.assignment.div + " " + data.country);
 
         const _announcementRef = db.collection("Schools").doc(data.country).collection(data.schoolCode).doc("Assignments").collection(std);
 
@@ -284,56 +269,4 @@ app.get('/jsonModel', async (req: express.Request, res: express.Response) => {
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 });
-
-//to get Announcements
-// app.get('/:country/:schoolCode/getAnnouncements:std/', async (req: express.Request, res: express.Response) => {
-//     try {
-//         const country: string = req.params.country;
-//         const schoolCode = req.params.schoolCode;
-//         const std = req.params.std;
-//         let previousJsonFile: Object = '';
-
-//         // const {
-//         //     schoolCode,
-//         //     standard,
-//         //     division,
-//         //     country } = req.body;
-
-//         // const data = {
-//         //     schoolCode,
-//         //     standard,
-//         //     division,
-//         //     country
-//         // }
-//         // const div = data.division as string;
-//         // const std = data.standard + div.toUpperCase;
-
-
-//         console.log(schoolCode + " " + std + " " + country);
-
-
-
-//         const _announcementRef = db.collection('Schools').doc(country).collection(schoolCode).doc('Posts').collection(std);
-//         var querySnapshot = await _announcementRef.limit(20);
-//         await querySnapshot.get().then((snapshot) => {
-//             snapshot.docs.forEach((querySnap) => {
-//                 if (previousJsonFile == '') {
-//                     previousJsonFile = Object.assign(querySnap.data(), { id: querySnap.id });
-//                 } else {
-//                     const currentJson = Object.assign(querySnap.data(), { id: querySnap.id });
-//                     previousJsonFile = Object.assign(previousJsonFile, currentJson);
-//                 }
-//             });
-//         }, (failure) => {
-//             res.status(HttpStatus.BAD_REQUEST).send('Failure : ' + HttpStatus.getStatusText(HttpStatus.BAD_REQUEST));
-//         });
-
-//         res.status(HttpStatus.OK).json(previousJsonFile);
-
-
-//     }
-//     catch (e) {
-//         res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR));
-//     }
-// });
 
