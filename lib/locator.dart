@@ -1,18 +1,4 @@
-import 'package:get_it/get_it.dart';
-import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
-import 'package:ourESchool/core/services/AnnouncementServices.dart';
-import 'package:ourESchool/core/services/AssignmentServices.dart';
-import 'package:ourESchool/core/services/AuthenticationServices.dart';
-import 'package:ourESchool/core/services/ProfileServices.dart';
-import 'package:ourESchool/core/services/StorageServices.dart';
-import 'package:ourESchool/core/viewmodel/AnnouncementPageModel.dart';
-import 'package:ourESchool/core/viewmodel/AssignmentPageModel.dart';
-import 'package:ourESchool/core/viewmodel/HolidayModel.dart';
-import 'package:ourESchool/core/viewmodel/QuizStateModel.dart';
-import 'core/services/repository_calendarific.dart';
-import 'core/viewmodel/CreateAnnouncementModel.dart';
-import 'core/viewmodel/LoginPageModel.dart';
-import 'core/viewmodel/ProfilePageModel.dart';
+import 'imports.dart';
 
 GetIt locator = GetIt();
 

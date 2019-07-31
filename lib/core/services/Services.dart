@@ -57,6 +57,11 @@ class Services {
 
   DocumentReference get schoolRef => _schoolRef;
 
+  Future<CollectionReference> schoolRefwithCode() async =>
+      _schoolRef.collection((await _sharedPreferencesHelper.getSchoolCode())
+          .toUpperCase()
+          .trim());
+
   StorageReference get storageReference => _storageReference;
 
   SharedPreferencesHelper get sharedPreferencesHelper =>

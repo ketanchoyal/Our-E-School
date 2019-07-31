@@ -1,22 +1,4 @@
-import 'package:ourESchool/UI/Utility/Resources.dart';
-import 'package:ourESchool/UI/Utility/constants.dart';
-import 'package:ourESchool/UI/Widgets/CustomLoginTypeBtn.dart';
-import 'package:ourESchool/UI/Widgets/LoginRoundedButton.dart';
-import 'package:ourESchool/UI/Widgets/ReusableRoundedButton.dart';
-import 'package:ourESchool/UI/Widgets/TopBar.dart';
-import 'package:ourESchool/UI/pages/Profiles/GuardianProfile.dart';
-import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
-import 'package:flutter/material.dart';
-import 'package:ourESchool/UI/pages/WelcomeScreen.dart';
-import 'package:ourESchool/core/enums/ButtonType.dart';
-import 'package:ourESchool/core/enums/UserType.dart';
-import 'package:ourESchool/core/enums/ViewState.dart';
-import 'package:ourESchool/core/services/AuthenticationServices.dart';
-import 'package:ourESchool/core/viewmodel/LoginPageModel.dart';
-import 'package:ourESchool/locator.dart';
-import 'package:provider/provider.dart';
-import '../BaseView.dart';
-import 'ForgotPassword.dart';
+import 'package:ourESchool/imports.dart';
 
 class LoginPage extends StatefulWidget {
   static const id = 'LoginPage';

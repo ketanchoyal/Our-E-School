@@ -1,12 +1,6 @@
-import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:http/http.dart' as http;
-import 'package:ourESchool/UI/Utility/constants.dart';
-import 'package:ourESchool/core/Models/Assignment.dart';
-import 'package:ourESchool/core/services/Services.dart';
-import 'package:ourESchool/locator.dart';
-import 'StorageServices.dart';
 import 'package:path/path.dart' as p;
+import 'package:http/http.dart' as http;
+import 'package:ourESchool/imports.dart';
 
 class AssignmentServices extends Services {
   StorageServices _storageServices = locator<StorageServices>();
@@ -62,8 +56,7 @@ class AssignmentServices extends Services {
   getAssignments(String stdDiv_Global) async {
     await getSchoolCode();
 
-    var _assignmentRef = schoolRef
-        .collection(schoolCode)
+    var _assignmentRef = (await schoolRefwithCode())
         .document('Assignments')
         .collection(stdDiv_Global);
 

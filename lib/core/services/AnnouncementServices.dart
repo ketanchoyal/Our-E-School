@@ -29,10 +29,8 @@ class AnnouncementServices extends Services {
 
     if (schoolCode == null) await getSchoolCode();
 
-    var _postRef = schoolRef
-        .collection(schoolCode)
-        .document('Posts')
-        .collection(stdDiv_Global);
+    var _postRef =
+        (await schoolRefwithCode()).document('Posts').collection(stdDiv_Global);
     QuerySnapshot data;
     //  = await _schoolRef.getDocuments();
     if (lastPostSnapshot == null)

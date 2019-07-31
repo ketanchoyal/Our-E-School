@@ -1,20 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
-import 'package:ourESchool/UI/pages/Home.dart';
-import 'package:ourESchool/UI/pages/Profiles/GuardianProfile.dart';
-import 'package:ourESchool/UI/pages/Profiles/ProfilePage.dart';
-import 'package:ourESchool/core/enums/UserType.dart';
-import 'package:ourESchool/core/services/AuthenticationServices.dart';
-// import 'package:flutter/foundation.dart'
-//     show debugDefaultTargetPlatformOverride;
-import 'package:ourESchool/locator.dart';
-import 'package:provider/provider.dart';
-
-import 'UI/Widgets/DynamicThemeChanger.dart';
-import 'UI/pages/WelcomeScreen.dart';
-import 'core/Models/User.dart';
-import 'core/services/ProfileServices.dart';
+import 'imports.dart';
 
 void main() {
   // debugDefaultTargetPlatformOverride = TargetPlatform.iOS;

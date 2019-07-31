@@ -1,18 +1,4 @@
-import 'package:ourESchool/UI/Utility/Resources.dart';
-import 'package:ourESchool/UI/Utility/constants.dart';
-import 'package:ourESchool/UI/Utility/custom_icons.dart';
-import 'package:ourESchool/UI/Widgets/BottomBar.dart';
-import 'package:ourESchool/UI/Widgets/TopBar.dart';
-import 'package:flutter/material.dart';
-import 'package:ourESchool/UI/pages/Profiles/GuardianProfile.dart';
-import 'package:ourESchool/core/enums/UserType.dart';
-import 'package:provider/provider.dart';
-import 'Chat/ChatPage.dart';
-import 'Dashboard/Announcement/CreateAnnouncement.dart';
-import 'Dashboard/MainDashboard.dart';
-import 'Dashboard/StudentDashboard.dart';
-import 'Profiles/ProfilePage.dart';
-import 'Setting/SettingPage.dart';
+import 'package:ourESchool/imports.dart';
 
 class Home extends StatefulWidget {
   static const id = 'Home';

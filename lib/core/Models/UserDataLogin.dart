@@ -1,6 +1,4 @@
-import 'dart:convert';
-import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
-import 'package:ourESchool/locator.dart';
+import 'package:ourESchool/imports.dart';
 
 SharedPreferencesHelper _sharedPreferencesHelper =
     locator<SharedPreferencesHelper>();
