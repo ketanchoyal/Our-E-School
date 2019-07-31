@@ -20,6 +20,10 @@ export async function studentParentAutoEntry(eventSnapshot: any, context: any) {
 
     var inJsonFormat = Object.assign(newValue, { id: newValue!.id });
 
+    let map = {
+        id: studentProfileRef,
+    }
+
     // console.log(inJsonFormat);
 
     const connections = inJsonFormat.connection != null ? inJsonFormat.connection as Map<String, any> : null;
@@ -33,19 +37,40 @@ export async function studentParentAutoEntry(eventSnapshot: any, context: any) {
         // console.log(connectionsArray);
         console.log(connectionsArray.length);
 
-        connectionsArray.forEach(async (value) => {
+        connectionsArray.map(async (value, index) => {
             var connectionProfileRef = await getProfileRef(schoolCode, country, UserType.PARENT, value);
+            const key = (index + 1) + '';
+            // parentMap.set(key, connectionProfileRef);
+            var parentMap: { [key: string]: any } = {};
+            parentMap[key] = connectionProfileRef;
+
+            // await db.collection('Schools').doc(country).collection(schoolCode).doc('Students').collection(standard + division).doc(studentId).set(parentMap, { merge: true });
+
+            map = Object.assign(map, parentMap);
 
             const connectionMap = {
                 id: connectionProfileRef,
             }
             await db.collection('Schools').doc(country).collection(schoolCode).doc('Parents').collection(standard + division).doc(value).set(connectionMap, { merge: true });
         });
+
+
+        // connectionsArray.forEach(async (value) => {
+        //     var connectionProfileRef = await getProfileRef(schoolCode, country, UserType.PARENT, value);
+        //     num = num + 1;
+        //     const key = num + '';
+        //     parentMap.set(key, connectionProfileRef);
+
+        //     const connectionMap = {
+        //         id: connectionProfileRef,
+        //     }
+        //     await db.collection('Schools').doc(country).collection(schoolCode).doc('Parents').collection(standard + division).doc(value).set(connectionMap, { merge: true });
+        // });
     }
 
-    const map = {
-        id: studentProfileRef,
-    }
+    // if (num != 0) {
+    //     map = Object.assign(map, parentMap);
+    // }
 
     return await db.collection('Schools').doc(country).collection(schoolCode).doc('Students').collection(standard + division).doc(studentId).set(map, { merge: true });
 }
