@@ -1,9 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ourESchool/core/Models/Assignment.dart';
-import 'package:ourESchool/core/enums/ViewState.dart';
-import 'package:ourESchool/core/services/AssignmentServices.dart';
-import 'package:ourESchool/core/viewmodel/BaseModel.dart';
-import 'package:ourESchool/locator.dart';
+import 'package:ourESchool/imports.dart';
 
 class AssignmentPageModel extends BaseModel {
   AssignmentServices _assignmentServices = locator<AssignmentServices>();
@@ -34,7 +29,6 @@ class AssignmentPageModel extends BaseModel {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     assignmentSnapshotList.clear();
     super.dispose();
     print('Assignment Page Model Disposed');

@@ -1,18 +1,5 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ourESchool/UI/Utility/constants.dart';
-import 'package:ourESchool/UI/Widgets/AnnouncementCard.dart';
-import 'package:ourESchool/UI/Widgets/TopBar.dart';
-import 'package:ourESchool/UI/pages/BaseView.dart';
-import 'package:ourESchool/core/Models/Announcement.dart';
-import 'package:flutter/material.dart';
-import 'package:ourESchool/UI/Utility/Resources.dart';
-import 'package:ourESchool/core/Models/User.dart';
-import 'package:ourESchool/core/enums/UserType.dart';
-import 'package:ourESchool/core/enums/ViewState.dart';
-import 'package:ourESchool/core/viewmodel/AnnouncementPageModel.dart';
-import 'package:provider/provider.dart';
 
-import 'CreateAnnouncement.dart';
+import 'package:ourESchool/imports.dart';
 
 class AnnouncementPage extends StatefulWidget {
   const AnnouncementPage({

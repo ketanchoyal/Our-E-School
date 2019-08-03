@@ -17,6 +17,10 @@ class User {
   bool isVerified;
   Map<String, dynamic> connection;
 
+  String standardDivision() {
+    return standard + division.toUpperCase();
+  }
+
   User(
       {this.photoUrl = 'default',
       this.email = '',

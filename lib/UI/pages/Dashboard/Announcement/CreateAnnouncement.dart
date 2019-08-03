@@ -1,20 +1,4 @@
-import 'dart:io';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:ourESchool/UI/Utility/constants.dart';
-import 'package:ourESchool/UI/Widgets/TopBar.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:ourESchool/UI/Utility/Resources.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ourESchool/UI/pages/BaseView.dart';
-import 'package:ourESchool/UI/pages/Dashboard/Announcement/camera_screen.dart';
-import 'package:ourESchool/core/Models/Announcement.dart';
-import 'package:ourESchool/core/Models/User.dart';
-import 'package:ourESchool/core/enums/ViewState.dart';
-import 'package:ourESchool/core/enums/announcementType.dart';
-import 'package:ourESchool/core/viewmodel/CreateAnnouncementModel.dart';
-import 'package:provider/provider.dart';
+import 'package:ourESchool/imports.dart';
 
 class CreateAnnouncement extends StatefulWidget {
   CreateAnnouncement({Key key}) : super(key: key);

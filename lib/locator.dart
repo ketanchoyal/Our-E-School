@@ -26,4 +26,7 @@ void setupLocator() {
 
   locator.registerLazySingleton(() => AssignmentServices());
   locator.registerFactory(() => AssignmentPageModel());
+
+  locator.registerLazySingleton(() => ChatServices());
+  locator.registerLazySingleton(() => StudentListPageModel());
 }
