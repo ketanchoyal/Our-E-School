@@ -64,6 +64,8 @@ class User {
         this.bloodGroup = documentSnapshot["bloodGroup"].toString() ?? '',
         this.guardianName = documentSnapshot["guardianName"].toString() ?? '',
         this.enrollNo = documentSnapshot["enrollNo"].toString(),
+        this.connection =
+            documentSnapshot["connection"] as Map<String, dynamic> ?? [],
         this.mobileNo = documentSnapshot["mobileNo"].toString() ?? '';
 
   User.fromJson(Map<String, dynamic> json) {
@@ -81,6 +83,7 @@ class User {
     mobileNo = json['mobileNo'] ?? '';
     isTeacher = json['isTeacher'] ?? false;
     isVerified = json['isVerified'] ?? false;
+    connection = json['connection'] ?? [];
   }
 
   Map<String, dynamic> toJson() {

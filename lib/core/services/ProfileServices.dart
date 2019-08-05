@@ -103,4 +103,9 @@ class ProfileServices extends Services {
       return User(id: uid);
     }
   }
+
+  Future<User> getUserDataFromReference(DocumentReference reference) async {
+    User user = User.fromSnapshot(await reference.get());
+    return user;
+  }
 }

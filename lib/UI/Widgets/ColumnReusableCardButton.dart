@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ColumnReusableCardButton extends StatelessWidget {
-
   final Function onPressed;
   final String label;
   final IconData icon;
   final double height;
   final IconData directionIcon;
   final Color tileColor;
+  final String heroTag;
   // final double elevation;
 
   const ColumnReusableCardButton({
@@ -15,6 +15,7 @@ class ColumnReusableCardButton extends StatelessWidget {
     @required this.icon,
     @required this.label,
     @required this.tileColor,
+    this.heroTag,
     this.height,
     this.directionIcon,
     // this.elevation
@@ -35,19 +36,21 @@ class ColumnReusableCardButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Icon(
-                icon,
-                size: 45,
-                color: Colors.white,
+              Hero(
+                tag: heroTag,
+                child: Icon(
+                  icon,
+                  size: 45,
+                  color: Colors.white,
+                ),
               ),
               Text(
                 label,
                 maxLines: 2,
                 style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600
-                ),
+                    fontSize: 22,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600),
               ),
               Icon(
                 directionIcon ?? Icons.chevron_right,
