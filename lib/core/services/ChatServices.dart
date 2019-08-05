@@ -4,9 +4,15 @@ class ChatServices extends Services {
   ProfileServices _profileServices = locator<ProfileServices>();
   User _currentUser = User();
 
-  List<DocumentSnapshot> studentsDocumentSnapshots = List<DocumentSnapshot>();
+  Map<String, DocumentSnapshot> studentsDocumentSnapshots =
+      Map<String, DocumentSnapshot>();
 
-  List<DocumentSnapshot> teachersDocumentSnapshots = List<DocumentSnapshot>();
+  Map<String, DocumentSnapshot> teachersDocumentSnapshots =
+      Map<String, DocumentSnapshot>();
+
+  Map<String, User> studentListMap = Map();
+
+  Map<String, List<User>> studentsParentListMap = Map();
 
   ChatServices() {
     getSchoolCode();
@@ -40,9 +46,33 @@ class ChatServices extends Services {
     QuerySnapshot data = await _studentsRef.getDocuments();
 
     if (data != null && data.documents.length > 0) {
-      studentsDocumentSnapshots.addAll(data.documents);
+      data.documents.forEach((document) => {
+            studentsDocumentSnapshots.putIfAbsent(
+                document.documentID, () => document)
+          });
     }
   }
 
-  getParents() async {}
+  Future<User> getUser(DocumentSnapshot documentSnapshot) async {
+    User user =
+        await _profileServices.getUserDataFromReference(documentSnapshot["id"]);
+
+    studentListMap.putIfAbsent(documentSnapshot.documentID, () => user);
+
+    return user;
+  }
+
+  Future<List<User>> getParents(DocumentSnapshot documentSnapshot) async {
+    List<User> parents = [];
+
+    for (int index = 1; index < documentSnapshot.data.length; index++) {
+      await parents.add(await _profileServices.getUserDataFromReference(
+          documentSnapshot[index.toString()] as DocumentReference));
+    }
+
+    studentsParentListMap.putIfAbsent(
+        documentSnapshot.documentID, () => parents);
+
+    return parents;
+  }
 }

@@ -6,11 +6,16 @@ class StudentListPageModel extends BaseModel {
   ChatServices _chatServices = locator<ChatServices>();
   ProfileServices _profileServices = locator<ProfileServices>();
 
-  List<DocumentSnapshot> get studentsSnapshot =>
+  Map<String, DocumentSnapshot> get studentsSnapshot =>
       _chatServices.studentsDocumentSnapshots;
 
-  List<DocumentSnapshot> get teachersSnapshot =>
+  Map<String, DocumentSnapshot> get teachersSnapshot =>
       _chatServices.teachersDocumentSnapshots;
+
+  Map<String, User> get studentListMap => _chatServices.studentListMap;
+
+  Map<String, List<User>> get studentsParentListMap =>
+      _chatServices.studentsParentListMap;
 
   getStudent({String standard = '', String division = ''}) async {
     setState(ViewState.Busy);
@@ -20,22 +25,11 @@ class StudentListPageModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  Future<User> getUser(DocumentSnapshot documentSnapshot) async {
-    User user =
-        await _profileServices.getUserDataFromReference(documentSnapshot["id"]);
-
-    return user;
-  }
-
-  Future<List<User>> getParents(DocumentSnapshot documentSnapshot) async {
-    List<User> parents;
+  getStudentConnectionsData(DocumentSnapshot documentSnapshot) async {
     setState(ViewState.Busy);
-    for (int index = 1; index < documentSnapshot.data.length; index++) {
-      await parents.add(await _profileServices.getUserDataFromReference(
-          documentSnapshot[index.toString()] as DocumentReference));
-    }
+    await _chatServices.getUser(documentSnapshot);
+    await _chatServices.getParents(documentSnapshot);
     setState(ViewState.Idle);
-    return parents;
   }
 
   getTeachers() {
@@ -48,4 +42,5 @@ class StudentListPageModel extends BaseModel {
     _chatServices.studentsDocumentSnapshots.clear();
     await getStudent(standard: standard, division: division);
   }
+
 }

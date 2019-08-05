@@ -1,4 +1,5 @@
 import 'package:ourESchool/UI/Utility/custom_icons.dart';
+import 'package:ourESchool/UI/Widgets/ChatStudentList.dart';
 import 'package:ourESchool/UI/Widgets/ColumnReusableCardButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,35 +22,36 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return BaseView<StudentListPageModel>(
       onModelReady: (model) => model.getStudent(),
-      builder: (context, model ,child) {
+      builder: (context, model, child) {
         return SafeArea(
           child: Scaffold(
             body: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ListView.builder(
-                  itemCount: model.studentsSnapshot.length,
-                  itemBuilder: (context, i) => ColumnReusableCardButton(
-                    tileColor: _randomColor.randomColor(
-                      colorSaturation: ColorSaturation.mediumSaturation,
-                      colorBrightness: ColorBrightness.dark,
-                      colorHue: ColorHue.blue,
-                    ),
-                    label: 'Teacher ${model.studentsSnapshot[i].data.length}',
-                    icon: CustomIcons.profile,
+              padding: const EdgeInsets.all(10.0),
+              child: ListView.builder(
+                itemCount: model.studentsSnapshot.length,
+                itemBuilder: (context, i) {
+                  // values.keys.elementAt(index);
+                  var key = model.studentsSnapshot.keys.elementAt(i);
+                  var snapshot = model.studentsSnapshot[key];
+                  // model.getUser(snapshot);
+                  // model.getParents(snapshot);
+                  return ChatStudentListWidget(
                     onPressed: () {
-                      Navigator.push(
+                      kopenPage(
                         context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => MessagingScreen(),
-                        ),
+                        MessagingScreen(),
                       );
                     },
-                    height: 70,
-                  ),
-                )),
+                    heroTag: 'sfs',
+                    snapshot: snapshot,
+                    model: model,
+                  );
+                },
+              ),
+            ),
           ),
         );
-      }
+      },
     );
   }
 }

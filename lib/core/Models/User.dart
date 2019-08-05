@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
@@ -64,8 +65,8 @@ class User {
         this.bloodGroup = documentSnapshot["bloodGroup"].toString() ?? '',
         this.guardianName = documentSnapshot["guardianName"].toString() ?? '',
         this.enrollNo = documentSnapshot["enrollNo"].toString(),
-        this.connection =
-            documentSnapshot["connection"] as Map<String, dynamic> ?? [],
+        // this.connection =
+        //     documentSnapshot["connection"] as HashMap<String, dynamic> ?? [],
         this.mobileNo = documentSnapshot["mobileNo"].toString() ?? '';
 
   User.fromJson(Map<String, dynamic> json) {

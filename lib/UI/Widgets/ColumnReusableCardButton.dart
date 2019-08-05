@@ -7,7 +7,6 @@ class ColumnReusableCardButton extends StatelessWidget {
   final double height;
   final IconData directionIcon;
   final Color tileColor;
-  final String heroTag;
   // final double elevation;
 
   const ColumnReusableCardButton({
@@ -15,7 +14,6 @@ class ColumnReusableCardButton extends StatelessWidget {
     @required this.icon,
     @required this.label,
     @required this.tileColor,
-    this.heroTag,
     this.height,
     this.directionIcon,
     // this.elevation
@@ -36,13 +34,10 @@ class ColumnReusableCardButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Hero(
-                tag: heroTag,
-                child: Icon(
-                  icon,
-                  size: 45,
-                  color: Colors.white,
-                ),
+              Icon(
+                icon,
+                size: 45,
+                color: Colors.white,
               ),
               Text(
                 label,
