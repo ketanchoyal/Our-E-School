@@ -1,9 +1,11 @@
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:flutter/material.dart';
+import 'package:ourESchool/core/Models/User.dart';
 
 class MessagingScreen extends StatefulWidget {
-  MessagingScreen({Key key}) : super(key: key);
+  MessagingScreen({Key key, this.user}) : super(key: key);
+  final User user;
 
   _MessagingScreenState createState() => _MessagingScreenState();
 }
@@ -14,7 +16,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
     return Container(
       child: Scaffold(
         appBar: TopBar(
-          title: 'Teacher 1',
+          title: widget.user.displayName,
           child: kBackBtn,
           onPressed: () {
             Navigator.pop(context);
@@ -69,13 +71,13 @@ class _MessagingScreenState extends State<MessagingScreen> {
                     ),
                   ),
                   Align(
-                    alignment: Alignment.bottomRight,
+                    alignment: Alignment.center,
                     child: Card(
                       elevation: 5,
                       shape: kCardCircularShape,
                       child: Container(
-                        width: 50,
-                        height: 50,
+                        width: 60,
+                        height: 60,
                         child: MaterialButton(
                           height: 40,
                           shape: kCardCircularShape,

@@ -58,9 +58,11 @@ class ProfileServices extends Services {
     }
   }
 
-  Future<User> getProfileData(String uid, UserType userType) async {
+  Future<User> getLoggedInUserProfileData() async {
     // if (schoolCode == null)
     await getSchoolCode();
+    String id = await sharedPreferencesHelper.getLoggedInUserId();
+    UserType userType = await sharedPreferencesHelper.getUserType();
 
     String userDataModel = await sharedPreferencesHelper.getUserDataModel();
 
@@ -74,6 +76,39 @@ class ProfileServices extends Services {
       user.toString();
       return user;
     }
+
+    var body = json.encode({
+      "schoolCode": schoolCode.trim().toUpperCase(),
+      "id": id,
+      "userType": UserTypeHelper.getValue(userType),
+      "country": country
+    });
+
+    print(body);
+
+    final response = await http.post(
+      getProfileDataUrl,
+      body: body,
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      print("Data Retrived Succesfully");
+      final jsonData = await json.decode(response.body);
+
+      User user = User.fromJson(jsonData);
+      sharedPreferencesHelper.setUserDataModel(response.body);
+      loggedInUserStream.add(user);
+      user.toString();
+      return user;
+    } else {
+      print("Data Retrived failed");
+      return User(id: id);
+    }
+  }
+
+  Future<User> getProfileDataById(String uid, UserType userType) async {
+    // if (schoolCode == null)
+    await getSchoolCode();
 
     var body = json.encode({
       "schoolCode": schoolCode.trim().toUpperCase(),

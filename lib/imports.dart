@@ -13,6 +13,7 @@ export 'dart:convert';
 export 'locator.dart';
 export 'dart:io';
 export 'dart:async';
+export 'package:random_color/random_color.dart';
 export 'package:file_picker/file_picker.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -47,8 +48,11 @@ export 'core/services/ProfileServices.dart';
 export 'core/services/Services.dart';
 export 'core/Models/Announcement.dart';
 
+export 'UI/Widgets/ChatStudentList.dart';
 export 'UI/Utility/Resources.dart';
 export 'UI/Utility/constants.dart';
+export 'UI/pages/Chat/StudentConnectionPage.dart';
+export 'UI/pages/Chat/MessagingScreen.dart';
 export 'UI/pages/Dashboard/Announcement/camera_screen.dart';
 export 'UI/Widgets/CustomLoginTypeBtn.dart';
 export 'UI/Widgets/LoginRoundedButton.dart';

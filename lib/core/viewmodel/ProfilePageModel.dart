@@ -39,9 +39,7 @@ class ProfilePageModel extends BaseModel {
   Future<User> getUserProfileData() async {
     setState(ViewState.Busy);
     setState2(ViewState.Busy);
-    String id = await sharedPreferencesHelper.getLoggedInUserId();
-    UserType userType = await sharedPreferencesHelper.getUserType();
-    userProfile = await _profileServices.getProfileData(id, userType);
+    userProfile = await _profileServices.getLoggedInUserProfileData();
     // loggedInUserStream.add(userProfile);
     setState2(ViewState.Idle);
     setState(ViewState.Idle);
@@ -80,7 +78,7 @@ class ProfilePageModel extends BaseModel {
   Future<User> getUserProfileDatabyId(UserType userType, String id) async {
     setState(ViewState.Busy);
     setState2(ViewState.Busy);
-    userProfile = await _profileServices.getProfileData(id, userType);
+    userProfile = await _profileServices.getProfileDataById(id, userType);
     setState2(ViewState.Idle);
     setState(ViewState.Idle);
     return userProfile;
