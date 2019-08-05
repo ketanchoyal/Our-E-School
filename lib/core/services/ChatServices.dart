@@ -13,21 +13,31 @@ class ChatServices extends Services {
     getFirebaseUser();
   }
 
-  getChildrens() async {}
+  getTeachers() async {}
 
   _getCurrentUser(User user) {
     _currentUser = user;
   }
 
-  getStudents() async {
-    await _profileServices.loggedInUserStream.stream.listen(_getCurrentUser);
+  getStudents({String standard = '', String division = ''}) async {
+    String _standard;
+    if (standard == '' && division == '') {
+      String userDataModel = await sharedPreferencesHelper.getUserDataModel();
+      if (userDataModel == 'N.A') {
+        _profileServices.loggedInUserStream.stream.listen(_getCurrentUser);
+      } else {
+        _currentUser = User.fromJson(json.decode(userDataModel));
+      }
 
-    var standard = _currentUser.standardDivision();
+      _standard = _currentUser.standardDivision();
+    } else {
+      _standard = standard + division.toUpperCase();
+    }
 
-    QuerySnapshot data = await (await schoolRefwithCode())
-        .document('Students')
-        .collection(standard)
-        .getDocuments(source: Source.serverAndCache);
+    CollectionReference _studentsRef =
+        (await schoolRefwithCode()).document("Students").collection(_standard);
+
+    QuerySnapshot data = await _studentsRef.getDocuments();
 
     if (data != null && data.documents.length > 0) {
       studentsDocumentSnapshots.addAll(data.documents);

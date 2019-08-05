@@ -12,6 +12,7 @@ export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 export 'dart:convert';
 export 'locator.dart';
 export 'dart:io';
+export 'dart:async';
 export 'package:file_picker/file_picker.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
 

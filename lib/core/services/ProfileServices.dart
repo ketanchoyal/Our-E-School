@@ -1,16 +1,10 @@
-import 'dart:async';
-
-import 'package:ourESchool/core/services/StorageServices.dart';
-import 'package:ourESchool/locator.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:ourESchool/core/Models/User.dart';
-import 'package:ourESchool/core/enums/UserType.dart';
-import 'package:ourESchool/core/services/Services.dart';
+import 'package:ourESchool/imports.dart';
 
 class ProfileServices extends Services {
   StorageServices storageServices = locator<StorageServices>();
-  StreamController<User> loggedInUserStream = StreamController<User>();
+  StreamController<User> loggedInUserStream =
+      StreamController.broadcast(sync: true);
 
   String country = Services.country;
 
@@ -57,6 +51,7 @@ class ProfileServices extends Services {
       final jsonData = await json.decode(response.body);
 
       User user = User.fromJson(jsonData);
+      sharedPreferencesHelper.setUserDataModel(response.body);
       loggedInUserStream.add(user);
     } else {
       print("Data Upload error");
@@ -66,6 +61,19 @@ class ProfileServices extends Services {
   Future<User> getProfileData(String uid, UserType userType) async {
     // if (schoolCode == null)
     await getSchoolCode();
+
+    String userDataModel = await sharedPreferencesHelper.getUserDataModel();
+
+    if (userDataModel != 'N.A') {
+      print("Data Retrived Succesfully (Local)");
+      final jsonData = await json.decode(userDataModel);
+
+      User user = User.fromJson(jsonData);
+      sharedPreferencesHelper.setUserDataModel(userDataModel);
+      loggedInUserStream.add(user);
+      user.toString();
+      return user;
+    }
 
     var body = json.encode({
       "schoolCode": schoolCode.trim().toUpperCase(),
@@ -86,6 +94,7 @@ class ProfileServices extends Services {
       final jsonData = await json.decode(response.body);
 
       User user = User.fromJson(jsonData);
+      sharedPreferencesHelper.setUserDataModel(response.body);
       loggedInUserStream.add(user);
       user.toString();
       return user;

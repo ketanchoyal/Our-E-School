@@ -10,6 +10,22 @@ class SharedPreferencesHelper {
   final String _photoUrl = 'photoUrl';
   final String _childIds = 'childIds';
   final String _parentsIds = 'parentsIds';
+  final String _userModel = 'userJsonModel';
+
+  //Method to save User model in json format
+  Future<bool> setUserDataModel(String jsonModel) async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool res = await preferences.setString(_userModel, jsonModel);
+    print('User Data Model saved ' + res.toString());
+    return res;
+  }
+
+  Future<String> getUserDataModel() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    String res = preferences.getString(_userModel) ?? 'N.A';
+    print('User Data Model saved ' + res.toString());
+    return res;
+  }
 
   //Method to save the _childIds of Parent
   Future<bool> setChildIds(String childIds) async {
