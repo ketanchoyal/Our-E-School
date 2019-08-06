@@ -27,14 +27,6 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: widget.color,
-      // appBar: TopBar(
-      //   child: kBackBtn,
-      //   onPressed: () {
-      //     kbackBtn(context);
-      //   },
-      //   title: student.displayName,
-      // ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: widget.color,
         onPressed: () {
@@ -47,112 +39,104 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
         tag: widget.studentDocumenetSnapshotKey,
         child: SafeArea(
           bottom: false,
-          child: Stack(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          _buildStudentProfileImageViewer(
-                              context, student.photoUrl),
-                          Card(
-                            elevation: 0,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width - 20,
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                student.displayName,
-                                textAlign: TextAlign.center,
-                                style: ktitleStyle.copyWith(fontSize: 25),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Card(
-                                elevation: 0,
-                                margin: EdgeInsets.only(left: 10),
-                                child: Container(
-                                  // width: MediaQuery.of(context).size.width - 20,
-                                  padding: EdgeInsets.all(10),
-                                  child: Text(
-                                    'Guardians',
-                                    textAlign: TextAlign.left,
-                                    style: ktitleStyle.copyWith(fontSize: 25),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Expanded(
-                            child: Container(
-                              // color: Colors.red,
-                              child: GridView.builder(
-                                physics: BouncingScrollPhysics(),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 9 / 14,
-                                  crossAxisSpacing: 0,
-                                  mainAxisSpacing: 0,
-                                ),
-                                itemCount: parent.length,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: <Widget>[
-                                      _buildStudentProfileImageViewer(
-                                          context, parent[index].photoUrl),
-                                      Card(
-                                        elevation: 0,
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 15, vertical: 5),
-                                          child: Text(parent[index].displayName,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: ktitleStyle),
-                                        ),
-                                      ),
-                                      Container(
-                                        child: FlatButton(
-                                          child: Text(
-                                            'Chat',
-                                            style: ksubtitleStyle.copyWith(
-                                                fontSize: 18),
-                                          ),
-                                          onPressed: () {
-                                            kopenPage(
-                                                context,
-                                                MessagingScreen(
-                                                  user: parent[index],
-                                                ));
-                                          },
-                                        ),
-                                      )
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    _buildStudentProfileImageViewer(context, student.photoUrl),
+                    Card(
+                      elevation: 0,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 20,
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          student.displayName,
+                          textAlign: TextAlign.center,
+                          style: ktitleStyle.copyWith(fontSize: 25),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Card(
+                          elevation: 0,
+                          margin: EdgeInsets.only(left: 10),
+                          child: Container(
+                            // width: MediaQuery.of(context).size.width - 20,
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              'Guardians',
+                              textAlign: TextAlign.left,
+                              style: ktitleStyle.copyWith(fontSize: 25),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: Container(
+                        // color: Colors.red,
+                        child: GridView.builder(
+                          physics: BouncingScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 9 / 14,
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: 0,
+                          ),
+                          itemCount: parent.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                _buildStudentProfileImageViewer(
+                                    context, parent[index].photoUrl),
+                                Card(
+                                  elevation: 0,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 5),
+                                    child: Text(parent[index].displayName,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: ktitleStyle),
+                                  ),
+                                ),
+                                Container(
+                                  child: FlatButton(
+                                    child: Text(
+                                      'Chat',
+                                      style:
+                                          ksubtitleStyle.copyWith(fontSize: 18),
+                                    ),
+                                    onPressed: () {
+                                      kopenPage(
+                                          context,
+                                          MessagingScreen(
+                                            user: parent[index],
+                                          ));
+                                    },
+                                  ),
+                                )
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

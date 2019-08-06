@@ -35,10 +35,10 @@ class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
         transitionOnUserGestures: true,
         tag: widget.heroTag,
         child: Container(
+          height: 70,
           color: color,
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
-            height: 70,
             onPressed: () {
               kopenPage(
                 context,

@@ -1,4 +1,3 @@
-import 'package:ourESchool/UI/Utility/Resources.dart';
 import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ourESchool/core/Models/User.dart';
