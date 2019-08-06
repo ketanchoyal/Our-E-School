@@ -25,6 +25,10 @@ export const autoTeacherEntry = functions.firestore.document('Schools/{country}/
     return atomicFunction.teacherAutoEntry(eventSnapshot, context);
 });
 
+export const autoMessageIdEntry = functions.firestore.document('/Schools/{country}/{schoolCode}/Chats/{standard}/Chat/{chatId}/{messageId}').onCreate(async (eventSnapshot, context) => {
+    return atomicFunction.messageIdAutoEntry(eventSnapshot, context);
+});
+
 exports.webApi = functions.https.onRequest(app);
 // exports.loginApi = functions.https.onRequest(loginCredentialsCheck);
 

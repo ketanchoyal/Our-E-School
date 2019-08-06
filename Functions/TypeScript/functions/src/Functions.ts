@@ -24,6 +24,8 @@ export async function studentParentAutoEntry(eventSnapshot: any, context: any) {
         id: studentProfileRef,
     }
 
+    var batch = db.batch();
+
     // console.log(inJsonFormat);
 
     const connections = inJsonFormat.connection != null ? inJsonFormat.connection as Map<String, any> : null;
@@ -51,7 +53,8 @@ export async function studentParentAutoEntry(eventSnapshot: any, context: any) {
             const connectionMap = {
                 id: connectionProfileRef,
             }
-            await db.collection('Schools').doc(country).collection(schoolCode).doc('Parents').collection(standard + division).doc(value).set(connectionMap, { merge: true });
+            var ref1 = db.collection('Schools').doc(country).collection(schoolCode).doc('Parents').collection(standard + division).doc(value);
+            batch.set(ref1, connectionMap, { merge: true });
         });
 
 
@@ -72,7 +75,11 @@ export async function studentParentAutoEntry(eventSnapshot: any, context: any) {
     //     map = Object.assign(map, parentMap);
     // }
 
-    return await db.collection('Schools').doc(country).collection(schoolCode).doc('Students').collection(standard + division).doc(studentId).set(map, { merge: true });
+    var ref2 = db.collection('Schools').doc(country).collection(schoolCode).doc('Students').collection(standard + division).doc(studentId);
+
+    batch.set(ref2, map, { merge: true });
+
+    return await batch.commit();
 }
 
 export async function teacherAutoEntry(eventSnapshot: any, context: any) {
@@ -101,6 +108,34 @@ export async function teacherAutoEntry(eventSnapshot: any, context: any) {
     } else {
         return;
     }
+}
 
+export async function messageIdAutoEntry(eventSnapshot: any, context: any) {
+    const schoolCode = context.params.schoolCode;
+    // const messageId = context.params.messageId;
+    const country = context.params.country;
+    const chatId = context.params.chatId;
+    const standard = context.params.standard;
 
+    var map: { [key: string]: any } = {};
+
+    var pathToChat = `/Schools/${country}/${schoolCode}/Chats/${standard}/Chat/${chatId}/`;
+
+    const snapShotData = eventSnapshot!.data()
+
+    const student = snapShotData!.for;
+    const from = snapShotData!.from;
+    const to = snapShotData!.to;
+
+    map[student] = pathToChat;
+
+    var batch = db.batch();
+
+    var ref1 = db.collection(`/Schools/${country}/${schoolCode}/Chats/${standard}/Parent-Teacher/${from}/`).doc(to);
+    var ref2 = db.collection(`/Schools/${country}/${schoolCode}/Chats/${standard}/Parent-Teacher/${to}/`).doc(from);
+
+    batch.set(ref1, map, { merge: true });
+    batch.set(ref2, map, { merge: true });
+
+    return await batch.commit();
 }

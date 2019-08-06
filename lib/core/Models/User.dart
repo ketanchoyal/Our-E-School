@@ -91,7 +91,7 @@ class User {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['photoUrl'] = this.photoUrl;
     data['email'] = this.email;
-    data['division'] = this.division;
+    data['division'] = this.division.toUpperCase().trim();
     data['id'] = this.id;
     data['enrollNo'] = this.enrollNo;
     data['firebaseUuid'] = this.firebaseUuid;
