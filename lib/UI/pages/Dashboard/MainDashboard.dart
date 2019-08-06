@@ -28,6 +28,7 @@ class _MainDashboardState extends State<MainDashboard> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        extendBody: true,
         body: Padding(
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
           child: Column(

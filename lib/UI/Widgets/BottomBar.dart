@@ -246,6 +246,8 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
         : Tween<double>(begin: 1.15, end: 1.75);
   }
 
+  
+
 //  Animatable<double> _flexTween = widget.hasNotch ? Tween<double>(begin: 1.15, end: 2.0) : Tween<double>(begin: 1.15, end: 1.75);
 
   void _resetState() {
@@ -279,6 +281,7 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
   void _rebuild() {
     setState(() {});
   }
+
 
   @override
   void dispose() {
@@ -377,7 +380,7 @@ class _BottomNavigationBarState extends State<BubbleBottomBar>
             padding: EdgeInsets.only(
                 bottom: additionalBottomPadding,
                 right: widget.fabLocation == BubbleBottomBarFabLocation.end
-                    ? 60
+                    ? 70
                     : 0),
             child: MediaQuery.removePadding(
               context: context,

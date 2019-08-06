@@ -56,24 +56,7 @@ export async function studentParentAutoEntry(eventSnapshot: any, context: any) {
             var ref1 = db.collection('Schools').doc(country).collection(schoolCode).doc('Parents').collection(standard + division).doc(value);
             batch.set(ref1, connectionMap, { merge: true });
         });
-
-
-        // connectionsArray.forEach(async (value) => {
-        //     var connectionProfileRef = await getProfileRef(schoolCode, country, UserType.PARENT, value);
-        //     num = num + 1;
-        //     const key = num + '';
-        //     parentMap.set(key, connectionProfileRef);
-
-        //     const connectionMap = {
-        //         id: connectionProfileRef,
-        //     }
-        //     await db.collection('Schools').doc(country).collection(schoolCode).doc('Parents').collection(standard + division).doc(value).set(connectionMap, { merge: true });
-        // });
     }
-
-    // if (num != 0) {
-    //     map = Object.assign(map, parentMap);
-    // }
 
     var ref2 = db.collection('Schools').doc(country).collection(schoolCode).doc('Students').collection(standard + division).doc(studentId);
 
