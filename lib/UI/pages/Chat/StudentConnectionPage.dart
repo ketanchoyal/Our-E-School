@@ -122,10 +122,12 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
                                     ),
                                     onPressed: () {
                                       kopenPage(
-                                          context,
-                                          MessagingScreen(
-                                            user: parent[index],
-                                          ));
+                                        context,
+                                        MessagingScreen(
+                                          parentORteacher: parent[index],
+                                          student: student,
+                                        ),
+                                      );
                                     },
                                   ),
                                 )

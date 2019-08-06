@@ -36,6 +36,10 @@ class ChatServices extends Services {
       }
 
       _standard = _currentUser.standardDivision();
+      if (_standard == '') {
+        _standard = 'N.A';
+        return;
+      }
     } else {
       _standard = standard + division.toUpperCase();
     }
@@ -74,5 +78,24 @@ class ChatServices extends Services {
         documentSnapshot.documentID, () => parents);
 
     return parents;
+  }
+
+  getMessages() async {
+    var data = await firestore
+        .collection('/Schools/India/AMBE001/Chats/10A/Chat/chatID')
+        .getDocuments();
+    print('Messages length : ' + data.documents.length.toString());
+  }
+
+  sendMessage(Message message, User student) async {
+    var ref = (await schoolRefwithCode())
+        .document('Chats')
+        .collection(student.standardDivision())
+        .document('Chat')
+        .collection(getChatId([message.to, message.for_, message.from]));
+
+    await ref.add(message.toJson());
+
+    print('Message Sent');
   }
 }

@@ -136,3 +136,14 @@ String createCryptoRandomString([int length = 32]) {
 
   return base64Url.encode(values);
 }
+
+String getChatId(List<String> list) {
+  list.sort();
+  String chatId = '';
+
+  for (String id in list) {
+    chatId = chatId + id;
+  }
+
+  return chatId;
+}

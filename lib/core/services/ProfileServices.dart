@@ -130,7 +130,6 @@ class ProfileServices extends Services {
 
       User user = User.fromJson(jsonData);
       sharedPreferencesHelper.setUserDataModel(response.body);
-      loggedInUserStream.add(user);
       user.toString();
       return user;
     } else {

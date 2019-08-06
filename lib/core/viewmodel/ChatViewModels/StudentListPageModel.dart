@@ -19,9 +19,7 @@ class StudentListPageModel extends BaseModel {
 
   getStudent({String standard = '', String division = ''}) async {
     setState(ViewState.Busy);
-
     await _chatServices.getStudents(standard: standard, division: division);
-
     setState(ViewState.Idle);
   }
 

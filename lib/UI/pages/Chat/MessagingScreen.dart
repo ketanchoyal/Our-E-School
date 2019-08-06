@@ -2,99 +2,148 @@ import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/TopBar.dart';
 import 'package:flutter/material.dart';
 import 'package:ourESchool/core/Models/User.dart';
+import 'package:ourESchool/imports.dart';
 
 class MessagingScreen extends StatefulWidget {
-  MessagingScreen({Key key, this.user}) : super(key: key);
-  final User user;
+  MessagingScreen({Key key, this.student, this.parentORteacher})
+      : super(key: key);
+  final User parentORteacher;
+  final User student;
 
   _MessagingScreenState createState() => _MessagingScreenState();
 }
 
 class _MessagingScreenState extends State<MessagingScreen> {
+  TextEditingController _messageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _messageController = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        appBar: TopBar(
-          title: widget.user.displayName,
-          child: kBackBtn,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        body: SafeArea(
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: Container(),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                // mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
+    User user = Provider.of<User>(context);
+
+    return BaseView<MessagingScreenPageModel>(
+        onModelReady: (model) => model,
+        builder: (context, model, child) {
+          return Scaffold(
+            appBar: TopBar(
+              title: widget.parentORteacher.displayName,
+              child: kBackBtn,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            body: SafeArea(
+              child: Column(
                 children: <Widget>[
                   Expanded(
-                    child: Container(
-                      child: Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(32),
-                          ),
-                        ),
-                        child: Container(
-                          constraints: BoxConstraints(
-                            maxHeight: 150,
-                            // maxWidth: MediaQuery.of(context).size.width - 66,
-                          ),
-                          // width: MediaQuery.of(context).size.width - 65,
-                          child: TextField(
-                            keyboardType: TextInputType.multiline,
-                            // maxLength: 1000,
-                            maxLines: null,
-                            decoration: InputDecoration(
-                              hintText: 'Type here....',
-                              hintStyle: TextStyle(
-                                height: 1.5,
-                              ),
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 15.0, horizontal: 20.0),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(30.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                    child: Container(),
+                  ),
+                  _buildMessageSender(model, user),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  sendButtonTapped(MessagingScreenPageModel model, User user) async {
+    Message message = Message(
+      to: widget.parentORteacher.id,
+      for_: widget.student.id,
+      from: user.id,
+      message: _messageController.text,
+      timeStamp: Timestamp.now(),
+    );
+
+    await model.sendMessage(message: message, student: widget.student);
+    _messageController.clear();
+  }
+
+  Widget _buildMessageSender(MessagingScreenPageModel model, User user) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            child: Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(32),
+                ),
+              ),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxHeight: 150,
+                  // maxWidth: MediaQuery.of(context).size.width - 66,
+                ),
+                // width: MediaQuery.of(context).size.width - 65,
+                child: TextField(
+                  controller: _messageController,
+                  keyboardType: TextInputType.multiline,
+                  // maxLength: 1000,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    hintText: 'Type here....',
+                    hintStyle: TextStyle(
+                      height: 1.5,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30.0),
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Card(
-                      elevation: 5,
-                      shape: kCardCircularShape,
-                      child: Container(
-                        width: 60,
-                        height: 60,
-                        child: MaterialButton(
+                ),
+              ),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Card(
+            margin: EdgeInsets.all(5),
+            elevation: 5,
+            shape: kCardCircularShape,
+            child: Container(
+              width: 50,
+              height: 50,
+              child: Stack(
+                children: <Widget>[
+                  model.state == ViewState.Busy
+                      ? SpinKitRing(
+                          color: Colors.red,
+                          // size: 50,
+                          lineWidth: 4,
+                        )
+                      : Container(),
+                  model.state == ViewState.Idle
+                      ? MaterialButton(
                           height: 40,
                           shape: kCardCircularShape,
-                          onPressed: () {},
+                          onPressed: () {
+                            sendButtonTapped(model, user);
+                          },
                           child: Icon(
                             Icons.send,
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
+                        )
+                      : Container(),
                 ],
               ),
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

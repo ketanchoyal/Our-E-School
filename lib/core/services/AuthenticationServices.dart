@@ -1,16 +1,4 @@
-import "dart:async";
-import 'dart:io';
-import "package:cloud_firestore/cloud_firestore.dart";
-import "package:firebase_auth/firebase_auth.dart";
-import "package:flutter/cupertino.dart";
-import 'package:flutter/services.dart';
-// import "package:google_sign_in/google_sign_in.dart";
-import "package:ourESchool/core/Models/User.dart";
-import "package:ourESchool/core/Models/UserDataLogin.dart";
-import 'package:ourESchool/core/enums/AuthErrors.dart';
-import 'package:ourESchool/core/enums/LoginScreenReturnType.dart';
-import "package:ourESchool/core/enums/UserType.dart";
-import 'package:ourESchool/core/services/Services.dart';
+import 'package:ourESchool/imports.dart';
 
 class AuthenticationServices extends Services {
   // Future handleGoogleSignIn() async {
@@ -40,6 +28,8 @@ class AuthenticationServices extends Services {
   StreamController<bool> isUserLoggedInStream = StreamController<bool>();
   StreamController<UserType> userTypeStream = StreamController<UserType>();
 
+  ProfileServices _profileServices = locator<ProfileServices>();
+
   AuthenticationServices() {
     firestore.settings(
       persistenceEnabled: false,
@@ -58,7 +48,8 @@ class AuthenticationServices extends Services {
     // }
     isUserLoggedIn = firebaseUser == null ? false : true;
     isUserLoggedInStream.add(isUserLoggedIn);
-    print(isUserLoggedIn.toString());
+    if (isUserLoggedIn) _profileServices.getLoggedInUserProfileData();
+    print(isUserLoggedIn.toString() + 'here');
     return isUserLoggedIn;
   }
 

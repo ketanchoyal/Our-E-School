@@ -10,10 +10,14 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   RandomColor _randomColor = RandomColor();
 
+  String _standard = '';
+  String _division = '';
+
   @override
   Widget build(BuildContext context) {
     return BaseView<StudentListPageModel>(
-      onModelReady: (model) => model.getStudent(),
+      onModelReady: (model) =>
+          model.getStudent(division: _division, standard: _standard),
       builder: (context, model, child) {
         return SafeArea(
           child: Scaffold(
