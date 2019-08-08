@@ -8,6 +8,8 @@ class ProfileServices extends Services {
 
   String country = Services.country;
 
+  List<User> childrens = [];
+
   ProfileServices() {
     getSchoolCode();
     getFirebaseUser();
@@ -141,5 +143,30 @@ class ProfileServices extends Services {
   Future<User> getUserDataFromReference(DocumentReference reference) async {
     User user = User.fromSnapshot(await reference.get());
     return user;
+  }
+
+  getChildrens() async {
+    String childrens = await sharedPreferencesHelper.getChildIds();
+    if (childrens == 'N.A') {
+      this.childrens = [];
+      return;
+    }
+    Map<String, String> childIds = Map.from(
+      jsonDecode(childrens).map(
+        (key, values) {
+          String value = values.toString();
+          return MapEntry(key, value);
+        },
+      ),
+    );
+    await _getChildrensData(childIds);
+  }
+
+  _getChildrensData(Map<String, String> childIds) async {
+    List<User> childData = [];
+    for (String id in childIds.values) {
+      childData.add(await getProfileDataById(id, UserType.STUDENT));
+    }
+    childrens = childData;
   }
 }

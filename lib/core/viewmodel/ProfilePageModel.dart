@@ -11,12 +11,12 @@ class ProfilePageModel extends BaseModel {
   final _profileServices = locator<ProfileServices>();
 
   User userProfile;
-  
 
-  List<User> childrens = [];
+  List<User> get childrens => _profileServices.childrens;
 
   ProfilePageModel() {
     getUserProfileData();
+    getChildrens();
   }
 
   ProfilePageModel.getChildrens() {
@@ -48,32 +48,18 @@ class ProfilePageModel extends BaseModel {
 
   getChildrens() async {
     setState(ViewState.Busy);
-    String childrens = await sharedPreferencesHelper.getChildIds();
-    if (childrens == 'N.A') {
-      this.childrens = [];
-      setState(ViewState.Idle);
-      return;
-    }
-    Map<String, String> childIds = Map.from(
-      jsonDecode(childrens).map(
-        (key, values) {
-          String value = values.toString();
-          return MapEntry(key, value);
-        },
-      ),
-    );
-    await _getChildrensData(childIds);
+    await _profileServices.getChildrens();
     setState(ViewState.Idle);
   }
 
-  Future<List<User>> _getChildrensData(Map<String, String> childIds) async {
-    List<User> childData = [];
-    for (String id in childIds.values) {
-      childData.add(await getUserProfileDatabyId(UserType.STUDENT, id));
-    }
-    childrens = childData;
-    return childData;
-  }
+  // _getChildrensData(Map<String, String> childIds) async {
+  //   List<User> childData = [];
+  //   for (String id in childIds.values) {
+  //     childData.add(await getUserProfileDatabyId(UserType.STUDENT, id));
+  //   }
+  // childrens = childData;
+  //   return childData;
+  // }
 
   Future<User> getUserProfileDatabyId(UserType userType, String id) async {
     setState(ViewState.Busy);

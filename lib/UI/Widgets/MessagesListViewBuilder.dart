@@ -12,7 +12,8 @@ class MessagesListViewBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
     return ListView.builder(
-      reverse: true,
+      // reverse: true,
+      // shrinkWrap: true,
       controller: scrollController,
       itemCount: messageModelMap.length,
       itemBuilder: (context, index) {

@@ -146,11 +146,11 @@ class AuthenticationServices extends Services {
     } else {
       if (userDataLogin.isATeacher) {
         this.userType = UserType.TEACHER;
-        userTypeStream.add(userType);
+        userTypeStream.add(this.userType);
         sharedPreferencesHelper.setUserType(UserType.TEACHER);
       } else {
         this.userType = UserType.PARENT;
-        userTypeStream.add(userType);
+        userTypeStream.add(this.userType);
         sharedPreferencesHelper.setUserType(UserType.PARENT);
       }
     }

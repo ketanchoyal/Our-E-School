@@ -14,12 +14,18 @@ class ChatServices extends Services {
 
   Map<String, List<User>> studentsParentListMap = Map();
 
+  List<User> get childrens => _profileServices.childrens;
+
   ChatServices() {
     getSchoolCode();
     getFirebaseUser();
   }
 
-  getTeachers() async {}
+  getTeachers(String standard_Division) async {
+    var ref = (await schoolRefwithCode())
+        .document('Teachers')
+        .collection(standard_Division);
+  }
 
   _getCurrentUser(User user) {
     _currentUser = user;
@@ -82,8 +88,6 @@ class ChatServices extends Services {
 
   Stream<List<Message>> getMessages(
       User other, User student, User loggedIn) async* {
-    print('Here');
-
     var ref = (await schoolRefwithCode())
         .document('Chats')
         .collection(student.standardDivision())
@@ -94,12 +98,12 @@ class ChatServices extends Services {
     String chatRef = 'N.A';
 
     await ref
-        .get()
+        .get(source: Source.server)
         .then((snapShot) => {chatRef = snapShot[student.id].toString()});
 
     await for (QuerySnapshot snap in firestore
         .collection(chatRef)
-        .orderBy('timestamp', descending: true)
+        .orderBy('timestamp', descending: false)
         .snapshots()) {
       try {
         List<Message> messages =
@@ -110,28 +114,9 @@ class ChatServices extends Services {
         print(e);
       }
     }
-
-    // firestore.collection(chatRef).snapshots().listen((querySnapshot) {
-    //   List<Message> messages = querySnapshot.documents
-    //       .map((doc) => Message.fromSnapShot(doc))
-    //       .toList();
-
-    //       yield messages;
-    //   // querySnapshot.documents.forEach(
-    //   //   (data) async* {
-    //   //     try {
-    //   //       Message message = Message.fromSnapShot(data);
-    //   //       print(message.message);
-    //   //       yield message;
-    //   //     } catch (e) {
-    //   //       print('Catch Exception :' + e);
-    //   //     }
-    //   //   },
-    //   // );
-    // });
   }
 
-  sendMessage(Message message, User student) async {
+  Future sendMessage(Message message, User student) async {
     var ref = (await schoolRefwithCode())
         .document('Chats')
         .collection(student.standardDivision())
