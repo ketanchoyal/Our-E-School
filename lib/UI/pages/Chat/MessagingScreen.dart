@@ -4,52 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:ourESchool/core/Models/User.dart';
 import 'package:ourESchool/imports.dart';
 
-class MessagesListViewBuilder extends StatelessWidget {
-  final Map<String, Message> messageModelMap;
-  // final List<String> documentIdList;
-
-  MessagesListViewBuilder(this.messageModelMap);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: messageModelMap.length,
-      itemBuilder: (context, index) {
-        var keyy = messageModelMap.keys.elementAt(index);
-        return Padding(
-          padding: const EdgeInsets.all(6),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              // Text(
-              //   messageModelMap[documentIdList[index]].sender,
-              //   style: TextStyle(
-              //     color: Colors.black26,
-              //   ),
-              // ),
-              Material(
-                elevation: 5,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20)),
-                color: Colors.lightBlueAccent,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text(
-                    messageModelMap[keyy].message,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
 class MessagingScreen extends StatefulWidget {
   MessagingScreen({Key key, this.student, this.parentORteacher})
       : super(key: key);
@@ -62,6 +16,7 @@ class MessagingScreen extends StatefulWidget {
 class _MessagingScreenState extends State<MessagingScreen> {
   TextEditingController _messageController;
   bool sendButtonEnable = false;
+  ScrollController _scrollController = new ScrollController();
 
   @override
   void initState() {
@@ -73,34 +28,33 @@ class _MessagingScreenState extends State<MessagingScreen> {
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
 
-    return BaseView<MessagingScreenPageModel>(onModelReady: (model) {
-      ChatServices _chatServices = locator<ChatServices>();
-      return _chatServices.getMessages(widget.parentORteacher, widget.student, user);
-      return model.getMessages(
-          loggedIn: user,
-          other: widget.parentORteacher,
-          student: widget.student);
-    }, builder: (context, model, child) {
-      return Scaffold(
-        appBar: TopBar(
-          title: widget.parentORteacher.displayName,
-          child: kBackBtn,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        body: SafeArea(
-          child: Column(
-            children: <Widget>[
-              Flexible(
-                child: MessagesListViewBuilder(model.messages),
+    return BaseView<MessagingScreenPageModel>(
+        onModelReady: (model) => model.getMessages(
+            loggedIn: user,
+            other: widget.parentORteacher,
+            student: widget.student),
+        builder: (context, model, child) {
+          return Scaffold(
+            appBar: TopBar(
+              title: widget.parentORteacher.displayName,
+              child: kBackBtn,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            body: SafeArea(
+              child: Column(
+                children: <Widget>[
+                  Flexible(
+                    child: MessagesListViewBuilder(
+                        model.messages, _scrollController),
+                  ),
+                  _buildMessageSender(model, user),
+                ],
               ),
-              _buildMessageSender(model, user),
-            ],
-          ),
-        ),
-      );
-    });
+            ),
+          );
+        });
   }
 
   sendButtonTapped(MessagingScreenPageModel model, User user) async {
@@ -117,6 +71,11 @@ class _MessagingScreenState extends State<MessagingScreen> {
     setState(() {
       sendButtonEnable = false;
     });
+    _scrollController.animateTo(
+      0.0,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 300),
+    );
   }
 
   Widget _buildMessageSender(MessagingScreenPageModel model, User user) {

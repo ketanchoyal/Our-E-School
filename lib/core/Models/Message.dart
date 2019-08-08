@@ -24,7 +24,7 @@ class Message {
     this.for_ = json['for'];
     this.from = json['from'];
     this.message = json['message'].toString();
-    this.timeStamp = json['timeStamp'] as Timestamp;
+    this.timeStamp = json['timestamp'] as Timestamp;
   }
 
   Map<String, dynamic> toJson() {

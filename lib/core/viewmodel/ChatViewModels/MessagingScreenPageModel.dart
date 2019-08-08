@@ -18,10 +18,17 @@ class MessagingScreenPageModel extends BaseModel {
     notifyListeners();
   }
 
-  getMessages({User other, User student, User loggedIn}) {
+  getMessages({User other, User student, User loggedIn}) async {
+    setState2(ViewState.Busy);
     var messages = _chatServices.getMessages(other, student, loggedIn);
-    messages.listen((newMessage) {
-      addNewMessage = newMessage;
+    messages.listen((newMessages) {
+      newMessages.forEach((newMessage) => {addNewMessage = newMessage});
     });
   }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   print('Message Screen Model Disposed');
+  // }
 }

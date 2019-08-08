@@ -80,9 +80,8 @@ class ChatServices extends Services {
     return parents;
   }
 
-  Stream<Message> getMessages(User other, User student, User loggedIn) async* {
-    // messageStreamController.
-
+  Stream<List<Message>> getMessages(
+      User other, User student, User loggedIn) async* {
     print('Here');
 
     var ref = (await schoolRefwithCode())
@@ -95,31 +94,41 @@ class ChatServices extends Services {
     String chatRef = 'N.A';
 
     await ref
-        .get(source: Source.serverAndCache)
+        .get()
         .then((snapShot) => {chatRef = snapShot[student.id].toString()});
 
-    // await for (QuerySnapshot snap
-    //     in firestore.collection(chatRef).snapshots()) {
-    //   try {
-    //     snap.documents.forEach((data) async* {
-    //       yield 'a';
-    //     });
-    //   } catch (e) {
-    //     print(e);
-    //   }
-    // }
+    await for (QuerySnapshot snap in firestore
+        .collection(chatRef)
+        .orderBy('timestamp', descending: true)
+        .snapshots()) {
+      try {
+        List<Message> messages =
+            snap.documents.map((doc) => Message.fromSnapShot(doc)).toList();
 
-    firestore.collection(chatRef).snapshots().listen((querySnapshot) {
-      querySnapshot.documents.forEach((data) async* {
-        try {
-          Message message = Message.fromSnapShot(data);
-          print(message.message);
-          yield message;
-        } catch (e) {
-          print(e);
-        }
-      });
-    });
+        yield messages;
+      } catch (e) {
+        print(e);
+      }
+    }
+
+    // firestore.collection(chatRef).snapshots().listen((querySnapshot) {
+    //   List<Message> messages = querySnapshot.documents
+    //       .map((doc) => Message.fromSnapShot(doc))
+    //       .toList();
+
+    //       yield messages;
+    //   // querySnapshot.documents.forEach(
+    //   //   (data) async* {
+    //   //     try {
+    //   //       Message message = Message.fromSnapShot(data);
+    //   //       print(message.message);
+    //   //       yield message;
+    //   //     } catch (e) {
+    //   //       print('Catch Exception :' + e);
+    //   //     }
+    //   //   },
+    //   // );
+    // });
   }
 
   sendMessage(Message message, User student) async {
