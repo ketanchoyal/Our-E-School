@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:ourESchool/imports.dart';
-import 'package:random_color/random_color.dart';
 
 class ChatStudentListWidget extends StatefulWidget {
   // final Function onPressed;
   final String heroTag;
   final DocumentSnapshot snapshot;
-  final StudentListPageModel model;
+  final ChatUsersListPageModel model;
 
   ChatStudentListWidget({this.snapshot, this.heroTag, this.model});
 

@@ -26,6 +26,10 @@ class Assignment {
       this.id});
 
   Assignment.fromJson(Map<String, dynamic> json) {
+    _fromJson(json);
+  }
+
+  _fromJson(Map<String, dynamic> json) {
     by = json['by'];
     path = json['path'];
     title = json['title'];
@@ -36,20 +40,11 @@ class Assignment {
     timeStamp = json['timeStamp'] as Timestamp ?? null;
     url = json['url'];
     details = json['details'];
-    id = json['id'];
+    // id = json['id'] ?? '';
   }
 
   Assignment.fromSnapshot(DocumentSnapshot documentSnapshot) {
-    by = documentSnapshot['by'].toString();
-    title = documentSnapshot['title'].toString();
-    path = documentSnapshot['path'].toString();
-    div = documentSnapshot['div'].toString();
-    subject = documentSnapshot['subject'].toString();
-    type = documentSnapshot['type'].toString();
-    standard = documentSnapshot['standard'].toString();
-    timeStamp = documentSnapshot['timeStamp'] as Timestamp ?? null;
-    url = documentSnapshot['url'].toString();
-    details = documentSnapshot['details'].toString();
+    _fromJson(documentSnapshot.data);
     id = documentSnapshot.documentID;
   }
 

@@ -12,35 +12,37 @@ class _ChatPageState extends State<ChatPage> {
 
   String _standard = '';
   String _division = '';
+  bool studentLoaded = false;
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<StudentListPageModel>(
-      onModelReady: (model) =>
-          model.getStudent(division: _division, standard: _standard),
+    return BaseView<ChatUsersListPageModel>(
+      onModelReady: (model) => model.getStudent(division: _division, standard: _standard),
       builder: (context, model, child) {
-        return SafeArea(
-          child: Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ListView.builder(
-                itemCount: model.studentsSnapshot.length,
-                itemBuilder: (context, i) {
-                  // values.keys.elementAt(index);
-                  var key = model.studentsSnapshot.keys.elementAt(i);
-                  var snapshot = model.studentsSnapshot[key];
-                  // model.getUser(snapshot);
-                  // model.getParents(snapshot);
-                  return ChatStudentListWidget(
-                    heroTag: snapshot.documentID,
-                    snapshot: snapshot,
-                    model: model,
-                  );
-                },
-              ),
-            ),
-          ),
-        );
+        return model.state == ViewState.Busy
+            ? kBuzyPage(color: Theme.of(context).primaryColor)
+            : SafeArea(
+                child: Scaffold(
+                  body: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ListView.builder(
+                      itemCount: model.studentsSnapshot.length,
+                      itemBuilder: (context, i) {
+                        // values.keys.elementAt(index);
+                        var key = model.studentsSnapshot.keys.elementAt(i);
+                        var snapshot = model.studentsSnapshot[key];
+                        // model.getUser(snapshot);
+                        // model.getParents(snapshot);
+                        return ChatStudentListWidget(
+                          heroTag: snapshot.documentID,
+                          snapshot: snapshot,
+                          model: model,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              );
       },
     );
   }

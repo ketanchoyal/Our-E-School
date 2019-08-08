@@ -28,6 +28,6 @@ void setupLocator() {
   locator.registerFactory(() => AssignmentPageModel());
 
   locator.registerLazySingleton(() => ChatServices());
-  locator.registerFactory(() => StudentListPageModel());
+  locator.registerFactory(() => ChatUsersListPageModel());
   locator.registerFactory(() => MessagingScreenPageModel());
 }

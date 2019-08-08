@@ -4,7 +4,7 @@ class StudentConnectionPage extends StatefulWidget {
   StudentConnectionPage(
       {this.model, this.studentDocumenetSnapshotKey, this.color});
 
-  final StudentListPageModel model;
+  final ChatUsersListPageModel model;
   final String studentDocumenetSnapshotKey;
   final Color color;
 
@@ -43,7 +43,7 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Expanded(
+              Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -84,7 +84,7 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
                     SizedBox(
                       height: 10,
                     ),
-                    Expanded(
+                    Flexible(
                       child: Container(
                         // color: Colors.red,
                         child: GridView.builder(

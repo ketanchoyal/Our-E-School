@@ -23,7 +23,7 @@ export 'core/enums/AuthErrors.dart';
 export 'core/enums/LoginScreenReturnType.dart';
 export 'core/enums/announcementType.dart';
 export 'core/viewmodel/ChatViewModels/MessagingScreenPageModel.dart';
-export 'core/viewmodel/ChatViewModels/StudentListPageModel.dart';
+export 'core/viewmodel/ChatViewModels/ChatUsersListPageModel.dart';
 export 'core/viewmodel/BaseModel.dart';
 export 'core/enums/UserType.dart';
 export 'core/services/ChatServices.dart';

@@ -11,9 +11,17 @@ class MessagingScreenPageModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  getMessages() async {
-    setState(ViewState.Busy);
+  Map<String, Message> messages = Map<String, Message>();
 
-    setState(ViewState.Idle);
+  set addNewMessage(Message newMessage) {
+    messages.putIfAbsent(newMessage.id, () => newMessage);
+    notifyListeners();
+  }
+
+  getMessages({User other, User student, User loggedIn}) {
+    var messages = _chatServices.getMessages(other, student, loggedIn);
+    messages.listen((newMessage) {
+      addNewMessage = newMessage;
+    });
   }
 }

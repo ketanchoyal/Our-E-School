@@ -11,12 +11,20 @@ class Message {
   Message({this.to, this.from, this.message, this.timeStamp, this.for_});
 
   Message.fromSnapShot(DocumentSnapshot snapshot) {
-    this.to = snapshot['to'].toString();
-    this.for_ = snapshot['for'].toString();
-    this.from = snapshot['from'].toString();
     this.id = snapshot.documentID;
-    this.message = snapshot['message'].toString();
-    this.timeStamp = snapshot['timeStamp'] as Timestamp;
+    _fromJson(snapshot.data);
+  }
+
+  Message.fromJson(Map<String, dynamic> json) {
+    _fromJson(json);
+  }
+
+  _fromJson(Map<String, dynamic> json) {
+    this.to = json['to'];
+    this.for_ = json['for'];
+    this.from = json['from'];
+    this.message = json['message'].toString();
+    this.timeStamp = json['timeStamp'] as Timestamp;
   }
 
   Map<String, dynamic> toJson() {

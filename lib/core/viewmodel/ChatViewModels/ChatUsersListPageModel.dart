@@ -1,7 +1,7 @@
 import 'package:ourESchool/imports.dart';
 
-class StudentListPageModel extends BaseModel {
-  StudentListPageModel();
+class ChatUsersListPageModel extends BaseModel {
+  ChatUsersListPageModel();
 
   ChatServices _chatServices = locator<ChatServices>();
   ProfileServices _profileServices = locator<ProfileServices>();

@@ -80,11 +80,46 @@ class ChatServices extends Services {
     return parents;
   }
 
-  getMessages() async {
-    var data = await firestore
-        .collection('/Schools/India/AMBE001/Chats/10A/Chat/chatID')
-        .getDocuments();
-    print('Messages length : ' + data.documents.length.toString());
+  Stream<Message> getMessages(User other, User student, User loggedIn) async* {
+    // messageStreamController.
+
+    print('Here');
+
+    var ref = (await schoolRefwithCode())
+        .document('Chats')
+        .collection(student.standardDivision())
+        .document('Parent-Teacher')
+        .collection(loggedIn.id)
+        .document(other.id);
+
+    String chatRef = 'N.A';
+
+    await ref
+        .get(source: Source.serverAndCache)
+        .then((snapShot) => {chatRef = snapShot[student.id].toString()});
+
+    // await for (QuerySnapshot snap
+    //     in firestore.collection(chatRef).snapshots()) {
+    //   try {
+    //     snap.documents.forEach((data) async* {
+    //       yield 'a';
+    //     });
+    //   } catch (e) {
+    //     print(e);
+    //   }
+    // }
+
+    firestore.collection(chatRef).snapshots().listen((querySnapshot) {
+      querySnapshot.documents.forEach((data) async* {
+        try {
+          Message message = Message.fromSnapShot(data);
+          print(message.message);
+          yield message;
+        } catch (e) {
+          print(e);
+        }
+      });
+    });
   }
 
   sendMessage(Message message, User student) async {

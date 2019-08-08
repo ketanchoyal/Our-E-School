@@ -152,9 +152,9 @@ If you are a parent then go to childrens section to check assignments''',
                                     model.assignmentSnapshotList.length + 1,
                                 itemBuilder: (context, i) {
                                   if (i < model.assignmentSnapshotList.length) {
-                                    Assignment assignment =
-                                        Assignment.fromSnapshot(
-                                            model.assignmentSnapshotList[i]);
+                                    Assignment assignment = Assignment.fromSnapshot(
+                                        model.assignmentSnapshotList[i]);
+                                    print(assignment.id);
                                     return ColumnReusableCardButton(
                                       tileColor: _randomColor.randomColor(
                                           colorBrightness:
