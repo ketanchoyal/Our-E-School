@@ -20,7 +20,7 @@ class _ChatPageState extends State<ChatPage> {
     if (userType == UserType.TEACHER) {
       return BaseView<ChatUsersListPageModel>(
         onModelReady: (model) =>
-            model.getStudent(division: _division, standard: _standard),
+            model.getAllStudent(division: _division, standard: _standard),
         builder: (context, model, child) {
           return model.state == ViewState.Busy
               ? kBuzyPage(color: Theme.of(context).primaryColor)

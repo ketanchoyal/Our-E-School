@@ -12,6 +12,8 @@ class ChatServices extends Services {
 
   Map<String, User> studentListMap = Map();
 
+  Map<String, User> teachersListMap = Map();
+
   Map<String, List<User>> studentsParentListMap = Map();
 
   List<User> get childrens => _profileServices.childrens;
@@ -21,10 +23,19 @@ class ChatServices extends Services {
     getFirebaseUser();
   }
 
-  getTeachers(String standard_Division) async {
-    var ref = (await schoolRefwithCode())
-        .document('Teachers')
-        .collection(standard_Division);
+  getTeachers({String standard = '', String division = ''}) async {
+    String _standard = standard + division.toUpperCase();
+    var ref =
+        (await schoolRefwithCode()).document('Teachers').collection(_standard);
+
+    QuerySnapshot data = await ref.getDocuments();
+
+    if (data != null && data.documents.length > 0) {
+      data.documents.forEach((document) => {
+            teachersDocumentSnapshots.putIfAbsent(
+                document.documentID, () => document)
+          });
+    }
   }
 
   _getCurrentUser(User user) {
@@ -67,7 +78,7 @@ class ChatServices extends Services {
     User user =
         await _profileServices.getUserDataFromReference(documentSnapshot["id"]);
 
-    studentListMap.putIfAbsent(documentSnapshot.documentID, () => user);
+    // studentListMap.putIfAbsent(documentSnapshot.documentID, () => user);
 
     return user;
   }

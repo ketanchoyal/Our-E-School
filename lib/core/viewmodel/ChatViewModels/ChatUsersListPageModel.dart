@@ -14,31 +14,43 @@ class ChatUsersListPageModel extends BaseModel {
 
   Map<String, User> get studentListMap => _chatServices.studentListMap;
 
+  Map<String, User> get teachersListMap => _chatServices.teachersListMap;
+
   Map<String, List<User>> get studentsParentListMap =>
       _chatServices.studentsParentListMap;
 
-  getStudent({String standard = '', String division = ''}) async {
+  getAllStudent({String standard = '', String division = ''}) async {
     setState(ViewState.Busy);
     await _chatServices.getStudents(standard: standard, division: division);
     setState(ViewState.Idle);
   }
 
-  getStudentConnectionsData(DocumentSnapshot documentSnapshot) async {
+  getSingleStudentData(DocumentSnapshot documentSnapshot) async {
     setState(ViewState.Busy);
-    await _chatServices.getUser(documentSnapshot);
+    User user = await _chatServices.getUser(documentSnapshot);
+    _chatServices.studentListMap
+        .putIfAbsent(documentSnapshot.documentID, () => user);
     await _chatServices.getParents(documentSnapshot);
     setState(ViewState.Idle);
   }
 
-  getTeachers() {
+  getAllTeachers({String standard = '', String division = ''}) async {
     setState(ViewState.Busy);
+    await _chatServices.getTeachers(division: division, standard: standard);
+    setState(ViewState.Idle);
+  }
 
+  getSingleTeacherData(DocumentSnapshot documentSnapshot) async {
+    setState(ViewState.Busy);
+    User user = await _chatServices.getUser(documentSnapshot);
+    _chatServices.teachersListMap
+        .putIfAbsent(documentSnapshot.documentID, () => user);
+    await _chatServices.getParents(documentSnapshot);
     setState(ViewState.Idle);
   }
 
   onRefereshStudent({String standard, String division}) async {
     _chatServices.studentsDocumentSnapshots.clear();
-    await getStudent(standard: standard, division: division);
+    await getAllStudent(standard: standard, division: division);
   }
-
 }

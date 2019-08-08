@@ -22,6 +22,11 @@ class _MessagingScreenState extends State<MessagingScreen> {
   void initState() {
     super.initState();
     _messageController = TextEditingController();
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 10),
+      curve: Curves.easeOut,
+    );
   }
 
   @override

@@ -16,7 +16,7 @@ class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
   @override
   void initState() {
     super.initState();
-    widget.model.getStudentConnectionsData(widget.snapshot);
+    widget.model.getSingleStudentData(widget.snapshot);
   }
 
   Color color = RandomColor().randomColor(
