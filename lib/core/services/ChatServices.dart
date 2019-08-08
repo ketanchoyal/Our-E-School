@@ -23,6 +23,10 @@ class ChatServices extends Services {
     getFirebaseUser();
   }
 
+  getChildrens() async {
+    await _profileServices.getChildrens();
+  }
+
   getTeachers({String standard = '', String division = ''}) async {
     String _standard = standard + division.toUpperCase();
     var ref =
@@ -31,6 +35,7 @@ class ChatServices extends Services {
     QuerySnapshot data = await ref.getDocuments();
 
     if (data != null && data.documents.length > 0) {
+      print('Data Added');
       data.documents.forEach((document) => {
             teachersDocumentSnapshots.putIfAbsent(
                 document.documentID, () => document)

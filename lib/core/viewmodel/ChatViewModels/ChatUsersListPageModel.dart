@@ -4,7 +4,7 @@ class ChatUsersListPageModel extends BaseModel {
   ChatUsersListPageModel();
 
   ChatServices _chatServices = locator<ChatServices>();
-  ProfileServices _profileServices = locator<ProfileServices>();
+  // ProfileServices _profileServices = locator<ProfileServices>();
 
   Map<String, DocumentSnapshot> get studentsSnapshot =>
       _chatServices.studentsDocumentSnapshots;
@@ -18,6 +18,14 @@ class ChatUsersListPageModel extends BaseModel {
 
   Map<String, List<User>> get studentsParentListMap =>
       _chatServices.studentsParentListMap;
+
+  List<User> get childrens => _chatServices.childrens;
+
+  getChildrens() async {
+    setState(ViewState.Busy);
+    await _chatServices.getChildrens();
+    setState(ViewState.Idle);
+  }
 
   getAllStudent({String standard = '', String division = ''}) async {
     setState(ViewState.Busy);
