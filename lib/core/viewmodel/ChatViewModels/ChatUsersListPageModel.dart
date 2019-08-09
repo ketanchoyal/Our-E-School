@@ -50,12 +50,13 @@ class ChatUsersListPageModel extends BaseModel {
   }
 
   getSingleTeacherData(DocumentSnapshot documentSnapshot) async {
-    setState(ViewState.Busy);
+    // setState(ViewState.Busy);
     User user = await _chatServices.getUser(documentSnapshot);
     _chatServices.teachersListMap
         .putIfAbsent(documentSnapshot.documentID, () => user);
     await _chatServices.getParents(documentSnapshot);
-    setState(ViewState.Idle);
+    notifyListeners();
+    // setState(ViewState.Idle);
   }
 
   onRefereshStudent({String standard, String division}) async {

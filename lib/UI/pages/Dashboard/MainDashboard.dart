@@ -1,20 +1,4 @@
-import 'package:ourESchool/UI/Utility/Resources.dart';
-import 'package:ourESchool/UI/Utility/constants.dart';
-import 'package:ourESchool/UI/Utility/custom_icons.dart';
-import 'package:ourESchool/UI/Widgets/ColumnReusableCardButton.dart';
-import 'package:ourESchool/UI/Widgets/RowReusableCardButton.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ourESchool/UI/pages/Dashboard/Transportation/TransportationPage.dart';
-import 'Announcement/AnnouncementPage.dart';
-import 'Assignment/AssignmentPage.dart';
-import 'Childrens/ChildrensPage.dart';
-import 'E-Card/E-CardPage.dart';
-import 'Fees/FeesPage.dart';
-import 'Holidays/HolidayPage.dart';
-import 'ParentingGuide/ParentingGuidePage.dart';
-import 'Result/ResultPage.dart';
-import 'TimeTable/TimeTablePage.dart';
+import 'package:ourESchool/imports.dart';
 
 class MainDashboard extends StatefulWidget {
   MainDashboard({Key key}) : super(key: key);
@@ -107,47 +91,9 @@ class _MainDashboardState extends State<MainDashboard> {
                             },
                             icon: Icons.assignment,
                           ),
-                          // RowReusableCardButton(
-                          //   tileColor: Colors.indigoAccent,
-                          //   icon: Icons.assessment,
-                          //   label: string.results,
-                          //   onPressed: () {
-                          //     kopenPage(context, ResultPage());
-                          //   },
-                          // ),
                         ],
                       ),
                     ),
-                    // SizedBox(
-                    //   height: 5,
-                    // ),
-                    // Container(
-                    //   height: 110,
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: <Widget>[
-                    //       RowReusableCardButton(
-                    //         tileColor: Colors.lightGreen,
-                    //         label: string.assignment,
-                    //         onPressed: () {
-                    //           kopenPage(context, AssignmentsPage());
-                    //         },
-                    //         icon: Icons.assignment,
-                    //       ),
-                    //       SizedBox(
-                    //         width: 5,
-                    //       ),
-                    //       RowReusableCardButton(
-                    //         tileColor: Colors.lime,
-                    //         icon: Icons.attach_money,
-                    //         label: string.fees,
-                    //         onPressed: () {
-                    //           kopenPage(context, FeesPage());
-                    //         },
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     ColumnReusableCardButton(
                       height: 70,
                       tileColor: Colors.grey,

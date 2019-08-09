@@ -54,6 +54,7 @@ class _ChatPageState extends State<ChatPage> {
         },
       );
     } else if (userType == UserType.PARENT) {
+      var width = MediaQuery.of(context).size.width;
       return BaseView<ChatUsersListPageModel>(
           onModelReady: (model) => model.getChildrens(),
           builder: (context, model, child) {
@@ -63,34 +64,43 @@ class _ChatPageState extends State<ChatPage> {
                 child: Column(
                   children: <Widget>[
                     Expanded(
-                      flex: 1,
-                      child: Container(
-                        // color: Colors.blue,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: model.childrens.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              height: double.infinity,
-                              // width: 120,
-                              margin: EdgeInsets.all(2),
-                              color: Colors.red,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(Icons.people),
-                                  Text(model.childrens[index].displayName),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    Expanded(
                       flex: 12,
                       child: Container(
                         color: Colors.yellow,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: model.childrens.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            margin: EdgeInsets.all(2),
+                            color: Colors.red,
+                            child: Container(
+                              width:
+                                  (MediaQuery.of(context).size.width / 2) - 4,
+                              child: Row(
+                                // mainAxisSize: ,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    FontAwesomeIcons.child,
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    model.childrens[index].displayName,
+                                    style: ktitleStyle,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],

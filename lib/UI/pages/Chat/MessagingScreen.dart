@@ -22,11 +22,16 @@ class _MessagingScreenState extends State<MessagingScreen> {
   void initState() {
     super.initState();
     _messageController = TextEditingController();
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 10),
-      curve: Curves.easeOut,
-    );
+    _scrollController.addListener(() {
+      // if (_scrollController.position.pixels !=
+      //     _scrollController.position.maxScrollExtent) {
+      //   _scrollController.animateTo(
+      //     _scrollController.position.maxScrollExtent,
+      //     duration: const Duration(milliseconds: 10),
+      //     curve: Curves.easeOut,
+      //   );
+      // }
+    });
   }
 
   @override
@@ -35,11 +40,13 @@ class _MessagingScreenState extends State<MessagingScreen> {
 
     return BaseView<MessagingScreenPageModel>(
         onModelReady: (model) => model.getMessages(
+            scrollController: _scrollController,
             loggedIn: user,
             other: widget.parentORteacher,
             student: widget.student),
         builder: (context, model, child) {
           return Scaffold(
+            extendBody: true,
             appBar: TopBar(
               title: widget.parentORteacher.displayName,
               child: kBackBtn,
