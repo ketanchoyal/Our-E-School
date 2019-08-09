@@ -1,3 +1,4 @@
+import 'package:flutter/scheduler.dart';
 import 'package:ourESchool/imports.dart';
 
 class ChatStudentListWidget extends StatefulWidget {
@@ -10,13 +11,19 @@ class ChatStudentListWidget extends StatefulWidget {
 
   @override
   _ChatStudentListWidgetState createState() => _ChatStudentListWidgetState();
+
+  // void onLoad()
 }
 
 class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
   @override
   void initState() {
     super.initState();
-    widget.model.getSingleStudentData(widget.snapshot);
+    if (SchedulerBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      SchedulerBinding.instance.addPostFrameCallback(
+          (_) => widget.model.getSingleStudentData(widget.snapshot));
+    }
   }
 
   Color color = RandomColor().randomColor(

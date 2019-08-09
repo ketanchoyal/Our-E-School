@@ -36,6 +36,11 @@ class _ChatPageState extends State<ChatPage> {
                           var snapshot = model.studentsSnapshot[key];
                           // model.getUser(snapshot);
                           // model.getParents(snapshot);
+                          // return Container(
+                          //   color: _randomColor.randomColor(),
+                          //   height: 50,
+                          //   width: MediaQuery.of(context).size.width / 2,
+                          // );
                           return ChatStudentListWidget(
                             heroTag: snapshot.documentID,
                             snapshot: snapshot,
