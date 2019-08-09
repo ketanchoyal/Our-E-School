@@ -96,22 +96,22 @@ class _BottomSheetChildrensWidgetState
   }
 }
 
-class DecoratedTextField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: TextField(
-        decoration:
-            InputDecoration.collapsed(hintText: 'Enter your reference number'),
-      ),
-    );
-  }
-}
+// class DecoratedTextFieldd extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 50,
+//       alignment: Alignment.center,
+//       padding: const EdgeInsets.all(10),
+//       margin: const EdgeInsets.all(10),
+//       decoration: BoxDecoration(
+//         color: Colors.grey[300],
+//         borderRadius: BorderRadius.circular(10),
+//       ),
+//       child: TextField(
+//         decoration:
+//             InputDecoration.collapsed(hintText: 'Enter your reference number'),
+//       ),
+//     );
+//   }
+// }

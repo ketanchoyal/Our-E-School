@@ -96,3 +96,4 @@ export 'UI/pages/Setting/SettingPage.dart';
 export 'UI/pages/BaseView.dart';
 export 'UI/pages/Login/ForgotPassword.dart';
 export 'UI/Widgets/MessagesListViewBuilder.dart';
+export 'UI/Widgets/ChatTeachersList.dart';

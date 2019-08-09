@@ -54,7 +54,7 @@ class _ChatPageState extends State<ChatPage> {
         },
       );
     } else if (userType == UserType.PARENT) {
-      var width = MediaQuery.of(context).size.width;
+      // User children = User();
       return BaseView<ChatUsersListPageModel>(
           onModelReady: (model) => model.getChildrens(),
           builder: (context, model, child) {
@@ -65,9 +65,33 @@ class _ChatPageState extends State<ChatPage> {
                   children: <Widget>[
                     Expanded(
                       flex: 12,
-                      child: Container(
-                        color: Colors.yellow,
-                      ),
+                      child: model.selectedChild.isEmpty()
+                          ? Container(
+                              color: Colors.red,
+                            )
+                          : model.state == ViewState.Busy
+                              ? kBuzyPage(color: Theme.of(context).primaryColor)
+                              : Container(
+                                  color: Colors.yellow,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ListView.builder(
+                                      itemCount: model.teachersSnapshot.length,
+                                      itemBuilder: (context, i) {
+                                        // values.keys.elementAt(index);
+                                        var key = model.teachersListMap.keys
+                                            .elementAt(i);
+                                        var snapshot =
+                                            model.teachersSnapshot[key];
+                                        return ChatTeachersListWidget(
+                                          heroTag: snapshot.documentID,
+                                          snapshot: snapshot,
+                                          model: model,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
                     ),
                     Expanded(
                       flex: 1,
@@ -76,27 +100,50 @@ class _ChatPageState extends State<ChatPage> {
                         scrollDirection: Axis.horizontal,
                         itemCount: model.childrens.length,
                         itemBuilder: (context, index) {
-                          return Card(
-                            margin: EdgeInsets.all(2),
-                            color: Colors.red,
-                            child: Container(
-                              width:
-                                  (MediaQuery.of(context).size.width / 2) - 4,
-                              child: Row(
-                                // mainAxisSize: ,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    FontAwesomeIcons.child,
+                          return InkWell(
+                            onTap: () {
+                              model.selectedChild = model.childrens[index];
+                              model.getAllTeachers(
+                                  division: model.selectedChild.division,
+                                  standard: model.selectedChild.standard);
+                            },
+                            // enableFeedback: true,
+                            highlightColor: Colors.deepPurple,
+                            child: Card(
+                              elevation: 0,
+                              margin: EdgeInsets.all(2),
+                              color: Colors.red,
+                              child: Container(
+                                decoration: new BoxDecoration(
+                                  gradient: new LinearGradient(
+                                    colors: [
+                                      Theme.of(context).accentColor,
+                                      Theme.of(context).canvasColor,
+                                    ],
+                                    begin: const FractionalOffset(0.0, 0.5),
+                                    end: const FractionalOffset(0.5, 0.0),
+                                    stops: [0.0, 1.0],
+                                    tileMode: TileMode.clamp,
                                   ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    model.childrens[index].displayName,
-                                    style: ktitleStyle,
-                                  ),
-                                ],
+                                ),
+                                width:
+                                    (MediaQuery.of(context).size.width / 2) - 4,
+                                child: Row(
+                                  // mainAxisSize: ,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.child,
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      model.childrens[index].displayName,
+                                      style: ktitleStyle,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );

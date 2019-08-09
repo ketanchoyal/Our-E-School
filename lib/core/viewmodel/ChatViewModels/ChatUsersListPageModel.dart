@@ -21,6 +21,15 @@ class ChatUsersListPageModel extends BaseModel {
 
   List<User> get childrens => _chatServices.childrens;
 
+  User _selectedChild = User();
+
+  User get selectedChild => _selectedChild;
+
+  set selectedChild(User newUser) {
+    _selectedChild = newUser;
+    notifyListeners();
+  }
+
   getChildrens() async {
     setState(ViewState.Busy);
     await _chatServices.getChildrens();
@@ -45,6 +54,8 @@ class ChatUsersListPageModel extends BaseModel {
 
   getAllTeachers({String standard = '', String division = ''}) async {
     setState(ViewState.Busy);
+    teachersListMap.clear();
+    teachersSnapshot.clear();
     await _chatServices.getTeachers(division: division, standard: standard);
     setState(ViewState.Idle);
   }

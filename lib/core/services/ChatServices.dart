@@ -28,6 +28,8 @@ class ChatServices extends Services {
   }
 
   getTeachers({String standard = '', String division = ''}) async {
+    teachersDocumentSnapshots.clear();
+    teachersListMap.clear();
     String _standard = standard + division.toUpperCase();
     var ref =
         (await schoolRefwithCode()).document('Teachers').collection(_standard);
@@ -36,6 +38,7 @@ class ChatServices extends Services {
 
     if (data != null && data.documents.length > 0) {
       print('Data Added');
+      print(data.documents.first.documentID);
       data.documents.forEach((document) => {
             teachersDocumentSnapshots.putIfAbsent(
                 document.documentID, () => document)
