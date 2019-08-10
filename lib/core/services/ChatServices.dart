@@ -89,7 +89,7 @@ class ChatServices extends Services {
     // studentListMap.putIfAbsent(documentSnapshot.documentID, () => user);
 
     return user;
-  }
+  } 
 
   Future<List<User>> getParents(DocumentSnapshot documentSnapshot) async {
     List<User> parents = [];

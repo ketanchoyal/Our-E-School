@@ -47,9 +47,17 @@ class ChatUsersListPageModel extends BaseModel {
     User user = await _chatServices.getUser(documentSnapshot);
     _chatServices.studentListMap
         .putIfAbsent(documentSnapshot.documentID, () => user);
-    await _chatServices.getParents(documentSnapshot);
+    // await _chatServices.getParents(documentSnapshot);
     notifyListeners();
     // setState(ViewState.Idle);
+  }
+
+  getParents(DocumentSnapshot documentSnapshot) async {
+    setState(ViewState.Busy);
+    print('Parent Data Fetching Started');
+    await _chatServices.getParents(documentSnapshot);
+    setState(ViewState.Idle);
+    print('Parent Data Fetched');
   }
 
   getAllTeachers({String standard = '', String division = ''}) async {

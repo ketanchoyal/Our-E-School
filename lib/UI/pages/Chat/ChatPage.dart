@@ -31,7 +31,7 @@ class _ChatPageState extends State<ChatPage> {
                         itemBuilder: (context, i) {
                           var key = model.studentsSnapshot.keys.elementAt(i);
                           var snapshot = model.studentsSnapshot[key];
-                          return ChatStudentListWidget(
+                          return ChatStudentListWidget( 
                             heroTag: snapshot.documentID,
                             snapshot: snapshot,
                             model: model,

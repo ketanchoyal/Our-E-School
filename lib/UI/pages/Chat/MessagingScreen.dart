@@ -48,6 +48,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
           return Scaffold(
             extendBody: true,
             appBar: TopBar(
+              onTitleTapped: () {},
               title: widget.parentORteacher.displayName,
               child: kBackBtn,
               onPressed: () {

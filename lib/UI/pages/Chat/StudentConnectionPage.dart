@@ -1,11 +1,10 @@
 import 'package:ourESchool/imports.dart';
 
 class StudentConnectionPage extends StatefulWidget {
-  StudentConnectionPage(
-      {this.model, this.studentDocumenetSnapshotKey, this.color});
+  StudentConnectionPage({this.model, this.documentSnapshot, this.color});
 
   final ChatUsersListPageModel model;
-  final String studentDocumenetSnapshotKey;
+  final DocumentSnapshot documentSnapshot;
   final Color color;
 
   @override
@@ -16,16 +15,31 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
   User student = User();
   List<User> parent = [];
 
+  // ChatUsersListPageModel model;
+
   @override
   void initState() {
     super.initState();
-    student = widget.model.studentListMap[widget.studentDocumenetSnapshotKey];
-    parent =
-        widget.model.studentsParentListMap[widget.studentDocumenetSnapshotKey];
+    // model = widget.model;
+    student = widget.model.studentListMap[widget.documentSnapshot.documentID];
+    WidgetsBinding.instance.addPostFrameCallback((_) => getParents());
+  }
+
+  bool isLoading = true;
+
+  getParents() async {
+    isLoading = true;
+    setState(() {});
+    await widget.model.getParents(widget.documentSnapshot);
+    parent = await widget
+        .model.studentsParentListMap[widget.documentSnapshot.documentID];
+    isLoading = false;
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    // if (isLoading) getParents();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: widget.color,
@@ -36,7 +50,7 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
       ),
       body: Hero(
         transitionOnUserGestures: true,
-        tag: widget.studentDocumenetSnapshotKey,
+        tag: widget.documentSnapshot.documentID + '12',
         child: SafeArea(
           bottom: false,
           child: Column(
@@ -84,72 +98,74 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
                     SizedBox(
                       height: 10,
                     ),
-                    Flexible(
-                      child: Container(
-                        // color: Colors.red,
-                        child: GridView.builder(
-                          physics: BouncingScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 9 / 14,
-                            crossAxisSpacing: 0,
-                            mainAxisSpacing: 0,
-                          ),
-                          itemCount: parent.length,
-                          itemBuilder: (context, index) {
-                            if (parent[index].displayName == '') {
-                              return Container(
-                                child: Center(
-                                  child: Text(
-                                    'Parent Not Registered Yet',
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: true,
-                                    textAlign: TextAlign.center,
-                                    style: ktitleStyle,
-                                  ),
+                    isLoading
+                        ? kBuzyPage(color: widget.color)
+                        : Flexible(
+                            child: Container(
+                              // color: Colors.red,
+                              child: GridView.builder(
+                                physics: BouncingScrollPhysics(),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 9 / 14,
+                                  crossAxisSpacing: 0,
+                                  mainAxisSpacing: 0,
                                 ),
-                              );
-                            }
-                            return Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                _buildStudentProfileImageViewer(
-                                    context, parent[index].photoUrl),
-                                Card(
-                                  elevation: 0,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 5),
-                                    child: Text(parent[index].displayName,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: ktitleStyle),
-                                  ),
-                                ),
-                                Container(
-                                  child: FlatButton(
-                                    child: Text(
-                                      'Chat',
-                                      style:
-                                          ksubtitleStyle.copyWith(fontSize: 18),
-                                    ),
-                                    onPressed: () {
-                                      kopenPage(
-                                        context,
-                                        MessagingScreen(
-                                          parentORteacher: parent[index],
-                                          student: student,
+                                itemCount: parent.length,
+                                itemBuilder: (context, index) {
+                                  if (parent[index].displayName == '') {
+                                    return Container(
+                                      child: Center(
+                                        child: Text(
+                                          'Parent Not Registered Yet',
+                                          overflow: TextOverflow.ellipsis,
+                                          softWrap: true,
+                                          textAlign: TextAlign.center,
+                                          style: ktitleStyle,
                                         ),
-                                      );
-                                    },
-                                  ),
-                                )
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                    ),
+                                      ),
+                                    );
+                                  }
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      _buildStudentProfileImageViewer(
+                                          context, parent[index].photoUrl),
+                                      Card(
+                                        elevation: 0,
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 15, vertical: 5),
+                                          child: Text(parent[index].displayName,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: ktitleStyle),
+                                        ),
+                                      ),
+                                      Container(
+                                        child: FlatButton(
+                                          child: Text(
+                                            'Chat',
+                                            style: ksubtitleStyle.copyWith(
+                                                fontSize: 18),
+                                          ),
+                                          onPressed: () {
+                                            kopenPage(
+                                              context,
+                                              MessagingScreen(
+                                                parentORteacher: parent[index],
+                                                student: student,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               ),
@@ -176,7 +192,7 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
             fit: BoxFit.scaleDown,
             image: url != 'default'
                 ? NetworkImage(
-                    student.photoUrl,
+                    url,
                   )
                 : NetworkImage(
                     "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",

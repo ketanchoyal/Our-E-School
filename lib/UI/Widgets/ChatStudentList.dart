@@ -62,7 +62,7 @@ class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
                 context,
                 StudentConnectionPage(
                   model: widget.model,
-                  studentDocumenetSnapshotKey: widget.snapshot.documentID,
+                  documentSnapshot: widget.snapshot,
                   color: color,
                 ),
               );
