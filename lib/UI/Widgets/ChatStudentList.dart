@@ -41,7 +41,20 @@ class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
         tag: widget.heroTag,
         child: Container(
           height: 70,
-          color: color,
+          decoration: BoxDecoration(
+            color: Theme.of(context).canvasColor,
+            border: Border(
+              top: BorderSide(width: 1),
+              bottom: BorderSide(width: 1),
+              left: BorderSide(width: 1),
+              right: BorderSide(width: 1),
+            ),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(60),
+                bottomLeft: Radius.circular(60),
+                bottomRight: Radius.zero,
+                topRight: Radius.zero),
+          ),
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             onPressed: () {

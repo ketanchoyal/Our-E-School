@@ -8,8 +8,6 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  RandomColor _randomColor = RandomColor();
-
   String _standard = '';
   String _division = '';
   bool studentLoaded = false;
@@ -31,16 +29,8 @@ class _ChatPageState extends State<ChatPage> {
                       child: ListView.builder(
                         itemCount: model.studentsSnapshot.length,
                         itemBuilder: (context, i) {
-                          // values.keys.elementAt(index);
                           var key = model.studentsSnapshot.keys.elementAt(i);
                           var snapshot = model.studentsSnapshot[key];
-                          // model.getUser(snapshot);
-                          // model.getParents(snapshot);
-                          // return Container(
-                          //   color: _randomColor.randomColor(),
-                          //   height: 50,
-                          //   width: MediaQuery.of(context).size.width / 2,
-                          // );
                           return ChatStudentListWidget(
                             heroTag: snapshot.documentID,
                             snapshot: snapshot,
@@ -67,19 +57,25 @@ class _ChatPageState extends State<ChatPage> {
                       flex: 12,
                       child: model.selectedChild.isEmpty()
                           ? Container(
-                              color: Colors.red,
+                              // color: Colors.red,
+                              child: Center(
+                                child: Text(
+                                  'No Child Selected',
+                                  style: ktitleStyle.copyWith(fontSize: 20),
+                                ),
+                              ),
                             )
                           : model.state == ViewState.Busy
                               ? kBuzyPage(color: Theme.of(context).primaryColor)
                               : Container(
-                                  color: Colors.yellow,
+                                  // color: Colors.yellow,
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: ListView.builder(
                                       itemCount: model.teachersSnapshot.length,
                                       itemBuilder: (context, i) {
                                         // values.keys.elementAt(index);
-                                        var key = model.teachersListMap.keys
+                                        var key = model.teachersSnapshot.keys
                                             .elementAt(i);
                                         var snapshot =
                                             model.teachersSnapshot[key];
@@ -108,7 +104,7 @@ class _ChatPageState extends State<ChatPage> {
                                   standard: model.selectedChild.standard);
                             },
                             // enableFeedback: true,
-                            highlightColor: Colors.deepPurple,
+                            // highlightColor: Theme.of(context).accentColor,
                             child: Card(
                               elevation: 0,
                               margin: EdgeInsets.all(2),
@@ -117,11 +113,11 @@ class _ChatPageState extends State<ChatPage> {
                                 decoration: new BoxDecoration(
                                   gradient: new LinearGradient(
                                     colors: [
-                                      Theme.of(context).accentColor,
+                                      Colors.deepPurple,
                                       Theme.of(context).canvasColor,
                                     ],
-                                    begin: const FractionalOffset(0.0, 0.5),
-                                    end: const FractionalOffset(0.5, 0.0),
+                                    begin: const FractionalOffset(1.0, 1.5),
+                                    end: const FractionalOffset(1.0, 0.0),
                                     stops: [0.0, 1.0],
                                     tileMode: TileMode.clamp,
                                   ),

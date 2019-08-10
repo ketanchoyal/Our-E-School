@@ -73,7 +73,6 @@ class ProfileServices extends Services {
       final jsonData = await json.decode(userDataModel);
 
       User user = User.fromJson(jsonData);
-      sharedPreferencesHelper.setUserDataModel(userDataModel);
       loggedInUserStream.add(user);
       user.toString();
       return user;
@@ -131,7 +130,6 @@ class ProfileServices extends Services {
       final jsonData = await json.decode(response.body);
 
       User user = User.fromJson(jsonData);
-      sharedPreferencesHelper.setUserDataModel(response.body);
       user.toString();
       return user;
     } else {

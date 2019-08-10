@@ -21,16 +21,18 @@ class _ChatTeachersListWidgetState extends State<ChatTeachersListWidget> {
     super.initState();
     if (SchedulerBinding.instance.schedulerPhase ==
         SchedulerPhase.persistentCallbacks) {
-      SchedulerBinding.instance.addPostFrameCallback(
-          (_) => widget.model.getSingleTeacherData(widget.snapshot));
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        print('Here');
+        return widget.model.getSingleTeacherData(widget.snapshot);
+      });
     }
   }
 
   Color color = RandomColor().randomColor(
-    colorSaturation: ColorSaturation.mediumSaturation,
-    colorBrightness: ColorBrightness.dark,
-    colorHue: ColorHue.blue,
-  );
+      colorSaturation: ColorSaturation.highSaturation,
+      colorBrightness: ColorBrightness.primary,
+      colorHue: ColorHue.custom(Range(21, 40)),
+      debug: true);
 
   @override
   Widget build(BuildContext context) {
@@ -41,42 +43,55 @@ class _ChatTeachersListWidgetState extends State<ChatTeachersListWidget> {
         tag: widget.heroTag,
         child: Container(
           height: 70,
-          color: color,
+          decoration: BoxDecoration(
+            color: Theme.of(context).canvasColor,
+            border: Border(
+              top: BorderSide(width: 1),
+              bottom: BorderSide(width: 1),
+              left: BorderSide(width: 1),
+              right: BorderSide(width: 1),
+            ),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(60),
+                bottomLeft: Radius.circular(60),
+                bottomRight: Radius.zero,
+                topRight: Radius.zero),
+          ),
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             onPressed: () {
-              // kopenPage(
-              //   context,
-              //   StudentConnectionPage(
-              //     model: widget.model,
-              //     studentDocumenetSnapshotKey: widget.snapshot.documentID,
-              //     color: color,
-              //   ),
-              // );
+              kopenPage(
+                context,
+                MessagingScreen(
+                  student: widget.model.selectedChild,
+                  parentORteacher:
+                      widget.model.teachersListMap[widget.snapshot.documentID],
+                ),
+              );
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Icon(
-                  FontAwesomeIcons.peopleCarry,
-                  size: 45,
-                  color: Colors.white,
+                Image.asset(
+                  assetsString.teacher_welcome,
+                  height: 50,
+                  width: 50,
                 ),
                 Text(
-                  widget.model.studentListMap
+                  widget.model.teachersListMap
                           .containsKey(widget.snapshot.documentID)
-                      ? widget.model.studentListMap[widget.snapshot.documentID]
+                      ? widget.model.teachersListMap[widget.snapshot.documentID]
                           .displayName
                       : "loading...",
                   maxLines: 2,
                   style: TextStyle(
                       fontSize: 22,
-                      color: Colors.white,
+                      // color: Colors.white,
                       fontWeight: FontWeight.w600),
                 ),
                 Icon(
                   Icons.chevron_right,
-                  color: Colors.white,
+                  // color: Colors.white,
                   size: 55,
                 )
               ],

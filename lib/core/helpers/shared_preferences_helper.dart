@@ -16,14 +16,15 @@ class SharedPreferencesHelper {
   Future<bool> setUserDataModel(String jsonModel) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     bool res = await preferences.setString(_userModel, jsonModel);
-    print('User Data Model saved ' + res.toString());
+    print('User Data Model saved ' + res.toString() + ' ' + jsonModel);
     return res;
   }
 
+  //Method to retrive User model in json format
   Future<String> getUserDataModel() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     String res = preferences.getString(_userModel) ?? 'N.A';
-    print('User Data Model saved ' + res.toString());
+    print('User Data Model Retrived ' + res.toString());
     return res;
   }
 

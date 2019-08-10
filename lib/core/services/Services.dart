@@ -58,7 +58,7 @@ class Services {
   DocumentReference get schoolRef => _schoolRef;
 
   Future<CollectionReference> schoolRefwithCode() async =>
-      _schoolRef.collection((await _sharedPreferencesHelper.getSchoolCode())
+      _schoolRef.collection((await getSchoolCode())
           .toUpperCase()
           .trim());
 
@@ -71,7 +71,8 @@ class Services {
     firebaseUser = await _auth.currentUser();
   }
 
-  getSchoolCode() async {
+  Future<String> getSchoolCode() async {
     schoolCode = await _sharedPreferencesHelper.getSchoolCode();
+    return schoolCode;
   }
 }

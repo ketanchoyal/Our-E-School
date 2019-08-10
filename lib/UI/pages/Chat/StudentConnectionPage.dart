@@ -98,6 +98,19 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
                           ),
                           itemCount: parent.length,
                           itemBuilder: (context, index) {
+                            if (parent[index].displayName == '') {
+                              return Container(
+                                child: Center(
+                                  child: Text(
+                                    'Parent Not Registered Yet',
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
+                                    textAlign: TextAlign.center,
+                                    style: ktitleStyle,
+                                  ),
+                                ),
+                              );
+                            }
                             return Column(
                               mainAxisSize: MainAxisSize.max,
                               children: <Widget>[

@@ -60,13 +60,14 @@ class ChatUsersListPageModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  getSingleTeacherData(DocumentSnapshot documentSnapshot) async {
+  Future<User> getSingleTeacherData(DocumentSnapshot documentSnapshot) async {
     // setState(ViewState.Busy);
     User user = await _chatServices.getUser(documentSnapshot);
     _chatServices.teachersListMap
         .putIfAbsent(documentSnapshot.documentID, () => user);
     await _chatServices.getParents(documentSnapshot);
     notifyListeners();
+    return user;
     // setState(ViewState.Idle);
   }
 
