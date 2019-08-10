@@ -13,7 +13,7 @@ class AssignmentServices extends Services {
   }
 
   uploadAssignment(Assignment assignment) async {
-    await getSchoolCode();
+    // await getSchoolCode();
 
     String extension = p.extension(assignment.url);
 
@@ -54,7 +54,7 @@ class AssignmentServices extends Services {
   }
 
   getAssignments(String stdDiv_Global) async {
-    await getSchoolCode();
+    // await getSchoolCode();
 
     var _assignmentRef = (await schoolRefwithCode())
         .document('Assignments')
