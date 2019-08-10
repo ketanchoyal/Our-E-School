@@ -46,10 +46,10 @@ class _ChatTeachersListWidgetState extends State<ChatTeachersListWidget> {
           decoration: BoxDecoration(
             color: Theme.of(context).canvasColor,
             border: Border(
-              top: BorderSide(width: 1),
-              bottom: BorderSide(width: 1),
-              left: BorderSide(width: 1),
-              right: BorderSide(width: 1),
+              top: BorderSide(width: 1,color: color),
+              bottom: BorderSide(width: 1,color: color),
+              left: BorderSide(width: 1,color: color),
+              right: BorderSide(width: 1,color: color),
             ),
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(60),

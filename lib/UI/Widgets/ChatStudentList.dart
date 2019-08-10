@@ -44,10 +44,10 @@ class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
           decoration: BoxDecoration(
             color: Theme.of(context).canvasColor,
             border: Border(
-              top: BorderSide(width: 1),
-              bottom: BorderSide(width: 1),
-              left: BorderSide(width: 1),
-              right: BorderSide(width: 1),
+              top: BorderSide(width: 1,color: color),
+              bottom: BorderSide(width: 1,color: color),
+              left: BorderSide(width: 1,color: color),
+              right: BorderSide(width: 1,color: color),
             ),
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(60),
@@ -70,10 +70,10 @@ class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Icon(
-                  CustomIcons.profile,
-                  size: 45,
-                  color: Colors.white,
+                Image.asset(
+                  assetsString.student_welcome,
+                  height: 50,
+                  width: 50,
                 ),
                 Text(
                   widget.model.studentListMap
@@ -84,12 +84,12 @@ class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
                   maxLines: 2,
                   style: TextStyle(
                       fontSize: 22,
-                      color: Colors.white,
+                      // color: Colors.white,
                       fontWeight: FontWeight.w600),
                 ),
                 Icon(
                   Icons.chevron_right,
-                  color: Colors.white,
+                  // color: Colors.white,
                   size: 55,
                 )
               ],

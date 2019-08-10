@@ -61,7 +61,11 @@ class _MessagingScreenState extends State<MessagingScreen> {
                     child: MessagesListViewBuilder(
                         model.messages, _scrollController),
                   ),
-                  _buildMessageSender(model, user),
+                  Hero(
+                    transitionOnUserGestures: true,
+                    tag: widget.parentORteacher.id,
+                    child: _buildMessageSender(model, user),
+                  ),
                 ],
               ),
             ),
