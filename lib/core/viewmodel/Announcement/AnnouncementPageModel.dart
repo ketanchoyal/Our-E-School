@@ -23,4 +23,11 @@ class AnnouncementPageModel extends BaseModel {
     _announcementServices.lastPostSnapshot = null;
     await getAnnouncements(stdDiv_Global);
   }
+
+  @override
+  void dispose() {
+    _announcementServices.lastPostSnapshot = null;
+    _announcementServices.postDocumentSnapshots.clear();
+    super.dispose();
+  }
 }

@@ -84,7 +84,7 @@ class User {
     mobileNo = json['mobileNo'] ?? '';
     isTeacher = json['isTeacher'] ?? false;
     isVerified = json['isVerified'] ?? false;
-    connection = json['connection'] ?? [];
+    connection = json['connection'] ?? {};
   }
 
   Map<String, dynamic> toJson() {

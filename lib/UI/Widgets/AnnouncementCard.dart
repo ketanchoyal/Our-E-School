@@ -39,7 +39,7 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
       child: Card(
         elevation: 4,
         child: Column(

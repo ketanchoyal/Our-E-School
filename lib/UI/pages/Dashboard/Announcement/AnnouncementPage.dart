@@ -148,15 +148,17 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                 ),
                 child: RefreshIndicator(
                   child: model.postSnapshotList.length == 0
-                      ? Container(
-                          child: Center(
-                            child: Text(
-                              'No Posts available....!',
-                              style: ksubtitleStyle.copyWith(fontSize: 25),
-                            ),
-                          ),
-                          // color: Colors.red,
-                        )
+                      ? model.state == ViewState.Busy
+                          ? kBuzyPage(color: Theme.of(context).accentColor)
+                          : Container(
+                              child: Center(
+                                child: Text(
+                                  'No Posts available....!',
+                                  style: ksubtitleStyle.copyWith(fontSize: 25),
+                                ),
+                              ),
+                              // color: Colors.red,
+                            )
                       : ListView.builder(
                           addAutomaticKeepAlives: true,
                           cacheExtent: 10,
@@ -175,7 +177,9 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                                   child: new SizedBox(
                                       width: 32.0,
                                       height: 32.0,
-                                      child: new CircularProgressIndicator()),
+                                      child: kBuzyPage(
+                                          color:
+                                              Theme.of(context).accentColor)),
                                 ),
                               );
                             }
