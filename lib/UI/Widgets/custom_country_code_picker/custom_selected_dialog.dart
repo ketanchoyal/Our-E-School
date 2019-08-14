@@ -93,7 +93,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline
-                                .copyWith(fontSize: 14.0)),
+                                .copyWith(fontSize: 16.0)),
                       ),
                     ],
                   ),
