@@ -1,10 +1,14 @@
+import 'package:ourESchool/core/helpers/FirebaseAnalytics.dart';
 import 'package:ourESchool/imports.dart';
 
-class MainDashboard extends StatefulWidget {
+class MainDashboard extends StatefulWidget with AnalyticsScreen {
   MainDashboard({Key key}) : super(key: key);
   static String pageName = string.dashboard;
 
   _MainDashboardState createState() => _MainDashboardState();
+
+  @override
+  String get screenName => 'ParentAndTeacher Dashboard';
 }
 
 class _MainDashboardState extends State<MainDashboard> {
