@@ -328,14 +328,16 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                       MediaQuery.of(context).size.width / 2.2,
                                   child: Icon(FontAwesomeIcons.camera),
                                   onPressed: () async {
-                                    final path = Navigator.of(context).push(
+                                    Future<String> path =
+                                        Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (context) => CameraScreen()),
                                     );
                                     path.then((path) {
-                                      setState(() {
-                                        this.path = path;
-                                      });
+                                      if (path != null)
+                                        setState(() {
+                                          this.path = path;
+                                        });
                                       print('Path' + path);
                                     });
                                   },
@@ -351,10 +353,10 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                       mounted,
                                       context,
                                     );
-
-                                    setState(() {
-                                      path = _path;
-                                    });
+                                    if (_path != null)
+                                      setState(() {
+                                        path = _path;
+                                      });
                                   },
                                 ),
                               ],

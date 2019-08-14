@@ -1,4 +1,3 @@
-
 import 'package:ourESchool/imports.dart';
 
 class AnnouncementPage extends StatefulWidget {
@@ -46,7 +45,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
     if (model.state == ViewState.Idle) {
       if (controller.position.pixels == controller.position.maxScrollExtent) {
         // setState(() => _isLoading = true);
-        model.getAnnouncements(stdDiv_Global, scaffoldKey);
+        model.getAnnouncements(stdDiv_Global);
         // scaffoldKey.currentState.widget
       }
     }
@@ -69,8 +68,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
       print(stdDiv_Global);
     }
     return BaseView<AnnouncementPageModel>(
-        onModelReady: (model) =>
-            model.getAnnouncements(stdDiv_Global, scaffoldKey),
+        onModelReady: (model) => model.getAnnouncements(stdDiv_Global),
         builder: (context, model, child) {
           this.model = model;
           return Scaffold(
@@ -121,7 +119,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                                 });
                               }
 
-                              await model.onRefresh(stdDiv_Global, scaffoldKey);
+                              await model.onRefresh(stdDiv_Global);
                             },
                             icon: Icon(FontAwesomeIcons.globe),
                             backgroundColor: Colors.red,
@@ -184,7 +182,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                           },
                         ),
                   onRefresh: () async {
-                    await model.onRefresh(stdDiv_Global, scaffoldKey);
+                    await model.onRefresh(stdDiv_Global);
                   },
                 ),
               ),
@@ -278,7 +276,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                     setState(() {
                       stdDiv_Global = 'Global';
                     });
-                    await model.onRefresh(stdDiv_Global, scaffoldKey);
+                    await model.onRefresh(stdDiv_Global);
                     Navigator.pop(context);
                   },
                 ),
@@ -292,7 +290,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                       stdDiv_Global = _standardController.text.trim() +
                           _divisionController.text.trim().toUpperCase();
                     });
-                    await model.onRefresh(stdDiv_Global, scaffoldKey);
+                    await model.onRefresh(stdDiv_Global);
                     Navigator.pop(context);
                   },
                 ),

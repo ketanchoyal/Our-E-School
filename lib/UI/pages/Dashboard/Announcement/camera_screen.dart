@@ -20,7 +20,7 @@ class _CameraScreenState extends State<CameraScreen>
   TabController tabController;
   String videoPath;
   VoidCallback videoPlayerListener;
-  String imagePath;
+  String imagePath = '';
   List<CameraDescription> cameras;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -155,7 +155,7 @@ class _CameraScreenState extends State<CameraScreen>
     takePicture().then((String filePath) {
       if (mounted) {
         setState(() {
-          imagePath = filePath;
+          imagePath = filePath ?? '';
           Navigator.pop(context, imagePath);
           // videoController?.dispose();
           // videoController = null;

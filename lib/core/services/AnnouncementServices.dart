@@ -24,7 +24,9 @@ class AnnouncementServices extends Services {
     if (schoolCode == null) await getSchoolCode();
   }
 
-  getAnnouncements(String stdDiv_Global, var scaffoldKey) async {
+  getAnnouncements(
+    String stdDiv_Global,
+  ) async {
     // List<DocumentSnapshot> _data = new List<DocumentSnapshot>();
 
     if (schoolCode == null) await getSchoolCode();
@@ -49,11 +51,7 @@ class AnnouncementServices extends Services {
       lastPostSnapshot = data.documents[data.documents.length - 1];
       postDocumentSnapshots.addAll(data.documents);
     } else {
-      scaffoldKey.currentState?.showSnackBar(
-        SnackBar(
-          content: Text('You have reached to the end..'),
-        ),
-      );
+      //No More post Available
     }
   }
 
