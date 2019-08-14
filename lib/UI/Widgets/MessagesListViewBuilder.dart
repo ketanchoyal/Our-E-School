@@ -2,27 +2,26 @@ import '../../imports.dart';
 import 'package:intl/intl.dart';
 
 class MessagesListViewBuilder extends StatelessWidget {
-  final Map<String, Message> messageModelMap;
+  final List<Message> messagesList;
   final ScrollController scrollController;
-  // final List<String> documentIdList;
 
-  MessagesListViewBuilder(this.messageModelMap, this.scrollController);
+  MessagesListViewBuilder({this.messagesList, this.scrollController});
 
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
     return ListView.builder(
-      // reverse: true,
-      // shrinkWrap: true,
       controller: scrollController,
-      itemCount: messageModelMap.length,
+      itemCount: messagesList.length,
       itemBuilder: (context, index) {
-        var keyy = messageModelMap.keys.elementAt(index);
-        if (messageModelMap[keyy].from == user.id) {
-          return MyMessageWidget(messageModelMap: messageModelMap, keyy: keyy);
+        if (messagesList[index].from == user.id) {
+          return MyMessageWidget(
+            message: messagesList[index],
+          );
         } else {
           return OtherMessageWidget(
-              messageModelMap: messageModelMap, keyy: keyy);
+            message: messagesList[index],
+          );
         }
       },
     );
@@ -32,12 +31,10 @@ class MessagesListViewBuilder extends StatelessWidget {
 class OtherMessageWidget extends StatelessWidget {
   const OtherMessageWidget({
     Key key,
-    @required this.messageModelMap,
-    @required this.keyy,
+    @required this.message,
   }) : super(key: key);
 
-  final Map<String, Message> messageModelMap;
-  final String keyy;
+  final Message message;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +53,6 @@ class OtherMessageWidget extends StatelessWidget {
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20)),
             ),
-            // color: Theme.of(context).canvasColor.withOpacity(0.9),
             child: Container(
               constraints: BoxConstraints(
                 minWidth: MediaQuery.of(context).size.width / 4,
@@ -64,7 +60,7 @@ class OtherMessageWidget extends StatelessWidget {
               ),
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               child: Text(
-                messageModelMap[keyy].message,
+                message.message,
                 textAlign: TextAlign.start,
                 style: ktitleStyle,
               ),
@@ -74,11 +70,7 @@ class OtherMessageWidget extends StatelessWidget {
             padding: const EdgeInsets.only(left: 15),
             child: Text(
               DateFormat("E").add_jm().format(DateTime.parse(
-                  messageModelMap[keyy]
-                      .timeStamp
-                      .toDate()
-                      .toLocal()
-                      .toString())),
+                  message.timeStamp.toDate().toLocal().toString())),
               style: ksubtitleStyle.copyWith(fontSize: 10),
             ),
           ),
@@ -94,12 +86,10 @@ class OtherMessageWidget extends StatelessWidget {
 class MyMessageWidget extends StatelessWidget {
   const MyMessageWidget({
     Key key,
-    @required this.messageModelMap,
-    @required this.keyy,
+    @required this.message,
   }) : super(key: key);
 
-  final Map<String, Message> messageModelMap;
-  final String keyy;
+  final Message message;
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +116,7 @@ class MyMessageWidget extends StatelessWidget {
               ),
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               child: Text(
-                messageModelMap[keyy].message,
+                message.message,
                 textAlign: TextAlign.end,
                 style: ktitleStyle,
               ),
@@ -136,17 +126,10 @@ class MyMessageWidget extends StatelessWidget {
             padding: const EdgeInsets.only(right: 15),
             child: Text(
               DateFormat("E").add_jm().format(DateTime.parse(
-                  messageModelMap[keyy]
-                      .timeStamp
-                      .toDate()
-                      .toLocal()
-                      .toString())),
+                  message.timeStamp.toDate().toLocal().toString())),
               style: ksubtitleStyle.copyWith(fontSize: 10),
             ),
           ),
-          // SizedBox(
-          //   height: 5,
-          // )
         ],
       ),
     );

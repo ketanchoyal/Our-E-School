@@ -42,7 +42,7 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
     // if (isLoading) getParents();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: widget.color,
+        // backgroundColor: widget.color,
         onPressed: () {
           kbackBtn(context);
         },
@@ -80,19 +80,21 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Card(
-                          elevation: 0,
+                        // Card(
+                        //   elevation: 0,
+                        //   margin: EdgeInsets.only(left: 10),
+                        // child:
+                        Container(
+                          // width: MediaQuery.of(context).size.width - 20,
                           margin: EdgeInsets.only(left: 10),
-                          child: Container(
-                            // width: MediaQuery.of(context).size.width - 20,
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              'Guardians',
-                              textAlign: TextAlign.left,
-                              style: ktitleStyle.copyWith(fontSize: 25),
-                            ),
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            'Guardians',
+                            textAlign: TextAlign.left,
+                            style: ktitleStyle.copyWith(fontSize: 25),
                           ),
                         ),
+                        // ),
                       ],
                     ),
                     SizedBox(

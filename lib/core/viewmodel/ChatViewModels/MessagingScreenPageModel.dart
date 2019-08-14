@@ -18,28 +18,19 @@ class MessagingScreenPageModel extends BaseModel {
     notifyListeners();
   }
 
-  getMessages(
-      {User other,
-      User student,
-      User loggedIn,
-      ScrollController scrollController}) async {
-    setState2(ViewState.Busy);
-    var messages = _chatServices.getMessages(other, student, loggedIn);
-    // scrollController.addListener(() {});
-    messages.listen((newMessages) {
-      newMessages.forEach((newMessage) => {addNewMessage = newMessage});
+  ChatServices get chatServices => _chatServices;
 
-      // scrollController.animateTo(
-      //   scrollController.position.maxScrollExtent,
-      //   duration: const Duration(milliseconds: 300),
-      //   curve: Curves.easeOut,
-      // );
-    });
-  }
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   super.dispose();
-  //   print('Message Screen Model Disposed');
+  // getMessages(
+  //     {User other,
+  //     User student,
+  //     User loggedIn,
+  //     ScrollController scrollController}) async* {
+  //   setState2(ViewState.Busy);
+  //   Stream<List<Message>> messages =
+  //       _chatServices.getMessages(other, student, loggedIn);
+
+  //   messages.listen((newMessages) {
+  //     newMessages.forEach((newMessage) => {addNewMessage = newMessage});
+  //   });
   // }
 }

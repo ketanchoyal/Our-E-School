@@ -89,7 +89,7 @@ class ChatServices extends Services {
     // studentListMap.putIfAbsent(documentSnapshot.documentID, () => user);
 
     return user;
-  } 
+  }
 
   Future<List<User>> getParents(DocumentSnapshot documentSnapshot) async {
     List<User> parents = [];
@@ -105,8 +105,12 @@ class ChatServices extends Services {
     return parents;
   }
 
-  Stream<List<Message>> getMessages(
-      User other, User student, User loggedIn) async* {
+  Stream<List<Message>> getMessages({
+    @required User other,
+    @required User student,
+    @required User loggedIn,
+    ScrollController scrollController,
+  }) async* {
     var ref = (await schoolRefwithCode())
         .document('Chats')
         .collection(student.standardDivision())
@@ -127,7 +131,11 @@ class ChatServices extends Services {
       try {
         List<Message> messages =
             snap.documents.map((doc) => Message.fromSnapShot(doc)).toList();
-
+        // scrollController.animateTo(
+        //   scrollController.position.maxScrollExtent,
+        //   duration: const Duration(milliseconds: 10),
+        //   curve: Curves.easeOut,
+        // );
         yield messages;
       } catch (e) {
         print(e);

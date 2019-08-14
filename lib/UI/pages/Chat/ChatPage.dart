@@ -22,7 +22,7 @@ class _ChatPageState extends State<ChatPage> {
         builder: (context, model, child) {
           return model.state == ViewState.Busy
               ? kBuzyPage(color: Theme.of(context).primaryColor)
-              : SafeArea(
+              : SafeArea( 
                   child: Scaffold(
                     body: Padding(
                       padding: const EdgeInsets.all(10.0),

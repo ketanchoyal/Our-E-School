@@ -39,11 +39,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
     User user = Provider.of<User>(context);
 
     return BaseView<MessagingScreenPageModel>(
-        onModelReady: (model) => model.getMessages(
-            scrollController: _scrollController,
-            loggedIn: user,
-            other: widget.parentORteacher,
-            student: widget.student),
+        onModelReady: (model) => model.setState2(ViewState.Busy),
         builder: (context, model, child) {
           return Scaffold(
             extendBody: true,
@@ -59,8 +55,25 @@ class _MessagingScreenState extends State<MessagingScreen> {
               child: Column(
                 children: <Widget>[
                   Flexible(
-                    child: MessagesListViewBuilder(
-                        model.messages, _scrollController),
+                    child: StreamBuilder<List<Message>>(
+                        stream: model.chatServices.getMessages(
+                          loggedIn: user,
+                          other: widget.parentORteacher,
+                          student: widget.student,
+                          scrollController: _scrollController,
+                        ),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData || snapshot.data == null) {
+                            return Center(
+                              child: kBuzyPage(
+                                  color: Theme.of(context).primaryColor),
+                            );
+                          }
+                          return MessagesListViewBuilder(
+                            messagesList: snapshot.data,
+                            scrollController: _scrollController,
+                          );
+                        }),
                   ),
                   Hero(
                     transitionOnUserGestures: true,

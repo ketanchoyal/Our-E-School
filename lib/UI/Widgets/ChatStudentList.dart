@@ -26,11 +26,7 @@ class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
     }
   }
 
-  Color color = RandomColor().randomColor(
-    colorSaturation: ColorSaturation.mediumSaturation,
-    colorBrightness: ColorBrightness.dark,
-    colorHue: ColorHue.blue,
-  );
+  Color color(var context) => Theme.of(context).textTheme.body1.color;
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +40,10 @@ class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
           decoration: BoxDecoration(
             color: Theme.of(context).canvasColor,
             border: Border(
-              top: BorderSide(width: 1,color: color),
-              bottom: BorderSide(width: 1,color: color),
-              left: BorderSide(width: 1,color: color),
-              right: BorderSide(width: 1,color: color),
+              top: BorderSide(width: 1, color: color(context)),
+              bottom: BorderSide(width: 1, color: color(context)),
+              left: BorderSide(width: 1, color: color(context)),
+              right: BorderSide(width: 1, color: color(context)),
             ),
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(60),
@@ -63,7 +59,7 @@ class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
                 StudentConnectionPage(
                   model: widget.model,
                   documentSnapshot: widget.snapshot,
-                  color: color,
+                  // color: color,
                 ),
               );
             },
