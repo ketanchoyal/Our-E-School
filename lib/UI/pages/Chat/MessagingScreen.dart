@@ -102,7 +102,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
       sendButtonEnable = false;
     });
     _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
+      0.0,
       duration: const Duration(milliseconds: 10),
       curve: Curves.easeOut,
     );

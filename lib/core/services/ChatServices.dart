@@ -111,6 +111,7 @@ class ChatServices extends Services {
     @required User loggedIn,
     ScrollController scrollController,
   }) async* {
+    
     var ref = (await schoolRefwithCode())
         .document('Chats')
         .collection(student.standardDivision())
@@ -126,17 +127,18 @@ class ChatServices extends Services {
 
     await for (QuerySnapshot snap in firestore
         .collection(chatRef)
-        .orderBy('timestamp', descending: false)
+        .orderBy('timestamp', descending: true)
         .snapshots()) {
       try {
         List<Message> messages =
             snap.documents.map((doc) => Message.fromSnapShot(doc)).toList();
-        // scrollController.animateTo(
-        //   scrollController.position.maxScrollExtent,
-        //   duration: const Duration(milliseconds: 10),
-        //   curve: Curves.easeOut,
-        // );
         yield messages;
+        Future.delayed(Duration(milliseconds: 200));
+        scrollController.animateTo(
+          0.0,
+          duration: const Duration(milliseconds: 10),
+          curve: Curves.easeOut,
+        );
       } catch (e) {
         print(e);
       }

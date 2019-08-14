@@ -101,7 +101,7 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
                       height: 10,
                     ),
                     isLoading
-                        ? kBuzyPage(color: widget.color)
+                        ? kBuzyPage(color: Theme.of(context).primaryColor)
                         : Flexible(
                             child: Container(
                               // color: Colors.red,
