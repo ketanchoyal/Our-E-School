@@ -16,7 +16,8 @@ class User {
   String mobileNo;
   bool isTeacher;
   bool isVerified;
-  Map<String, dynamic> connection;
+  // Map<String, dynamic> connection;
+  var connection;
 
   String standardDivision() {
     return standard + division.toUpperCase();
@@ -51,25 +52,11 @@ class User {
     return false;
   }
 
-  User.fromSnapshot(DocumentSnapshot documentSnapshot)
-      : this.firebaseUuid = documentSnapshot["firebaseUuid"].toString() ?? '',
-        this.email = documentSnapshot["email"].toString() ?? '',
-        this.displayName = documentSnapshot["displayName"].toString() ?? '',
-        this.photoUrl = documentSnapshot["photoUrl"].toString() ?? 'default',
-        this.isTeacher = documentSnapshot["isTeacher"] as bool ?? false,
-        this.isVerified = documentSnapshot["isVerified"] as bool ?? false,
-        this.id = documentSnapshot["id"].toString() ?? '',
-        this.dob = documentSnapshot["dob"].toString() ?? '',
-        this.division = documentSnapshot["division"].toString() ?? '',
-        this.standard = documentSnapshot["standard"].toString() ?? '',
-        this.bloodGroup = documentSnapshot["bloodGroup"].toString() ?? '',
-        this.guardianName = documentSnapshot["guardianName"].toString() ?? '',
-        this.enrollNo = documentSnapshot["enrollNo"].toString(),
-        // this.connection =
-        //     documentSnapshot["connection"] as HashMap<String, dynamic> ?? [],
-        this.mobileNo = documentSnapshot["mobileNo"].toString() ?? '';
+  User.fromSnapshot(DocumentSnapshot documentSnapshot) {
+    _fromJson(documentSnapshot.data);
+  }
 
-  User.fromJson(Map<String, dynamic> json) {
+  _fromJson(Map<String, dynamic> json) {
     photoUrl = json['photoUrl'] ?? 'default';
     email = json['email'] ?? '';
     division = json['division'] ?? '';
@@ -84,7 +71,11 @@ class User {
     mobileNo = json['mobileNo'] ?? '';
     isTeacher = json['isTeacher'] ?? false;
     isVerified = json['isVerified'] ?? false;
-    connection = json['connection'] ?? {};
+    connection = json['connection']  ?? {};
+  }
+
+  User.fromJson(Map<String, dynamic> json) {
+    _fromJson(json);
   }
 
   Map<String, dynamic> toJson() {

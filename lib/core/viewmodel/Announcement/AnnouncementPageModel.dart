@@ -4,7 +4,7 @@ import 'package:ourESchool/core/services/AnnouncementServices.dart';
 import 'package:ourESchool/core/viewmodel/BaseModel.dart';
 import 'package:ourESchool/locator.dart';
 
-class AnnouncementPageModel extends BaseModel {
+class AnnouncementPageModel extends BaseModel { 
   AnnouncementServices _announcementServices = locator<AnnouncementServices>();
 
   AnnouncementPageModel();

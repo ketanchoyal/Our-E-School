@@ -61,7 +61,7 @@ class ProfilePageModel extends BaseModel {
   //   return childData;
   // }
 
-  Future<User> getUserProfileDatabyId(UserType userType, String id) async {
+  Future<User> getUserProfileDataById(UserType userType, String id) async {
     setState(ViewState.Busy);
     setState2(ViewState.Busy);
     userProfile = await _profileServices.getProfileDataById(id, userType);

@@ -129,7 +129,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                                 label: Text('Filter'),
                                 heroTag: 'abc',
                                 elevation: 12,
-                                onPressed: () {
+                                onPressed: () { 
                                   //Filter Posts Code Here
                                   filterDialogBox(context, model);
                                 },

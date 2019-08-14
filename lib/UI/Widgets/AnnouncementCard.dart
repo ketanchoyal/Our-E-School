@@ -6,7 +6,6 @@ import 'package:ourESchool/core/Models/Announcement.dart';
 import 'package:flutter/material.dart';
 import 'package:ourESchool/core/Models/User.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
-import 'package:ourESchool/core/enums/ViewState.dart';
 import 'package:ourESchool/core/viewmodel/ProfilePageModel.dart';
 import 'package:ourESchool/locator.dart';
 
@@ -23,10 +22,13 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
   final ProfilePageModel model = locator<ProfilePageModel>();
 
   User user = User();
+  bool loading = true;
 
   getUserData() async {
-    user = await model.getUserProfileDatabyId(
+    loading = true;
+    user = await model.getUserProfileDataById(
         UserType.TEACHER, widget.announcement.by);
+    loading = false;
     if (mounted) setState(() {});
   }
 
@@ -58,7 +60,7 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
                     child: Row(
                       children: <Widget>[
                         //User profile image section
-                        model.state == ViewState.Busy
+                        loading
                             ? CircleAvatar(
                                 radius: 25.0,
                                 backgroundImage:
@@ -83,9 +85,7 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
                           children: <Widget>[
                             //Announcement by section
                             Text(
-                              model.state == ViewState.Busy
-                                  ? 'Loading...'
-                                  : user.displayName,
+                              loading ? 'Loading...' : user.displayName,
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 15,
