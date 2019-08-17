@@ -1,8 +1,9 @@
+import 'package:ourESchool/UI/Widgets/CustomRadioButton.dart';
 import 'package:ourESchool/imports.dart';
 
 class LoginPage extends StatefulWidget {
   static const id = 'LoginPage';
-  static UserType loginTypeSelected = UserType.STUDENT;
+  // static UserType loginTypeSelected = UserType.STUDENT;
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -10,6 +11,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // String idHint = string.student_id;
+  UserType loginTypeSelected = UserType.STUDENT;
   bool isRegistered = false;
   String notYetRegisteringText = string.not_registered;
   ButtonType buttonType = ButtonType.LOGIN;
@@ -38,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
           email: emailController.text,
           password: passwordController.text,
           schoolCode: schoolNameController.text,
-          userType: LoginPage.loginTypeSelected,
+          userType: loginTypeSelected,
           buttonType: buttonType,
           confirmPassword: confirmPasswordController.text,
         );
@@ -107,7 +109,18 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        CustomLoginTypeBtn(),
+                        // CustomLoginTypeBtn(),
+                        CustomRadioButton(
+                          // horizontal: true,
+                          buttonColor: Theme.of(context).canvasColor,
+                          buttonLables: ['Student', 'Parent/Teacher'],
+                          buttonValues: [UserType.STUDENT, UserType.TEACHER],
+                          radioButtonValue: (value) {
+                            loginTypeSelected = value;
+                            print(value);
+                          },
+                          selectedColor: Theme.of(context).accentColor,
+                        ),
                         SizedBox(
                           height: 10,
                         ),
