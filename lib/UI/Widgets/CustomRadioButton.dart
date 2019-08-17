@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:ourESchool/UI/Utility/constants.dart';
 
 class CustomRadioButton extends StatefulWidget {
-  CustomRadioButton(
-      {this.buttonLables,
-      this.buttonValues,
-      this.radioButtonValue,
-      this.buttonColor,
-      this.selectedColor,
-      this.hight = 35,
-      this.width = 100,
-      this.horizontal = false,
-      this.shape})
-      : assert(buttonLables.length == buttonValues.length),
+  CustomRadioButton({
+    this.buttonLables,
+    this.buttonValues,
+    this.radioButtonValue,
+    this.buttonColor,
+    this.selectedColor,
+    this.hight = 35,
+    this.width = 100,
+    this.horizontal = false,
+    this.enableShape = false,
+    this.elevation = 10,
+    this.customShape,
+  })  : assert(buttonLables.length == buttonValues.length),
         assert(buttonColor != null),
         assert(selectedColor != null);
 
@@ -30,7 +31,9 @@ class CustomRadioButton extends StatefulWidget {
   final Color selectedColor;
 
   final Color buttonColor;
-  final ShapeBorder shape;
+  final ShapeBorder customShape;
+  final bool enableShape;
+  final double elevation;
 
   _CustomRadioButtonState createState() => _CustomRadioButtonState();
 }
@@ -54,24 +57,30 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
           color: currentSelectedLabel == widget.buttonLables[index]
               ? widget.selectedColor
               : widget.buttonColor,
-          elevation: 10,
-          shape: widget.shape == null
-              ? RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                )
-              : widget.shape,
-          child: Container(
-            height: widget.hight,
-            // width: widget.width,
-            // constraints: BoxConstraints(maxWidth: 250),
-            child: MaterialButton(
-              // minWidth: 300,
-              // elevation: 10,
-              shape: widget.shape == null
+          elevation: widget.elevation,
+          shape: widget.enableShape
+              ? widget.customShape == null
                   ? RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(50)),
                     )
-                  : widget.shape,
+                  : widget.customShape
+              : null,
+          child: Container(
+            height: widget.hight,
+            child: MaterialButton(
+              shape: widget.enableShape
+                  ? widget.customShape == null
+                      ? OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor, width: 1),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        )
+                      : widget.customShape
+                  : OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor, width: 1),
+                      borderRadius: BorderRadius.zero,
+                    ),
               onPressed: () {
                 widget.radioButtonValue(widget.buttonValues[index]);
                 setState(() {
@@ -106,16 +115,32 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
           color: currentSelectedLabel == widget.buttonLables[index]
               ? widget.selectedColor
               : widget.buttonColor,
-          elevation: 10,
-          shape: kRoundedButtonShape,
+          elevation: widget.elevation,
+          shape: widget.enableShape
+            ? widget.customShape == null
+                ? RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                  )
+                : widget.customShape
+            : null,
           child: Container(
             height: widget.hight,
             // width: 200,
             constraints: BoxConstraints(maxWidth: 250),
             child: MaterialButton(
-              // minWidth: 300,
-              // elevation: 10,
-              shape: kRoundedButtonShape,
+              shape: widget.enableShape
+                  ? widget.customShape == null
+                      ? OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor, width: 1),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        )
+                      : widget.customShape
+                  : OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor, width: 1),
+                      borderRadius: BorderRadius.zero,
+                    ),
               onPressed: () {
                 widget.radioButtonValue(widget.buttonValues[index]);
                 setState(() {

@@ -49,20 +49,25 @@ class _ECardPageState extends State<ECardPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
-                          child: Container(
-                            constraints:
-                                BoxConstraints(maxHeight: 200, maxWidth: 200),
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.width / 2,
-                            decoration: BoxDecoration(
-                              // shape: BoxShape.circle,r
-                              image: DecorationImage(
-                                fit: BoxFit.scaleDown,
-                                image: user.photoUrl != 'default'
-                                    ? NetworkImage(
-                                        user.photoUrl,
-                                      )
-                                    : AssetImage(assetsString.student_welcome),
+                          child: Hero(
+                            tag: 'profileeee',
+                            transitionOnUserGestures: true,
+                            child: Container(
+                              constraints:
+                                  BoxConstraints(maxHeight: 200, maxWidth: 200),
+                              width: MediaQuery.of(context).size.width / 2,
+                              height: MediaQuery.of(context).size.width / 2,
+                              decoration: BoxDecoration(
+                                // shape: BoxShape.circle,r
+                                image: DecorationImage(
+                                  fit: BoxFit.scaleDown,
+                                  image: user.photoUrl != 'default'
+                                      ? NetworkImage(
+                                          user.photoUrl,
+                                        )
+                                      : AssetImage(
+                                          assetsString.student_welcome),
+                                ),
                               ),
                             ),
                           ),
