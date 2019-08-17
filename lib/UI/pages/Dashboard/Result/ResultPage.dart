@@ -44,13 +44,13 @@ class _ResultPageState extends State<ResultPage> {
                   label: 'Semester $i',
                   icon: Icons.receipt,
                   onPressed: () {
-                    kopenPage(
-                      context,
-                      PDFOpener(
-                        url: 'http://www.pdf995.com/samples/pdf.pdf',
-                        title: 'Sem $i',
-                      ),
-                    );
+                    // kopenPage(
+                    //   context,
+                    //   PDFOpener(
+                    //     url: 'http://www.pdf995.com/samples/pdf.pdf',
+                    //     title: 'Sem $i',
+                    //   ),
+                    // );
                   },
                   height: 70,
                 ),

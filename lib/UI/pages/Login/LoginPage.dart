@@ -1,5 +1,6 @@
 import 'package:ourESchool/UI/Widgets/CustomRadioButton.dart';
 import 'package:ourESchool/imports.dart';
+import 'dart:ui' as ui;
 
 class LoginPage extends StatefulWidget {
   static const id = 'LoginPage';
@@ -81,14 +82,12 @@ class _LoginPageState extends State<LoginPage> {
             label:
                 buttonType == ButtonType.LOGIN ? string.login : string.register,
             onPressed: () async {
-              await loginRegisterBtnTap(model, context);
+              if (model.state == ViewState.Idle)
+                await loginRegisterBtnTap(model, context);
             },
           ),
           body: Stack(
             children: <Widget>[
-              model.state == ViewState.Busy
-                  ? kBuzyPage(color: Theme.of(context).primaryColor)
-                  : Container(),
               Container(
                 child: SafeArea(
                   child: Padding(
@@ -231,6 +230,15 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+              model.state == ViewState.Busy
+                  ? Container(
+                      // color: Colors.red,
+                      child: BackdropFilter(
+                        filter: ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                        child: kBuzyPage(color: Theme.of(context).primaryColor),
+                      ),
+                    )
+                  : Container(),
             ],
           ),
         );

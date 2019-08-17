@@ -231,10 +231,10 @@ class _ReusableEbookBtn extends StatelessWidget {
         ..ripple(true)
         ..borderRadius(all: 8),
       gesture: GestureClass()
-        // ..onTap(() => onTap())
+        ..onTap(() => onTap()),
         // ..onLongPress(() => onTap)
-        ..onDoubleTap(() => onTap())
-        ..onTapCancel(() => onTap()),
+        // ..onDoubleTap(() => onTap())
+        // ..onTapCancel(() => onTap()),
       child: Text(
         title,
         style: ktitleStyle.copyWith(color: Colors.white),

@@ -74,7 +74,10 @@ class _HomeState extends State<Home> {
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         bottomNavigationBar: buildBubbleBottomBar(userType),
         body: userType == UserType.STUDENT
-            ? pages2[currentIndex]
+            ? IndexedStack(
+                index: currentIndex,
+                children: <Widget>[StudentDashboard(), SettingPage()],
+              )
             : pages[currentIndex],
       ),
     );

@@ -21,139 +21,139 @@ class ECardPage extends StatefulWidget {
 class _ECardPageState extends State<ECardPage> {
   @override
   Widget build(BuildContext context) {
-    UserType userType = widget.user ==null ? Provider.of<UserType>(context) : UserType.STUDENT;
+    UserType userType =
+        widget.user == null ? Provider.of<UserType>(context) : UserType.STUDENT;
     return BaseView<ProfilePageModel>(
-        onModelReady: (model) =>
-            widget.user == null ? model.getUserProfileData() : model,
-        builder: (context, model, child) {
-          User user = widget.user == null ? model.userProfile : widget.user;
+      onModelReady: (model) =>
+          widget.user == null ? model.getUserProfileData() : model,
+      builder: (context, model, child) {
+        User user = widget.user == null ? model.userProfile : widget.user;
 
-          return Scaffold(
-            appBar: TopBar(
-              title: string.e_card,
-              child: kBackBtn,
-              onPressed: () {
-                kbackBtn(context);
-              },
-            ),
-            body: model.state == ViewState.Busy
-                ? kBuzyPage(color: Theme.of(context).primaryColor)
-                : SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Card(
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+        return Scaffold(
+          appBar: TopBar(
+            title: string.e_card,
+            child: kBackBtn,
+            onPressed: () {
+              kbackBtn(context);
+            },
+          ),
+          body: model.state == ViewState.Busy
+              ? kBuzyPage(color: Theme.of(context).primaryColor)
+              : SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          child: Container(
+                            constraints:
+                                BoxConstraints(maxHeight: 200, maxWidth: 200),
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                              // shape: BoxShape.circle,r
+                              image: DecorationImage(
+                                fit: BoxFit.scaleDown,
+                                image: user.photoUrl != 'default'
+                                    ? NetworkImage(
+                                        user.photoUrl,
+                                      )
+                                    : NetworkImage(
+                                        "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+                                      ),
+                              ),
                             ),
-                            child: Container(
-                              constraints:
-                                  BoxConstraints(maxHeight: 200, maxWidth: 200),
-                              width: MediaQuery.of(context).size.width / 2,
-                              height: MediaQuery.of(context).size.width / 2,
-                              decoration: BoxDecoration(
-                                // shape: BoxShape.circle,r
-                                image: DecorationImage(
-                                  fit: BoxFit.scaleDown,
-                                  image: user.photoUrl != null
-                                      ? NetworkImage(
-                                          user.photoUrl,
-                                        )
-                                      : NetworkImage(
-                                          "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 20),
+                        child: Column(
+                          children: <Widget>[
+                            ProfileFieldsECard(
+                              width: MediaQuery.of(context).size.width,
+                              labelText: string.student_teacher_name,
+                              initialText: user.displayName,
+                            ),
+                            userType == UserType.PARENT
+                                ? Container()
+                                : ProfileFieldsECard(
+                                    width: MediaQuery.of(context).size.width,
+                                    labelText: string.student_or_teacher_id,
+                                    initialText: user.enrollNo,
+                                  ),
+                            userType == UserType.PARENT
+                                ? Container()
+                                : Row(
+                                    // mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: ProfileFieldsECard(
+                                          labelText: string.standard,
+                                          initialText: user.standard,
                                         ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Expanded(
+                                        child: ProfileFieldsECard(
+                                          labelText: string.division,
+                                          initialText:
+                                              user.division.toUpperCase(),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                            ProfileFieldsECard(
+                              width: MediaQuery.of(context).size.width,
+                              labelText: userType == UserType.PARENT
+                                  ? "Childrens Name.."
+                                  : string.guardian_name,
+                              initialText: user.guardianName,
+                            ),
+                            Row(
+                              // mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Expanded(
+                                  child: ProfileFieldsECard(
+                                    labelText: string.dob,
+                                    initialText: user.dob,
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: ProfileFieldsECard(
+                                    labelText: string.blood_group,
+                                    initialText: user.bloodGroup,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
+                            ProfileFieldsECard(
+                              width: MediaQuery.of(context).size.width,
+                              labelText: string.mobile_no,
+                              initialText: user.mobileNo,
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 20),
-                          child: Column(
-                            children: <Widget>[
-                              ProfileFieldsECard(
-                                width: MediaQuery.of(context).size.width,
-                                labelText: string.student_teacher_name,
-                                initialText: user.displayName,
-                              ),
-                              userType == UserType.PARENT
-                                  ? Container()
-                                  : ProfileFieldsECard(
-                                      width: MediaQuery.of(context).size.width,
-                                      labelText: string.student_or_teacher_id,
-                                      initialText: user.enrollNo,
-                                    ),
-                              userType == UserType.PARENT
-                                  ? Container()
-                                  : Row(
-                                      // mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: ProfileFieldsECard(
-                                            labelText: string.standard,
-                                            initialText: user.standard,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                          child: ProfileFieldsECard(
-                                            labelText: string.division,
-                                            initialText:
-                                                user.division.toUpperCase(),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                              ProfileFieldsECard(
-                                width: MediaQuery.of(context).size.width,
-                                labelText: userType == UserType.PARENT
-                                    ? "Childrens Name.."
-                                    : string.guardian_name,
-                                initialText: user.guardianName,
-                              ),
-                              Row(
-                                // mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: ProfileFieldsECard(
-                                      labelText: string.dob,
-                                      initialText: user.dob,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: ProfileFieldsECard(
-                                      labelText: string.blood_group,
-                                      initialText: user.bloodGroup,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              ProfileFieldsECard(
-                                width: MediaQuery.of(context).size.width,
-                                labelText: string.mobile_no,
-                                initialText: user.mobileNo,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-          );
-        });
+                ),
+        );
+      },
+    );
   }
 }
 

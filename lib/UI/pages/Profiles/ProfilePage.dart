@@ -307,7 +307,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             controller: TextEditingController(text: _mobileNo),
                           ),
                           Visibility(
-                            visible: !guardiansPanel,
+                            visible: false,
                             child: Column(
                               children: <Widget>[
                                 Padding(
@@ -321,78 +321,78 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                 ),
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: <Widget>[
-                                //     Expanded(
-                                //       child: ReusableRoundedButton(
-                                //         elevation: 5,
-                                //         child: Text(
-                                //           string.mother,
-                                //           textAlign: TextAlign.center,
-                                //           style: ktitleStyle.copyWith(
-                                //               color: Colors.white
-                                //                   .withOpacity(0.8)),
-                                //         ),
-                                //         onPressed: () {
-                                //           kopenPage(
-                                //             context,
-                                //             GuardianProfilePage(
-                                //               title: string.mother,
-                                //             ),
-                                //           );
-                                //         },
-                                //         backgroundColor: kmainColorParents,
-                                //         height: 40,
-                                //       ),
-                                //     ),
-                                //     Expanded(
-                                //       child: ReusableRoundedButton(
-                                //         elevation: 5,
-                                //         child: Text(
-                                //           string.father,
-                                //           textAlign: TextAlign.center,
-                                //           style: ktitleStyle.copyWith(
-                                //               color: Colors.white
-                                //                   .withOpacity(0.8)),
-                                //         ),
-                                //         onPressed: () {
-                                //           kopenPage(
-                                //             context,
-                                //             GuardianProfilePage(
-                                //               title: string.father,
-                                //             ),
-                                //           );
-                                //         },
-                                //         backgroundColor: kmainColorParents,
-                                //         // height: 50,
-                                //       ),
-                                //     ),
-                                //     Expanded(
-                                //       child: ReusableRoundedButton(
-                                //         elevation: 5,
-                                //         child: Text(
-                                //           string.other,
-                                //           textAlign: TextAlign.center,
-                                //           style: ktitleStyle.copyWith(
-                                //               color: Colors.white
-                                //                   .withOpacity(0.8)),
-                                //         ),
-                                //         onPressed: () {
-                                //           kopenPage(
-                                //             context,
-                                //             GuardianProfilePage(
-                                //               title: string.other,
-                                //             ),
-                                //           );
-                                //         },
-                                //         backgroundColor: kmainColorParents,
-                                //         // height: 50,
-                                //       ),
-                                //     ),
-                                //   ],
-                                // )
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: ReusableRoundedButton(
+                                        elevation: 5,
+                                        child: Text(
+                                          string.mother,
+                                          textAlign: TextAlign.center,
+                                          style: ktitleStyle.copyWith(
+                                              color: Colors.white
+                                                  .withOpacity(0.8)),
+                                        ),
+                                        onPressed: () {
+                                          kopenPage(
+                                            context,
+                                            GuardianProfilePage(
+                                              title: string.mother,
+                                            ),
+                                          );
+                                        },
+                                        backgroundColor: kmainColorParents,
+                                        height: 40,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ReusableRoundedButton(
+                                        elevation: 5,
+                                        child: Text(
+                                          string.father,
+                                          textAlign: TextAlign.center,
+                                          style: ktitleStyle.copyWith(
+                                              color: Colors.white
+                                                  .withOpacity(0.8)),
+                                        ),
+                                        onPressed: () {
+                                          kopenPage(
+                                            context,
+                                            GuardianProfilePage(
+                                              title: string.father,
+                                            ),
+                                          );
+                                        },
+                                        backgroundColor: kmainColorParents,
+                                        // height: 50,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ReusableRoundedButton(
+                                        elevation: 5,
+                                        child: Text(
+                                          string.other,
+                                          textAlign: TextAlign.center,
+                                          style: ktitleStyle.copyWith(
+                                              color: Colors.white
+                                                  .withOpacity(0.8)),
+                                        ),
+                                        onPressed: () {
+                                          kopenPage(
+                                            context,
+                                            GuardianProfilePage(
+                                              title: string.other,
+                                            ),
+                                          );
+                                        },
+                                        backgroundColor: kmainColorParents,
+                                        // height: 50,
+                                      ),
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                           ),
@@ -470,7 +470,8 @@ class _ProfilePageState extends State<ProfilePage> {
   ImageProvider<dynamic> setImage() {
     if (path.contains('https')) {
       return NetworkImage(path);
-    } else if (path == 'default' || path == null) {
+    }
+    if (path == 'default' || path == null) {
       return NetworkImage(
         "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
       );

@@ -1,34 +1,22 @@
-import 'package:ourESchool/UI/Utility/Resources.dart';
-import 'package:ourESchool/UI/Utility/constants.dart';
-import 'package:ourESchool/UI/Utility/custom_icons.dart';
-import 'package:ourESchool/UI/Widgets/ColumnReusableCardButton.dart';
-import 'package:ourESchool/UI/Widgets/RowReusableCardButton.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ourESchool/UI/pages/Dashboard/Transportation/TransportationPage.dart';
-import 'Announcement/AnnouncementPage.dart';
-import 'Assignment/AssignmentPage.dart';
-import 'E-Card/E-CardPage.dart';
-import 'E_Book/E_bookSelect.dart';
-import 'Exam/TopicSelectPage.dart';
-import 'Fees/FeesPage.dart';
-import 'Holidays/HolidayPage.dart';
-import 'ParentingGuide/ParentingGuidePage.dart';
-import 'Result/ResultPage.dart';
-import 'TimeTable/TimeTablePage.dart';
+import 'package:ourESchool/imports.dart';
 
-class StudentDashboard extends StatefulWidget {
-  StudentDashboard({Key key}) : super(key: key);
+class StudentDashboard extends StatefulWidget with AnalyticsScreen {
+  StudentDashboard({Key key}) : super(key: key) {
+    setCurrentScreen();
+  }
   static String pageName = string.dashboard;
 
   _StudentDashboardState createState() => _StudentDashboardState();
+
+  @override
+  String get screenName => 'Student Dashboard';
 }
 
 class _StudentDashboardState extends State<StudentDashboard> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-          child: Scaffold(
+      child: Scaffold(
         body: Padding(
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
           child: Column(
@@ -132,14 +120,13 @@ class _StudentDashboardState extends State<StudentDashboard> {
                       ),
                     ),
                     ColumnReusableCardButton(
-                      height: 70,
-                      tileColor: Colors.grey,
-                      label: string.transportation,
-                      onPressed: () {
-                        kopenPage(context, TransportationPage());
-                      },
-                      icon: FontAwesomeIcons.bus
-                    ),
+                        height: 70,
+                        tileColor: Colors.grey,
+                        label: string.transportation,
+                        onPressed: () {
+                          kopenPage(context, TransportationPage());
+                        },
+                        icon: FontAwesomeIcons.bus),
                     SizedBox(
                       height: 105,
                       child: ListView(
