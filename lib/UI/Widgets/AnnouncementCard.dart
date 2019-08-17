@@ -26,7 +26,7 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
 
   getUserData() async {
     loading = true;
-    user = await model.getUserProfileDataById(
+    user = await model.getUserProfileDataByIdForAnnouncement(
         UserType.TEACHER, widget.announcement.by);
     loading = false;
     if (mounted) setState(() {});

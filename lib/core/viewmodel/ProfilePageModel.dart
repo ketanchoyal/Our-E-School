@@ -63,10 +63,14 @@ class ProfilePageModel extends BaseModel {
 
   Future<User> getUserProfileDataById(UserType userType, String id) async {
     setState(ViewState.Busy);
-    setState2(ViewState.Busy);
     userProfile = await _profileServices.getProfileDataById(id, userType);
-    setState2(ViewState.Idle);
     setState(ViewState.Idle);
+    return userProfile;
+  }
+
+  Future<User> getUserProfileDataByIdForAnnouncement(
+      UserType userType, String id) async {
+    userProfile = await _profileServices.getProfileDataById(id, userType);
     return userProfile;
   }
 
