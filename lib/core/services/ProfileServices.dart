@@ -22,7 +22,7 @@ class ProfileServices extends Services {
     UserType userType = await sharedPreferencesHelper.getUserType();
     // String photoUrl = '';
     // String url = await sharedPreferencesHelper.getLoggedInUserPhotoUrl();
-        
+
     if (user.photoUrl.contains('https')) {
       // photoUrl = url;
     } else if (user.photoUrl == 'default') {
@@ -107,33 +107,16 @@ class ProfileServices extends Services {
     }
   }
 
+  //Fetch Profile Data Using Firestore SDK
   Future<User> getProfileDataById(String uid, UserType userType) async {
-    // if (schoolCode == null)
-    await getSchoolCode();
+    DocumentReference profielRef = await _getProfileRef(uid, userType);
 
-    var body = json.encode({
-      "schoolCode": schoolCode.trim().toUpperCase(),
-      "id": uid,
-      "userType": UserTypeHelper.getValue(userType),
-      "country": country
-    });
-
-    print(body);
-
-    final response = await http.post(
-      getProfileDataUrl,
-      body: body,
-      headers: headers,
-    );
-    if (response.statusCode == 200) {
-      print("Data Retrived Succesfully");
-      final jsonData = await json.decode(response.body);
-
-      User user = User.fromJson(jsonData);
-      user.toString();
+    try {
+      User user = User.fromSnapshot(
+          await profielRef.get(source: Source.serverAndCache));
       return user;
-    } else {
-      print("Data Retrived failed");
+    } catch (e) {
+      print(e);
       return User(id: uid);
     }
   }
@@ -166,5 +149,55 @@ class ProfileServices extends Services {
       childData.add(await getProfileDataById(id, UserType.STUDENT));
     }
     childrens = childData;
+  }
+
+  Future<DocumentReference> _getProfileRef(
+      String uid, UserType userType) async {
+    await getSchoolCode();
+    DocumentReference ref = (await schoolRefwithCode()).document('Profile');
+    switch (userType) {
+      case UserType.STUDENT:
+        return ref.collection('Student').document(uid);
+        break;
+      case UserType.TEACHER:
+      case UserType.PARENT:
+        return ref.collection('Parent-Teacher').document(uid);
+        break;
+      case UserType.UNKNOWN:
+        return null;
+        break;
+      default:
+        return null;
+    }
+  }
+
+  //Fetch Profile Data Using HTTP Request
+  Future<User> getProfileDataByIdd(String uid, UserType userType) async {
+    await getSchoolCode();
+    var body = json.encode({
+      "schoolCode": schoolCode.trim().toUpperCase(),
+      "id": uid,
+      "userType": UserTypeHelper.getValue(userType),
+      "country": country
+    });
+
+    print(body);
+
+    final response = await http.post(
+      getProfileDataUrl,
+      body: body,
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      print("Data Retrived Succesfully");
+      final jsonData = await json.decode(response.body);
+
+      User user = User.fromJson(jsonData);
+      user.toString();
+      return user;
+    } else {
+      print("Data Retrived failed");
+      return User(id: uid);
+    }
   }
 }
