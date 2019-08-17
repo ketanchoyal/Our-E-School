@@ -18,6 +18,7 @@ export 'package:file_picker/file_picker.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
 export 'package:flutter/services.dart';
 
+export 'core/helpers/FirebaseAnalytics.dart';
 export 'core/Models/UserDataLogin.dart';
 export 'core/enums/AuthErrors.dart';
 export 'core/enums/LoginScreenReturnType.dart';

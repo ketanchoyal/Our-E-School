@@ -109,7 +109,6 @@ class AuthenticationServices extends Services {
             parentIds:
                 documentSnapshot['parentId'] as Map<dynamic, dynamic> ?? null,
           );
-
           // DocumentReference ref = documentSnapshot["ref"] as DocumentReference;
           // print('Insude Document Reference');
           // ref.get().then(
@@ -147,11 +146,11 @@ class AuthenticationServices extends Services {
       if (userDataLogin.isATeacher) {
         this.userType = UserType.TEACHER;
         userTypeStream.add(this.userType);
-        sharedPreferencesHelper.setUserType(UserType.TEACHER);
+        sharedPreferencesHelper.setUserType(this.userType);
       } else {
         this.userType = UserType.PARENT;
         userTypeStream.add(this.userType);
-        sharedPreferencesHelper.setUserType(UserType.PARENT);
+        sharedPreferencesHelper.setUserType(this.userType);
       }
     }
 

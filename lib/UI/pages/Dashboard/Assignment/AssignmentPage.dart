@@ -1,26 +1,19 @@
-import 'package:ourESchool/UI/Utility/constants.dart';
 import 'package:ourESchool/UI/Widgets/AssignmentBottomSheet.dart';
 import 'package:ourESchool/UI/Widgets/AssignmentDetailBottomSheet.dart';
-import 'package:ourESchool/UI/Widgets/ColumnReusableCardButton.dart';
-import 'package:ourESchool/UI/Widgets/TopBar.dart';
-import 'package:ourESchool/UI/pages/BaseView.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ourESchool/UI/Utility/Resources.dart';
-import 'package:ourESchool/core/Models/Assignment.dart';
-import 'package:ourESchool/core/Models/User.dart';
-import 'package:ourESchool/core/enums/UserType.dart';
-import 'package:ourESchool/core/enums/ViewState.dart';
-import 'package:ourESchool/core/viewmodel/AssignmentPageModel.dart';
-import 'package:provider/provider.dart';
-import 'package:random_color/random_color.dart';
+import 'package:ourESchool/imports.dart';
 
-class AssignmentsPage extends StatefulWidget {
-  const AssignmentsPage({Key key, this.standard = ''}) : super(key: key);
+class AssignmentsPage extends StatefulWidget with AnalyticsScreen {
+  AssignmentsPage({Key key, this.standard = ''}) : super(key: key){
+    setCurrentScreen();
+  }
+
   final String standard;
 
   @override
   _AssignmentsPageState createState() => _AssignmentsPageState();
+
+  @override
+  String get screenName => string.assignment + 'Page';
 }
 
 class _AssignmentsPageState extends State<AssignmentsPage> {
@@ -152,8 +145,9 @@ If you are a parent then go to childrens section to check assignments''',
                                     model.assignmentSnapshotList.length + 1,
                                 itemBuilder: (context, i) {
                                   if (i < model.assignmentSnapshotList.length) {
-                                    Assignment assignment = Assignment.fromSnapshot(
-                                        model.assignmentSnapshotList[i]);
+                                    Assignment assignment =
+                                        Assignment.fromSnapshot(
+                                            model.assignmentSnapshotList[i]);
                                     print(assignment.id);
                                     return ColumnReusableCardButton(
                                       tileColor: _randomColor.randomColor(

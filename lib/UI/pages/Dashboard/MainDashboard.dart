@@ -2,7 +2,9 @@ import 'package:ourESchool/core/helpers/FirebaseAnalytics.dart';
 import 'package:ourESchool/imports.dart';
 
 class MainDashboard extends StatefulWidget with AnalyticsScreen {
-  MainDashboard({Key key}) : super(key: key);
+  MainDashboard({Key key}) : super(key: key) {
+    setCurrentScreen();
+  }
   static String pageName = string.dashboard;
 
   _MainDashboardState createState() => _MainDashboardState();

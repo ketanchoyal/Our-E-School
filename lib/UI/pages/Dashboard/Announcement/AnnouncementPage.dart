@@ -1,15 +1,20 @@
 import 'package:ourESchool/imports.dart';
 
-class AnnouncementPage extends StatefulWidget {
-  const AnnouncementPage({
+class AnnouncementPage extends StatefulWidget with AnalyticsScreen {
+  AnnouncementPage({
     Key key,
     this.announcementFor = '',
-  }) : super(key: key);
+  }) : super(key: key) {
+    setCurrentScreen();
+  }
 
   final String announcementFor;
 
   @override
   _AnnouncementPageState createState() => _AnnouncementPageState();
+
+  @override
+  String get screenName => string.announcement + 'Page';
 }
 
 class _AnnouncementPageState extends State<AnnouncementPage>
@@ -129,7 +134,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                                 label: Text('Filter'),
                                 heroTag: 'abc',
                                 elevation: 12,
-                                onPressed: () { 
+                                onPressed: () {
                                   //Filter Posts Code Here
                                   filterDialogBox(context, model);
                                 },
