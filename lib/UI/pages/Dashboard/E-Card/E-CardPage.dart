@@ -62,9 +62,7 @@ class _ECardPageState extends State<ECardPage> {
                                     ? NetworkImage(
                                         user.photoUrl,
                                       )
-                                    : NetworkImage(
-                                        "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-                                      ),
+                                    : AssetImage(assetsString.student_welcome),
                               ),
                             ),
                           ),

@@ -4,7 +4,7 @@ import 'package:ourESchool/imports.dart';
 
 class AssignmentsPage extends StatefulWidget with AnalyticsScreen {
   AssignmentsPage({Key key, this.standard = ''}) : super(key: key){
-    setCurrentScreen();
+    // setCurrentScreen();
   }
 
   final String standard;

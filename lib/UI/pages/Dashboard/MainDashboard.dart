@@ -3,7 +3,7 @@ import 'package:ourESchool/imports.dart';
 
 class MainDashboard extends StatefulWidget with AnalyticsScreen {
   MainDashboard({Key key}) : super(key: key) {
-    setCurrentScreen();
+    // setCurrentScreen();
   }
   static String pageName = string.dashboard;
 

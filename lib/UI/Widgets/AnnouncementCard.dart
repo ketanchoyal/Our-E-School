@@ -69,11 +69,9 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
                               )
                             : CircleAvatar(
                                 radius: 25.0,
-                                backgroundImage: NetworkImage(
-                                  user.photoUrl == 'default'
-                                      ? 'https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png'
-                                      : user.photoUrl,
-                                ),
+                                backgroundImage: user.photoUrl == 'default'
+                                    ? AssetImage(assetsString.teacher_welcome)
+                                    : NetworkImage(user.photoUrl),
                                 backgroundColor: Colors.transparent,
                               ),
                         SizedBox(

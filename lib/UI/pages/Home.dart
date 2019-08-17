@@ -36,22 +36,30 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+  ImageProvider<dynamic> setImage(User user) {
+    return user.photoUrl != 'default'
+        ? NetworkImage(
+            user.photoUrl,
+          )
+        : AssetImage(assetsString.student_welcome);
+  }
+
   @override
   Widget build(BuildContext context) {
     var userType = Provider.of<UserType>(context);
     if (userType == UserType.TEACHER) {
       isTeacher = true;
     }
+    User user = Provider.of<User>(context);
     return Container(
       child: Scaffold(
         appBar: TopBar(
+          buttonHeroTag: 'profileeee',
           title: pageName,
           child: Image(
             height: 30,
             width: 30,
-            image: NetworkImage(
-              "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-            ),
+            image: setImage(user),
           ),
           onPressed: () {
             if (userType == UserType.PARENT) {

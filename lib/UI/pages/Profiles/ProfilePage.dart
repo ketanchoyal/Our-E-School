@@ -421,10 +421,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
-                child: Image(
-                    height: MediaQuery.of(context).size.width / 2.5,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    image: setImage()),
+                child: Hero(
+                  tag: 'profileeee',
+                  transitionOnUserGestures: true,
+                  child: Image(
+                      height: MediaQuery.of(context).size.width / 2.5,
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      image: setImage()),
+                ),
               ),
               Positioned(
                 right: 0,
@@ -470,11 +474,8 @@ class _ProfilePageState extends State<ProfilePage> {
   ImageProvider<dynamic> setImage() {
     if (path.contains('https')) {
       return NetworkImage(path);
-    }
-    if (path == 'default' || path == null) {
-      return NetworkImage(
-        "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-      );
+    } else if (path == 'default' || path == null) {
+      return AssetImage(assetsString.student_welcome);
     } else {
       return AssetImage(path);
     }

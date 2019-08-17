@@ -442,9 +442,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
     if (path.contains('https')) {
       return NetworkImage(path);
     } else if (path == 'default') {
-      return NetworkImage(
-        "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
-      );
+      return AssetImage(assetsString.student_welcome);
     } else {
       return AssetImage(path);
     }

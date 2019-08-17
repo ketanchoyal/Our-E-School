@@ -5,7 +5,7 @@ class AnnouncementPage extends StatefulWidget with AnalyticsScreen {
     Key key,
     this.announcementFor = '',
   }) : super(key: key) {
-    setCurrentScreen();
+    // setCurrentScreen();
   }
 
   final String announcementFor;

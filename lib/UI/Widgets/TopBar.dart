@@ -6,6 +6,7 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final Widget child;
   final Function onPressed;
   final Function onTitleTapped;
+  final String buttonHeroTag;
 
   @override
   final Size preferredSize;
@@ -14,6 +15,7 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
       {@required this.title,
       @required this.child,
       @required this.onPressed,
+      this.buttonHeroTag = 'topBarBtn',
       this.onTitleTapped})
       : preferredSize = Size.fromHeight(60.0);
 
@@ -34,7 +36,8 @@ class _TopBarState extends State<TopBar> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Hero(
-                tag: 'topBarBtn',
+                transitionOnUserGestures: true,
+                tag: widget.buttonHeroTag,
                 child: Container(
                   // elevation: 10,
                   // shape: kBackButtonShape,

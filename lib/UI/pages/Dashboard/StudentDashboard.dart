@@ -2,14 +2,14 @@ import 'package:ourESchool/imports.dart';
 
 class StudentDashboard extends StatefulWidget with AnalyticsScreen {
   StudentDashboard({Key key}) : super(key: key) {
-    setCurrentScreen();
+    // setCurrentScreen();
   }
   static String pageName = string.dashboard;
 
   _StudentDashboardState createState() => _StudentDashboardState();
 
   @override
-  String get screenName => 'Student Dashboard';
+  String get screenName => 'Students Dashboard';
 }
 
 class _StudentDashboardState extends State<StudentDashboard> {
