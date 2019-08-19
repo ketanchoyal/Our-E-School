@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ourESchool/UI/Utility/constants.dart';
 
 class ColumnReusableCardButton extends StatelessWidget {
   final Function onPressed;
@@ -7,17 +8,19 @@ class ColumnReusableCardButton extends StatelessWidget {
   final double height;
   final IconData directionIcon;
   final Color tileColor;
+  final String directionIconHeroTag;
   // final double elevation;
 
-  const ColumnReusableCardButton({
-    @required this.onPressed,
-    @required this.icon,
-    @required this.label,
-    @required this.tileColor,
-    this.height,
-    this.directionIcon,
-    // this.elevation
-  });
+  const ColumnReusableCardButton(
+      {@required this.onPressed,
+      @required this.icon,
+      @required this.label,
+      @required this.tileColor,
+      this.height,
+      this.directionIcon,
+      this.directionIconHeroTag
+      // this.elevation
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +50,14 @@ class ColumnReusableCardButton extends StatelessWidget {
                     color: Colors.white,
                     fontWeight: FontWeight.w600),
               ),
-              Icon(
-                directionIcon ?? Icons.chevron_right,
-                color: Colors.white,
-                size: 55,
+              Hero(
+                tag: directionIconHeroTag ?? createCryptoRandomString(10),
+                transitionOnUserGestures: true,
+                child: Icon(
+                  directionIcon ?? Icons.chevron_right,
+                  color: Colors.white,
+                  size: 55,
+                ),
               )
             ],
           ),

@@ -16,6 +16,7 @@ class ChildrensPage extends StatelessWidget {
         builder: (context, model, child) {
           return Scaffold(
             appBar: TopBar(
+              buttonHeroTag: string.childrens,
               child: kBackBtn,
               onPressed: () {
                 kbackBtn(context);

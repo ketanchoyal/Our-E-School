@@ -29,6 +29,7 @@ class _MainDashboardState extends State<MainDashboard> {
                 child: ListView(
                   children: [
                     ColumnReusableCardButton(
+                      directionIconHeroTag: string.childrens,
                       height: 70,
                       tileColor: Colors.deepPurpleAccent,
                       label: string.childrens,
@@ -65,6 +66,7 @@ class _MainDashboardState extends State<MainDashboard> {
                       ),
                     ),
                     ColumnReusableCardButton(
+                      directionIconHeroTag: string.announcement,
                       height: 70,
                       tileColor: Colors.orangeAccent,
                       label: string.announcement,

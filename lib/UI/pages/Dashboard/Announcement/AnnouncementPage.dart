@@ -79,6 +79,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
           return Scaffold(
             key: scaffoldKey,
             appBar: TopBar(
+                buttonHeroTag: string.announcement,
                 title: stdDiv_Global + " Posts",
                 child: kBackBtn,
                 onPressed: () {
