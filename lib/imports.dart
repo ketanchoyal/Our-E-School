@@ -4,7 +4,6 @@ export 'package:flutter/scheduler.dart' show timeDilation;
 // export 'package:flutter/foundation.dart'
 //     show debugDefaultTargetPlatformOverride;
 export 'package:provider/provider.dart';
-export 'package:get_it/get_it.dart';
 export 'package:flutter/material.dart';
 export 'package:provider/provider.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';

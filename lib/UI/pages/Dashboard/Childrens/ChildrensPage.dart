@@ -39,28 +39,22 @@ class ChildrensPage extends StatelessWidget {
                         ),
                         itemCount: model.childrens.length,
                         itemBuilder: (context, index) {
-                          // if (model.childrens.isEmpty) {
-                          //   return Center(
-                          //     child: Text(
-                          //       'No Child Added in database!',
-                          //       style: ktitleStyle.copyWith(
-                          //           color: Colors.red, fontSize: 25),
-                          //     ),
-                          //   );
-                          // }
-                          return ChildrenGridViewCard(
-                            user: model.childrens[index],
-                            onTap: () {
-                              if (model.childrens[index].displayName != '')
-                                showBottomSheet(
-                                  elevation: 10,
-                                  context: context,
-                                  builder: (context) =>
-                                      BottomSheetChildrensWidget(
-                                    user: model.childrens[index],
-                                  ),
-                                );
-                            },
+                          return Container(
+                            constraints: BoxConstraints(maxHeight: 200, maxWidth: 200),
+                            child: ChildrenGridViewCard(
+                              user: model.childrens[index],
+                              onTap: () {
+                                if (model.childrens[index].displayName != '')
+                                  showBottomSheet(
+                                    elevation: 10,
+                                    context: context,
+                                    builder: (context) =>
+                                        BottomSheetChildrensWidget(
+                                      user: model.childrens[index],
+                                    ),
+                                  );
+                              },
+                            ),
                           );
                         }),
           );

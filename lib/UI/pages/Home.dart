@@ -24,11 +24,9 @@ class _HomeState extends State<Home> {
     SettingPage()
   ];
 
-  List<Widget> pages2 = [
+  List<Widget> studentPages = [
     StudentDashboard(),
-    // ChatPage(),
-    // NotificationPage(),
-    SettingPage()
+    SettingPage(),
   ];
 
   @override
@@ -84,14 +82,17 @@ class _HomeState extends State<Home> {
         body: userType == UserType.STUDENT
             ? IndexedStack(
                 index: currentIndex,
-                children: <Widget>[StudentDashboard(), SettingPage()],
+                children: studentPages,
               )
-            : pages[currentIndex],
+            : IndexedStack(
+                index: currentIndex,
+                children: pages,
+              ),
       ),
     );
   }
 
-  List<BubbleBottomBarItem> bottomBarItems2 = [
+  List<BubbleBottomBarItem> studentItems = [
     BubbleBottomBarItem(
       backgroundColor: Colors.red,
       icon: Icon(
@@ -103,18 +104,6 @@ class _HomeState extends State<Home> {
       ),
       title: Text(string.dashboard),
     ),
-    // BubbleBottomBarItem(
-    //   backgroundColor: Colors.deepPurple,
-    //   icon: Icon(
-    //     CustomIcons.chat_bubble,
-    //     // size: 25,
-    //   ),
-    //   activeIcon: Icon(
-    //     CustomIcons.chat_bubble,
-    //     color: Colors.deepPurple,
-    //   ),
-    //   title: Text(string.chat),
-    // ),
     BubbleBottomBarItem(
       backgroundColor: Colors.orange,
       icon: Icon(
@@ -205,7 +194,7 @@ class _HomeState extends State<Home> {
       hasNotch: isTeacher, //new
       hasInk: true, //new, gives a cute ink effect
       inkColor: Colors.black12, //optional, uses theme color if not specified
-      items: userType == UserType.STUDENT ? bottomBarItems2 : bottomBarItems,
+      items: userType == UserType.STUDENT ? studentItems : bottomBarItems,
     );
   }
 }

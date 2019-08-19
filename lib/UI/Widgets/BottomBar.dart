@@ -86,67 +86,69 @@ class _BottomNavigationTile extends StatelessWidget {
 
     return Expanded(
       flex: size,
-      child: Semantics(
-        container: true,
-        header: true,
-        selected: selected,
-        child: Stack(
-          children: <Widget>[
-            InkResponse(
-              borderRadius: BorderRadius.horizontal(
-                // right: Radius.circular(50),
-                // left: Radius.circular(50),
-              ),
-              containedInkWell: true,
-              onTap: onTap,
-              splashColor: ink
-                  ? inkColor != null ? inkColor : Theme.of(context).splashColor
-                  : Colors.transparent,
-              highlightColor: Colors.transparent,
-              child: Container(
-                height: 45,
-                decoration: BoxDecoration(
-                    color: selected
-                        ? item.backgroundColor.withOpacity(opacity)
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.horizontal(
-                        // right: Radius.circular(50),
-                        // left: Radius.circular(50),
-                        )),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: selected
-                      ? MainAxisAlignment.spaceEvenly
-                      : MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    _TileIcon(
-                      colorTween: colorTween,
-                      animation: animation,
-                      iconSize: iconSize,
-                      selected: selected,
-                      item: item,
-                    ),
-                    AnimatedCrossFade(
-                      alignment: Alignment(0, 0),
-                      firstChild: label,
-                      secondChild: Container(),
-                      duration: Duration(milliseconds: 200),
-                      sizeCurve: Curves.fastOutSlowIn,
-                      firstCurve: Curves.fastOutSlowIn,
-                      secondCurve: Curves.fastOutSlowIn.flipped,
-                      crossFadeState: selected
-                          ? CrossFadeState.showFirst
-                          : CrossFadeState.showSecond,
-                    )
-                  ],
+      child: SafeArea(
+              child: Semantics(
+          container: true,
+          header: true,
+          selected: selected,
+          child: Stack(
+            children: <Widget>[
+              InkResponse(
+                borderRadius: BorderRadius.horizontal(
+                  // right: Radius.circular(50),
+                  // left: Radius.circular(50),
+                ),
+                containedInkWell: true,
+                onTap: onTap,
+                splashColor: ink
+                    ? inkColor != null ? inkColor : Theme.of(context).splashColor
+                    : Colors.transparent,
+                highlightColor: Colors.transparent,
+                child: Container(
+                  height: 45,
+                  decoration: BoxDecoration(
+                      color: selected
+                          ? item.backgroundColor.withOpacity(opacity)
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.horizontal(
+                          // right: Radius.circular(50),
+                          // left: Radius.circular(50),
+                          )),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: selected
+                        ? MainAxisAlignment.spaceEvenly
+                        : MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      _TileIcon(
+                        colorTween: colorTween,
+                        animation: animation,
+                        iconSize: iconSize,
+                        selected: selected,
+                        item: item,
+                      ),
+                      AnimatedCrossFade(
+                        alignment: Alignment(0, 0),
+                        firstChild: label,
+                        secondChild: Container(),
+                        duration: Duration(milliseconds: 200),
+                        sizeCurve: Curves.fastOutSlowIn,
+                        firstCurve: Curves.fastOutSlowIn,
+                        secondCurve: Curves.fastOutSlowIn.flipped,
+                        crossFadeState: selected
+                            ? CrossFadeState.showFirst
+                            : CrossFadeState.showSecond,
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Semantics(
-              label: indexLabel,
-            )
-          ],
+              Semantics(
+                label: indexLabel,
+              )
+            ],
+          ),
         ),
       ),
     );
