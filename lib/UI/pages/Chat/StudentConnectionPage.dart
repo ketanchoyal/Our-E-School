@@ -61,7 +61,8 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    _buildStudentProfileImageViewer(context, student.photoUrl),
+                    _buildStudentProfileImageViewer(
+                        context, student.photoUrl, UserType.STUDENT),
                     Card(
                       elevation: 0,
                       child: Container(
@@ -133,7 +134,9 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: <Widget>[
                                       _buildStudentProfileImageViewer(
-                                          context, parent[index].photoUrl),
+                                          context,
+                                          parent[index].photoUrl,
+                                          UserType.PARENT),
                                       Card(
                                         elevation: 0,
                                         child: Container(
@@ -178,7 +181,8 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
     );
   }
 
-  Widget _buildStudentProfileImageViewer(BuildContext context, String url) {
+  Widget _buildStudentProfileImageViewer(
+      BuildContext context, String url, UserType userType) {
     return Card(
       margin: EdgeInsets.all(10),
       elevation: 10,
@@ -196,7 +200,9 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
                 ? NetworkImage(
                     url,
                   )
-                : AssetImage(assetsString.student_welcome),
+                : userType == UserType.STUDENT
+                    ? AssetImage(assetsString.student_welcome)
+                    : AssetImage(assetsString.parents_welcome),
           ),
         ),
       ),

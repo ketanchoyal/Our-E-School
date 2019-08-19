@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:ourESchool/UI/Utility/SlideRoute.dart';
 import 'ImageCompress.dart' as CompressImage;
 
 var kTextFieldDecoration = InputDecoration(
@@ -54,6 +55,17 @@ kopenPage(BuildContext context, Widget page) {
     context,
     MaterialPageRoute(
       builder: (BuildContext context) => page,
+    ),
+  );
+}
+
+kopenPageSlide(BuildContext context, Widget page, {Duration duration}) {
+  return Navigator.push(
+    context,
+    RouteTransition(
+      // fade: false,
+      widget: page,
+      duration: duration
     ),
   );
 }

@@ -95,7 +95,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                     child: FloatingActionButton(
                       elevation: 12,
                       onPressed: () {
-                        kopenPageBottom(context, CreateAnnouncement());
+                        kopenPageSlide(context, CreateAnnouncement(), duration: Duration(milliseconds: 200));
                       },
                       child: Icon(Icons.add),
                       backgroundColor: Colors.red,

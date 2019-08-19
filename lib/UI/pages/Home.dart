@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
           visible: isTeacher,
           child: FloatingActionButton(
             onPressed: () {
-              kopenPage(context, CreateAnnouncement());
+              kopenPageSlide(context, CreateAnnouncement());
             },
             child: Icon(Icons.add),
             backgroundColor: Colors.red,
