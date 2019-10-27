@@ -1,24 +1,42 @@
-
+import 'package:flutter/material.dart';
 import 'package:ourESchool/core/enums/questionLevel.dart';
 import 'package:ourESchool/core/enums/questionType.dart';
 
 class Question {
-  String question;
-  List answer;
-  QuestionType type;
-  List options = [];
-  String id;
-  String description;
-  QuestionLevel questionLevel;
+  final String question;
+  final List answer;
+  final QuestionType type;
+  final List options;
+  final String id;
+  final String description;
+  final QuestionLevel questionLevel;
+  final String by;
+  final String bySchool;
+  final String subject;
+  final String standard;
 
-  Question(
-      {this.question,
-      this.answer,
-      this.id,
-      this.options,
-      this.type,
-      this.questionLevel,
-      this.description});
+  Question({
+    @required this.question,
+    @required this.answer,
+    @required this.type,
+    @required this.options,
+    @required this.id,
+    @required this.description,
+    @required this.questionLevel,
+    this.standard,
+    this.subject,
+    this.by,
+    this.bySchool,
+  });
+
+  // Question(
+  //     {this.question,
+  //     this.answer,
+  //     this.id,
+  //     this.options,
+  //     this.type,
+  //     this.questionLevel,
+  //     this.description});
 }
 
 List<Question> questionsList = [
@@ -33,7 +51,7 @@ List<Question> questionsList = [
   Question(
       questionLevel: QuestionLevel.EASY,
       type: QuestionType.MULTIPLE_ANSWERS,
-      answer: ['Z','CD1'],
+      answer: ['Z', 'CD1'],
       description: 'Some Description',
       id: '1',
       options: ['Z', 'B1S', 'CD1', 'DA1'],
@@ -41,7 +59,7 @@ List<Question> questionsList = [
   Question(
       questionLevel: QuestionLevel.EASY,
       type: QuestionType.MULTIPLE_ANSWERS,
-      answer: ['A1','D1'],
+      answer: ['A1', 'D1'],
       description: 'Some Description',
       id: '2',
       options: ['A1', 'B1', 'C1', 'D1'],

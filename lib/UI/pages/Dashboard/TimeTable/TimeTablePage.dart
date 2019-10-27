@@ -1,9 +1,6 @@
-import 'package:ourESchool/UI/Utility/Resources.dart';
-import 'package:ourESchool/UI/Utility/constants.dart';
-import 'package:ourESchool/UI/Widgets/TopBar.dart';
-import 'package:flutter/material.dart';
-
-import 'TimeTable.dart';
+import 'package:ourESchool/UI/pages/Dashboard/TimeTable/TeachersTimeTable.dart';
+import 'package:ourESchool/imports.dart';
+import 'StudentsTimeTable.dart';
 
 class TimeTablePage extends StatefulWidget {
   TimeTablePage({Key key}) : super(key: key);
@@ -24,6 +21,10 @@ class _TimeTablePageState extends State<TimeTablePage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
+  Color color = Colors.red;
+  bool teacher = true;
+  bool edit = false;
+
   @override
   void initState() {
     super.initState();
@@ -33,6 +34,7 @@ class _TimeTablePageState extends State<TimeTablePage>
 
   @override
   Widget build(BuildContext context) {
+    UserType userType = Provider.of<UserType>(context);
     return Scaffold(
       appBar: TopBar(
         title: string.timetable,
@@ -41,15 +43,89 @@ class _TimeTablePageState extends State<TimeTablePage>
           Navigator.pop(context);
         },
       ),
+      floatingActionButton: userType == UserType.TEACHER
+          ? FloatingActionButton(
+              onPressed: () {
+                edit = !edit;
+                setState(() {});
+              },
+              child: Icon(
+                !edit ? FontAwesomeIcons.solidEdit : FontAwesomeIcons.save,
+                size: 20,
+              ),
+              backgroundColor: Colors.red,
+            )
+          : Container(),
       body: TabBarView(
         controller: _tabController,
-        children: List.generate(tabNames.length, (index) => TimeTable())
+        children: List.generate(
+          tabNames.length,
+          (index) => teacher
+              ? TeachersTimeTable(
+                  color: color,
+                  edit: edit,
+                )
+              : StudentsTimeTable(
+                  color: color,
+                  edit: edit,
+                ),
+        ),
       ),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          userType == UserType.TEACHER
+              ? Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          teacher = true;
+                          setState(() {});
+                        },
+                        child: Container(
+                          height: 50,
+                          color: teacher ? color : Colors.white,
+                          child: Center(
+                            child: Text(
+                              'Teachers',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: !teacher ? Colors.black : Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          teacher = false;
+                          setState(() {});
+                        },
+                        child: Container(
+                          height: 50,
+                          color: !teacher ? color : Colors.white,
+                          child: Center(
+                            child: Text(
+                              'Students',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: teacher ? Colors.black : Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : Container(),
           AnimatedCrossFade(
             firstChild: Material(
               color: Theme.of(context).primaryColor,
@@ -75,10 +151,6 @@ class _TimeTablePageState extends State<TimeTablePage>
             crossFadeState: CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 300),
           ),
-          // Container(
-          //   height: 20,
-          //   color: Theme.of(context).primaryColor,
-          // )
         ],
       ),
     );

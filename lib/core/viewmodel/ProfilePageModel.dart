@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:ourESchool/core/Models/User.dart';
 import 'package:ourESchool/core/enums/UserType.dart';
 import 'package:ourESchool/core/enums/ViewState.dart';
