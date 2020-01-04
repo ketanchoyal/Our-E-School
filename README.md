@@ -1,6 +1,38 @@
 # Our E School
 
-A new Flutter project.
+## I open sourced this project because I wasn't got paid
+
+### An open source project for school management
+
+## I've used Provider + Get_it for State Management
+
+## MVVM(Model-View-(View)Model) Architecture
+
+Our E School is the app build for iOS and Android using Flutter.
+
+It uses Firebase FireStore as Database and Firebase Storage.
+
+#### There are backend firebase functions too written in Typescript for some automation and some functions to make them work with web based project(future proof)
+
+## FeatureS
+
+|  UI  | Logic | Feature |
+| ------ | ------ | ------|
+| ✔ | ✔ | Multiple School Login(School Code)
+| ✔ | ✔ | Teacher Login
+| ✔ | ✔ | Student Login
+| ✔ | ✔ | Parent Login
+| ✔ | ✔ | Multiple Child Profile View
+| ✔ | ✔ | Chat between teacher and parent
+| ✔ | ✔ | Intro Screens.
+| ✔ | ✔ | Post photo or notice on Standard post section(Only Teacher)
+| ✔ | ✔ | Post photo or notice on global post section(Only Teacher)
+| ✔ | ✔ | Dark Mode
+| ✔ | ✔ | Profile Setup
+| ✔ | ✔ | Forget Password
+### and many more......
+
+## Screenshots
 
 ## Getting Started
 
