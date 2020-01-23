@@ -32,6 +32,7 @@ It uses Firebase FireStore as Database and Firebase Storage.
 | ✔ | ✔ | Dark Mode
 | ✔ | ✔ | Profile Setup
 | ✔ | ✔ | Forget Password
+| ✔ |  | TimeTable
 ### and many more......
 
 ## Screenshots
