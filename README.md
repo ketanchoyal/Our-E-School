@@ -12,6 +12,8 @@ Our E School is the app build for iOS and Android using Flutter.
 
 It uses Firebase FireStore as Database and Firebase Storage.
 
+### Note: This app is not fully developed, it still has a lot of bugs and I'm still working on it
+
 #### There are backend firebase functions too written in Typescript for some automation and some functions to make them work with web based project(future proof)
 
 ## FeatureS
@@ -33,6 +35,10 @@ It uses Firebase FireStore as Database and Firebase Storage.
 ### and many more......
 
 ## Screenshots
+
+<img src="https://github.com/ketanchoyal/Academic-Connect/raw/new-dashboards/screenshots/Screenshot_1.png"/>
+
+<img src="https://github.com/ketanchoyal/Academic-Connect/raw/new-dashboards/screenshots/Screenshot_2.png"/>
 
 ## Getting Started
 
