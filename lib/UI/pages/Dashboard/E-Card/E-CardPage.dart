@@ -22,7 +22,7 @@ class _ECardPageState extends State<ECardPage> {
   @override
   Widget build(BuildContext context) {
     UserType userType =
-        widget.user == null ? Provider.of<UserType>(context) : UserType.STUDENT;
+        widget.user == null ? Provider.of<UserType>(context, listen: false) : UserType.STUDENT;
     return BaseView<ProfilePageModel>(
       onModelReady: (model) =>
           widget.user == null ? model.getUserProfileData() : model,

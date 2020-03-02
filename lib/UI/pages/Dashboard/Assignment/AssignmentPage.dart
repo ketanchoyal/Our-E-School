@@ -51,8 +51,8 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
   @override
   Widget build(BuildContext context) {
     if (widget.standard == '') {
-      var userType = Provider.of<UserType>(context);
-      User currentUser = Provider.of<User>(context);
+      var userType = Provider.of<UserType>(context, listen: false);
+      User currentUser = Provider.of<User>(context, listen: false);
       if (userType == UserType.TEACHER) {
         if (!isLoaded) {
           stdDiv_Global =

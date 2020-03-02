@@ -36,7 +36,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context);
+    User user = Provider.of<User>(context, listen: false);
 
     return BaseView<MessagingScreenPageModel>(
         onModelReady: (model) => model.setState2(ViewState.Busy),

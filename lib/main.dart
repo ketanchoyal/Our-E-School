@@ -15,24 +15,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        StreamProvider<User>.controller(
+        StreamProvider<User>.value(
           initialData: User(),
-          builder: (context) => locator<ProfileServices>().loggedInUserStream,
+          value: locator<ProfileServices>().loggedInUserStream.stream,
         ),
-        StreamProvider<FirebaseUser>.controller(
+        StreamProvider<FirebaseUser>.value(
           initialData: null,
-          builder: (context) =>
-              locator<AuthenticationServices>().fireBaseUserStream,
+          value: locator<AuthenticationServices>().fireBaseUserStream.stream.asBroadcastStream(),
         ),
-        StreamProvider<UserType>.controller(
+        StreamProvider<UserType>.value(
           initialData: UserType.UNKNOWN,
-          builder: (context) =>
-              locator<AuthenticationServices>().userTypeStream,
+          value: locator<AuthenticationServices>().userTypeStream.stream,
         ),
-        StreamProvider<bool>.controller(
+        StreamProvider<bool>.value(
           initialData: false,
-          builder: (context) =>
-              locator<AuthenticationServices>().isUserLoggedInStream,
+          value: locator<AuthenticationServices>().isUserLoggedInStream.stream,
         ),
       ],
       child: DynamicTheme(
@@ -83,18 +80,20 @@ class OurSchoolApp extends StatelessWidget {
   }
 
   Widget getHome(BuildContext context) {
-    User currentUser = Provider.of<User>(context);
-    UserType userType = Provider.of<UserType>(context);
+    User currentUser = Provider.of<User>(context, listen: false);
+    UserType userType = Provider.of<UserType>(context, listen: false);
 
-    if (Provider.of<FirebaseUser>(context) == null) {
-      return WelcomeScreen();
-    }
+    // if (Provider.of<FirebaseUser>(context, listen: false) == null &&
+    //     userType == UserType.UNKNOWN) {
+    //       print("here");
+    //   return WelcomeScreen();
+    // }
 
-    if (userType == UserType.UNKNOWN) {
-      return WelcomeScreen();
-    }
+    // if (userType == UserType.UNKNOWN) {
+    //   return WelcomeScreen();
+    // }
 
-    if (Provider.of<bool>(context)) {
+    if (Provider.of<bool>(context, listen: false)) {
       if (userType == UserType.STUDENT) {
         return currentUser.isEmpty() ? ProfilePage() : Home();
       } else {

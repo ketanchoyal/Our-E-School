@@ -9,7 +9,10 @@ class BaseView<T extends BaseModel> extends StatefulWidget {
   final Function(T) onModelReady;
   // final bool provider;
 
-  BaseView({this.builder, this.onModelReady,});
+  BaseView({
+    this.builder,
+    this.onModelReady,
+  });
 
   @override
   _BaseViewState<T> createState() => _BaseViewState<T>();
@@ -28,8 +31,11 @@ class _BaseViewState<T extends BaseModel> extends State<BaseView<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<T>(
-            builder: (context) => model,
-            child: Consumer<T>(builder: widget.builder));
+    return ChangeNotifierProvider<T>.value(
+      value: model,
+      child: Consumer<T>(
+        builder: widget.builder,
+      ),
+    );
   }
 }

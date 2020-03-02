@@ -76,8 +76,7 @@ class ProfilePageModel extends BaseModel {
   @override
   void dispose() {
     if (true) {
-    } else
-      super.dispose();
+    } 
   }
 
   // Future<User> getUserProfileDataOfGuardian(UserType userType, String id) async {

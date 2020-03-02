@@ -40,7 +40,7 @@ class _AssignmentBottomSheetState extends State<AssignmentBottomSheet> {
         _standardController.text.trim() != '') {
       Assignment assignment = Assignment(
         title: _titleController.text.trim(),
-        by: Provider.of<User>(context).id,
+        by: Provider.of<User>(context, listen: false).id,
         details: _descriptionController.text.trim(),
         div: _divisionController.text.trim().toUpperCase(),
         standard: _standardController.text.trim(),

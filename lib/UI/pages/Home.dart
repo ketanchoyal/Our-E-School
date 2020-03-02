@@ -44,11 +44,11 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var userType = Provider.of<UserType>(context);
+    var userType = Provider.of<UserType>(context, listen: false);
     if (userType == UserType.TEACHER) {
       isTeacher = true;
     }
-    User user = Provider.of<User>(context);
+    User user = Provider.of<User>(context, listen: false);
     return Container(
       child: Scaffold(
         appBar: TopBar(

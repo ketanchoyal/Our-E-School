@@ -64,8 +64,11 @@ class _ProfilePageState extends State<ProfilePage> {
   String _mobileNo = '';
   int a = 0;
 
-  floatingButoonPressed(var model, UserType userType) async {
+  floatingButoonPressed(
+      var model, UserType userType, FirebaseUser firebaseUser) async {
     bool res = false;
+
+    // var firebaseUser = Provider.of<FirebaseUser>(context, listen: false);
 
     if (_bloodGroup.isEmpty ||
         _division.isEmpty ||
@@ -79,8 +82,6 @@ class _ProfilePageState extends State<ProfilePage> {
           context, 'You Need to fill all the details and a profile Photo'));
     } else {
       if (model.state == ViewState.Idle) {
-        var firebaseUser = Provider.of<FirebaseUser>(context);
-
         res = await model.setUserProfileData(
           user: User(
             bloodGroup: _bloodGroup.trim(),
@@ -123,7 +124,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    userType = Provider.of<UserType>(context);
+    userType = Provider.of<UserType>(context, listen: false);
+    var firebaseUser = Provider.of<FirebaseUser>(context, listen: true);
+
     if (userType == UserType.STUDENT) {
       guardiansPanel = false;
     } else {
@@ -134,17 +137,19 @@ class _ProfilePageState extends State<ProfilePage> {
         builder: (context, model, child) {
           if (model.state == ViewState.Idle) {
             if (a == 0) {
-              User user = model.userProfile;
-              _name = user.displayName;
-              _enrollNo = user.enrollNo;
-              _standard = user.standard;
-              _division = user.division.toUpperCase();
-              _guardianName = user.guardianName;
-              _bloodGroup = user.bloodGroup;
-              _dob = user.dob;
-              _mobileNo = user.mobileNo;
-              path = user.photoUrl;
-              a++;
+              if (model.userProfile != null) {
+                User user = model.userProfile;
+                _name = user.displayName;
+                _enrollNo = user.enrollNo;
+                _standard = user.standard;
+                _division = user.division.toUpperCase();
+                _guardianName = user.guardianName;
+                _bloodGroup = user.bloodGroup;
+                _dob = user.dob;
+                _mobileNo = user.mobileNo;
+                path = user.photoUrl;
+                a++;
+              }
             }
           }
 
@@ -164,7 +169,7 @@ class _ProfilePageState extends State<ProfilePage> {
               elevation: 20,
               backgroundColor: Colors.red,
               onPressed: () async {
-                await floatingButoonPressed(model, userType);
+                await floatingButoonPressed(model, userType, firebaseUser);
               },
               child: model.state == ViewState.Busy
                   ? SpinKitDoubleBounce(
@@ -174,7 +179,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   : Icon(Icons.check),
             ),
             body: SafeArea(
-                          child: SingleChildScrollView(
+              child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Column(
@@ -206,7 +211,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               onChanged: (id) {
                                 _enrollNo = id;
                               },
-                              controller: TextEditingController(text: _enrollNo),
+                              controller:
+                                  TextEditingController(text: _enrollNo),
                             ),
                             Row(
                               // mainAxisSize: MainAxisSize.min,
@@ -291,8 +297,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     onChanged: (bg) {
                                       _bloodGroup = bg;
                                     },
-                                    controller:
-                                        TextEditingController(text: _bloodGroup),
+                                    controller: TextEditingController(
+                                        text: _bloodGroup),
                                   ),
                                 ),
                               ],
@@ -305,7 +311,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               onChanged: (mobile_no) {
                                 _mobileNo = mobile_no;
                               },
-                              controller: TextEditingController(text: _mobileNo),
+                              controller:
+                                  TextEditingController(text: _mobileNo),
                             ),
                             Visibility(
                               visible: false,

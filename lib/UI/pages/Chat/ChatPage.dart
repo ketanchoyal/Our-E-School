@@ -14,7 +14,7 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    UserType userType = Provider.of<UserType>(context);
+    UserType userType = Provider.of<UserType>(context, listen: false);
     if (userType == UserType.TEACHER) {
       return BaseView<ChatUsersListPageModel>(
         onModelReady: (model) =>

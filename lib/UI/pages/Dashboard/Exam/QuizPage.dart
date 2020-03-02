@@ -84,7 +84,7 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var model = Provider.of<QuizStateModel>(context);
+    var model = Provider.of<QuizStateModel>(context, listen: false);
     model.showTimer = true;
     return Container(
       padding: EdgeInsets.all(20),
@@ -130,7 +130,7 @@ class FinishPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var model = Provider.of<QuizStateModel>(context);
+    var model = Provider.of<QuizStateModel>(context, listen: false);
     return Container(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -253,7 +253,7 @@ class QuestionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var model = Provider.of<QuizStateModel>(context);
+    var model = Provider.of<QuizStateModel>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(

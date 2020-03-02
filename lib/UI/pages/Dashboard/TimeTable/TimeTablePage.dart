@@ -34,7 +34,7 @@ class _TimeTablePageState extends State<TimeTablePage>
 
   @override
   Widget build(BuildContext context) {
-    UserType userType = Provider.of<UserType>(context);
+    UserType userType = Provider.of<UserType>(context, listen: false);
     return Scaffold(
       appBar: TopBar(
         title: string.timetable,
