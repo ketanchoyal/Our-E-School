@@ -1,3 +1,0 @@
-enum ReturnType {
-  SCHOOLCODEERROR, EMAILERROR, SUCCESS
-}

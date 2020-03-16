@@ -1,1 +1,0 @@
-enum ButtonType { LOGIN, REGISTER }

@@ -3,24 +3,14 @@ description: Web Part of Our-E-School App
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-    
-  shared_preferences: ^0.5.6+2
 
-  # Firebase Dependencies
-  cloud_firestore: ^0.13.4
-  firebase_auth: ^0.15.5+2
-  firebase_core: ^0.4.4+2
-
-  # State Management tools
-  get_it: ^4.0.0
-  provider: ^4.0.4
-
-  cupertino_icons: ^0.1.2
+  responsive_framework: ^0.0.3
+  google_fonts: ^0.3.9
 
 dev_dependencies:
   flutter_test:
@@ -28,3 +18,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
