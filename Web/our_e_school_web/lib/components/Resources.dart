@@ -10,13 +10,9 @@ class assetsString {
 
 const get_started = 'Get Started';
 const teacher = 'Teachers';
-const teacher_welcome_text =
-    '''Create posts, and notify your students and there parents 
-to keep them updated''';
+const teacher_welcome_text = 'Create posts, and notify your students and there parents to keep them updated';
 const student = 'Students';
 const student_welcome_text =
-    '''Check School posts to stay updated with school news.
-Take quizzes, test at home all through your phone''';
+    'Check School posts to stay updated with school news. Take quizzes, test at home all through your phone';
 const parents = 'Parents';
-const parent_welcome_text = '''Stay in touch with your kid\'s teachers.
-Check School posts to stay updated with school news.''';
+const parent_welcome_text = 'Stay in touch with your kid\'s teachers. Check School posts to stay updated with school news.';

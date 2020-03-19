@@ -29,8 +29,10 @@ class MenuBar extends StatelessWidget {
                   child: Wrap(
                     children: <Widget>[
                       FlatButton(
-                        onPressed: () => Navigator.popUntil(
-                            context, ModalRoute.withName("/")),
+                        onPressed: () => Navigator.pushReplacementNamed(
+                          context,
+                          "/login",
+                        ),
                         child: Text(
                           "LOGIN",
                           style: buttonTextStyle,
@@ -40,7 +42,10 @@ class MenuBar extends StatelessWidget {
                         highlightColor: Colors.transparent,
                       ),
                       FlatButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.pushReplacementNamed(
+                          context,
+                          "/register",
+                        ),
                         child: Text(
                           "REGISTER",
                           style: buttonTextStyle,

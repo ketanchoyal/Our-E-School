@@ -55,8 +55,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-const Widget divider = Divider(color: Color(0xFFEEEEEE), thickness: 1);
-
 class Features extends StatelessWidget {
   Features(
       {Key key,
@@ -86,14 +84,14 @@ class Features extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      Container(
-        margin: marginBottom12,
-        child: Text(
-          text,
-          softWrap: true,
-          maxLines: 3,
-          style: headlineTextStyle.copyWith(
-            color: textWithTransparency,
+      Expanded(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 24),
+          child: Text(
+            text,
+            style: headlineTextStyle.copyWith(
+              color: textWithTransparency,
+            ),
           ),
         ),
       ),

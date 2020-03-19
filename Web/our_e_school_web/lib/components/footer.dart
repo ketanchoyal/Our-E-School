@@ -8,7 +8,7 @@ class Footer extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 40),
       child: Align(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.center,
         child: TextBody(text: "Copyright © 2020"),
       ),
     );
