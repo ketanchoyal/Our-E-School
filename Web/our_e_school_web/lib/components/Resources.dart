@@ -1,9 +1,13 @@
-class assetsString {
+class ImageAssets {
   static const no_image_available = 'assets/no_image_available.png';
 
   static const teacher_welcome = 'assets/teacher.png';
   static const student_welcome = 'assets/students.png';
   static const parents_welcome = 'assets/parent2.png';
+
+  static const login_image = 'assets/login_image.png';
+  static const login_image2x = 'assets/login_image@2x.png';
+  
 }
 
 //HomePage
