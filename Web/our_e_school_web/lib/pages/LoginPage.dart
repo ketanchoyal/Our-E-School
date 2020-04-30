@@ -92,7 +92,6 @@ class MobileLoginUI extends StatelessWidget {
                   ),
                 ),
                 Container(
-
                 )
               ],
             ),
