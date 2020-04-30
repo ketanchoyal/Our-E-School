@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:oureschoolweb/components/Resources.dart';
 import 'package:oureschoolweb/components/footer.dart';
 import 'package:oureschoolweb/components/menuBar.dart';
+import 'package:oureschoolweb/helper/responsive_reducers.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class LoginPage extends StatefulWidget {
@@ -69,22 +71,31 @@ class MobileLoginUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      // mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 500,
-          child: Card(
-            elevation: 0,
-            // color: Colors.blueGrey,
-          ),
-        ),
         Container(
           width: MediaQuery.of(context).size.width,
           height: 500,
           child: Card(
             elevation: 10,
             // color: Colors.redAccent,
+            child: Stack(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Opacity(
+                    opacity: 0.4,
+                    child: Image.asset(
+                      ImageAssets.login_image2x,
+                      fit: BoxFit.fitWidth,
+                      filterQuality: FilterQuality.high,
+                    ),
+                  ),
+                ),
+                Container(
+
+                )
+              ],
+            ),
           ),
         ),
       ],
@@ -102,21 +113,30 @@ class DesktopLoginUI extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Expanded(
+        Flexible(
+          flex: 8,
           child: Container(
+            width: MediaQuery.of(context).size.width,
             height: 500,
             child: Card(
               elevation: 0,
               // color: Colors.blueGrey,
+              child: Image.asset(
+                ImageAssets.login_image2x,
+                fit: BoxFit.fitWidth,
+                filterQuality: FilterQuality.high,
+              ),
             ),
           ),
         ),
-        Expanded(
+        Flexible(
+          flex: 12,
           child: Container(
+            width: MediaQuery.of(context).size.width,
             height: 500,
             child: Card(
               elevation: 10,
-              // color: Colors.redAccent,
+              color: Colors.redAccent,
             ),
           ),
         ),
@@ -140,20 +160,32 @@ class TabletLoginUI extends StatelessWidget {
           child: Container(
             height: 500,
             width: MediaQuery.of(context).size.width,
-            child: Card(
-              elevation: 0,
-              // color: Colors.blueGrey,
+            child: Center(
+              child: Stack(
+                  children: [
+                    Positioned(
+                      left: -50,
+                      right: 10,
+                      top: 10,
+                      bottom: 10,
+                      child: Image.asset(
+                        ImageAssets.login_image2x,
+                        fit: BoxFit.contain,
+                        filterQuality: FilterQuality.high,
+                      ),
+                    ),
+                  ]),
             ),
           ),
         ),
         Flexible(
-          flex: 6,
+          flex: 5,
           child: Container(
             height: 500,
             width: MediaQuery.of(context).size.width,
             child: Card(
               elevation: 10,
-              // color: Colors.redAccent,
+              color: Colors.redAccent,
             ),
           ),
         ),
