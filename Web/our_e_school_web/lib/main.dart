@@ -16,11 +16,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       builder: (context, widget) => ResponsiveWrapper.builder(
           BouncingScrollWrapper.builder(context, widget),
-          maxWidth: 1200,
+          maxWidth: 1300,
           minWidth: 450,
           defaultScale: true,
           breakpoints: [
             ResponsiveBreakpoint(breakpoint: 450, name: MOBILE),
+            ResponsiveBreakpoint(breakpoint: 600, name: MOBILE, scale: true),
             ResponsiveBreakpoint(breakpoint: 800, name: TABLET, scale: true),
             ResponsiveBreakpoint(breakpoint: 1000, name: TABLET, scale: true),
             ResponsiveBreakpoint(breakpoint: 1200, name: DESKTOP, scale: true),
@@ -33,7 +34,11 @@ class MyApp extends StatelessWidget {
         "/login": (context) => LoginPage(),
         "/register": (context) => RegisterPage(),
       },
-      theme: Theme.of(context).copyWith(platform: TargetPlatform.android),
+      theme: Theme.of(context).copyWith(
+        platform: TargetPlatform.android,
+        accentColor: Colors.black,
+        primaryColor: Colors.white
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
