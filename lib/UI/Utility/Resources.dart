@@ -19,18 +19,13 @@ Check School posts to stay updated with school news.''';
   static const regidtered = 'Registered?';
   static const not_registered = 'Not Registered?';
   static const login = 'Login';
-  static const mobile = 'Mobile';
   static const register = 'Register';
   static const need_help = 'Need help?';
-
   static const school_name_code = 'School Name Code';
   static const school_name_code_hint = 'One which we gave';
-
   static const student_teacher_id_hint = 'One which school gave';
-
   static const email = 'Email';
   static const email_hint = 'you@example.com';
-
   static const password = 'Password';
   static const confirm_password = 'Confirm Password';
   static const password_hint = 'min length is 7';

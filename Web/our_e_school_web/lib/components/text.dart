@@ -1,19 +1,36 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:oureschoolweb/components/spacing.dart';
 import 'package:oureschoolweb/components/typography.dart';
 
 class TextBody extends StatelessWidget {
   final String text;
+  final Color color;
 
-  const TextBody({Key key, this.text}) : super(key: key);
+  const TextBody({Key key, this.text, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: marginBottom24,
       child: Text(
         text,
-        style: bodyTextStyle,
+        style: bodyTextStyle(context, color: color),
+      ),
+    );
+  }
+}
+
+class TextBodyExtraLarge extends StatelessWidget {
+  final String text;
+  final Color color;
+
+  const TextBodyExtraLarge({Key key, this.text, this.color}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        text,
+        style: extraLargeTextStyle(context, color: color),
       ),
     );
   }
@@ -27,10 +44,27 @@ class TextBodySecondary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: marginBottom24,
       child: Text(
         text,
-        style: subtitleTextStyle,
+        style: subtitleTextStyle(context),
+      ),
+    );
+  }
+}
+
+class TextHeadline extends StatelessWidget {
+  final String text;
+  final Color color;
+
+  const TextHeadline({Key key, this.text, this.color})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        text,
+        style: headlineTextStyle(context, color: color),
       ),
     );
   }
@@ -38,16 +72,17 @@ class TextBodySecondary extends StatelessWidget {
 
 class TextHeadlineSecondary extends StatelessWidget {
   final String text;
+  final Color color;
 
-  const TextHeadlineSecondary({Key key, this.text}) : super(key: key);
+  const TextHeadlineSecondary({Key key, this.text, this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: marginBottom12,
       child: Text(
         text,
-        style: headlineSecondaryTextStyle,
+        style: headlineSecondaryTextStyle(context, color: color),
       ),
     );
   }
@@ -61,7 +96,6 @@ class TextBlockquote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: marginBottom24,
       decoration: BoxDecoration(
           border: Border(left: BorderSide(width: 2, color: Color(0xFF333333)))),
       padding: EdgeInsets.only(left: 20),
@@ -69,7 +103,7 @@ class TextBlockquote extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Text(
           text,
-          style: bodyTextStyle,
+          style: bodyTextStyle(context),
         ),
       ),
     );

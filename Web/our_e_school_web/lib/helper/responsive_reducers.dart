@@ -52,20 +52,26 @@ double halfScreenWidth(BuildContext context) =>
 double thirdScreenWidth(BuildContext context) =>
     screenWidthFraction(context, dividedBy: 3);
 
+///14
 double getResponsiveSmallFontSize(BuildContext context) =>
     getResponsiveFontSize(context, fontSize: 14, max: 15);
 
+///17
 double getResponsiveMediumFontSize(BuildContext context) =>
     getResponsiveFontSize(context, fontSize: 17, max: 18);
 
+///21
 double getResponsiveLargeFontSize(BuildContext context) =>
     getResponsiveFontSize(context, fontSize: 21, max: 31);
 
+///25
 double getResponsiveExtraLargeFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 25);
+    getResponsiveFontSize(context, fontSize: 25, max: 28);
 
+
+///30
 double getResponsiveMassiveFontSize(BuildContext context) =>
-    getResponsiveFontSize(context, fontSize: 30);
+    getResponsiveFontSize(context, fontSize: 30, max: 35);
 
 double getResponsiveFontSize(BuildContext context,
     {double fontSize, double max}) {
@@ -73,7 +79,7 @@ double getResponsiveFontSize(BuildContext context,
     max = 100;
   }
   var responsiveSize =
-      min(screenWidthFraction(context, dividedBy: 10) * (fontSize / 100), max);
+      min(screenWidthFraction(context, dividedBy: 6) * (fontSize / 100), max);
 
   return responsiveSize;
 }
