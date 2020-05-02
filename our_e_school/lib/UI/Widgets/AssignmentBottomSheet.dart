@@ -74,7 +74,7 @@ class _AssignmentBottomSheetState extends State<AssignmentBottomSheet> {
                     FloatingActionButton(
                       onPressed: () async {
                         _path = await openFileExplorer(
-                            FileType.CUSTOM, mounted, context,
+                            FileType.custom, mounted, context,
                             extension: 'PDF');
                         setState(() {
                           _fileName =
@@ -94,7 +94,7 @@ class _AssignmentBottomSheetState extends State<AssignmentBottomSheet> {
                     FloatingActionButton(
                       onPressed: () async {
                         _path = await openFileExplorer(
-                            FileType.IMAGE, mounted, context,
+                            FileType.image, mounted, context,
                             extension: 'NOCOMPRESSION');
                         setState(() {
                           _fileName =

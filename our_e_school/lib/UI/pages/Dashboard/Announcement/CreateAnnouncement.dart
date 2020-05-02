@@ -349,7 +349,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                                   child: Icon(Icons.photo_library),
                                   onPressed: () async {
                                     String _path = await openFileExplorer(
-                                      FileType.IMAGE,
+                                      FileType.image,
                                       mounted,
                                       context,
                                     );

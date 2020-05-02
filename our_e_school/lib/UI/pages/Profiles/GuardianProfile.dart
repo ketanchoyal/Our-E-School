@@ -419,7 +419,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
                       ),
                       onPressed: () async {
                         String _path = await openFileExplorer(
-                            FileType.IMAGE, mounted, context);
+                            FileType.image, mounted, context);
                         setState(() {
                           path = _path;
                           // tempPath = _path;

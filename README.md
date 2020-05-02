@@ -2,19 +2,23 @@
 
 ## I open sourced this project because I wasn't got paid
 
+## PR's are always welcomed
+
 ### An open source project for school management
 
-## I've used Provider + Get_it for State Management
+### State Management: [Provider](https://pub.dev/packages/provider) + [Get_it](https://pub.dev/packages/get_it)
 
-## MVVM(Model-View-(View)Model) Architecture
+### MVVM(Model-View-(View)Model) Architecture
+
+### Note: This app is not fully developed, it still has a lot of bugs and I'm still working on it (For now all the login data for parent, teacher and student are added manually in firestore)
+
+### A web Portal is under developement.
+
+#### There are backend firebase functions too written in Typescript for some automation and some functions to make them work with web based project(future proof)
 
 Our E School is the app build for iOS and Android using Flutter.
 
 It uses Firebase FireStore as Database and Firebase Storage.
-
-### Note: This app is not fully developed, it still has a lot of bugs and I'm still working on it
-
-#### There are backend firebase functions too written in Typescript for some automation and some functions to make them work with web based project(future proof)
 
 ## FeatureS
 
@@ -37,9 +41,32 @@ It uses Firebase FireStore as Database and Firebase Storage.
 
 ## Screenshots
 
-<img src="https://github.com/ketanchoyal/Academic-Connect/raw/new-dashboards/screenshots/Screenshot_1.png"/>
+<img src="https://github.com/ketanchoyal/Academic-Connect/raw/master/screenshots/Screenshot_1.png"/>
 
-<img src="https://github.com/ketanchoyal/Academic-Connect/raw/new-dashboards/screenshots/Screenshot_2.png"/>
+<img src="https://github.com/ketanchoyal/Academic-Connect/raw/master/screenshots/Screenshot_2.png"/>
+
+## Database
+
+Database structure snapshot are [here](https://github.com/ketanchoyal/Academic-Connect/raw/master/DB%20Structure).
+
+A full database documentation will be created soon..
+
+## Server.dart 
+
+You need to create this and put in /core/ folder. \
+This File is necessary in order to make Cloud Functions work.
+
+```dart
+class Server {
+  static String baseUrl =
+      YOUR-CLOUD-FUNCTION-URL;
+  static String webApi = 'webApi/';
+  static String profileUpdate = 'profileupdate';
+  static String getProfileData = 'userdata';
+  static String postAnnouncement = 'postAnnouncement';
+  static String addAssignment = 'addAssignment';
+}
+```
 
 ## Getting Started
 
