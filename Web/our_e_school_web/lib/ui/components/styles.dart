@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:oureschoolweb/components/color.dart';
-import 'package:oureschoolweb/components/typography.dart';
+import 'package:oureschoolweb/ui/components/color.dart';
+import 'package:oureschoolweb/ui/components/typography.dart';
 
 InputDecoration kTextFieldDecorationWithIcon(BuildContext context, {@required IconData icon}) => InputDecoration(
       focusedBorder: OutlineInputBorder(

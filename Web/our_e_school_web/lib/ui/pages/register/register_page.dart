@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:oureschoolweb/components/footer.dart';
-import 'package:oureschoolweb/components/menuBar.dart';
+import 'package:oureschoolweb/ui/components/footer.dart';
+import 'package:oureschoolweb/ui/components/MenuBar/menuBar.dart';
+import 'package:oureschoolweb/ui/helper/Enums.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -14,21 +15,17 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          SingleChildScrollView(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 32),
-              child: Column(
-                children: <Widget>[
-                  MenuBar(),
-                  ResponsiveRegisterForm(),
-                  Footer(),
-                ],
-              ),
-            ),
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 32),
+          child: Column(
+            children: <Widget>[
+              MenuBar(selectedPage: SelectedPage.REGISTER),
+              ResponsiveRegisterForm(),
+              Footer(),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:oureschoolweb/components/color.dart';
+
+import 'color.dart';
 
 class MainButton extends StatelessWidget {
   final Function onPressed;

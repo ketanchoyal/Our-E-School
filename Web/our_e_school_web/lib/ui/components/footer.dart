@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oureschoolweb/components/text.dart';
+import 'text.dart';
 
 class Footer extends StatelessWidget {
   // TODO Add additional footer components (i.e. about, links, logos).

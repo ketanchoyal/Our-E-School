@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:oureschoolweb/components/Resources.dart';
-import 'package:oureschoolweb/components/color.dart';
-import 'package:oureschoolweb/components/footer.dart';
-import 'package:oureschoolweb/components/menuBar.dart';
-import 'package:oureschoolweb/components/styles.dart';
-import 'package:oureschoolweb/components/text.dart';
-import 'package:oureschoolweb/components/typography.dart';
+import 'package:oureschoolweb/ui/components/Resources.dart';
+import 'package:oureschoolweb/ui/components/color.dart';
+import 'package:oureschoolweb/ui/components/footer.dart';
+import 'package:oureschoolweb/ui/components/MenuBar/menuBar.dart';
+import 'package:oureschoolweb/ui/components/styles.dart';
+import 'package:oureschoolweb/ui/components/text.dart';
+import 'package:oureschoolweb/ui/components/typography.dart';
+import 'package:oureschoolweb/ui/helper/Enums.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,21 +20,17 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          SingleChildScrollView(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 32),
-              child: Column(
-                children: <Widget>[
-                  MenuBar(),
-                  ResponsiveLoginForm(),
-                  Footer(),
-                ],
-              ),
-            ),
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 32),
+          child: Column(
+            children: <Widget>[
+              MenuBar(selectedPage: SelectedPage.LOGIN,),
+              ResponsiveLoginForm(),
+              Footer(),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -54,17 +51,14 @@ class ResponsiveLoginForm extends StatelessWidget {
               // print("Desktop");
               return DesktopLoginUI();
             }
-
             if (sizingInformation.isTablet) {
               // print("Tablet");
               // print(MediaQuery.of(context).size.width);
               return TabletLoginUI();
             }
-
             if (sizingInformation.isMobile) {
               return MobileLoginUI();
             }
-
             return DesktopLoginUI();
           },
         );
@@ -241,7 +235,7 @@ class LoginForm extends StatelessWidget {
               minWidth: 200,
             ),
             child: TextField(
-              onChanged: (email) {},
+              onChanged: (schoolCode) {},
               keyboardType: TextInputType.text,
               style: bodyTextStyle(context, color: Colors.white),
               decoration: kTextFieldDecorationWithIcon(context,
@@ -277,7 +271,7 @@ class LoginForm extends StatelessWidget {
               minWidth: 200,
             ),
             child: TextField(
-              onChanged: (email) {},
+              onChanged: (password) {},
               keyboardType: TextInputType.text,
               obscureText: true,
               style: bodyTextStyle(context, color: Colors.white),
@@ -297,7 +291,9 @@ class LoginForm extends StatelessWidget {
               child: FlatButton(
                 hoverColor: Colors.redAccent.shade700,
                 color: Colors.redAccent,
-                onPressed: () {},
+                onPressed: () {
+                  
+                },
                 child: Center(
                   child: TextHeadlineSecondary(
                     text: StringConstants.login.toUpperCase(),

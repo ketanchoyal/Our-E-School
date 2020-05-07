@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:oureschoolweb/components/color.dart';
-import 'package:oureschoolweb/helper/responsive_reducers.dart';
+import 'package:oureschoolweb/ui/components/color.dart';
+import 'package:oureschoolweb/ui/helper/responsive_reducers.dart';
 
 // Simple
 TextStyle headlineTextStyle(BuildContext context, {Color color}) => GoogleFonts.montserrat(

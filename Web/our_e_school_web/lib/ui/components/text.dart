@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:oureschoolweb/components/typography.dart';
+import 'package:oureschoolweb/ui/components/typography.dart';
 
 class TextBody extends StatelessWidget {
   final String text;
