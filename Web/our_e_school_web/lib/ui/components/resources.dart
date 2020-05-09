@@ -7,7 +7,9 @@ class ImageAssets {
 
   static const login_image = 'assets/login_image.png';
   static const login_image2x = 'assets/login_image@2x.png';
-  
+
+  static const add_user = 'assets/addUser.png';
+  static const add_user2x = 'assets/addUser@2x.png';
 }
 
 

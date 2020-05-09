@@ -5,10 +5,11 @@ import 'package:oureschoolweb/ui/components/color.dart';
 import 'package:oureschoolweb/ui/helper/responsive_reducers.dart';
 
 // Simple
-TextStyle headlineTextStyle(BuildContext context, {Color color}) => GoogleFonts.montserrat(
+TextStyle headlineTextStyle(BuildContext context, {Color color}) =>
+    GoogleFonts.montserrat(
       textStyle: TextStyle(
         fontSize: getResponsiveExtraLargeFontSize(context),
-        color: color ?? textPrimary,
+        color: color ?? textMenuBarPrimary,
         // letterSpacing: 1.2,
         fontWeight: FontWeight.w300,
       ),
@@ -18,20 +19,22 @@ TextStyle headlineSecondaryTextStyle(BuildContext context, {Color color}) =>
     GoogleFonts.montserrat(
       textStyle: TextStyle(
         fontSize: getResponsiveLargeFontSize(context),
-        color: color ?? textPrimary,
+        color: color ?? textMenuBarPrimary,
         fontWeight: FontWeight.w300,
       ),
     );
 
-TextStyle extraLargeTextStyle(BuildContext context, {Color color}) => GoogleFonts.montserrat(
+TextStyle extraLargeTextStyle(BuildContext context, {Color color}) =>
+    GoogleFonts.montserrat(
       textStyle: TextStyle(
         fontSize: getResponsiveMassiveFontSize(context),
-        color: color ?? textPrimary,
+        color: color ?? textMenuBarPrimary,
         fontWeight: FontWeight.w300,
       ),
     );
 
-TextStyle subtitleTextStyle(BuildContext context, {Color color}) => GoogleFonts.openSans(
+TextStyle subtitleTextStyle(BuildContext context, {Color color}) =>
+    GoogleFonts.openSans(
       textStyle: TextStyle(
         fontSize: getResponsiveSmallFontSize(context),
         color: color ?? textSecondary,
@@ -39,20 +42,21 @@ TextStyle subtitleTextStyle(BuildContext context, {Color color}) => GoogleFonts.
       ),
     );
 
-TextStyle bodyTextStyle(BuildContext context, {Color color}) => GoogleFonts.openSans(
+TextStyle bodyTextStyle(BuildContext context, {Color color}) =>
+    GoogleFonts.openSans(
       textStyle: TextStyle(
         fontSize: getResponsiveMediumFontSize(context),
-        color: color ?? textPrimary,
+        color: color ?? textMenuBarPrimary,
       ),
     );
 
-TextStyle buttonTextStyle = GoogleFonts.montserrat(
-  textStyle: TextStyle(
-    fontSize: 18,
-    color: textPrimary,
-    letterSpacing: 1,
-  ),
-);
+TextStyle buttonTextStyle({Color color}) => GoogleFonts.montserrat(
+      textStyle: TextStyle(
+        fontSize: 18,
+        color: color ?? textMenuBarPrimary,
+        letterSpacing: 1,
+      ),
+    );
 
 // Advanced
 // TODO: Add additional text styles.

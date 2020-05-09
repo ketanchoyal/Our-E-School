@@ -18,16 +18,16 @@ class MainButton extends StatelessWidget {
         onExit: (event) => setState(() => hover = false),
         child: OutlineButton(
           onPressed: onPressed,
-          highlightedBorderColor: textPrimary,
-          hoverColor: textPrimary,
-          borderSide: BorderSide(color: textPrimary, width: 2),
+          highlightedBorderColor: textMenuBarPrimary,
+          hoverColor: textMenuBarPrimary,
+          borderSide: BorderSide(color: textMenuBarPrimary, width: 2),
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             "READ MORE",
             style: GoogleFonts.montserrat(
               textStyle: TextStyle(
                   fontSize: 14,
-                  color: hover ? Colors.white : textPrimary,
+                  color: hover ? Colors.white : textMenuBarPrimary,
                   letterSpacing: 1),
             ),
           ),

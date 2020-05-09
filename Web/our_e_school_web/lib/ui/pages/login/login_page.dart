@@ -27,8 +27,10 @@ class _LoginPageState extends State<LoginPage> {
           margin: EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: <Widget>[
-              MenuBar(selectedPage: SelectedPage.LOGIN,),
-              ResponsiveLoginForm(),
+              MenuBar(
+                selectedPage: SelectedPage.LOGIN,
+              ),
+              ResponsiveLoginUI(),
               Footer(),
             ],
           ),
@@ -38,8 +40,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class ResponsiveLoginForm extends StatelessWidget {
-  const ResponsiveLoginForm({
+class ResponsiveLoginUI extends StatelessWidget {
+  const ResponsiveLoginUI({
     Key key,
   }) : super(key: key);
 
@@ -152,7 +154,6 @@ class DesktopLoginUI extends StatelessWidget {
   }
 }
 
-
 class TabletLoginUI extends StatelessWidget {
   const TabletLoginUI({
     Key key,
@@ -212,104 +213,104 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginPageViewModel>.reactive(
-      viewModelBuilder: () => LoginPageViewModel(),
-      builder: (context, model, child) {
-        return Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(bottom: 40),
-                constraints: BoxConstraints(
-                  maxWidth: 400,
-                  minWidth: 200,
-                ),
-                child: Align(
-                  alignment: Alignment.center,
+        viewModelBuilder: () => LoginPageViewModel(),
+        builder: (context, model, child) {
+          return Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(bottom: 40),
+                  constraints: BoxConstraints(
+                    maxWidth: 400,
+                    minWidth: 200,
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
                     child: TextBodyExtraLarge(
-                  text: "SIGNIN",
-                  color: Colors.white,
-                )),
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                constraints: BoxConstraints(
-                  maxWidth: 400,
-                  minWidth: 200,
-                ),
-                child: TextField(
-                  onChanged: (schoolCode) {},
-                  keyboardType: TextInputType.text,
-                  style: bodyTextStyle(context, color: Colors.white),
-                  decoration: kTextFieldDecorationWithIcon(context,
-                          icon: Icons.school)
-                      .copyWith(
-                    hintText: StringConstants.school_name_code_hint,
-                    labelText: StringConstants.school_name_code,
+                      text: "SIGNIN",
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                constraints: BoxConstraints(
-                  maxWidth: 400,
-                  minWidth: 200,
-                ),
-                child: TextField(
-                  onChanged: (email) {},
-                  keyboardType: TextInputType.emailAddress,
-                  style: bodyTextStyle(context, color: Colors.white),
-                  decoration: kTextFieldDecorationWithIcon(context,
-                          icon: Icons.email)
-                      .copyWith(
-                    hintText: StringConstants.email_hint,
-                    labelText: StringConstants.email,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                constraints: BoxConstraints(
-                  maxWidth: 400,
-                  minWidth: 200,
-                ),
-                child: TextField(
-                  onChanged: (password) {},
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                  style: bodyTextStyle(context, color: Colors.white),
-                  decoration: kTextFieldDecorationWithIcon(
-                    context,
-                    icon: Icons.vpn_key,
-                  ).copyWith(
-                    hintText: StringConstants.password_hint,
-                    labelText: StringConstants.password,
-                  ),
-                ),
-              ),
-              Container(
+                Container(
                   padding: EdgeInsets.all(10),
                   constraints: BoxConstraints(
-                      maxWidth: 400, minWidth: 200, minHeight: 80),
-                  child: FlatButton(
-                    hoverColor: Colors.redAccent.shade700,
-                    color: Colors.redAccent,
-                    onPressed: () {
-                      model.navigateToAddUser();
-                    },
-                    child: Center(
-                      child: TextHeadlineSecondary(
-                        text: StringConstants.login.toUpperCase(),
-                        color: Colors.white,
-                      ),
+                    maxWidth: 400,
+                    minWidth: 200,
+                  ),
+                  child: TextField(
+                    onChanged: (schoolCode) {},
+                    keyboardType: TextInputType.text,
+                    style: bodyTextStyle(context, color: Colors.white),
+                    decoration: kTextFieldDecorationWithIcon(context,
+                            icon: Icons.school)
+                        .copyWith(
+                      hintText: StringConstants.school_name_code_hint,
+                      labelText: StringConstants.school_name_code,
                     ),
-                  )),
-            ],
-          ),
-        );
-      }
-    );
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  constraints: BoxConstraints(
+                    maxWidth: 400,
+                    minWidth: 200,
+                  ),
+                  child: TextField(
+                    onChanged: (email) {},
+                    keyboardType: TextInputType.emailAddress,
+                    style: bodyTextStyle(context, color: Colors.white),
+                    decoration:
+                        kTextFieldDecorationWithIcon(context, icon: Icons.email)
+                            .copyWith(
+                      hintText: StringConstants.email_hint,
+                      labelText: StringConstants.email,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  constraints: BoxConstraints(
+                    maxWidth: 400,
+                    minWidth: 200,
+                  ),
+                  child: TextField(
+                    onChanged: (password) {},
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    style: bodyTextStyle(context, color: Colors.white),
+                    decoration: kTextFieldDecorationWithIcon(
+                      context,
+                      icon: Icons.vpn_key,
+                    ).copyWith(
+                      hintText: StringConstants.password_hint,
+                      labelText: StringConstants.password,
+                    ),
+                  ),
+                ),
+                Container(
+                    padding: EdgeInsets.all(10),
+                    constraints: BoxConstraints(
+                        maxWidth: 400, minWidth: 200, minHeight: 80),
+                    child: FlatButton(
+                      hoverColor: Colors.redAccent.shade700,
+                      color: Colors.redAccent,
+                      onPressed: () {
+                        model.navigateToAddUser();
+                      },
+                      child: Center(
+                        child: TextHeadlineSecondary(
+                          text: StringConstants.login.toUpperCase(),
+                          color: Colors.white,
+                        ),
+                      ),
+                    )),
+              ],
+            ),
+          );
+        });
   }
 }

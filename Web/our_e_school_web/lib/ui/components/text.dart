@@ -56,8 +56,7 @@ class TextHeadline extends StatelessWidget {
   final String text;
   final Color color;
 
-  const TextHeadline({Key key, this.text, this.color})
-      : super(key: key);
+  const TextHeadline({Key key, this.text, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +82,23 @@ class TextHeadlineSecondary extends StatelessWidget {
       child: Text(
         text,
         style: headlineSecondaryTextStyle(context, color: color),
+      ),
+    );
+  }
+}
+
+class TextButton extends StatelessWidget {
+  final String text;
+  final Color color;
+
+  const TextButton({Key key, this.text, this.color}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        text,
+        style: buttonTextStyle(color: color),
       ),
     );
   }

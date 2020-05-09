@@ -14,10 +14,13 @@ dependencies:
 
   #state management
   stacked: ^1.4.1+2
-  stacked_services: ^0.2.2
+  #Inversion of control
+  #It means removing dependencies from your code by getting them from somewhere else or injecting them into your code
   get_it: ^4.0.2
   injectable: ^0.3.0
+  #Navigation
   auto_route: ^0.4.5
+  stacked_services: ^0.2.2
 
 dev_dependencies:
   flutter_test:
@@ -28,7 +31,7 @@ dev_dependencies:
   injectable_generator: ^0.3.5
 
 dependency_overrides:
-  get: '2.0.9-dev'
+  get: ^2.0.9-dev
 
 flutter:
   uses-material-design: true

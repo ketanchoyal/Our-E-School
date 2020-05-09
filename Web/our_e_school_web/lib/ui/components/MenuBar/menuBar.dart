@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:oureschoolweb/ui/components/MenuBar/menuBarModel.dart';
 import 'package:oureschoolweb/ui/components/color.dart';
+import 'package:oureschoolweb/ui/components/menubar/menuBar_model.dart';
 import 'package:oureschoolweb/ui/components/typography.dart';
 import 'package:oureschoolweb/ui/helper/Enums.dart';
 import 'package:stacked/stacked.dart';
@@ -28,7 +28,7 @@ class MenuBar extends StatelessWidget {
                           model.navigateToHome(),
                       child: Text("OUR E-SCHOOL",
                           style: GoogleFonts.montserrat(
-                              color: textPrimary,
+                              color:textMenuBarPrimary,
                               fontSize: 30,
                               letterSpacing: 3,
                               fontWeight: FontWeight.w500)),
@@ -46,7 +46,7 @@ class MenuBar extends StatelessWidget {
                                 onPressed: () => model.navigateToLogin(),
                                 child: Text(
                                   "LOGIN",
-                                  style: buttonTextStyle,
+                                  style: buttonTextStyle(),
                                 ),
                                 splashColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
@@ -62,7 +62,7 @@ class MenuBar extends StatelessWidget {
                                 onPressed: () => model.navigateToRegister(),
                                 child: Text(
                                   "REGISTER",
-                                  style: buttonTextStyle,
+                                  style: buttonTextStyle(),
                                 ),
                                 splashColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
@@ -77,7 +77,7 @@ class MenuBar extends StatelessWidget {
                                 onPressed: () {},
                                 child: Text(
                                   "ABOUT",
-                                  style: buttonTextStyle,
+                                  style: buttonTextStyle(),
                                 ),
                                 splashColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
@@ -92,7 +92,7 @@ class MenuBar extends StatelessWidget {
                                 onPressed: () {},
                                 child: Text(
                                   "CONTACT",
-                                  style: buttonTextStyle,
+                                  style: buttonTextStyle(),
                                 ),
                                 splashColor: Colors.transparent,
                                 hoverColor: Colors.transparent,

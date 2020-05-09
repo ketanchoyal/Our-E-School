@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:oureschoolweb/ui/components/color.dart';
 import 'package:oureschoolweb/ui/components/typography.dart';
 
-InputDecoration kTextFieldDecorationWithIcon(BuildContext context, {@required IconData icon}) => InputDecoration(
+InputDecoration kTextFieldDecorationWithIcon(BuildContext context,
+        {@required IconData icon, EdgeInsets padding}) =>
+    InputDecoration(
       focusedBorder: OutlineInputBorder(
         borderSide: new BorderSide(
           color: Colors.white,
@@ -19,11 +21,21 @@ InputDecoration kTextFieldDecorationWithIcon(BuildContext context, {@required Ic
       ),
       hoverColor: Colors.redAccent,
       fillColor: Colors.white,
-      prefixIcon:Icon(
+      prefixIcon: Icon(
         icon,
         color: Colors.white,
       ),
-      labelStyle: bodyTextStyle(context, color: Colors.white),
-      hintStyle: TextStyle(height: 1.5, fontWeight: FontWeight.w300),
-      contentPadding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
+      labelStyle: bodyTextStyle(
+        context,
+        color: Colors.white,
+      ),
+      hintStyle: TextStyle(
+        height: 1.5,
+        fontWeight: FontWeight.w300,
+      ),
+      contentPadding: padding ?? EdgeInsets.symmetric(
+        vertical: 18.0,
+        horizontal: 20.0,
+      ),
     );
+
