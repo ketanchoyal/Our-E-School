@@ -98,7 +98,7 @@ class TextButton extends StatelessWidget {
     return Container(
       child: Text(
         text,
-        style: buttonTextStyle(color: color),
+        style: buttonTextStyle(color: color).copyWith(color: color),
       ),
     );
   }
