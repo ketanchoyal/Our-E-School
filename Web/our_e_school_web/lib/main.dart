@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
             850,
             name: TABLET,
           ),
-          ResponsiveBreakpoint.autoScale(
+          ResponsiveBreakpoint.autoScaleDown(
             1000,
             name: TABLET,
           ),
