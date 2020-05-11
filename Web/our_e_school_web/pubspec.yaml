@@ -8,10 +8,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  responsive_framework: ^0.0.3
+  responsive_framework: ^0.0.7
   google_fonts: ^0.3.9
-  responsive_builder: ^0.1.5
-
   #state management
   stacked: ^1.4.1+2
   #Inversion of control

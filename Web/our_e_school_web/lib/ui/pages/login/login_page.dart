@@ -8,7 +8,7 @@ import 'package:oureschoolweb/ui/components/text.dart';
 import 'package:oureschoolweb/ui/components/typography.dart';
 import 'package:oureschoolweb/ui/helper/Enums.dart';
 import 'package:oureschoolweb/ui/pages/login/login_page_view_model.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginPage extends StatefulWidget {
@@ -49,23 +49,13 @@ class ResponsiveLoginUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return ResponsiveBuilder(
-          builder: (context, sizingInformation) {
-            if (sizingInformation.isDesktop) {
-              // print("Desktop");
-              return DesktopLoginUI();
-            }
-            if (sizingInformation.isTablet) {
-              // print("Tablet");
-              // print(MediaQuery.of(context).size.width);
-              return TabletLoginUI();
-            }
-            if (sizingInformation.isMobile) {
-              return MobileLoginUI();
-            }
-            return DesktopLoginUI();
-          },
-        );
+        if (ResponsiveWrapper.of(context).equals(MOBILE) || ResponsiveWrapper.of(context).isSmallerThan(MOBILE)) {
+          return MobileLoginUI();
+        } else if (ResponsiveWrapper.of(context).equals(TABLET)) {
+          return TabletLoginUI();
+        } else {
+          return DesktopLoginUI();
+        }
       },
     );
   }

@@ -9,7 +9,7 @@ import 'package:oureschoolweb/ui/components/text.dart';
 import 'package:oureschoolweb/ui/components/typography.dart';
 import 'package:oureschoolweb/ui/helper/Enums.dart';
 import 'package:oureschoolweb/ui/pages/add_user/add_user_view_model.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:stacked/stacked.dart';
 
 class AddUser extends StatelessWidget {
@@ -42,23 +42,14 @@ class ResponsiveAddUserUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return ResponsiveBuilder(
-          builder: (context, sizingInformation) {
-            if (sizingInformation.isDesktop) {
-              // print("Desktop");
-              return DesktopAddUserUI();
-            }
-            if (sizingInformation.isTablet) {
-              // print("Tablet");
-              // print(MediaQuery.of(context).size.width);
-              return TabletAddUserUI();
-            }
-            if (sizingInformation.isMobile) {
-              return MobileAddUserUI();
-            }
-            return DesktopAddUserUI();
-          },
-        );
+        if (ResponsiveWrapper.of(context).equals(MOBILE) ||
+            ResponsiveWrapper.of(context).isSmallerThan(MOBILE)) {
+          return MobileAddUserUI();
+        } else if (ResponsiveWrapper.of(context).equals(TABLET)) {
+          return TabletAddUserUI();
+        } else {
+          return DesktopAddUserUI();
+        }
       },
     );
   }
@@ -252,126 +243,136 @@ class _AddUserFormState extends State<AddUserForm> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  constraints: BoxConstraints(
-                    maxWidth: 400,
-                    minWidth: 200,
-                    maxHeight: 100,
-                  ),
-                  child: CupertinoSlidingSegmentedControl<String>(
-                    onValueChanged: (String value) {
-                      setState(() {
-                        sharedValue = value;
-                      });
-                    },
-                    groupValue: sharedValue,
-                    children: {
-                      "Student": Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30),
-                        child: Text(
-                          "Student",
-                          style: subtitleTextStyle(context),
-                        ),
-                      ),
-                      "Parent": Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30),
-                        child: Text(
-                          "Parent",
-                          style: subtitleTextStyle(context),
-                        ),
-                      ),
-                      "Teacher": Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30),
-                        child: Text(
-                          "Teacher",
-                          style: subtitleTextStyle(context),
-                        ),
-                      ),
-                    },
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  constraints: BoxConstraints(
-                    maxWidth: 400,
-                    minWidth: 200,
-                  ),
-                  child: TextField(
-                    onChanged: (schoolCode) {},
-                    keyboardType: TextInputType.text,
-                    style: bodyTextStyle(context, color: Colors.white),
-                    decoration: kTextFieldDecorationWithIcon(
-                      context,
-                      icon: Icons.alternate_email,
-                    ).copyWith(
-                      hintText: StringConstants.email_hint,
-                      labelText: StringConstants.email,
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  constraints: BoxConstraints(
-                    maxWidth: 400,
-                    minWidth: 200,
-                  ),
-                  child: TextField(
-                    onChanged: (email) {},
-                    keyboardType: TextInputType.emailAddress,
-                    style: bodyTextStyle(context, color: Colors.white),
-                    decoration: kTextFieldDecorationWithIcon(
-                      context,
-                      icon: Icons.enhanced_encryption,
-                    ).copyWith(
-                      hintText: "Genereated by system..",
-                      labelText: "Id",
-                    ),
-                  ),
-                ),
+                // Container(
+                //   padding: EdgeInsets.all(10),
+                //   constraints: BoxConstraints(
+                //     maxWidth: 400,
+                //     minWidth: 220,
+                //     maxHeight: 100,
+                //   ),
+                //   child: CupertinoSlidingSegmentedControl<String>(
+                //     onValueChanged: (String value) {
+                //       setState(() {
+                //         sharedValue = value;
+                //       });
+                //     },
+                //     groupValue: sharedValue,
+                //     children: {
+                //       "Student": Padding(
+                //         padding: EdgeInsets.symmetric(horizontal: 30),
+                //         child: Text(
+                //           "Student",
+                //           style: subtitleTextStyle(context),
+                //         ),
+                //       ),
+                //       "Parent": Padding(
+                //         padding: EdgeInsets.symmetric(horizontal: 30),
+                //         child: Text(
+                //           "Parent",
+                //           style: subtitleTextStyle(context),
+                //         ),
+                //       ),
+                //       "Teacher": Padding(
+                //         padding: EdgeInsets.symmetric(horizontal: 30),
+                //         child: Text(
+                //           "Teacher",
+                //           style: subtitleTextStyle(context),
+                //         ),
+                //       ),
+                //     },
+                //   ),
+                // ),
                 Flexible(
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxWidth: 400,
-                      minWidth: 200,
-                    ),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned(
-                          left: 25,
-                          top: 0,
-                          bottom: parentListIndex == 0 ? null : 0,
-                          child: Container(
-                            width: 2,
-                            color: Colors.white,
+                  child: ListView(
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // mainAxisSize: MainAxisSize.min,
+
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        constraints: BoxConstraints(
+                          maxWidth: 400,
+                          minWidth: 200,
+                        ),
+                        child: TextField(
+                          onChanged: (schoolCode) {},
+                          keyboardType: TextInputType.text,
+                          style: bodyTextStyle(context, color: Colors.white),
+                          decoration: kTextFieldDecorationWithIcon(
+                            context,
+                            icon: Icons.alternate_email,
+                          ).copyWith(
+                            hintText: StringConstants.email_hint,
+                            labelText: StringConstants.email,
                           ),
                         ),
-                        AnimatedList(
-                          initialItemCount: parents.length,
-                          key: _animatedListKey,
-                          itemBuilder: (context, index, animation) {
-                            return buildItem(context, index, animation);
-                          },
-                          // children: parents,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  constraints: BoxConstraints(
-                      maxWidth: 400, minWidth: 200, minHeight: 70),
-                  child: FlatButton(
-                    hoverColor: Colors.redAccent.shade700,
-                    color: Colors.redAccent,
-                    onPressed: () {},
-                    child: Center(
-                      child: TextButton(
-                        text: "Add Student".toUpperCase(),
-                        color: Colors.white,
                       ),
-                    ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        constraints: BoxConstraints(
+                          maxWidth: 400,
+                          minWidth: 200,
+                        ),
+                        child: TextField(
+                          onChanged: (email) {},
+                          keyboardType: TextInputType.emailAddress,
+                          style: bodyTextStyle(context, color: Colors.white),
+                          decoration: kTextFieldDecorationWithIcon(
+                            context,
+                            icon: Icons.enhanced_encryption,
+                          ).copyWith(
+                            hintText: "Genereated by system..",
+                            labelText: "Id",
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Container(
+                          constraints: BoxConstraints(
+                            maxWidth: 400,
+                            minWidth: 200,
+                          ),
+                          child: Stack(
+                            children: <Widget>[
+                              Positioned(
+                                left: 25,
+                                top: 0,
+                                bottom: parentListIndex == 0 ? null : 0,
+                                child: Container(
+                                  width: 2,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              AnimatedList(
+                                initialItemCount: parents.length,
+                                key: _animatedListKey,
+                                itemBuilder: (context, index, animation) {
+                                  return buildItem(context, index, animation);
+                                },
+                                // children: parents,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(8),
+                        constraints: BoxConstraints(
+                            maxWidth: 400, minWidth: 200, minHeight: 70),
+                        child: FlatButton(
+                          hoverColor: Colors.redAccent.shade700,
+                          color: Colors.redAccent,
+                          onPressed: () {},
+                          child: Center(
+                            child: TextButton(
+                              text: "Add Student".toUpperCase(),
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
