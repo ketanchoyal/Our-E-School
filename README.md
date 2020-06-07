@@ -12,7 +12,7 @@
 
 ### Note: This app is not fully developed, it still has a lot of bugs and I'm still working on it (For now all the login data for parent, teacher and student are added manually in firestore)
 
-### A web Portal is under developement.
+### [Web Portal](https://github.com/ketanchoyal/Our-E-School-Web-Portal) is under development.
 
 #### There are backend firebase functions too written in Typescript for some automation and some functions to make them work with web based project(future proof)
 
@@ -24,7 +24,6 @@ It uses Firebase FireStore as Database and Firebase Storage.
 
 |  UI  | Logic | Feature |
 | ------ | ------ | ------|
-| ✔ | ✔ | Multiple School Login(School Code)
 | ✔ | ✔ | Teacher Login
 | ✔ | ✔ | Student Login
 | ✔ | ✔ | Parent Login
