@@ -1,5 +1,7 @@
-# Our E School
-
+# Our E School 
+ [![HitCount](http://hits.dwyl.com/ketanchoyal/Our-E-School.svg)](http://hits.dwyl.com/ketanchoyal/Our-E-School)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ketanchoyal/Our-E-School/pull/new/master)
+[![GitHub stars](https://img.shields.io/github/stars/ketanchoyal/Our-E-School.svg?style=social&label=Stars✯)](https://github.com/ketanchoyal/Our-E-School/stargazers/)
 ## I open sourced this project because I wasn't got paid
 
 ## PR's are always welcomed
