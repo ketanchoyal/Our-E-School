@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:ourESchool/imports.dart';
 
 class AuthenticationServices extends Services {
@@ -23,17 +24,18 @@ class AuthenticationServices extends Services {
   bool isUserLoggedIn = false;
   UserType userType = UserType.STUDENT;
 
-  StreamController<FirebaseUser> fireBaseUserStream =
-      StreamController<FirebaseUser>();
+  StreamController<User> fireBaseUserStream = StreamController<User>();
   StreamController<bool> isUserLoggedInStream = StreamController<bool>();
   StreamController<UserType> userTypeStream = StreamController<UserType>();
 
   ProfileServices _profileServices = locator<ProfileServices>();
 
   AuthenticationServices() {
-    firestore.settings(
-      persistenceEnabled: false,
-    );
+    if (kIsWeb) firestore.enablePersistence();
+    firestore.settings = Settings(persistenceEnabled: true);
+    // firestore.settings(
+    //   persistenceEnabled: false,
+    // );
     isLoggedIn().then((onValue) => isUserLoggedIn = onValue);
     _userType().then((onValue) => userType = onValue);
   }
@@ -75,10 +77,12 @@ class AuthenticationServices extends Services {
     bool isUserAvailable = false;
     String loginType = userType == UserType.STUDENT
         ? "Student"
-        : userType == UserType.TEACHER ? "Parent-Teacher" : "Parent-Teacher";
+        : userType == UserType.TEACHER
+            ? "Parent-Teacher"
+            : "Parent-Teacher";
 
     DocumentReference _schoolLoginRef =
-        schoolRef.collection(schoolCode.toUpperCase().trim()).document('Login');
+        schoolRef.collection(schoolCode.toUpperCase().trim()).doc('Login');
 
     await _schoolLoginRef.get().then((onValue) {
       isSchoolPresent = onValue.exists;
@@ -99,7 +103,7 @@ class AuthenticationServices extends Services {
         .snapshots()
         .first
         .then((querySnapshot) {
-      querySnapshot.documents.forEach((documentSnapshot) {
+      querySnapshot.docs.forEach((documentSnapshot) {
         isUserAvailable = documentSnapshot.exists;
         print("User Data : " + documentSnapshot.data.toString());
         if (userType == UserType.STUDENT) {
@@ -167,9 +171,9 @@ class AuthenticationServices extends Services {
     // await sharedPreferencesHelper.clearAllData();
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
-      AuthResult authResult = await auth.createUserWithEmailAndPassword(
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      firebaseUser = authResult.user;
+      firebaseUser = userCredential.user;
       authErrors = AuthErrors.SUCCESS;
       sharedPreferencesHelper.setSchoolCode(schoolCode);
       print("User Regestered using Email and Password");
@@ -188,9 +192,9 @@ class AuthenticationServices extends Services {
     // await sharedPreferencesHelper.clearAllData();
     try {
       AuthErrors authErrors = AuthErrors.UNKNOWN;
-      AuthResult authResult = await auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
-      firebaseUser = authResult.user;
+      firebaseUser = userCredential.user;
       authErrors = AuthErrors.SUCCESS;
       sharedPreferencesHelper.setSchoolCode(schoolCode);
       print("User Loggedin using Email and Password");

@@ -65,7 +65,7 @@ class _ChatTeachersListWidgetState extends State<ChatTeachersListWidget> {
                 MessagingScreen(
                   student: widget.model.selectedChild,
                   parentORteacher:
-                      widget.model.teachersListMap[widget.snapshot.documentID],
+                      widget.model.teachersListMap[widget.snapshot.id],
                 ),
               );
             },
@@ -78,10 +78,9 @@ class _ChatTeachersListWidgetState extends State<ChatTeachersListWidget> {
                   width: 50,
                 ),
                 Text(
-                  widget.model.teachersListMap
-                          .containsKey(widget.snapshot.documentID)
-                      ? widget.model.teachersListMap[widget.snapshot.documentID]
-                          .displayName
+                  widget.model.teachersListMap.containsKey(widget.snapshot.id)
+                      ? widget
+                          .model.teachersListMap[widget.snapshot.id].displayName
                       : "loading...",
                   maxLines: 2,
                   style: TextStyle(

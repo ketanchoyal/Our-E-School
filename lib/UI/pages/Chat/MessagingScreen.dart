@@ -7,8 +7,8 @@ import 'package:ourESchool/imports.dart';
 class MessagingScreen extends StatefulWidget {
   MessagingScreen({Key key, this.student, this.parentORteacher})
       : super(key: key);
-  final User parentORteacher;
-  final User student;
+  final AppUser parentORteacher;
+  final AppUser student;
 
   _MessagingScreenState createState() => _MessagingScreenState();
 }
@@ -36,7 +36,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context, listen: false);
+    AppUser user = Provider.of<AppUser>(context, listen: false);
 
     return BaseView<MessagingScreenPageModel>(
         onModelReady: (model) => model.setState2(ViewState.Busy),
@@ -87,7 +87,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
         });
   }
 
-  sendButtonTapped(MessagingScreenPageModel model, User user) async {
+  sendButtonTapped(MessagingScreenPageModel model, AppUser user) async {
     Message message = Message(
       to: widget.parentORteacher.id,
       for_: widget.student.id,
@@ -108,7 +108,7 @@ class _MessagingScreenState extends State<MessagingScreen> {
     );
   }
 
-  Widget _buildMessageSender(MessagingScreenPageModel model, User user) {
+  Widget _buildMessageSender(MessagingScreenPageModel model, AppUser user) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,

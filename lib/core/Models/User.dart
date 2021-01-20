@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class AppUser {
   String photoUrl;
   String email;
   String division;
@@ -23,7 +23,7 @@ class User {
     return standard + division.toUpperCase();
   }
 
-  User(
+  AppUser(
       {this.photoUrl = 'default',
       this.email = '',
       this.division = '',
@@ -52,8 +52,8 @@ class User {
     return false;
   }
 
-  User.fromSnapshot(DocumentSnapshot documentSnapshot) {
-    _fromJson(documentSnapshot.data);
+  AppUser.fromSnapshot(DocumentSnapshot documentSnapshot) {
+    _fromJson(documentSnapshot.data());
   }
 
   _fromJson(Map<String, dynamic> json) {
@@ -71,10 +71,10 @@ class User {
     mobileNo = json['mobileNo'] ?? '';
     isTeacher = json['isTeacher'] ?? false;
     isVerified = json['isVerified'] ?? false;
-    connection = json['connection']  ?? {};
+    connection = json['connection'] ?? {};
   }
 
-  User.fromJson(Map<String, dynamic> json) {
+  AppUser.fromJson(Map<String, dynamic> json) {
     _fromJson(json);
   }
 

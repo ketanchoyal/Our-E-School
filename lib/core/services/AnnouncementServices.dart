@@ -11,7 +11,7 @@ import 'package:path/path.dart' as p;
 class AnnouncementServices extends Services {
   StorageServices _storageServices = locator<StorageServices>();
   DocumentSnapshot lastPostSnapshot = null;
-  List<DocumentSnapshot> postDocumentSnapshots = new List<DocumentSnapshot>();
+  List<DocumentSnapshot> postDocumentSnapshots = List.empty(growable: true);
 
   AnnouncementServices() {
     getFirebaseUser();
@@ -31,24 +31,22 @@ class AnnouncementServices extends Services {
     if (schoolCode == null) await getSchoolCode();
 
     var _postRef =
-        (await schoolRefwithCode()).document('Posts').collection(stdDiv_Global);
+        (await schoolRefwithCode()).doc('Posts').collection(stdDiv_Global);
     QuerySnapshot data;
     //  = await _schoolRef.getDocuments();
     if (lastPostSnapshot == null)
-      data = await _postRef
-          .orderBy('timeStamp', descending: true)
-          .limit(10)
-          .getDocuments();
+      data =
+          await _postRef.orderBy('timeStamp', descending: true).limit(10).get();
     else
       data = await _postRef
           .orderBy('timeStamp', descending: true)
           .startAfter([lastPostSnapshot['timeStamp']])
           .limit(5)
-          .getDocuments();
+          .get();
 
-    if (data != null && data.documents.length > 0) {
-      lastPostSnapshot = data.documents[data.documents.length - 1];
-      postDocumentSnapshots.addAll(data.documents);
+    if (data != null && data.docs.length > 0) {
+      lastPostSnapshot = data.docs[data.docs.length - 1];
+      postDocumentSnapshots.addAll(data.docs);
     } else {
       //No More post Available
     }

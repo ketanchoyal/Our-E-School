@@ -4,7 +4,7 @@ import 'package:ourESchool/core/Models/User.dart';
 import 'package:ourESchool/imports.dart';
 
 class ChildrenGridViewCard extends StatelessWidget {
-  final User user;
+  final AppUser user;
   final Function onTap;
 
   ChildrenGridViewCard({
@@ -82,7 +82,7 @@ class ChildrenGridViewCard extends StatelessWidget {
     );
   }
 
-  ImageProvider<dynamic> setImage(User user) {
+  ImageProvider<dynamic> setImage(AppUser user) {
     if (user.photoUrl.contains('https')) {
       return NetworkImage(user.photoUrl);
     } else {

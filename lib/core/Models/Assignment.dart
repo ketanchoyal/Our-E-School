@@ -44,8 +44,8 @@ class Assignment {
   }
 
   Assignment.fromSnapshot(DocumentSnapshot documentSnapshot) {
-    _fromJson(documentSnapshot.data);
-    id = documentSnapshot.documentID;
+    _fromJson(documentSnapshot.data());
+    id = documentSnapshot.id;
   }
 
   Map<String, dynamic> toJson() {

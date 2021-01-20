@@ -1,8 +1,10 @@
 import 'imports.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   timeDilation = 2;
+  await Firebase.initializeApp();
   Provider.debugCheckInvalidValueType = null;
   setupLocator();
   runApp(
@@ -15,13 +17,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        StreamProvider<User>.value(
-          initialData: User(),
+        StreamProvider<AppUser>.value(
+          initialData: AppUser(),
           value: locator<ProfileServices>().loggedInUserStream.stream,
         ),
-        StreamProvider<FirebaseUser>.value(
+        StreamProvider<User>.value(
           initialData: null,
-          value: locator<AuthenticationServices>().fireBaseUserStream.stream.asBroadcastStream(),
+          value: locator<AuthenticationServices>()
+              .fireBaseUserStream
+              .stream
+              .asBroadcastStream(),
         ),
         StreamProvider<UserType>.value(
           initialData: UserType.UNKNOWN,
@@ -80,7 +85,7 @@ class OurSchoolApp extends StatelessWidget {
   }
 
   Widget getHome(BuildContext context) {
-    User currentUser = Provider.of<User>(context, listen: false);
+    AppUser currentUser = Provider.of<AppUser>(context, listen: false);
     UserType userType = Provider.of<UserType>(context, listen: false);
 
     // if (Provider.of<FirebaseUser>(context, listen: false) == null &&

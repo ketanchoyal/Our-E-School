@@ -59,7 +59,7 @@ class _AnnouncementPageState extends State<AnnouncementPage>
   @override
   Widget build(BuildContext context) {
     var userType = Provider.of<UserType>(context, listen: false);
-    User currentUser = Provider.of<User>(context, listen: false);
+    AppUser currentUser = Provider.of<AppUser>(context, listen: false);
     if (userType == UserType.TEACHER) {
       isTeacher = true;
     } else if (userType == UserType.PARENT) {
@@ -95,7 +95,8 @@ class _AnnouncementPageState extends State<AnnouncementPage>
                     child: FloatingActionButton(
                       elevation: 12,
                       onPressed: () {
-                        kopenPageSlide(context, CreateAnnouncement(), duration: Duration(milliseconds: 200));
+                        kopenPageSlide(context, CreateAnnouncement(),
+                            duration: Duration(milliseconds: 200));
                       },
                       child: Icon(Icons.add),
                       backgroundColor: Colors.red,

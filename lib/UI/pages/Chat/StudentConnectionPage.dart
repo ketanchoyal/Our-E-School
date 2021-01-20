@@ -12,8 +12,8 @@ class StudentConnectionPage extends StatefulWidget {
 }
 
 class _StudentConnectionPageState extends State<StudentConnectionPage> {
-  User student = User();
-  List<User> parent = [];
+  AppUser student = AppUser();
+  List<AppUser> parent = [];
 
   // ChatUsersListPageModel model;
 
@@ -21,7 +21,7 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
   void initState() {
     super.initState();
     // model = widget.model;
-    student = widget.model.studentListMap[widget.documentSnapshot.documentID];
+    student = widget.model.studentListMap[widget.documentSnapshot.id];
     WidgetsBinding.instance.addPostFrameCallback((_) => getParents());
   }
 
@@ -31,8 +31,8 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
     isLoading = true;
     setState(() {});
     await widget.model.getParents(widget.documentSnapshot);
-    parent = await widget
-        .model.studentsParentListMap[widget.documentSnapshot.documentID];
+    parent =
+        await widget.model.studentsParentListMap[widget.documentSnapshot.id];
     isLoading = false;
     setState(() {});
   }
@@ -50,7 +50,7 @@ class _StudentConnectionPageState extends State<StudentConnectionPage> {
       ),
       body: Hero(
         transitionOnUserGestures: true,
-        tag: widget.documentSnapshot.documentID + '12',
+        tag: widget.documentSnapshot.id + '12',
         child: SafeArea(
           bottom: false,
           child: Column(

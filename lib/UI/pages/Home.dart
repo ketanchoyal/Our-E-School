@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-  ImageProvider<dynamic> setImage(User user) {
+  ImageProvider<dynamic> setImage(AppUser user) {
     return user.photoUrl != 'default'
         ? NetworkImage(
             user.photoUrl,
@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
     if (userType == UserType.TEACHER) {
       isTeacher = true;
     }
-    User user = Provider.of<User>(context, listen: false);
+    AppUser user = Provider.of<AppUser>(context, listen: false);
     return Container(
       child: Scaffold(
         appBar: TopBar(

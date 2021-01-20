@@ -41,7 +41,7 @@ if (keystorePropertiesFile.exists()) {
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -54,7 +54,7 @@ android {
     defaultConfig {
         applicationId 'com.ketanchoyal.our_e_school'
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

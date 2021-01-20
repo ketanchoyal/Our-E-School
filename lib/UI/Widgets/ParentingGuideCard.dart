@@ -22,7 +22,7 @@ class ParentingGuideCard extends StatefulWidget {
 class _ParentingGuideCardState extends State<ParentingGuideCard> {
   final ProfilePageModel model = locator<ProfilePageModel>();
 
-  User user = User();
+  AppUser user = AppUser();
 
   getUserData() async {
     // user = await model.getUserProfileDatabyId(

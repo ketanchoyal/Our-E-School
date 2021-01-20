@@ -11,8 +11,8 @@ class Message {
   Message({this.to, this.from, this.message, this.timeStamp, this.for_});
 
   Message.fromSnapShot(DocumentSnapshot snapshot) {
-    this.id = snapshot.documentID;
-    _fromJson(snapshot.data);
+    this.id = snapshot.id;
+    _fromJson(snapshot.data());
   }
 
   Message.fromJson(Map<String, dynamic> json) {

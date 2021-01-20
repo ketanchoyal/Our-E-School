@@ -11,7 +11,7 @@ import 'package:ourESchool/core/Models/User.dart';
 class BottomSheetChildrensWidget extends StatefulWidget {
   const BottomSheetChildrensWidget({Key key, this.user}) : super(key: key);
 
-  final User user;
+  final AppUser user;
 
   @override
   _BottomSheetChildrensWidgetState createState() =>

@@ -3,7 +3,7 @@ import 'package:ourESchool/UI/Widgets/AssignmentDetailBottomSheet.dart';
 import 'package:ourESchool/imports.dart';
 
 class AssignmentsPage extends StatefulWidget with AnalyticsScreen {
-  AssignmentsPage({Key key, this.standard = ''}) : super(key: key){
+  AssignmentsPage({Key key, this.standard = ''}) : super(key: key) {
     // setCurrentScreen();
   }
 
@@ -52,7 +52,7 @@ class _AssignmentsPageState extends State<AssignmentsPage> {
   Widget build(BuildContext context) {
     if (widget.standard == '') {
       var userType = Provider.of<UserType>(context, listen: false);
-      User currentUser = Provider.of<User>(context, listen: false);
+      AppUser currentUser = Provider.of<AppUser>(context, listen: false);
       if (userType == UserType.TEACHER) {
         if (!isLoaded) {
           stdDiv_Global =

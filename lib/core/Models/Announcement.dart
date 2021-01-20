@@ -44,7 +44,7 @@ class Announcement {
     photoUrl = snapshot['photoUrl'].toString() ?? '';
     photoPath = snapshot['photoPath'].toString() ?? '';
     type = AnnouncementTypeHelper.getEnum(snapshot['type'].toString());
-    id = snapshot.documentID;
+    id = snapshot.id;
   }
 
   Map<String, dynamic> toJson() {

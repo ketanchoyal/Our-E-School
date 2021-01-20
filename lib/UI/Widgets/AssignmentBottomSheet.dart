@@ -40,7 +40,7 @@ class _AssignmentBottomSheetState extends State<AssignmentBottomSheet> {
         _standardController.text.trim() != '') {
       Assignment assignment = Assignment(
         title: _titleController.text.trim(),
-        by: Provider.of<User>(context, listen: false).id,
+        by: Provider.of<AppUser>(context, listen: false).id,
         details: _descriptionController.text.trim(),
         div: _divisionController.text.trim().toUpperCase(),
         standard: _standardController.text.trim(),
@@ -75,7 +75,7 @@ class _AssignmentBottomSheetState extends State<AssignmentBottomSheet> {
                       onPressed: () async {
                         _path = await openFileExplorer(
                             FileType.custom, mounted, context,
-                            extension: 'PDF');
+                            ext: 'PDF');
                         setState(() {
                           _fileName =
                               _path != null ? _path.split('/').last : '...';
@@ -95,7 +95,7 @@ class _AssignmentBottomSheetState extends State<AssignmentBottomSheet> {
                       onPressed: () async {
                         _path = await openFileExplorer(
                             FileType.image, mounted, context,
-                            extension: 'NOCOMPRESSION');
+                            ext: 'NOCOMPRESSION');
                         setState(() {
                           _fileName =
                               _path != null ? _path.split('/').last : '...';

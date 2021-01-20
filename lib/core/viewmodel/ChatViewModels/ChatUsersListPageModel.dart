@@ -12,21 +12,21 @@ class ChatUsersListPageModel extends BaseModel {
   Map<String, DocumentSnapshot> get teachersSnapshot =>
       _chatServices.teachersDocumentSnapshots;
 
-  Map<String, User> get studentListMap => _chatServices.studentListMap;
+  Map<String, AppUser> get studentListMap => _chatServices.studentListMap;
 
-  Map<String, User> get teachersListMap => _chatServices.teachersListMap;
+  Map<String, AppUser> get teachersListMap => _chatServices.teachersListMap;
 
-  Map<String, List<User>> get studentsParentListMap =>
+  Map<String, List<AppUser>> get studentsParentListMap =>
       _chatServices.studentsParentListMap;
 
-  List<User> get childrens => _chatServices.childrens;
+  List<AppUser> get childrens => _chatServices.childrens;
 
-  User _selectedChild = User();
+  AppUser _selectedChild = AppUser();
 
-  User get selectedChild => _selectedChild;
+  AppUser get selectedChild => _selectedChild;
 
-  set selectedChild(User newUser) {
-    _selectedChild = newUser;
+  set selectedChild(AppUser newAppUser) {
+    _selectedChild = newAppUser;
     notifyListeners();
   }
 
@@ -44,9 +44,8 @@ class ChatUsersListPageModel extends BaseModel {
 
   getSingleStudentData(DocumentSnapshot documentSnapshot) async {
     // setState(ViewState.Busy);
-    User user = await _chatServices.getUser(documentSnapshot);
-    _chatServices.studentListMap
-        .putIfAbsent(documentSnapshot.documentID, () => user);
+    AppUser user = await _chatServices.getUser(documentSnapshot);
+    _chatServices.studentListMap.putIfAbsent(documentSnapshot.id, () => user);
     // await _chatServices.getParents(documentSnapshot);
     notifyListeners();
     // setState(ViewState.Idle);
@@ -68,11 +67,11 @@ class ChatUsersListPageModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  Future<User> getSingleTeacherData(DocumentSnapshot documentSnapshot) async {
+  Future<AppUser> getSingleTeacherData(
+      DocumentSnapshot documentSnapshot) async {
     // setState(ViewState.Busy);
-    User user = await _chatServices.getUser(documentSnapshot);
-    _chatServices.teachersListMap
-        .putIfAbsent(documentSnapshot.documentID, () => user);
+    AppUser user = await _chatServices.getUser(documentSnapshot);
+    _chatServices.teachersListMap.putIfAbsent(documentSnapshot.id, () => user);
     await _chatServices.getParents(documentSnapshot);
     notifyListeners();
     return user;

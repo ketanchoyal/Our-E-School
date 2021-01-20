@@ -22,7 +22,7 @@ class _ChatPageState extends State<ChatPage> {
         builder: (context, model, child) {
           return model.state == ViewState.Busy
               ? kBuzyPage(color: Theme.of(context).primaryColor)
-              : SafeArea( 
+              : SafeArea(
                   child: Scaffold(
                     body: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -31,8 +31,8 @@ class _ChatPageState extends State<ChatPage> {
                         itemBuilder: (context, i) {
                           var key = model.studentsSnapshot.keys.elementAt(i);
                           var snapshot = model.studentsSnapshot[key];
-                          return ChatStudentListWidget( 
-                            heroTag: snapshot.documentID,
+                          return ChatStudentListWidget(
+                            heroTag: snapshot.id,
                             snapshot: snapshot,
                             model: model,
                           );
@@ -80,7 +80,7 @@ class _ChatPageState extends State<ChatPage> {
                                         var snapshot =
                                             model.teachersSnapshot[key];
                                         return ChatTeachersListWidget(
-                                          heroTag: snapshot.documentID,
+                                          heroTag: snapshot.id,
                                           snapshot: snapshot,
                                           model: model,
                                         );

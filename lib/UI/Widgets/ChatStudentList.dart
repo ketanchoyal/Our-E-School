@@ -72,10 +72,9 @@ class _ChatStudentListWidgetState extends State<ChatStudentListWidget> {
                   width: 50,
                 ),
                 Text(
-                  widget.model.studentListMap
-                          .containsKey(widget.snapshot.documentID)
-                      ? widget.model.studentListMap[widget.snapshot.documentID]
-                          .displayName
+                  widget.model.studentListMap.containsKey(widget.snapshot.id)
+                      ? widget
+                          .model.studentListMap[widget.snapshot.id].displayName
                       : "loading...",
                   maxLines: 2,
                   style: TextStyle(

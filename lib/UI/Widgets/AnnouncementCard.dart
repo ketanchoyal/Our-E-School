@@ -21,7 +21,7 @@ class AnnouncementCard extends StatefulWidget {
 class _AnnouncementCardState extends State<AnnouncementCard> {
   final ProfilePageModel model = locator<ProfilePageModel>();
 
-  User user = User();
+  AppUser user = AppUser();
   bool loading = true;
 
   getUserData() async {

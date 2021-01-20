@@ -71,7 +71,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  floatingButtonPressed(var model, UserType userType, FirebaseUser firebaseUser) async {
+  floatingButtonPressed(var model, UserType userType, User firebaseUser) async {
     bool res = false;
 
     if (_bloodGroup.isEmpty ||
@@ -79,13 +79,12 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
         _dob.isEmpty ||
         _childrenNameName.isEmpty ||
         _mobileNo.isEmpty) {
-      _scaffoldKey.currentState.showSnackBar(ksnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(ksnackBar(
           context, 'You Need to fill all the details and a profile Photo'));
     } else {
       if (model.state == ViewState.Idle) {
-
         res = await model.setUserProfileData(
-          user: User(
+          user: AppUser(
               bloodGroup: _bloodGroup.trim(),
               displayName: _name.trim(),
               dob: _dob.trim(),
@@ -95,7 +94,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
               firebaseUuid: firebaseUser.uid,
               id: await _sharedPreferencesHelper.getLoggedInUserId(),
               isTeacher: false,
-              isVerified: firebaseUser.isEmailVerified,
+              isVerified: firebaseUser.emailVerified,
               connection: await getConnection(userType),
               photoUrl: path),
           userType: userType,
@@ -123,7 +122,7 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
   @override
   Widget build(BuildContext context) {
     userType = Provider.of<UserType>(context, listen: false);
-            var firebaseUser = Provider.of<FirebaseUser>(context, listen: true);
+    var firebaseUser = Provider.of<User>(context, listen: true);
 
     print("In Guardian ProfilePage " + UserTypeHelper.getValue(userType));
     if (userType == UserType.PARENT || userType == UserType.TEACHER) {
@@ -136,15 +135,15 @@ class _GuardianProfilePageState extends State<GuardianProfilePage> {
         if (model.state == ViewState.Idle) {
           isEditable = true;
           if (a == 0) {
-            if (model.userProfile != null ) {
-              User user = model.userProfile;
-            _name = user.displayName;
-            _childrenNameName = user.guardianName;
-            _bloodGroup = user.bloodGroup;
-            _dob = user.dob;
-            _mobileNo = user.mobileNo;
-            path = user.photoUrl;
-            a++;
+            if (model.userProfile != null) {
+              AppUser user = model.userProfile;
+              _name = user.displayName;
+              _childrenNameName = user.guardianName;
+              _bloodGroup = user.bloodGroup;
+              _dob = user.dob;
+              _mobileNo = user.mobileNo;
+              path = user.photoUrl;
+              a++;
             }
           }
         } else {

@@ -64,8 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String _mobileNo = '';
   int a = 0;
 
-  floatingButoonPressed(
-      var model, UserType userType, FirebaseUser firebaseUser) async {
+  floatingButoonPressed(var model, UserType userType, User firebaseUser) async {
     bool res = false;
 
     // var firebaseUser = Provider.of<FirebaseUser>(context, listen: false);
@@ -83,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } else {
       if (model.state == ViewState.Idle) {
         res = await model.setUserProfileData(
-          user: User(
+          user: AppUser(
             bloodGroup: _bloodGroup.trim(),
             displayName: _name.trim(),
             division: _division.trim(),
@@ -96,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
             firebaseUuid: firebaseUser.uid,
             id: await _sharedPreferencesHelper.getLoggedInUserId(),
             isTeacher: userType == UserType.TEACHER ? true : false,
-            isVerified: firebaseUser.isEmailVerified,
+            isVerified: firebaseUser.emailVerified,
             photoUrl: path,
             connection: await getConnection(userType),
           ),
@@ -125,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     userType = Provider.of<UserType>(context, listen: false);
-    var firebaseUser = Provider.of<FirebaseUser>(context, listen: true);
+    var firebaseUser = Provider.of<User>(context, listen: true);
 
     if (userType == UserType.STUDENT) {
       guardiansPanel = false;
@@ -138,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
           if (model.state == ViewState.Idle) {
             if (a == 0) {
               if (model.userProfile != null) {
-                User user = model.userProfile;
+                AppUser user = model.userProfile;
                 _name = user.displayName;
                 _enrollNo = user.enrollNo;
                 _standard = user.standard;

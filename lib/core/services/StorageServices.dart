@@ -16,11 +16,11 @@ class StorageServices extends Services {
 
     String _extension = p.extension(filePath);
     String fileName = firebaseUser.uid + _extension;
-    final StorageUploadTask uploadTask = storageReference
+    final UploadTask uploadTask = storageReference
         .child(schoolCode + '/' + "Profile" + '/' + fileName)
         .putFile(
           File(filePath),
-          StorageMetadata(
+          SettableMetadata(
             contentType: "image",
             customMetadata: {
               "uploadedBy": firebaseUser.uid,
@@ -28,7 +28,7 @@ class StorageServices extends Services {
           ),
         );
 
-    final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
+    final TaskSnapshot downloadUrl = await uploadTask.snapshot;
     final String profileUrl = await downloadUrl.ref.getDownloadURL();
 
     await sharedPreferencesHelper.setLoggedInUserPhotoUrl(profileUrl);
@@ -41,11 +41,11 @@ class StorageServices extends Services {
     if (schoolCode == null) await getSchoolCode();
     if (firebaseUser == null) await getFirebaseUser();
 
-    final StorageUploadTask uploadTask = storageReference
+    final UploadTask uploadTask = storageReference
         .child(schoolCode + "/" + "Posts" + '/' + fileName)
         .putFile(
           File(filePath),
-          StorageMetadata(
+          SettableMetadata(
             contentType: "image",
             customMetadata: {
               "uploadedBy": firebaseUser.uid,
@@ -53,7 +53,7 @@ class StorageServices extends Services {
           ),
         );
 
-    final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
+    final TaskSnapshot downloadUrl = await uploadTask.snapshot;
     final String postmageUrl = await downloadUrl.ref.getDownloadURL();
 
     return postmageUrl;
@@ -66,11 +66,11 @@ class StorageServices extends Services {
     String _extension = p.extension(filePath);
     String file = fileName + _extension;
 
-    final StorageUploadTask uploadTask = storageReference
+    final UploadTask uploadTask = storageReference
         .child(schoolCode + "/" + "Assignments" + '/' + file)
         .putFile(
           File(filePath),
-          StorageMetadata(
+          SettableMetadata(
             contentType: "PDF",
             customMetadata: {
               "uploadedBy": firebaseUser.uid,
@@ -78,7 +78,7 @@ class StorageServices extends Services {
           ),
         );
 
-    final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
+    final TaskSnapshot downloadUrl = await uploadTask.snapshot;
     final String postmageUrl = await downloadUrl.ref.getDownloadURL();
 
     return postmageUrl;

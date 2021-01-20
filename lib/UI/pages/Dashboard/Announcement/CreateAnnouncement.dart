@@ -33,7 +33,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
 
   floatingButtonPressed(
       CreateAnnouncementModel model, BuildContext context) async {
-    User user = Provider.of<User>(context, listen: false);
+    AppUser user = Provider.of<AppUser>(context, listen: false);
     var announcement = Announcement(
       by: user.id,
       caption: _captionController.text,

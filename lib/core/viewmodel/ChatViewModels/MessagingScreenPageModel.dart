@@ -5,7 +5,7 @@ class MessagingScreenPageModel extends BaseModel {
 
   MessagingScreenPageModel();
 
-  sendMessage({Message message, User student}) async {
+  sendMessage({Message message, AppUser student}) async {
     setState(ViewState.Busy);
     await _chatServices.sendMessage(message, student);
     setState(ViewState.Idle);

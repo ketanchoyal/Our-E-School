@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 class ECardPage extends StatefulWidget {
   const ECardPage({Key key, this.user}) : super(key: key);
-  final User user;
+  final AppUser user;
 
   @override
   _ECardPageState createState() => _ECardPageState();
@@ -21,13 +21,14 @@ class ECardPage extends StatefulWidget {
 class _ECardPageState extends State<ECardPage> {
   @override
   Widget build(BuildContext context) {
-    UserType userType =
-        widget.user == null ? Provider.of<UserType>(context, listen: false) : UserType.STUDENT;
+    UserType userType = widget.user == null
+        ? Provider.of<UserType>(context, listen: false)
+        : UserType.STUDENT;
     return BaseView<ProfilePageModel>(
       onModelReady: (model) =>
           widget.user == null ? model.getUserProfileData() : model,
       builder: (context, model, child) {
-        User user = widget.user == null ? model.userProfile : widget.user;
+        AppUser user = widget.user == null ? model.userProfile : widget.user;
 
         return Scaffold(
           appBar: TopBar(

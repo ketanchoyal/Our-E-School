@@ -63,10 +63,9 @@ kopenPageSlide(BuildContext context, Widget page, {Duration duration}) {
   return Navigator.push(
     context,
     RouteTransition(
-      // fade: false,
-      widget: page,
-      duration: duration
-    ),
+        // fade: false,
+        widget: page,
+        duration: duration),
   );
 }
 
@@ -95,23 +94,28 @@ kopenPageBottom(BuildContext context, Widget page) {
 
 Future openFileExplorer(
     FileType _pickingType, bool mounted, BuildContext context,
-    {String extension}) async {
+    {String ext}) async {
   String _path = null;
   if (_pickingType == FileType.image) {
-    if (extension == null) {
+    if (ext == null) {
       File file = await CompressImage.takeCompressedPicture(context);
       if (file != null) _path = file.path;
       if (!mounted) return '';
 
       return _path;
     } else {
-      _path = await FilePicker.getFilePath(type: _pickingType);
+      FilePickerResult filePickerResult = await FilePicker.platform.pickFiles(
+        type: _pickingType,
+      );
+      _path = filePickerResult.paths.first;
       if (!mounted) return '';
       return _path;
     }
   } else if (_pickingType != FileType.custom) {
     try {
-      _path = await FilePicker.getFilePath(type: _pickingType);
+      FilePickerResult filePickerResult =
+          await FilePicker.platform.pickFiles(type: _pickingType);
+      _path = filePickerResult.paths.first;
     } on PlatformException catch (e) {
       print("Unsupported operation" + e.toString());
     }
@@ -120,9 +124,10 @@ Future openFileExplorer(
     return _path;
   } else if (_pickingType == FileType.custom) {
     try {
-      if (extension == null) extension = 'PDF';
-      _path = await FilePicker.getFilePath(
-          type: _pickingType, allowedExtensions: [extension]);
+      if (ext == null) ext = 'PDF';
+      FilePickerResult filePickerResult = await FilePicker.platform
+          .pickFiles(type: _pickingType, allowedExtensions: [ext]);
+      _path = filePickerResult.paths.first;
     } on PlatformException catch (e) {
       print("Unsupported operation" + e.toString());
     }

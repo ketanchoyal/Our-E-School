@@ -13,7 +13,7 @@ class MessagesListViewBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context, listen: false);
+    AppUser user = Provider.of<AppUser>(context, listen: false);
     return ListView.builder(
       reverse: true,
       controller: scrollController,

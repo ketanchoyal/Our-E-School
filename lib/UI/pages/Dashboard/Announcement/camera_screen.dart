@@ -36,11 +36,10 @@ class _CameraScreenState extends State<CameraScreen>
   }
 
   Future getPermissions() async {
-    Map<PermissionGroup, PermissionStatus> permissions =
-        await PermissionHandler().requestPermissions(
-            [PermissionGroup.storage, PermissionGroup.camera]);
-    if (permissions[PermissionGroup.storage] == PermissionStatus.granted &&
-        permissions[PermissionGroup.camera] == PermissionStatus.granted) {
+    Map<Permission, PermissionStatus> permissions =
+        await [Permission.storage, Permission.camera].request();
+    if (permissions[Permission.storage] == PermissionStatus.granted &&
+        permissions[Permission.camera] == PermissionStatus.granted) {
       setState(() {
         isPermitted = true;
       });
@@ -123,7 +122,9 @@ class _CameraScreenState extends State<CameraScreen>
     }
 
     try {
-      await controller.takePicture(filePath);
+      // await controller.takePicture(filePath);
+      XFile path = await controller.takePicture();
+      path.saveTo(filePath);
     } on CameraException catch (e) {
       _showCameraException(e);
       return null;
@@ -329,49 +330,52 @@ class _CameraScreenState extends State<CameraScreen>
   }
 
   // Start Video Recording
-  Future<String> startVideoRecording() async {
-    if (!controller.value.isInitialized) {
-      showInSnackBar('Error: select a camera first.');
-      return null;
-    }
+  // Future<String> startVideoRecording() async {
+  //   if (!controller.value.isInitialized) {
+  //     showInSnackBar('Error: select a camera first.');
+  //     return null;
+  //   }
 
-    final Directory extDir = await getExternalStorageDirectory();
+  //   final Directory extDir = await getExternalStorageDirectory();
 
-    final String dirPath = '${extDir.path}/Movies/flutter_test';
-    await Directory(dirPath).create(recursive: true);
-    final String filePath = '$dirPath/${timestamp()}.mp4';
-    await takePicture(video: true);
-    if (controller.value.isRecordingVideo) {
-      showInSnackBar("Already Recording");
-      return null;
-    }
+  //   final String dirPath = '${extDir.path}/Movies/flutter_test';
+  //   await Directory(dirPath).create(recursive: true);
+  //   final String filePath = '$dirPath/${timestamp()}.mp4';
+  //   await takePicture(video: true);
+  //   if (controller.value.isRecordingVideo) {
+  //     showInSnackBar("Already Recording");
+  //     return null;
+  //   }
 
-    try {
-      videoPath = filePath;
-      await controller.startVideoRecording(filePath);
-    } on CameraException catch (e) {
-      _showCameraException(e);
-      return null;
-    }
-    print(filePath);
+  //   try {
+  //     videoPath = filePath;
+  //     //TODO: get saved video
+  //     // await controller.startVideoRecording(filePath);
+  //     await controller.startVideoRecording();
+  //   } on CameraException catch (e) {
+  //     _showCameraException(e);
+  //     return null;
+  //   }
+  //   print(filePath);
 
-    return filePath;
-  }
+  //   return filePath;
+  // }
 
-  Future<void> stopVideoRecording() async {
-    if (!controller.value.isRecordingVideo) {
-      return null;
-    }
+  // Future<void> stopVideoRecording() async {
+  //   if (!controller.value.isRecordingVideo) {
+  //     return null;
+  //   }
 
-    try {
-      await controller.stopVideoRecording();
-    } on CameraException catch (e) {
-      _showCameraException(e);
-      return null;
-    }
-    setState(() {});
-    // await _startVideoPlayer();
-  }
+  //   try {
+  //     XFile xFile = await controller.stopVideoRecording();
+  //     file
+  //   } on CameraException catch (e) {
+  //     _showCameraException(e);
+  //     return null;
+  //   }
+  //   setState(() {});
+  //   // await _startVideoPlayer();
+  // }
 
   void showInSnackBar(String message) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(message)));

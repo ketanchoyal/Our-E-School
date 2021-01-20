@@ -9,9 +9,9 @@ import 'package:ourESchool/locator.dart';
 class ProfilePageModel extends BaseModel {
   final _profileServices = locator<ProfileServices>();
 
-  User userProfile;
+  AppUser userProfile;
 
-  List<User> get childrens => _profileServices.childrens;
+  List<AppUser> get childrens => _profileServices.childrens;
 
   ProfilePageModel() {
     getUserProfileData();
@@ -23,7 +23,7 @@ class ProfilePageModel extends BaseModel {
   }
 
   Future<bool> setUserProfileData({
-    User user,
+    AppUser user,
     UserType userType,
   }) async {
     setState(ViewState.Busy);
@@ -35,7 +35,7 @@ class ProfilePageModel extends BaseModel {
     return true;
   }
 
-  Future<User> getUserProfileData() async {
+  Future<AppUser> getUserProfileData() async {
     setState(ViewState.Busy);
     setState2(ViewState.Busy);
     userProfile = await _profileServices.getLoggedInUserProfileData();
@@ -60,14 +60,14 @@ class ProfilePageModel extends BaseModel {
   //   return childData;
   // }
 
-  Future<User> getUserProfileDataById(UserType userType, String id) async {
+  Future<AppUser> getUserProfileDataById(UserType userType, String id) async {
     setState(ViewState.Busy);
     userProfile = await _profileServices.getProfileDataById(id, userType);
     setState(ViewState.Idle);
     return userProfile;
   }
 
-  Future<User> getUserProfileDataByIdForAnnouncement(
+  Future<AppUser> getUserProfileDataByIdForAnnouncement(
       UserType userType, String id) async {
     userProfile = await _profileServices.getProfileDataById(id, userType);
     return userProfile;
@@ -75,8 +75,7 @@ class ProfilePageModel extends BaseModel {
 
   @override
   void dispose() {
-    if (true) {
-    } 
+    if (true) {}
   }
 
   // Future<User> getUserProfileDataOfGuardian(UserType userType, String id) async {

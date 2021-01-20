@@ -5,7 +5,8 @@ import 'package:ourESchool/imports.dart';
 class AssignmentServices extends Services {
   StorageServices _storageServices = locator<StorageServices>();
   DocumentSnapshot lastAssignmnetSnapshot = null;
-  List<DocumentSnapshot> assignmnetDocumentSnapshots = List<DocumentSnapshot>();
+  List<DocumentSnapshot> assignmnetDocumentSnapshots =
+      List.empty(growable: true);
 
   AssignmentServices() {
     getFirebaseUser();
@@ -15,16 +16,16 @@ class AssignmentServices extends Services {
   uploadAssignment(Assignment assignment) async {
     // await getSchoolCode();
 
-    String extension = p.extension(assignment.url);
+    String ext = p.extension(assignment.url);
 
-    if (extension == '.pdf') {
+    if (ext == '.pdf') {
       assignment.type = 'PDF';
     } else {
       assignment.type = 'Image';
     }
 
     String fileName =
-        createCryptoRandomString(8) + createCryptoRandomString(8) + extension;
+        createCryptoRandomString(8) + createCryptoRandomString(8) + ext;
 
     assignment.url =
         await _storageServices.uploadAssignment(assignment.url, fileName);
@@ -57,7 +58,7 @@ class AssignmentServices extends Services {
     // await getSchoolCode();
 
     var _assignmentRef = (await schoolRefwithCode())
-        .document('Assignments')
+        .doc('Assignments')
         .collection(stdDiv_Global);
 
     QuerySnapshot data;
@@ -67,17 +68,17 @@ class AssignmentServices extends Services {
         data = await _assignmentRef
             .orderBy('timeStamp', descending: true)
             .limit(5)
-            .getDocuments();
+            .get();
       else
         data = await _assignmentRef
             .orderBy('timeStamp', descending: true)
             .startAfter([lastAssignmnetSnapshot['timeStamp']])
             .limit(5)
-            .getDocuments();
+            .get();
 
-      if (data != null && data.documents.length > 0) {
-        lastAssignmnetSnapshot = data.documents[data.documents.length - 1];
-        assignmnetDocumentSnapshots.addAll(data.documents);
+      if (data != null && data.docs.length > 0) {
+        lastAssignmnetSnapshot = data.docs[data.docs.length - 1];
+        assignmnetDocumentSnapshots.addAll(data.docs);
       }
     } catch (e) {
       print('In Exception : ');

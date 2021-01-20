@@ -3,12 +3,12 @@ import 'package:ourESchool/imports.dart';
 
 class ProfileServices extends Services {
   StorageServices storageServices = locator<StorageServices>();
-  StreamController<User> loggedInUserStream =
+  StreamController<AppUser> loggedInUserStream =
       StreamController.broadcast(sync: true);
 
   String country = Services.country;
 
-  List<User> childrens = [];
+  List<AppUser> childrens = [];
 
   ProfileServices() {
     getSchoolCode();
@@ -16,7 +16,7 @@ class ProfileServices extends Services {
   }
 
   setProfileData({
-    User user,
+    AppUser user,
     UserType userType,
   }) async {
     UserType userType = await sharedPreferencesHelper.getUserType();
@@ -52,7 +52,7 @@ class ProfileServices extends Services {
       print("Data Uploaded Succesfully");
       final jsonData = await json.decode(response.body);
 
-      User user = User.fromJson(jsonData);
+      AppUser user = AppUser.fromJson(jsonData);
       sharedPreferencesHelper.setUserDataModel(response.body);
       loggedInUserStream.add(user);
     } else {
@@ -60,7 +60,7 @@ class ProfileServices extends Services {
     }
   }
 
-  Future<User> getLoggedInUserProfileData() async {
+  Future<AppUser> getLoggedInUserProfileData() async {
     // if (schoolCode == null)
     await getSchoolCode();
     String id = await sharedPreferencesHelper.getLoggedInUserId();
@@ -72,7 +72,7 @@ class ProfileServices extends Services {
       print("Data Retrived Succesfully (Local)");
       final jsonData = await json.decode(userDataModel);
 
-      User user = User.fromJson(jsonData);
+      AppUser user = AppUser.fromJson(jsonData);
       loggedInUserStream.add(user);
       user.toString();
       return user;
@@ -96,33 +96,33 @@ class ProfileServices extends Services {
       print("Data Retrived Succesfully");
       final jsonData = await json.decode(response.body);
 
-      User user = User.fromJson(jsonData);
+      AppUser user = AppUser.fromJson(jsonData);
       sharedPreferencesHelper.setUserDataModel(response.body);
       loggedInUserStream.add(user);
       user.toString();
       return user;
     } else {
       print("Data Retrived failed");
-      return User(id: id);
+      return AppUser(id: id);
     }
   }
 
   //Fetch Profile Data Using Firestore SDK
-  Future<User> getProfileDataById(String uid, UserType userType) async {
+  Future<AppUser> getProfileDataById(String uid, UserType userType) async {
     DocumentReference profielRef = await _getProfileRef(uid, userType);
 
     try {
-      User user = User.fromSnapshot(
-          await profielRef.get(source: Source.serverAndCache));
+      AppUser user = AppUser.fromSnapshot(
+          await profielRef.get(GetOptions(source: Source.serverAndCache)));
       return user;
     } catch (e) {
       print(e);
-      return User(id: uid);
+      return AppUser(id: uid);
     }
   }
 
-  Future<User> getUserDataFromReference(DocumentReference reference) async {
-    User user = User.fromSnapshot(await reference.get());
+  Future<AppUser> getUserDataFromReference(DocumentReference reference) async {
+    AppUser user = AppUser.fromSnapshot(await reference.get());
     return user;
   }
 
@@ -144,7 +144,7 @@ class ProfileServices extends Services {
   }
 
   _getChildrensData(Map<String, String> childIds) async {
-    List<User> childData = [];
+    List<AppUser> childData = [];
     for (String id in childIds.values) {
       childData.add(await getProfileDataById(id, UserType.STUDENT));
     }
@@ -154,14 +154,14 @@ class ProfileServices extends Services {
   Future<DocumentReference> _getProfileRef(
       String uid, UserType userType) async {
     await getSchoolCode();
-    DocumentReference ref = (await schoolRefwithCode()).document('Profile');
+    DocumentReference ref = (await schoolRefwithCode()).doc('Profile');
     switch (userType) {
       case UserType.STUDENT:
-        return ref.collection('Student').document(uid);
+        return ref.collection('Student').doc(uid);
         break;
       case UserType.TEACHER:
       case UserType.PARENT:
-        return ref.collection('Parent-Teacher').document(uid);
+        return ref.collection('Parent-Teacher').doc(uid);
         break;
       case UserType.UNKNOWN:
         return null;
@@ -172,7 +172,7 @@ class ProfileServices extends Services {
   }
 
   //Fetch Profile Data Using HTTP Request
-  Future<User> getProfileDataByIdd(String uid, UserType userType) async {
+  Future<AppUser> getProfileDataByIdd(String uid, UserType userType) async {
     await getSchoolCode();
     var body = json.encode({
       "schoolCode": schoolCode.trim().toUpperCase(),
@@ -192,12 +192,12 @@ class ProfileServices extends Services {
       print("Data Retrived Succesfully");
       final jsonData = await json.decode(response.body);
 
-      User user = User.fromJson(jsonData);
+      AppUser user = AppUser.fromJson(jsonData);
       user.toString();
       return user;
     } else {
       print("Data Retrived failed");
-      return User(id: uid);
+      return AppUser(id: uid);
     }
   }
 }
