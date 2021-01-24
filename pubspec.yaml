@@ -9,45 +9,32 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intro_views_flutter: ^2.8.2
-  file_picker: ^2.1.4
   camera: 0.7.0
-  random_color: ^1.0.5
-  intl: ^0.16.1
+  cloud_firestore: 0.16.0
+  cupertino_icons: ^1.0.0
+  custom_radio_grouped_button: 1.0.0
+  dio: ^3.0.10
   division: ^0.8.8
+  file_picker: ^2.1.4
+  firebase_auth: 0.20.0+1
+  firebase_core: 0.7.0
+  firebase_storage: 7.0.0
+  flutter_plugin_pdf_viewer: ^1.0.7
   flutter_spinkit: ^4.1.2+1
+  font_awesome_flutter: ^8.7.0
+  get_it: ^5.0.3
   http: ^0.12.2
-  shared_preferences: ^0.5.12+4
-  # flutter_plugin_pdf_viewer:
-  #   git:
-  #     url: git://github.com/tamhiupanTam/flutter_plugin_pdf_viewer
-  permission_handler: ^5.0.1+1
   image: ^2.1.4
   image_picker: ^0.6.7+17
   image_picker_for_web: ^0.1.0+2
-  photo_view: ^0.10.3
+  intl: ^0.16.1
+  intro_views_flutter: ^2.8.2
   path_provider: ^1.6.1
-  flutter_plugin_pdf_viewer: ^1.0.7
-  custom_radio_grouped_button: 1.0.0
-
-
-  # peek_and_pop: ^0.1.8
-  # snap: ^1.0.0
-
-  # State Management tools
-  get_it: ^5.0.3
+  permission_handler: ^5.0.1+1
+  photo_view: ^0.10.3
   provider: ^4.3.2+3
-
-  # Icons
-  cupertino_icons: ^1.0.0
-  font_awesome_flutter: ^8.7.0
-
-  # Firebase Dependencies
-  firebase_auth: 0.20.0+1
-  firebase_core: 0.7.0
-  cloud_firestore: 0.16.0
-  firebase_storage: 7.0.0
-  # firebase_analytics: ^5.0.11
+  random_color: ^1.0.5
+  shared_preferences: ^0.5.12+4
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +42,6 @@ dev_dependencies:
 
 # dependency_overrides:
 #   rxdart: ^0.22.0
-
 flutter:
   uses-material-design: true
 

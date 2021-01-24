@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import 'imports.dart';
 
 void main() async {
@@ -5,6 +7,8 @@ void main() async {
   // debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   timeDilation = 2;
   await Firebase.initializeApp();
+  if (kIsWeb) await FirebaseFirestore.instance.enablePersistence();
+
   Provider.debugCheckInvalidValueType = null;
   setupLocator();
   runApp(

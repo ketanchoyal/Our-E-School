@@ -30,9 +30,9 @@ class AuthenticationServices extends Services {
 
   ProfileServices _profileServices = locator<ProfileServices>();
 
-  AuthenticationServices() {
-    if (kIsWeb) firestore.enablePersistence();
-    firestore.settings = Settings(persistenceEnabled: true);
+  AuthenticationServices() : super() {
+    // if (kIsWeb) firestore.enablePersistence();
+    if (!kIsWeb) firestore.settings = Settings(persistenceEnabled: true);
     // firestore.settings(
     //   persistenceEnabled: false,
     // );

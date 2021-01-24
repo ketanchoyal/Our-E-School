@@ -7,7 +7,7 @@ import 'package:ourESchool/core/helpers/shared_preferences_helper.dart';
 import 'package:ourESchool/locator.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class Services {
+abstract class Services {
   SharedPreferencesHelper _sharedPreferencesHelper =
       locator<SharedPreferencesHelper>();
   static String country =

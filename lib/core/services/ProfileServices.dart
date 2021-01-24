@@ -1,4 +1,5 @@
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:ourESchool/imports.dart';
 
 class ProfileServices extends Services {
@@ -42,18 +43,27 @@ class ProfileServices extends Services {
       "country": country
     });
 
-    final response = await http.post(
-      profileUpdateUrl,
-      body: body,
+    Dio dio = Dio();
+    Options options = Options(
+      contentType: 'multipart/form-data',
       headers: headers,
     );
+
+    final response = await dio.post(
+      profileUpdateUrl,
+      options: options,
+      data: body,
+      // body: body,
+      // headers: headers,
+    );
+
     if (response.statusCode == 200) {
       // getProfileData(user.id, userType);
       print("Data Uploaded Succesfully");
-      final jsonData = await json.decode(response.body);
+      final jsonData = await json.decode(response.data.toString());
 
       AppUser user = AppUser.fromJson(jsonData);
-      sharedPreferencesHelper.setUserDataModel(response.body);
+      sharedPreferencesHelper.setUserDataModel(response.data.toString());
       loggedInUserStream.add(user);
     } else {
       print("Data Upload error");
@@ -87,17 +97,25 @@ class ProfileServices extends Services {
 
     print(body);
 
-    final response = await http.post(
-      getProfileDataUrl,
-      body: body,
+    Dio dio = Dio();
+    Options options = Options(
+      contentType: 'multipart/form-data',
       headers: headers,
+    );
+
+    final response = await dio.post(
+      getProfileDataUrl,
+      options: options,
+      data: body,
+      // body: body,
+      // headers: headers,
     );
     if (response.statusCode == 200) {
       print("Data Retrived Succesfully");
-      final jsonData = await json.decode(response.body);
+      final jsonData = await json.decode(response.data.toString());
 
       AppUser user = AppUser.fromJson(jsonData);
-      sharedPreferencesHelper.setUserDataModel(response.body);
+      sharedPreferencesHelper.setUserDataModel(response.data.toString());
       loggedInUserStream.add(user);
       user.toString();
       return user;
@@ -183,14 +201,28 @@ class ProfileServices extends Services {
 
     print(body);
 
-    final response = await http.post(
-      getProfileDataUrl,
-      body: body,
+    Dio dio = Dio();
+    Options options = Options(
+      contentType: 'multipart/form-data',
       headers: headers,
     );
+
+    final response = await dio.post(
+      profileUpdateUrl,
+      options: options,
+      data: body,
+      // body: body,
+      // headers: headers,
+    );
+
+    // final response = await http.post(
+    //   getProfileDataUrl,
+    //   body: body,
+    //   headers: headers,
+    // );
     if (response.statusCode == 200) {
       print("Data Retrived Succesfully");
-      final jsonData = await json.decode(response.body);
+      final jsonData = await json.decode(response.data.toString());
 
       AppUser user = AppUser.fromJson(jsonData);
       user.toString();
