@@ -1,4 +1,9 @@
 # Our E School 
+
+## This Project is not migrated to null-safety yet
+#### So if you're trying to run it then you might need to downgrade your flutter version.
+#### You can use [fvm](https://github.com/leoafarias/fvm) if you do not want to downgrade your flutter version.
+
  [![HitCount](http://hits.dwyl.com/ketanchoyal/Our-E-School.svg)](http://hits.dwyl.com/ketanchoyal/Our-E-School)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ketanchoyal/Our-E-School/pull/new/master)
 [![GitHub stars](https://img.shields.io/github/stars/ketanchoyal/Our-E-School.svg?style=social&label=Stars✯)](https://github.com/ketanchoyal/Our-E-School/stargazers/)
