@@ -1,5 +1,7 @@
 # Our E School 
 
+## This Project has been Archived as I'm no longer working on it
+
 NOTE TO NEW CLONERS: (READ THIS BEFORE USING OR CREATING AN ISSUE)
         || This Project is not migrated to null-safety yet
         || This project was built with Flutter versions less than 2.0 (flutter V 1.X)
